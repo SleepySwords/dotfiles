@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/Users/ibrahimhizamul/Stuff/Computer_Science/vim.uwu'
+let g:netrw_dirhist_8='/Users/ibrahimhizamul/CraftBukkit'
+let g:netrw_dirhist_7='/Users/ibrahimhizamul'
+let g:netrw_dirhist_6='/Users/ibrahimhizamul/Stuff/Computer_Science/Java/IdeaProjects/Pioneer'
+let g:netrw_dirhist_5='/Users/ibrahimhizamul/Stuff/Computer_Science/Java/IdeaProjects/Pioneer/working_dir'
+let g:netrw_dirhist_4='/Users/ibrahimhizamul/Stuff/Computer_Science/Java/IdeaProjects/Pioneer'
+let g:netrw_dirhist_3='/Users/ibrahimhizamul/GolandProjects/LearnGoProject'
+let g:netrw_dirhist_2='/Users/ibrahimhizamul/GolandProjects'
+let g:netrw_dirhist_1='/Users/ibrahimhizamul'
+let g:netrw_dirhist_0='/Users/ibrahimhizamul/Public'
