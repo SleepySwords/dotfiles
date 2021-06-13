@@ -1,174 +1,202 @@
-syntax on
-set ruler               " Show the line and column numbers of the cursor.
-set number
-set formatoptions+=o    " Continue comment marker in new lines.
-set textwidth=0         " Hard-wrap long lines as you type them.
-set modeline            " Enable modeline.
-set linespace=0         " Set line-spacing to minimum.
-set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
-" More natural splits
-set splitbelow          " Horizontal split below current.
-set splitright          " Vertical split to right of current.
-if !&scrolloff
-  set scrolloff=3       " Show next 3 lines while scrolling.
-endif
-if !&sidescrolloff
-  set sidescrolloff=5   " Show next 5 columns while side-scrolling.
-endif
-set display+=lastline
-set nostartofline       " Do not jump to first character with page commands.
-set noerrorbells                " No beeps
-set backspace=indent,eol,start  " Makes backspace key more powerful.
-set showcmd                     " Show me what I'm typing
-set showmode                    " Show current mode.
-set noswapfile                  " Don't use swapfile
-set nobackup            	" Don't create annoying backup files
-set encoding=utf-8              " Set default encoding to UTF-8
-set autowrite                   " Automatically save before :next, :make etc.
-set autoread                    " Automatically reread changed files without asking me anything
-set laststatus=2
-set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
-set showmatch                   " Do not show matching brackets by flickering
-set incsearch                   " Shows the match while typing
-set hlsearch                    " Highlight found searches
-set ignorecase                  " Search case insensitive...
-set smartcase                   " ... but not when search pattern contains upper case characters
-set autoindent
-set tabstop=4 shiftwidth=4 expandtab
-set gdefault            " Use 'g' flag by default with :s/foo/bar/.
-set magic               " Use 'magic' patterns (extended regular expressions).
-
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+"---- vim-plug setup  ----
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+if has('win32')&&!has('win64')
+  let curl_exists=expand('C:\Windows\Sysnative\curl.exe')
+else
+  let curl_exists=expand('curl')
 endif
 
-" Search and Replace
-nmap <Leader>s :%s//g<Left><Left>
+if !filereadable(vimplug_exists)
+  if !executable(curl_exists)
+    echoerr "You have to install curl or first install vim-plug yourself!"
+    execute "q!"
+  endif
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+  let g:not_finish_vimplug = "yes"
 
-" Leader key is like a command prefix. 
-let mapleader='z'
-let maplocalleader='\'
+  autocmd VimEnter * PlugInstall
+endif
+"-------- end vim-plug setup ----
 
-let g:python_host_prog="/usr/local/bin/python2.7"
-let g:python3_host_prog="/Library/Frameworks/Python.framework/Versions/3.7/bin/python3"
+set nocompatible
 
-let g:session_autosave = 'yes'
-let g:session_autoload = 'yes'
-let g:session_default_to_last = 1
-
-" set cursorcolumn
-nmap <Space> <PageDown>
-vmap <BS> x
-
-" cd ~/.config/nvim/spell
-" wget http://ftp.vim.org/vim/runtime/spell/pt.utf-8.spl
-" set spell spelllang=pt_pt
-" zg to add word to word list
-" zw to reverse
-" zug to remove word from word list
-" z= to get list of possibilities
-" set spellfile=~/.config/nvim/spellfile.add
-set nospell
-
-" Plugins here
 call plug#begin('~/.config/nvim/plugged')
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'Valloric/YouCompleteMe'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'terryma/vim-multiple-cursors'
-" Plug 'xavierd/clang_complete'
-" Plug 'nvim-lua/completion-nvim'
-" Plug 'OmniSharp/omnisharp-vim'
 
-" Themes
+" Sensible default 
+Plug 'tpope/vim-sensible'
+
+" Color schemes
+Plug 'sainnhe/edge'
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'matsuuu/pinkmare'
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'ervandew/supertab'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'Chiel92/vim-autoformat'
-Plug 'sheerun/vim-polyglot'
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'kdheepak/lazygit.nvim', { 'branch': 'nvim-v0.4.3' }
-Plug 'dense-analysis/ale'
-Plug 'dyng/ctrlsf.vim'
-" Plug 'ycm-core/YouCompleteMe'
-Plug 'nvim-lua/completion-nvim'
+" LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'kabouzeid/nvim-lspinstall'
 
-Plug 'nickspoons/vim-sharpenup'
+" Code snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" Fuzzy finder
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+" Syntax
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+
+" File explorer
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+
+" Status line
+Plug 'glepnir/galaxyline.nvim'
+Plug 'akinsho/nvim-bufferline.lua'
+
+" Debugging
+Plug 'nvim-telescope/telescope-dap.nvim'
+Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap-python'
+
 call plug#end()
 
-" UltiSnips config
-inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" Automatically install missing plugins on startup
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
-" YouCompleteMe
-let g:ycm_min_num_of_chars_for_completion = 0
-let g:ycm_global_ycm_extra_conf = '~/.config/nvim/YouCompleteMe/.ycm_extra_conf.py'
-let g:ycm_key_invoke_completion = '<C-b>'
-set completeopt-=preview
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:edge_style = 'aura'
+let g:edge_enable_italic = 1
+let g:edge_disable_italic_comment = 1
+autocmd vimenter * ++nested colorscheme edge
 
-let g:SuperTabDefaultCompletionType = '<C-n>'
+let mapleader='z'
+let maplocalleader='\'
 
-" Tell Vim which characters to show for expanded TABs,
-" trailing whitespace, and end-of-lines. VERY useful!
-if &listchars ==# 'eol:$'
-  " set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-  set listchars=tab:>\ ,extends:>,precedes:<,nbsp:+
-endif
+syntax enable
+filetype plugin indent on
 
-" nerdtree config
-map <C-n> :NERDTreeToggle<CR>
+set nu rnu
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+set expandtab
+set smartindent
+set tabstop=4 softtabstop=4
+set cmdheight=2
+set updatetime=50
+set signcolumn=yes
+set clipboard=unnamed,unnamedplus
 
-let g:OmniSharp_autoselect_existing_sln = 0
+augroup highlight_yank
+  autocmd!
+  autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
 
-" airline settings
-let g:airline#extensions#tabline#enabled = 2
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#right_sep = ' '
-let g:airline#extensions#tabline#right_alt_sep = '|'
-let g:airline_powerline_fonts=1
-let g:airline_left_sep = ' '
-let g:airline_left_alt_sep = '|'
-let g:airline_right_sep = ' '
-let g:airline_right_alt_sep = '|'
-let g:airline_powerline_fonts=1
-let g:airline_theme='pinkmare'
+nnoremap <Space>v :e ~/.config/nvim/init.exp2.vim<CR>
+
+" -------------------- LSP ---------------------------------
+:lua << EOF
+  local nvim_lsp = require('lspconfig')
+
+  local on_attach = function(client, bufnr)
+    require('completion').on_attach()
+
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- Mappings
+    local opts = { noremap=true, silent=true }
+    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+    -- Set some keybinds conditional on server capabilities
+    if client.resolved_capabilities.document_formatting then
+        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    elseif client.resolved_capabilities.document_range_formatting then
+        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    end
+
+    -- Set autocommands conditional on server_capabilities
+    if client.resolved_capabilities.document_highlight then
+        require('lspconfig').util.nvim_multiline_command [[
+        :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+        :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+        :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+        augroup lsp_document_highlight
+            autocmd!
+            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        augroup END
+        ]]
+    end
+  end
+
+  
+  local pid = vim.fn.getpid()
+  local omnisharp_bin = "/Users/ibrahimhizamul/.config/nvim/omnisharp/run"
+  
+  require'lspconfig'.omnisharp.setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) },
+    on_attach = on_attach,
+    filetypes = { "cs", "vb" },
+  }
 
 
- let g:ale_linters = {
- \ 'cs': ['OmniSharp'],
- \ 'rust': ['analyzer']
- \}
 
-" Multicursor
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-e>'
-let g:multi_cursor_quit_key='<Esc>'
-let g:multi_cursor_quit_key='<Esc>'
+  local servers = {'pyright', 'gopls', 'rust_analyzer'}
+  for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup {
+      on_attach = on_attach,
+    }
+  end
 
-" Other
-set mouse=
-set list
+  require("bufferline").setup{
+    -- Using vim in a terminal, so no need for this.
+    show_close_icon = false,
+    diagnostics = "nvim_lsp"
+  }
+EOF
 
-" Theme
-colorscheme pinkmare
-let NERDTreeIgnore = ['_site']
+" Completion
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+imap <silent> <C-p> <Plug>(completion_trigger)
+
+" -------------------- LSP ---------------------------------
+
+" Code snippets
+let g:completion_enable_snippet = 'UltiSnips'
+
+" Fuzzy finder
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fl <cmd>Telescope git_files<cr>
 
 " Buffer handling
 nmap L :let &number=1-&number<CR>
@@ -180,3 +208,45 @@ nmap <leader>0 :set invnumber<CR>
 " map :q to byffer delete
 " http://stackoverflow.com/questions/7513380/vim-change-x-function-to-delete-buffer-instead-of-save-quit
 cnoreabbrev <expr> q getcmdtype() == ":" && (getcmdline() == 'q' && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1) ? 'bd' : 'q'
+
+" Syntax
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true
+  },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false -- Whether the query persists across vim sessions
+  }
+}
+EOF
+
+" File explorer
+nnoremap <leader>tt :NvimTreeToggle<CR>
+nnoremap <leader>tr :NvimTreeRefresh<CR>
+nnoremap <leader>tn :NvimTreeFindFile<CR>
+" NvimTreeOpen and NvimTreeClose are also available if you need them
+
+" Status line
+luafile ~/.config/nvim/eviline.lua
+
+" Debugging
+lua <<EOF
+require('telescope').load_extension('dap')
+require('dap-python').setup('~/miniconda3/bin/python')
+EOF
+nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+nnoremap <silent> <leader>dd :lua require('dap').continue()<CR>
+nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
+nnoremap <silent> <leader>b :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>`
+nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
+vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>v
