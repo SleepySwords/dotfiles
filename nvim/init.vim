@@ -33,6 +33,7 @@ Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'matsuuu/pinkmare'
+Plug 'lifepillar/vim-solarized8'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
@@ -87,14 +88,17 @@ filetype plugin indent on
 set nu rnu
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
-set expandtab
-set smartindent
-set tabstop=4 softtabstop=4
+set tabstop=4 shiftwidth=4 expandtab
+set autoindent smartindent
 set cmdheight=2
 set updatetime=50
 set signcolumn=yes
 set clipboard=unnamed,unnamedplus
+set showmatch
 
+set termguicolors
+let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 augroup highlight_yank
   autocmd!
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
@@ -104,10 +108,9 @@ nnoremap <Space>v :e ~/.config/nvim/init.exp2.vim<CR>
 
 " -------------------- LSP ---------------------------------
 
-luafile ./lsp.lua
+luafile ~/.config/nvim/lsp.lua
 
 :lua << EOF
-
   require("bufferline").setup{
     -- Using vim in a terminal, so no need for this.
     show_close_icon = false,
@@ -166,7 +169,7 @@ nnoremap <leader>tn :NvimTreeFindFile<CR>
 " NvimTreeOpen and NvimTreeClose are also available if you need them
 
 " Status line
-luafile ./eviline.lua
+luafile ~/.config/nvim/eviline.lua
 
 " Debugging
 lua <<EOF
