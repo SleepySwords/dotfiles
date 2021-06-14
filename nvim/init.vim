@@ -37,8 +37,14 @@ Plug 'lifepillar/vim-solarized8'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
 Plug 'kabouzeid/nvim-lspinstall'
+
+" Omnisharp completion
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'dense-analysis/ale'
+Plug 'OmniSharp/omnisharp-vim'
 
 " Code snippets
 Plug 'SirVer/ultisnips'
@@ -106,9 +112,25 @@ augroup END
 
 nnoremap <Space>v :e ~/.config/nvim/init.exp2.vim<CR>
 
-" -------------------- LSP ---------------------------------
+" ----------------- Omnisharp ------------------------------
+let g:OmniSharp_server_use_mono = 1
+let g:ale_linters = {
+\ 'cs': ['OmniSharp']
+\}
 
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_force_refresh_on_context_changed = 1
+
+let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_highlight_types = 2
+
+
+" -------------------- LSP ---------------------------------
 luafile ~/.config/nvim/lsp.lua
+
+nnoremap <leader>vd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>vi <cmd>lua vim.lsp.buf.implementation()<CR>
 
 :lua << EOF
   require("bufferline").setup{
