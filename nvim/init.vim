@@ -72,6 +72,8 @@ Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'mfussenegger/nvim-dap'
 Plug 'mfussenegger/nvim-dap-python'
 
+Plug 'jiangmiao/auto-pairs'
+Plug 'tomtom/tcomment_vim'
 call plug#end()
 
 " Automatically install missing plugins on startup
@@ -210,3 +212,13 @@ nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
 nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>`
 nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
 vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>v
+
+" Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
+" https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
+nnoremap <leader>d "_d
+xnoremap <leader>d "_d
+xnoremap <leader>p "_dP
+nnoremap \ "_
+
+vmap <Tab> >gv
+vmap <S-Tab> <gv
