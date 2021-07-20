@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+
+spacebar -m config position             bottom
+spacebar -m config height               22
+spacebar -m config title                on
+spacebar -m config spaces               on
+spacebar -m config clock                off
+spacebar -m config power                off
+spacebar -m config padding_left         20
+spacebar -m config padding_right        20
+spacebar -m config spacing_left         15
+spacebar -m config spacing_right        15
+spacebar -m config text_font            "SF Pro:Medium:13.0"
+spacebar -m config icon_font            "SF Pro:Medium:13.0"
+# spacebar -m config icon_font            "Galvji:Bold:13.0"
+# spacebar -m config icon_font            "Awesome 5 Free:Solid:12.0"
+spacebar -m config background_color     0x5f3133b8
+spacebar -m config foreground_color     0xffe9e6f3
+spacebar -m config space_icon_color     0xffE8B4BC
+spacebar -m config power_icon_color     0xffcd950c
+spacebar -m config battery_icon_color   0xffd75f5f
+spacebar -m config clock_icon_color     0xffD4F4DD
+spacebar -m config space_icon_strip     Discord Web Personal Code Spotify
+spacebar -m config space_icon           
+spacebar -m config clock_icon           ​
+spacebar -m config clock_format         "%a %d %b %R"
+
+
+
+echo "spacebar configuration loaded.."
