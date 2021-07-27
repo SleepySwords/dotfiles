@@ -1,4 +1,4 @@
 function fish_greeting
-    echo Hello friend!
-    echo The time is (set_color yellow; date +%T; set_color normal) and this machine is called (set_color red; hostname)
+    echo (set_color red)Time to write some bad code!!(set_color normal)
+    echo The time is (set_color yellow; date +%T; set_color normal)
 end
