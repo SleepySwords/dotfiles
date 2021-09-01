@@ -4,10 +4,12 @@ local condition = require('galaxyline.condition')
 local gls = gl.section
 gl.short_line_list = {'NvimTree','vista','dbui','packer'}
 
+colors.bg = '#363B48'
+
 gls.left[1] = {
   RainbowRed = {
     provider = function() return '▊ ' end,
-    highlight = {colors.blue,colors.bg}
+    highlight = {colors.magenta,colors.bg}
   },
 }
 gls.left[2] = {
@@ -51,56 +53,26 @@ gls.left[5] = {
   }
 }
 
-gls.left[6] = {
-  LineInfo = {
-    provider = 'LineColumn',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.fg,colors.bg},
-  },
-}
+-- gls.left[6] = {
+--   GitIcon = {
+--     provider = function() return '  ' end,
+--     condition = condition.check_git_workspace,
+--     separator = ' ',
+--     separator_highlight = {'NONE',colors.bg},
+--     highlight = {colors.orange,colors.bg,'bold'},
+--   }
+-- }
 
 gls.left[7] = {
-  PerCent = {
-    provider = 'LinePercent',
-    separator = ' ',
-    separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.fg,colors.bg,'bold'},
+  GitBranch = {
+    provider = 'GitBranch',
+    icon = '  ',
+    condition = condition.check_git_workspace,
+    highlight = {colors.orange,colors.bg,'bold'},
   }
 }
 
 gls.left[8] = {
-  DiagnosticError = {
-    provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = {colors.red,colors.bg}
-  }
-}
-gls.left[9] = {
-  DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
-    icon = '  ',
-    highlight = {colors.yellow,colors.bg},
-  }
-}
-
-gls.left[10] = {
-  DiagnosticHint = {
-    provider = 'DiagnosticHint',
-    icon = '  ',
-    highlight = {colors.cyan,colors.bg},
-  }
-}
-
-gls.left[11] = {
-  DiagnosticInfo = {
-    provider = 'DiagnosticInfo',
-    icon = '  ',
-    highlight = {colors.blue,colors.bg},
-  }
-}
-
-gls.mid[1] = {
   ShowLspClient = {
     provider = 'GetLspClient',
     condition = function ()
@@ -110,8 +82,42 @@ gls.mid[1] = {
       end
       return true
     end,
-    icon = ' LSP:',
+    icon = '   ',
     highlight = {colors.cyan,colors.bg,'bold'}
+  }
+}
+
+gls.mid[1] = {
+  DiagnosticError = {
+    provider = 'DiagnosticError',
+    icon = '  ',
+    highlight = {colors.red,colors.bg}
+  }
+}
+
+gls.mid[2] = {
+  DiagnosticWarn = {
+    provider = 'DiagnosticWarn',
+    icon = '  ',
+    highlight = {colors.yellow,colors.bg},
+  }
+}
+
+gls.mid[3] = {
+  DiagnosticHint = {
+    provider = 'DiagnosticHint',
+    icon = '  ',
+    highlight = {colors.cyan,colors.bg},
+  }
+}
+
+gls.mid[4] = {
+  DiagnosticInfo = {
+    provider = 'DiagnosticInfo',
+    icon = '  ',
+    highlight = {colors.blue,colors.bg},
+    separator = " ",
+    separator_highlight = {colors.bg, colors.bg}
   }
 }
 
@@ -136,20 +142,20 @@ gls.right[2] = {
 }
 
 gls.right[3] = {
-  GitIcon = {
-    provider = function() return '  ' end,
-    condition = condition.check_git_workspace,
+  LineInfo = {
+    provider = 'LineColumn',
     separator = ' ',
     separator_highlight = {'NONE',colors.bg},
-    highlight = {colors.violet,colors.bg,'bold'},
-  }
+    highlight = {colors.fg,colors.bg},
+  },
 }
 
 gls.right[4] = {
-  GitBranch = {
-    provider = 'GitBranch',
-    condition = condition.check_git_workspace,
-    highlight = {colors.violet,colors.bg,'bold'},
+  PerCent = {
+    provider = 'LinePercent',
+    separator = ' ',
+    separator_highlight = {'NONE',colors.bg},
+    highlight = {colors.fg,colors.bg,'bold'},
   }
 }
 

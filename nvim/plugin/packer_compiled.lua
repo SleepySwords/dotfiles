@@ -69,6 +69,10 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["DAPInstall.nvim"] = {
+    loaded = true,
+    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/DAPInstall.nvim"
+  },
   ale = {
     loaded = true,
     path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/ale"
@@ -124,6 +128,14 @@ _G.packer_plugins = {
   ["nvim-dap-python"] = {
     loaded = true,
     path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/nvim-dap-python"
+  },
+  ["nvim-dap-ui"] = {
+    loaded = true,
+    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/nvim-dap-ui"
+  },
+  ["nvim-dap-virtual-text"] = {
+    loaded = true,
+    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/nvim-dap-virtual-text"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -185,6 +197,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/restore_view.vim"
   },
+  sonokai = {
+    loaded = true,
+    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/sonokai"
+  },
   tcomment_vim = {
     loaded = true,
     path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/tcomment_vim"
@@ -197,25 +213,30 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
-  ultisnips = {
-    loaded = true,
-    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/ultisnips"
-  },
   ["vim-sensible"] = {
     loaded = true,
     path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/vim-sensible"
-  },
-  ["vim-snippets"] = {
-    loaded = true,
-    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/vim-snippets"
   },
   ["vim-solarized8"] = {
     loaded = true,
     path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/vim-solarized8"
   },
-  ["vim-todo-lists"] = {
+  ["vim-test"] = {
     loaded = true,
-    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/vim-todo-lists"
+    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/vim-test"
+  },
+  ["vim-ultest"] = {
+    config = { "require('config.ultest').post()" },
+    loaded = true,
+    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/vim-ultest"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/vim-vsnip"
+  },
+  ["vim-vsnip-integ"] = {
+    loaded = true,
+    path = "/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
   }
 }
 
@@ -224,6 +245,10 @@ time([[Defining packer_plugins]], false)
 time([[Runtimepath customization]], true)
 vim.o.runtimepath = vim.o.runtimepath .. ",/Users/ibrahimhizamul/.local/share/nvim/site/pack/packer/start/onehalf/vim"
 time([[Runtimepath customization]], false)
+-- Config for: vim-ultest
+time([[Config for vim-ultest]], true)
+require('config.ultest').post()
+time([[Config for vim-ultest]], false)
 if should_profile then save_profiles() end
 
 end)
