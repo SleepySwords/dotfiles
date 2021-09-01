@@ -37,6 +37,8 @@ return require('packer').startup(function()
     use {'sonph/onehalf', rtp = 'vim'}
     use 'matsuuu/pinkmare'
     use 'lifepillar/vim-solarized8'
+    use 'sainnhe/sonokai'
+    -- use 'sickill/vim-monokai'
 
     --  LSP
     use 'neovim/nvim-lspconfig'
@@ -52,8 +54,8 @@ return require('packer').startup(function()
     }
 
     --  Code snippets
-    use 'SirVer/ultisnips'
-    use 'honza/vim-snippets'
+    use 'hrsh7th/vim-vsnip'
+    use 'hrsh7th/vim-vsnip-integ'
 
     --  Fuzzy finder
     use {
@@ -76,16 +78,23 @@ return require('packer').startup(function()
     use 'akinsho/nvim-bufferline.lua'
 
     --  Debugging
+    use {'mfussenegger/nvim-dap'}
+    use {'nvim-telescope/telescope-dap.nvim', requires = {'nvim-telescope/telescope.nvim'}}
+    use {'mfussenegger/nvim-dap-python'}
+    use {'rcarriga/nvim-dap-ui'}
+    use {'theHamsta/nvim-dap-virtual-text'}
     use {
-        'nvim-telescope/telescope-dap.nvim',
-        requires = {{'mfussenegger/nvim-dap'}, {'mfussenegger/nvim-dap-python'}, {'nvim-telescope/telescope.nvim'}}
+            "rcarriga/vim-ultest",
+            config = "require('config.ultest').post()",
+            run = ":UpdateRemotePlugins",
+            requires = {"vim-test/vim-test"}
     }
+    use {'Pocco81/DAPInstall.nvim'}
 
     -- Quality of life stuff
     use 'jiangmiao/auto-pairs'
     use 'tomtom/tcomment_vim'
     use 'pwntester/octo.nvim'
-    use 'aserebryakov/vim-todo-lists'
     use 'dyng/ctrlsf.vim'
     use 'vim-scripts/restore_view.vim'
     use 'andweeb/presence.nvim'

@@ -11,6 +11,7 @@ require('pluginconfig')
 require('lsp')
 require('keybindings')
 require('statusline.eviline')
+require('dbg')
 
 -- Vim options setup
 opt('compatible', false)
@@ -18,8 +19,8 @@ opt('nu', true)
 opt('rnu', true)
 opt('completeopt', "menuone,noinsert,noselect")
 opt('shortmess', o.shortmess .. "c")
-opt('expandtab', true)
-opt('tabstop', 4)
+-- opt('expandtab', true)
+-- opt('tabstop', 4)
 opt('shiftwidth', 4)
 opt('autoindent', true)
 opt('smartindent', true)
@@ -47,9 +48,14 @@ g.completion_matching_stategy_list = {'exact', 'substring', 'fuzzy'}
 g.edge_style = 'aura'
 g.edge_endable_italic = 1
 g.edge_disable_italic_comment = 1
-g.colors_name = 'edge'
+-- g.colors_name = 'edge'
+g.sonokai_style = 'shusia'
+g.sonokai_enable_italic = 1
+g.sonokai_disable_italic_comment = 1
+g.colors_name = 'sonokai'
 
-g.completion_enable_snippet = 'UltiSnips'
+g.nvim_tree_side = 'right'
+g.nvim_tree_group_empty = 1
 
 autocmd("omnisharp_commands", {
 	"CursorHold *.cs OmniSharpTypeLookup",
