@@ -34,5 +34,15 @@ require'nvim-treesitter.configs'.setup {
 require('telescope').load_extension('dap')
 require('dap-python').setup('~/miniconda3/bin/python')
 
+require'lsp-status'.config {
+    status_symbol = ''
+}
+
+require'nvim-tree'.setup {
+    view = {
+	side = 'right'
+    }
+}
+
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
