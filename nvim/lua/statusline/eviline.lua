@@ -2,6 +2,8 @@ local gl = require('galaxyline')
 local colors = require('galaxyline.theme').default
 local condition = require('galaxyline.condition')
 local gls = gl.section
+
+local lsp_status = require('lsp-status')
 gl.short_line_list = {'NvimTree','vista','dbui','packer'}
 
 colors.bg = '#363B48'
@@ -87,39 +89,48 @@ gls.left[8] = {
   }
 }
 
-gls.mid[1] = {
-  DiagnosticError = {
-    provider = 'DiagnosticError',
-    icon = '  ',
-    highlight = {colors.red,colors.bg}
-  }
+gls.mid[9] = {
+  LspStatus = {
+    provider = function()
+	return lsp_status.status()
+    end,
+    highlight = {colors.magenta,colors.bg}
+  },
 }
 
-gls.mid[2] = {
-  DiagnosticWarn = {
-    provider = 'DiagnosticWarn',
-    icon = '  ',
-    highlight = {colors.yellow,colors.bg},
-  }
-}
-
-gls.mid[3] = {
-  DiagnosticHint = {
-    provider = 'DiagnosticHint',
-    icon = '  ',
-    highlight = {colors.cyan,colors.bg},
-  }
-}
-
-gls.mid[4] = {
-  DiagnosticInfo = {
-    provider = 'DiagnosticInfo',
-    icon = '  ',
-    highlight = {colors.blue,colors.bg},
-    separator = " ",
-    separator_highlight = {colors.bg, colors.bg}
-  }
-}
+-- gls.mid[1] = {
+--   DiagnosticError = {
+--     provider = 'DiagnosticError',
+--     icon = '  ',
+--     highlight = {colors.red,colors.bg}
+--   }
+-- }
+--
+-- gls.mid[2] = {
+--   DiagnosticWarn = {
+--     provider = 'DiagnosticWarn',
+--     icon = '  ',
+--     highlight = {colors.yellow,colors.bg},
+--   }
+-- }
+--
+-- gls.mid[3] = {
+--   DiagnosticHint = {
+--     provider = 'DiagnosticHint',
+--     icon = '  ',
+--     highlight = {colors.cyan,colors.bg},
+--   }
+-- }
+--
+-- gls.mid[4] = {
+--   DiagnosticInfo = {
+--     provider = 'DiagnosticInfo',
+--     icon = '  ',
+--     highlight = {colors.blue,colors.bg},
+--     separator = " ",
+--     separator_highlight = {colors.bg, colors.bg}
+--   }
+-- }
 
 gls.right[1] = {
   FileEncode = {

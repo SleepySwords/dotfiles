@@ -54,9 +54,6 @@ g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
 g.colors_name = 'sonokai'
 
-g.nvim_tree_side = 'right'
-g.nvim_tree_group_empty = 1
-
 autocmd("omnisharp_commands", {
 	"CursorHold *.cs OmniSharpTypeLookup",
 

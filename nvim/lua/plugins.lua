@@ -45,6 +45,7 @@ return require('packer').startup(function()
     use 'hrsh7th/nvim-compe'
     use 'kabouzeid/nvim-lspinstall'
     use 'glepnir/lspsaga.nvim'
+    use 'nvim-lua/lsp-status.nvim'
 
     --  Omnisharp completion
     use 'dense-analysis/ale'

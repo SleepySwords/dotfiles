@@ -33,18 +33,22 @@ require'compe'.setup {
   };
 }
 
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+
+-- config.capabilities = vim.tbl_extend('keep', config.capabilities or {}, lsp_status.capabilities)
 
 local function setup_servers()
   require'lspinstall'.setup()
   local servers = require'lspinstall'.installed_servers()
   for _, server in pairs(servers) do
     require'lspconfig'[server].setup{
-      on_attach = on_attach
+      on_attach = lsp_status.on_attach,
+      capabilities = lsp_status.capabilities
+      -- on_attach = require'compe'.on_attach
     }
   end
 end
-
-require'lspconfig'.omnisharp.setup{on_attach=require'compe'.on_attach}
 
 setup_servers()
 
