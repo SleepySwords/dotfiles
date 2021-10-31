@@ -27,7 +27,7 @@ return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    --  Sensible default 
+    --  Sensible default
     use 'tpope/vim-sensible'
 
     --  Color schemes
@@ -42,27 +42,37 @@ return require('packer').startup(function()
 
     --  LSP
     use 'neovim/nvim-lspconfig'
-    use 'hrsh7th/nvim-compe'
-    use 'kabouzeid/nvim-lspinstall'
+    use 'williamboman/nvim-lsp-installer'
     use 'glepnir/lspsaga.nvim'
     use 'nvim-lua/lsp-status.nvim'
+
+    -- Completion plugins
+    -- use 'ms-jpq/coq_nvim'
+    -- use 'ms-jpq/coq.artifacts'
+    -- use 'ms-jpq/coq.thirdparty'
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+
+    use 'simrat39/rust-tools.nvim'
 
     --  Omnisharp completion
     use 'dense-analysis/ale'
     use {
         'OmniSharp/omnisharp-vim',
-        requires = {{'prabirshrestha/asyncomplete.vim'}, {'prabirshrestha/async.vim'}}
+        -- requires = {{'prabirshrestha/asyncomplete.vim'}, {'prabirshrestha/async.vim'}}
     }
 
     --  Code snippets
     use 'hrsh7th/vim-vsnip'
     use 'hrsh7th/vim-vsnip-integ'
+    use 'rafamadriz/friendly-snippets'
 
     --  Fuzzy finder
     use {
         'nvim-telescope/telescope.nvim',
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
+    use 'liuchengxu/vim-clap'
 
     --  Syntax
     use 'nvim-treesitter/nvim-treesitter' -- , {'do': ':TSUpdate'}
@@ -78,9 +88,12 @@ return require('packer').startup(function()
     use 'glepnir/galaxyline.nvim'
     use 'akinsho/nvim-bufferline.lua'
 
+    -- Buffers
+    use {'ojroques/nvim-bufdel'}
+
     --  Debugging
     use {'mfussenegger/nvim-dap'}
-    use {'nvim-telescope/telescope-dap.nvim', requires = {'nvim-telescope/telescope.nvim'}}
+    use {'nvim-telescope/telescope-dap.nvim'}
     use {'mfussenegger/nvim-dap-python'}
     use {'rcarriga/nvim-dap-ui'}
     use {'theHamsta/nvim-dap-virtual-text'}
@@ -98,5 +111,10 @@ return require('packer').startup(function()
     use 'pwntester/octo.nvim'
     use 'dyng/ctrlsf.vim'
     use 'vim-scripts/restore_view.vim'
+    use 'kassio/neoterm'
+    use 'kdheepak/lazygit.nvim'
+
+    -- Dashboard
     use 'andweeb/presence.nvim'
+    use 'glepnir/dashboard-nvim'
 end)
