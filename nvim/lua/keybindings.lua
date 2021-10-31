@@ -27,9 +27,6 @@ map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
 
--- Auto completion (compe)
-map('i', '<C-Space>', 'compe#complete()', { silent=true, expr=true })
-
 -- LSP Saga
 map('n', '<leader>ca', "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opts)
 map('v', '<leader>ca', ":<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>", opts)
@@ -69,13 +66,12 @@ map('v', '<S-Tab>', '<gv', { noremap=true })
 map('n', 'L', ':let &number=1-&number<CR>')
 map('n', '<leader>l', '<cmd>bnext<CR>')
 map('n', '<C-h>', '<cmd>bprevious<CR>')
-map('n', '<leader>bq', '<cmd>bp <BAR> bd #<CR>')
+map('n', '<leader>bq', '<cmd>BufDel <BAR> bd #<CR>')
 map('n', '<leader>bl', '<cmd>ls<CR>')
 map('n', '<leader>0', '<cmd>set invnumber<CR>')
 -- http://stackoverflow.com/questions/7513380/vim-change-x-function-to-delete-buffer-instead-of-save-quit
 -- Tooo lazy to port
-vim.cmd("cnoreabbrev <expr> q getcmdtype() == ':' && (getcmdline() == 'q' && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1) ? 'bd' : 'q'")
-
+-- vim.cmd("cnoreabbrev <expr> q getcmdtype() == ':' && (getcmdline() == 'q' && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1) ? 'BufDel' : 'q'")
 
 -- Debugging
 map('n', '<leader>dct', '<cmd>lua require"dap".continue()<CR>')
@@ -105,41 +101,3 @@ map('n', '<leader>dlb', '<cmd>lua require"telescope".extensions.dap.list_breakpo
 map('n', '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables{}<CR>')
 map('n', '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames{}<CR>')
 
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  else
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})

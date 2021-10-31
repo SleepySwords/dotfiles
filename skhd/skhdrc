@@ -95,5 +95,8 @@ ralt - d : yabai -m window --insert east
 ralt - s : yabai -m window --insert stack
 
 
-hyper - e : $HOME/.config/skhd/vi-profile.sh
+hyper - tab : yabai -m space --focus next
+hyper + shift - tab : yabai -m space --focus next
+
+rshift : $HOME/.config/skhd/vi-profile.sh
 hyper - r : $HOME/.config/skhd/yabai-profile.sh
