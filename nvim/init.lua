@@ -7,10 +7,11 @@ local autocmd = utils.autocmd
 local map = utils.map
 
 require('plugins')
-require('configurations')
+require('miscellaneous')
+require('navigation')
+require('status-buffer-line')
 require('keybindings')
 require('lsp')
-require('statusline.eviline')
 require('dbg')
 
 -- Vim options setup

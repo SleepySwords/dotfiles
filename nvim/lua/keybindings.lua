@@ -40,7 +40,6 @@ map('n', 'K', "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
 map('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
 map('n', '<C-b>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 
-
 -- Bindings for Telescope and Nvim Tree
 map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', { noremap=true })
 map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap=true })
@@ -101,3 +100,47 @@ map('n', '<leader>dlb', '<cmd>lua require"telescope".extensions.dap.list_breakpo
 map('n', '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables{}<CR>')
 map('n', '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames{}<CR>')
 
+-- Snippets
+
+-- map('i', '<expr> <C-j>', "vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>'")
+-- map('s', '<expr> <C-j>', "vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>'")
+
+-- -- Expand or jump
+-- map('i', '<expr> <C-l>', "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
+-- map('s', '<expr> <C-l>', "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
+
+-- -- Jump forward or backward
+-- map('i', '<expr> <Tab>', "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'")
+-- map('s', '<expr> <Tab>', "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'")
+-- map('i', '<expr> <S-Tab>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'")
+-- map('s', '<expr> <S-Tab>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'")
+
+-- -- Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+-- -- See https://github.com/hrsh7th/vim-vsnip/pull/50
+-- map('n', 's', '<Plug>(vsnip-select-text)')
+-- map('x', 's', '<Plug>(vsnip-select-text)')
+-- map('n', 'S', '<Plug>(vsnip-cut-text)')
+-- map('x', 'S', '<Plug>(vsnip-cut-text)')
+
+-- Need to convert to lua
+vim.cmd [[ 
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+]]

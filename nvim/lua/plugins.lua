@@ -16,7 +16,7 @@ if fn.empty(fn.glob(packer_install_dir)) > 0 then
 end
 
 
--- Figure how to autoinstall plugins
+-- Figure how to autoinstall plugins (Bootstrapping)
 
 
 -- Only required if you have packer configured as `opt`
@@ -45,6 +45,7 @@ return require('packer').startup(function()
     use 'williamboman/nvim-lsp-installer'
     use 'glepnir/lspsaga.nvim'
     use 'nvim-lua/lsp-status.nvim'
+    use 'nvim-lua/lsp_extensions.nvim'
 
     -- Completion plugins
     -- use 'ms-jpq/coq_nvim'
@@ -52,6 +53,11 @@ return require('packer').startup(function()
     -- use 'ms-jpq/coq.thirdparty'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
+    -- CMP Sources
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-vsnip'
 
     use 'simrat39/rust-tools.nvim'
 
@@ -59,7 +65,7 @@ return require('packer').startup(function()
     use 'dense-analysis/ale'
     use {
         'OmniSharp/omnisharp-vim',
-        -- requires = {{'prabirshrestha/asyncomplete.vim'}, {'prabirshrestha/async.vim'}}
+        requires = {{'prabirshrestha/asyncomplete.vim'}, {'prabirshrestha/async.vim'}}
     }
 
     --  Code snippets
@@ -98,10 +104,10 @@ return require('packer').startup(function()
     use {'rcarriga/nvim-dap-ui'}
     use {'theHamsta/nvim-dap-virtual-text'}
     use {
-            "rcarriga/vim-ultest",
-            config = "require('config.ultest').post()",
-            run = ":UpdateRemotePlugins",
-            requires = {"vim-test/vim-test"}
+        "rcarriga/vim-ultest",
+        config = "require('config.ultest').post()",
+        run = ":UpdateRemotePlugins",
+        requires = {"vim-test/vim-test"}
     }
     use {'Pocco81/DAPInstall.nvim'}
 
