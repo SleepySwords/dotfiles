@@ -3,35 +3,6 @@ local g = vim.g
 require('config.omnisharp')
 require('config.dashboard-nvim')
 
--- Bufferline
-require("bufferline"):setup{
-    show_close_icon = false,
-    diagnostics = "nvim_lsp"
-}
-require'lsp-status'.config {
-    status_symbol = ''
-}
-
-
--- Telescope + DAP
-require('telescope').load_extension('dap')
-require('dap-python').setup('~/miniconda3/bin/python')
-
--- Neovim tree
-require'nvim-tree'.setup {
-    auto_close = false,
-    auto_resize = true,
-    view = {
-	side = 'right'
-    }
-}
-
-
--- Lsp Saga, LSP with nice UI
-local saga = require 'lspsaga'
-saga.init_lsp_saga()
-
-
 -- A Discord plugin RPC
 require("presence"):setup({
     -- General options
@@ -63,6 +34,3 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
-
--- Virtual text in the debugger, all frames better, but experimental
-g.dap_virtual_text = true
