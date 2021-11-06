@@ -43,9 +43,13 @@ return require('packer').startup(function()
     --  LSP
     use 'neovim/nvim-lspconfig'
     use 'williamboman/nvim-lsp-installer'
-    use 'glepnir/lspsaga.nvim'
     use 'nvim-lua/lsp-status.nvim'
     use 'nvim-lua/lsp_extensions.nvim'
+    use 'glepnir/lspsaga.nvim'
+    use {
+	'RishabhRD/nvim-lsputils',
+	requires= {{'RishabhRD/popfix'}}
+    }
 
     -- Completion plugins
     -- use 'ms-jpq/coq_nvim'
@@ -59,7 +63,9 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-vsnip'
 
-    use 'simrat39/rust-tools.nvim'
+    -- use 'rust-lang/rust.vim'
+
+    -- use 'simrat39/rust-tools.nvim'
 
     --  Omnisharp completion
     use 'dense-analysis/ale'
@@ -103,13 +109,15 @@ return require('packer').startup(function()
     use {'mfussenegger/nvim-dap-python'}
     use {'rcarriga/nvim-dap-ui'}
     use {'theHamsta/nvim-dap-virtual-text'}
+    use {'Pocco81/DAPInstall.nvim'}
+
+    -- Testing
     use {
         "rcarriga/vim-ultest",
         config = "require('config.ultest').post()",
         run = ":UpdateRemotePlugins",
         requires = {"vim-test/vim-test"}
     }
-    use {'Pocco81/DAPInstall.nvim'}
 
     -- Quality of life stuff
     use 'jiangmiao/auto-pairs'
