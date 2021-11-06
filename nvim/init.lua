@@ -48,7 +48,8 @@ g.sonokai_style = 'shusia'
 g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
 g.colors_name = 'sonokai'
+-- g.rustfmt_autosave = 1
 
 -- Neovide
--- g.neovide_cursor_vfx_mode = 'railgun'
-
+-- g.neovide_fullscreen = true
+g.ultest_icons = false
