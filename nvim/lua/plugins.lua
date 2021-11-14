@@ -84,10 +84,7 @@ return require('packer').startup(function()
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
     use 'liuchengxu/vim-clap'
-    use {
-	'junegunn/fzf',
-	setup = "fzf#install()"
-    }
+    use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
 
     --  Syntax
@@ -131,6 +128,7 @@ return require('packer').startup(function()
     use 'vim-scripts/restore_view.vim'
     use 'kassio/neoterm'
     use 'kdheepak/lazygit.nvim'
+    use "akinsho/toggleterm.nvim"
 
     -- Dashboard
     use 'andweeb/presence.nvim'
