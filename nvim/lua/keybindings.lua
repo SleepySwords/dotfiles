@@ -8,8 +8,8 @@ g.maplocalleader = [[\]]
 -- Enable completion triggered by <c-x><c-o>
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-map('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-map('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 map('n', 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -50,7 +50,6 @@ map('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>', { noremap=true })
 map('n', '<leader>tr', '<cmd>NvimTreeRefresh<CR>', { noremap=true })
 map('n', '<leader>tn', '<cmd>NvimTreeFindFile<CR>', { noremap=true })
 
-
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
 map('n', '\\', '\'_', { noremap=true })
@@ -62,10 +61,10 @@ map('v', '<S-Tab>', '<gv', { noremap=true })
 
 
 -- Buffer handling
-map('n', 'L', ':let &number=1-&number<CR>')
+map('n', 'L', '<cmd>let &number=1-&number<CR>')
 map('n', '<leader>l', '<cmd>bnext<CR>')
-map('n', '<C-h>', '<cmd>bprevious<CR>')
-map('n', '<leader>bq', '<cmd>BufDel <BAR> bd #<CR>')
+map('n', '<leader>h', '<cmd>bprevious<CR>')
+map('n', '<leader>bq', '<cmd>BufDel<CR>')
 map('n', '<leader>bl', '<cmd>ls<CR>')
 map('n', '<leader>0', '<cmd>set invnumber<CR>')
 -- http://stackoverflow.com/questions/7513380/vim-change-x-function-to-delete-buffer-instead-of-save-quit
@@ -121,6 +120,15 @@ map('n', '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames{}<CR>'
 -- map('x', 's', '<Plug>(vsnip-select-text)')
 -- map('n', 'S', '<Plug>(vsnip-cut-text)')
 -- map('x', 'S', '<Plug>(vsnip-cut-text)')
+
+-- Terminal
+map('t', '<esc>', [[<C-\><C-n>]], { noremap = true })
+map('t', '<C-h>', [[<C-\><C-n><C-W>h]], { noremap = true })
+map('t', '<C-j>', [[<C-\><C-n><C-W>j]], { noremap = true })
+map('t', '<C-k>', [[<C-\><C-n><C-W>k]], { noremap = true })
+map('t', '<C-l>', [[<C-\><C-n><C-W>l]], { noremap = true })
+map('n', '<leader>fo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
+map('n', '<leader>fp', '<cmd>ToggleTerm<CR>', { noremap = true })
 
 -- Need to convert to lua
 vim.cmd [[ 
