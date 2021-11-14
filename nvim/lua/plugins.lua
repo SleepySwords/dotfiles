@@ -76,7 +76,6 @@ return require('packer').startup(function()
 
     --  Code snippets
     use 'hrsh7th/vim-vsnip'
-    use 'hrsh7th/vim-vsnip-integ'
     use 'rafamadriz/friendly-snippets'
 
     --  Fuzzy finder
@@ -85,6 +84,11 @@ return require('packer').startup(function()
         requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
     use 'liuchengxu/vim-clap'
+    use {
+	'junegunn/fzf',
+	setup = "fzf#install()"
+    }
+    use 'junegunn/fzf.vim'
 
     --  Syntax
     use 'nvim-treesitter/nvim-treesitter' -- , {'do': ':TSUpdate'}
