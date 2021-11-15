@@ -67,13 +67,6 @@ return require('packer').startup(function()
 
     -- use 'simrat39/rust-tools.nvim'
 
-    --  Omnisharp completion
-    use 'dense-analysis/ale'
-    use {
-        'OmniSharp/omnisharp-vim',
-        requires = {{'prabirshrestha/asyncomplete.vim'}, {'prabirshrestha/async.vim'}}
-    }
-
     --  Code snippets
     use 'hrsh7th/vim-vsnip'
     use 'rafamadriz/friendly-snippets'
