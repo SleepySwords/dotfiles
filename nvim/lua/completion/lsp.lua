@@ -1,6 +1,6 @@
 local lsp_status = require('lsp-status')
 local lsp_installer = require("nvim-lsp-installer")
-local completion_engine = require('completion.cmp')
+local completion_engine = require('completion.engine.cmp')
 require("completion.lsp_ui_handlers")
 
 -- require('completion.rust-tools')

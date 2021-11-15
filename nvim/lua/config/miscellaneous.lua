@@ -1,8 +1,3 @@
-local g = vim.g
-
-require('config.omnisharp')
-require('config.dashboard-nvim')
-
 -- A Discord plugin RPC
 require("presence"):setup({
     -- General options
@@ -20,19 +15,6 @@ require("presence"):setup({
     line_number_text    = "Line %s out of %s"
 })
 
-
--- Tree sitter (Syntax hightlighting need 0.6 Neovim)
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true
-  },
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false -- Whether the query persists across vim sessions
-  }
-}
 
 require("toggleterm").setup{}
 

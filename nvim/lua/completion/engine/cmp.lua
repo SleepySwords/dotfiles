@@ -83,6 +83,9 @@ cmp.setup({
 		}),
 		['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
+    experimental = {
+	ghost_text = true
+    },
     sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'vsnip' },
@@ -92,7 +95,7 @@ cmp.setup({
 		-- { name = 'luasnip' }, -- For luasnip users.
 		-- { name = 'ultisnips' }, -- For ultisnips users.
 		-- { name = 'snippy' }, -- For snippy users.
-	})
+    })
 })
 
 

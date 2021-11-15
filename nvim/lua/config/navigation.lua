@@ -1,5 +1,6 @@
 -- Telescope + DAP
-require('telescope').load_extension('dap')
+local telescope = require('telescope')
+telescope.load_extension('dap')
 require('dap-python').setup('~/miniconda3/bin/python')
 
 -- Neovim tree

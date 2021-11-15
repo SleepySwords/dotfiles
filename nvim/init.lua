@@ -7,11 +7,11 @@ local autocmd = utils.autocmd
 local map = utils.map
 
 require('plugins')
-require('miscellaneous')
-require('navigation')
-require('status-buffer-line')
+require('completion')
+require('ui')
+require('config.navigation')
+require('config.miscellaneous')
 require('keybindings')
-require('lsp')
 require('dbg')
 
 -- Vim options setup
@@ -48,8 +48,10 @@ g.sonokai_style = 'shusia'
 g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
 g.colors_name = 'sonokai'
+
+-- Plugin settings
 -- g.rustfmt_autosave = 1
+g.ultest_icons = false
 
 -- Neovide
 -- g.neovide_fullscreen = true
-g.ultest_icons = false
