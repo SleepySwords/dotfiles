@@ -62,8 +62,8 @@ map('v', '<S-Tab>', '<gv', { noremap=true })
 
 -- Buffer handling
 map('n', 'L', '<cmd>let &number=1-&number<CR>')
-map('n', '<leader>l', '<cmd>bnext<CR>')
-map('n', '<leader>h', '<cmd>bprevious<CR>')
+map('n', '<leader>n', '<cmd>bnext<CR>')
+map('n', '<leader>p', '<cmd>bprevious<CR>')
 map('n', '<leader>bq', '<cmd>BufDel<CR>')
 map('n', '<leader>bl', '<cmd>ls<CR>')
 map('n', '<leader>0', '<cmd>set invnumber<CR>')

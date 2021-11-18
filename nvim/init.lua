@@ -26,7 +26,7 @@ opt('shiftwidth', 4)
 opt('autoindent', true)
 opt('smartindent', true)
 opt('cmdheight', 2)
-opt('updatetime', 50)
+opt('updatetime', 500)
 opt('signcolumn', "yes")
 opt('clipboard', "unnamed,unnamedplus")
 opt('showmatch',  true)
@@ -35,6 +35,7 @@ opt('omnifunc', 'v:lua.vim.lsp.omnifunc')
 opt('mouse', 'a')
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 opt('hidden', true)
+opt('termguicolors', true)
 opt('guifont', 'Hack Nerd Font:l')
 
 autocmd("highlight_yank", "TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
@@ -47,11 +48,13 @@ g.edge_disable_italic_comment = 1
 g.sonokai_style = 'shusia'
 g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
-g.colors_name = 'sonokai'
+g.sonokai_diagnostic_virtual_text = 'colour_background'
+g.colors_name = 'custom_sonokai'
+-- g.colors_name = 'tokyonight'
 
 -- Plugin settings
--- g.rustfmt_autosave = 1
-g.ultest_icons = false
+g.ultest_fail_sign = ''
+g.ultest_pass_sign = ''
 
 -- Neovide
--- g.neovide_fullscreen = true
+g.neovide_fullscreen = true
