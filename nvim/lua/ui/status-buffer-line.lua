@@ -10,5 +10,5 @@ require'lsp-status'.config {
 }
 
 -- Current status line config
-require('ui.statusline.eviline')
+require('ui.statusline.lualine.eviline')
 

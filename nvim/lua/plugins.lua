@@ -38,6 +38,8 @@ return require('packer').startup(function()
     use 'matsuuu/pinkmare'
     use 'lifepillar/vim-solarized8'
     use 'sainnhe/sonokai'
+    use 'folke/tokyonight.nvim'
+    use 'EdenEast/nightfox.nvim'
     -- use 'sickill/vim-monokai'
 
     --  LSP
@@ -45,10 +47,17 @@ return require('packer').startup(function()
     use 'williamboman/nvim-lsp-installer'
     use 'nvim-lua/lsp-status.nvim'
     use 'nvim-lua/lsp_extensions.nvim'
-    use 'glepnir/lspsaga.nvim'
+    -- use 'glepnir/lspsaga.nvim'
     use {
 	'RishabhRD/nvim-lsputils',
 	requires= {{'RishabhRD/popfix'}}
+    }
+    use {
+	"folke/trouble.nvim",
+	requires = "kyazdani42/nvim-web-devicons",
+	config = function()
+	    require("trouble").setup {}
+	  end
     }
 
     -- Completion plugins
@@ -57,6 +66,7 @@ return require('packer').startup(function()
     -- use 'ms-jpq/coq.thirdparty'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
+
     -- CMP Sources
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-cmdline'
@@ -64,7 +74,6 @@ return require('packer').startup(function()
     use 'hrsh7th/cmp-vsnip'
 
     -- use 'rust-lang/rust.vim'
-
     -- use 'simrat39/rust-tools.nvim'
 
     --  Code snippets
@@ -81,7 +90,10 @@ return require('packer').startup(function()
     use 'junegunn/fzf.vim'
 
     --  Syntax
-    use 'nvim-treesitter/nvim-treesitter' -- , {'do': ':TSUpdate'}
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
     use 'nvim-treesitter/playground'
 
     --  File explorer
@@ -91,7 +103,14 @@ return require('packer').startup(function()
     }
 
     --  Status line
-    use 'glepnir/galaxyline.nvim'
+    -- use {
+	-- 'glepnir/galaxyline.nvim',
+	-- requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    -- }
+    use {
+	'nvim-lualine/lualine.nvim',
+	requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    }
     use 'akinsho/nvim-bufferline.lua'
 
     -- Buffers
@@ -122,6 +141,7 @@ return require('packer').startup(function()
     use 'kassio/neoterm'
     use 'kdheepak/lazygit.nvim'
     use "akinsho/toggleterm.nvim"
+    use 'dstein64/vim-startuptime'
 
     -- Dashboard
     use 'andweeb/presence.nvim'
