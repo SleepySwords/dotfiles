@@ -37,6 +37,7 @@ opt('mouse', 'a')
 opt('hidden', true)
 opt('termguicolors', true)
 opt('guifont', 'Hack Nerd Font:l')
+-- opt('guifont', 'Jetbrains Mono')
 
 autocmd("highlight_yank", "TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
 
@@ -49,7 +50,8 @@ g.sonokai_style = 'shusia'
 g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
 g.sonokai_diagnostic_virtual_text = 'colour_background'
-g.colors_name = 'custom_sonokai'
+g.colors_name = 'sonokai'
+cmd[[colorscheme sonokai]]
 -- g.colors_name = 'tokyonight'
 
 -- Plugin settings

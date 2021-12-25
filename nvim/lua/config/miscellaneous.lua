@@ -32,3 +32,5 @@ function _floatwindow_toggle()
   floatwindow:toggle()
 end
 
+require"octo".setup()
+

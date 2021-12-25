@@ -66,11 +66,11 @@ return require('packer').startup(function()
     -- use 'ms-jpq/coq.thirdparty'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
-
-    -- CMP Sources
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/cmp-path'
+    --
+    -- -- CMP Sources
+    -- use 'hrsh7th/cmp-buffer'
+    -- use 'hrsh7th/cmp-cmdline'
+    -- use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-vsnip'
 
     -- use 'rust-lang/rust.vim'

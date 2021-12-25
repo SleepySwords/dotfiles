@@ -19,17 +19,29 @@ lsp_installer.on_server_ready(function(server)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
-autocmd("lsp_diagnostics", "CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})", true)
+-- Probably will remove for LSP Install
+require'lspconfig'.rust_analyzer.setup(completion_engine.provide_capabilities({
+    -- root_dir = function()
+	-- return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/',
+	-- 		    'file')
+    -- end,
+    root_dir = function()
+	return vim.fn.getcwd()
+    end
+}))
+
+
+autocmd("lsp_diagnostics", "CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})", true)
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
 	prefix = '●', -- Could be '■', '▎', 'x'
     },
     signs = true,
     underline = true,
-    update_in_insert = true,
+    update_in_insert = false -- true,
 })
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Information = " " }
 for type, icon in pairs(signs) do
-    local hl = "LspDiagnosticsSign" .. type
+    local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end

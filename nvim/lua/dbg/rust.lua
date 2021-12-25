@@ -52,7 +52,11 @@ dap.configurations.cpp = {
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/',
                                 'file')
         end,
-        cwd = '${workspaceFolder}',
+        -- cwd = '${workspaceFolder}',
+        cwd = function()
+            return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/',
+                                'file')
+        end,
         stopOnEntry = false,
         args = {},
 

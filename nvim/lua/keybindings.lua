@@ -25,7 +25,7 @@ map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 map('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
+-- map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
 
 -- LSP Saga (Until LSP Sage is fixed)
 -- map('n', '<leader>ca', "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opts)
