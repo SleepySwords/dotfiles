@@ -61,11 +61,13 @@ return require('packer').startup(function()
     }
 
     -- Completion plugins
+    use 'OmniSharp/omnisharp-vim'
     -- use 'ms-jpq/coq_nvim'
     -- use 'ms-jpq/coq.artifacts'
     -- use 'ms-jpq/coq.thirdparty'
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
+
     --
     -- -- CMP Sources
     -- use 'hrsh7th/cmp-buffer'
@@ -119,7 +121,7 @@ return require('packer').startup(function()
     --  Debugging
     use {'mfussenegger/nvim-dap'}
     use {'nvim-telescope/telescope-dap.nvim'}
-    use {'mfussenegger/nvim-dap-python'}
+    -- use {'mfussenegger/nvim-dap-python'}
     use {'rcarriga/nvim-dap-ui'}
     use {'theHamsta/nvim-dap-virtual-text'}
     use {'Pocco81/DAPInstall.nvim'}
@@ -142,6 +144,8 @@ return require('packer').startup(function()
     use 'kdheepak/lazygit.nvim'
     use "akinsho/toggleterm.nvim"
     use 'dstein64/vim-startuptime'
+    
+    use 'github/copilot.vim'
 
     -- Dashboard
     use 'andweeb/presence.nvim'

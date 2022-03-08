@@ -30,6 +30,17 @@ require'lspconfig'.rust_analyzer.setup(completion_engine.provide_capabilities({
     end
 }))
 
+--
+-- local pid = vim.fn.getpid()
+-- -- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
+-- local omnisharp_bin = "/Users/ibrahimhizamul/.cache/omnisharp-vim/omnisharp-roslyn/run"
+-- -- on Windows
+-- -- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
+-- require'lspconfig'.omnisharp.setup{
+--     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+--     ...
+-- }
+--
 
 autocmd("lsp_diagnostics", "CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})", true)
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
