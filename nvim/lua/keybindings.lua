@@ -41,11 +41,11 @@ map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 -- map('n', '<C-b>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 
 -- Bindings for Telescope and Nvim Tree
-map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', { noremap=true })
-map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap=true })
-map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap=true })
-map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap=true })
-map('n', '<leader>fl', '<cmd>Telescope git_files<cr>', { noremap=true })
+map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files(vim.g.telescope_theme)<CR>', { noremap=true })
+map('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>', { noremap=true })
+map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>', { noremap=true })
+map('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>', { noremap=true })
+map('n', '<leader>fl', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>', { noremap=true })
 map('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>', { noremap=true })
 map('n', '<leader>tr', '<cmd>NvimTreeRefresh<CR>', { noremap=true })
 map('n', '<leader>tn', '<cmd>NvimTreeFindFile<CR>', { noremap=true })
@@ -93,11 +93,11 @@ map('n', '<leader>drl', '<cmd>lua require"dap".repl.run_last()<CR>')
 map('n', '<leader>dui', '<cmd>lua require"dapui".toggle()<CR>')
 
 -- telescope-dap
-map('n', '<leader>dcc', '<cmd>lua require"telescope".extensions.dap.commands{}<CR>')
-map('n', '<leader>dco', '<cmd>lua require"telescope".extensions.dap.configurations{}<CR>')
-map('n', '<leader>dlb', '<cmd>lua require"telescope".extensions.dap.list_breakpoints{}<CR>')
-map('n', '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables{}<CR>')
-map('n', '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames{}<CR>')
+map('n', '<leader>dcc', '<cmd>lua require"telescope".extensions.dap.commands(vim.g.telescope_theme)<CR>')
+map('n', '<leader>dco', '<cmd>lua require"telescope".extensions.dap.configurations(vim.g.telescope_theme)<CR>')
+map('n', '<leader>dlb', '<cmd>lua require"telescope".extensions.dap.list_breakpoints(vim.g.telescope_theme)<CR>')
+map('n', '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables(vim.g.telescope_theme)<CR>')
+map('n', '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames(vim.g.telescope_theme)<CR>')
 
 -- Snippets
 

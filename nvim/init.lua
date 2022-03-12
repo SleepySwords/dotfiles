@@ -36,10 +36,10 @@ opt('mouse', 'a')
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 opt('hidden', true)
 opt('termguicolors', true)
-opt('guifont', 'Hack Nerd Font:l')
+-- opt('guifont', 'Hack Nerd Font:l')
 -- opt('foldmethod', 'expr')
 -- opt('foldexpr', 'nvim_treesitter#foldexpr()')
--- opt('guifont', 'Jetbrains Mono')
+opt('guifont', 'Jetbrains Mono,Hack Nerd Font:l14')
 
 autocmd("highlight_yank", "TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
 
@@ -55,6 +55,8 @@ g.sonokai_diagnostic_virtual_text = 'colour_background'
 g.colors_name = 'sonokai'
 cmd[[colorscheme sonokai]]
 -- g.colors_name = 'tokyonight'
+g.telescope_theme = require("ui.telescope").get_theme()
+-- g.telescope_theme = require("telescope.themes").get_ivy()
 
 -- Plugin settings
 g.ultest_fail_sign = ''

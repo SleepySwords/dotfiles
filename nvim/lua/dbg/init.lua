@@ -8,6 +8,7 @@ require('telescope').load_extension('dap')
 -- require('dbg.python')
 require('dbg.rust')
 require('dbg.csharp')
+require('dbg.python')
 require('dbg.javascript')
 
 require'nvim-dap-virtual-text'.setup()
