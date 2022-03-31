@@ -1,18 +1,27 @@
-local g = vim.g
-local cmd = vim.cmd
-local o, wo, bo = vim.o, vim.wo, vim.bo
 local utils = require 'config.utils'
 local opt = utils.opt
 local autocmd = utils.autocmd
-local map = utils.map
+local o = vim.o
+local g = vim.g
+local cmd = vim.cmd
+
+-- local g = vim.g
+-- local cmd = vim.cmd
+-- local o, wo, bo = vim.o, vim.wo, vim.bo
+-- local utils = require 'config.utils'
+-- local opt = utils.opt
+-- local autocmd = utils.autocmd
+-- local map = utils.map
+--
+require('profiler')
 
 require('plugins')
-require('completion')
-require('ui')
+require('completion.lsp')
+require('ui.ui')
 require('config.navigation')
 require('config.miscellaneous')
 require('keybindings')
-require('dbg')
+require('dbg.dbg')
 
 -- Vim options setup
 opt('compatible', false)
@@ -41,7 +50,10 @@ opt('termguicolors', true)
 -- opt('foldexpr', 'nvim_treesitter#foldexpr()')
 opt('guifont', 'Jetbrains Mono,Hack Nerd Font:l14')
 
-autocmd("highlight_yank", "TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
+-- autocmd("highlight_yank", "TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
+vim.cmd("autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
+
+
 
 -- Theme settings
 g.edge_style = 'aura'
@@ -76,4 +88,4 @@ g.asyncomplete_force_refresh_on_context_changed = 1
 g.OmniSharp_server_stdio = 1
 g.OmniSharp_highlight_types = 2
 g.completion_matching_stategy_list = {'exact', 'substring', 'fuzzy'}
-
+-- g.discord = False

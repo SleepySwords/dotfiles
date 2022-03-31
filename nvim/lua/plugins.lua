@@ -143,6 +143,7 @@ return require('packer').startup(function()
     use 'kdheepak/lazygit.nvim'
     use "akinsho/toggleterm.nvim"
     use 'dstein64/vim-startuptime'
+    use 'norcalli/profiler.nvim'
     
     use 'github/copilot.vim'
 

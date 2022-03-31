@@ -1,15 +1,14 @@
-local autocmd = require('config.utils').autocmd
-local lsp_status = require('lsp-status')
-local lsp_installer = require("nvim-lsp-installer")
 local completion_engine = require('completion.engine.cmp')
-require("completion.lsp_ui_handlers")
+require('completion.lsp_ui_handlers')
 
 -- require('completion.rust-tools')
 require('lsp_extensions').inlay_hints()
 
+local lsp_status = require('lsp-status')
 -- use properly: https://github.com/nvim-lua/lsp-status.nvim
 lsp_status.register_progress()
 
+local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     -- Default options
     local opts = {}
@@ -42,7 +41,8 @@ require'lspconfig'.rust_analyzer.setup(completion_engine.provide_capabilities({
 -- }
 --
 
-autocmd("lsp_diagnostics", "CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})", true)
+-- Shows inlay hints, specifies a dot for the inlay hint
+vim.cmd("autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})", true)
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
 	prefix = '●', -- Could be '■', '▎', 'x'
@@ -51,6 +51,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
     underline = true,
     update_in_insert = false -- true,
 })
+
+-- Define the signs for the left number bar
 local signs = { Error = " ", Warn = " ", Hint = " ", Information = " " }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type

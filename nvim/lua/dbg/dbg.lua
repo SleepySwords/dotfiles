@@ -4,8 +4,6 @@ require("dapui").setup {
 	position = "right"
     }
 }
-require('telescope').load_extension('dap')
--- require('dbg.python')
 require('dbg.rust')
 require('dbg.csharp')
 require('dbg.python')
