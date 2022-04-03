@@ -53,7 +53,7 @@ function M.post()
             }
         end
     }
-    require("ultest").setup({builders = builders})
+    -- require("ultest").setup({builders = builders})
 end
 
 return M 

@@ -1,26 +1,26 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
-local execute = vim.api.nvim_command
-local fn = vim.fn
-
-local packer_install_dir = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-
-local plug_url_format = 'https://github.com/%s'
-
-local packer_repo = string.format(plug_url_format, 'wbthomason/packer.nvim')
-local install_cmd = string.format('10split |term git clone --depth=1 %s %s', packer_repo, packer_install_dir)
-
-if fn.empty(fn.glob(packer_install_dir)) > 0 then
-  vim.api.nvim_echo({{'Installing packer.nvim', 'Type'}}, true, {})
-  execute(install_cmd)
-  execute 'packadd packer.nvim'
-end
+ local execute = vim.api.nvim_command
+ local fn = vim.fn
+ 
+ local packer_install_dir = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+ 
+ local plug_url_format = 'https://github.com/%s'
+ 
+ local packer_repo = string.format(plug_url_format, 'wbthomason/packer.nvim')
+ local install_cmd = string.format('10split |term git clone --depth=1 %s %s', packer_repo, packer_install_dir)
+ 
+ if fn.empty(fn.glob(packer_install_dir)) > 0 then
+   vim.api.nvim_echo({{'Installing packer.nvim', 'Type'}}, true, {})
+   execute(install_cmd)
+   execute 'packadd packer.nvim'
+ end
 
 
 -- Figure how to autoinstall plugins (Bootstrapping)
 
 
 -- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[packadd packer.nvim]]
 -- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
 
 return require('packer').startup(function()
@@ -43,11 +43,11 @@ return require('packer').startup(function()
     -- use 'sickill/vim-monokai'
 
     --  LSP
-    use 'neovim/nvim-lspconfig'
-    use 'williamboman/nvim-lsp-installer'
-    use 'nvim-lua/lsp-status.nvim'
-    use 'nvim-lua/lsp_extensions.nvim'
-    -- use 'glepnir/lspsaga.nvim'
+   use 'neovim/nvim-lspconfig'
+   use 'williamboman/nvim-lsp-installer'
+   use 'nvim-lua/lsp-status.nvim'
+   use 'nvim-lua/lsp_extensions.nvim'
+   -- use 'glepnir/lspsaga.nvim'
     use {
 	'RishabhRD/nvim-lsputils',
 	requires= {{'RishabhRD/popfix'}}
@@ -55,13 +55,17 @@ return require('packer').startup(function()
     use {
 	"folke/trouble.nvim",
 	requires = "kyazdani42/nvim-web-devicons",
+	ft = "cs",
 	config = function()
 	    require("trouble").setup {}
 	  end
     }
 
     -- Completion plugins
-    use 'OmniSharp/omnisharp-vim'
+    use {
+	'OmniSharp/omnisharp-vim',
+	ft = "cs"
+    }
     -- use 'ms-jpq/coq_nvim'
     -- use 'ms-jpq/coq.artifacts'
     -- use 'ms-jpq/coq.thirdparty'
@@ -73,14 +77,14 @@ return require('packer').startup(function()
     -- use 'hrsh7th/cmp-buffer'
     -- use 'hrsh7th/cmp-cmdline'
     -- use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-vsnip'
+--   use 'hrsh7th/cmp-vsnip'
 
     -- use 'rust-lang/rust.vim'
     -- use 'simrat39/rust-tools.nvim'
 
     --  Code snippets
-    use 'hrsh7th/vim-vsnip'
-    use 'rafamadriz/friendly-snippets'
+   use 'hrsh7th/vim-vsnip'
+   use 'rafamadriz/friendly-snippets'
 
     --  Fuzzy finder
     use {
@@ -93,10 +97,18 @@ return require('packer').startup(function()
 
     --  Syntax
     use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
+	'nvim-treesitter/nvim-treesitter',
+	event = 'VimEnter'
+	-- run = ':TSUpdate'
     }
-    use 'nvim-treesitter/playground'
+    use {
+	'nvim-treesitter/playground',
+	requires = {'nvim-treesitter/nvim-treesitter'},
+	config = function()
+	    require('ui.treesitter')
+	end,
+	event = 'VimEnter'
+    }
 
     --  File explorer
     use {
@@ -104,50 +116,73 @@ return require('packer').startup(function()
         requires = {'kyazdani42/nvim-web-devicons'}  --  for file icons
     }
 
-    --  Status line
+    -- Status line
     -- use {
 	-- 'glepnir/galaxyline.nvim',
 	-- requires = {'kyazdani42/nvim-web-devicons', opt = true}
     -- }
     use {
-	'nvim-lualine/lualine.nvim',
+	'nvim-lualine/lualine.nvim', -- Limelight runs much faster, may consider switchign
 	requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
     use 'akinsho/nvim-bufferline.lua'
 
     -- Buffers
     use {'ojroques/nvim-bufdel'}
-
+    
     --  Debugging
     use {'mfussenegger/nvim-dap'}
-    use {'nvim-telescope/telescope-dap.nvim'}
+    -- use {'nvim-telescope/telescope-dap.nvim'}
     -- use {'mfussenegger/nvim-dap-python'}
-    use {'rcarriga/nvim-dap-ui'}
+    use {
+	'rcarriga/nvim-dap-ui',
+	keys = 'zlui',
+	config = function()
+	    require("dapui").setup {
+		sidebar = {
+		    position = "right"
+		}
+	    }
+	end
+    }
     use {'theHamsta/nvim-dap-virtual-text'}
 
     -- Testing
+    -- TODO: Setup all commands
     use {
         "rcarriga/vim-ultest",
         config = "require('config.ultest').post()",
         run = ":UpdateRemotePlugins",
-        requires = {"vim-test/vim-test"}
+        requires = {"vim-test/vim-test"},
+	cmd = "ultest"
     }
 
     -- Quality of life stuff
     use 'jiangmiao/auto-pairs'
-    use 'tomtom/tcomment_vim'
+    -- use 'terrortylor/nvim-comment' 
+    use 'tpope/vim-commentary' 
     use 'pwntester/octo.nvim'
     use 'dyng/ctrlsf.vim'
     use 'vim-scripts/restore_view.vim'
     use 'kassio/neoterm'
-    use 'kdheepak/lazygit.nvim'
+    -- Why do i have lazygit if i have toggle term??!?!!
+    use {
+	'kdheepak/lazygit.nvim',
+	cmd = "lazygit"
+    }
     use "akinsho/toggleterm.nvim"
-    use 'dstein64/vim-startuptime'
-    use 'norcalli/profiler.nvim'
-    
-    use 'github/copilot.vim'
+    use {
+	'dstein64/vim-startuptime',
+	cmd = "StartupTime"
+    }
+--    use 'norcalli/profiler.nvim'
+
+    --    use 'github/copilot.vim'
 
     -- Dashboard
-    use 'andweeb/presence.nvim'
+    use {
+	'andweeb/presence.nvim',
+	cmd = "discord"
+    }
     use 'glepnir/dashboard-nvim'
 end)

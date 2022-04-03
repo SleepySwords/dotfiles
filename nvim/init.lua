@@ -2,8 +2,6 @@ local o = vim.o
 local g = vim.g
 local cmd = vim.cmd
 
-require('profiler')
-
 require('plugins')
 require('completion.lsp')
 require('ui.ui')

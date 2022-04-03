@@ -1,9 +1,4 @@
 require('dap')
-require("dapui").setup {
-    sidebar = {
-	position = "right"
-    }
-}
 require('dbg.rust')
 require('dbg.csharp')
 require('dbg.python')
