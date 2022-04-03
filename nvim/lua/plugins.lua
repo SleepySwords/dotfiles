@@ -76,8 +76,8 @@ return require('packer').startup(function()
     -- -- CMP Sources
     -- use 'hrsh7th/cmp-buffer'
     -- use 'hrsh7th/cmp-cmdline'
-    -- use 'hrsh7th/cmp-path'
---   use 'hrsh7th/cmp-vsnip'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-vsnip'
 
     -- use 'rust-lang/rust.vim'
     -- use 'simrat39/rust-tools.nvim'
@@ -98,15 +98,15 @@ return require('packer').startup(function()
     --  Syntax
     use {
 	'nvim-treesitter/nvim-treesitter',
-	event = 'VimEnter'
+	event = 'VimEnter',
+	config = function()
+	    require('ui.treesitter')
+	end,
 	-- run = ':TSUpdate'
     }
     use {
 	'nvim-treesitter/playground',
 	requires = {'nvim-treesitter/nvim-treesitter'},
-	config = function()
-	    require('ui.treesitter')
-	end,
 	event = 'VimEnter'
     }
 
@@ -136,7 +136,6 @@ return require('packer').startup(function()
     -- use {'mfussenegger/nvim-dap-python'}
     use {
 	'rcarriga/nvim-dap-ui',
-	keys = 'zlui',
 	config = function()
 	    require("dapui").setup {
 		sidebar = {
@@ -168,7 +167,7 @@ return require('packer').startup(function()
     -- Why do i have lazygit if i have toggle term??!?!!
     use {
 	'kdheepak/lazygit.nvim',
-	cmd = "lazygit"
+	cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" }
     }
     use "akinsho/toggleterm.nvim"
     use {

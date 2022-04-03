@@ -91,7 +91,7 @@ map('n', '<leader>dsbm', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.
 map('n', '<leader>dro', '<cmd>lua require"dap".repl.open()<CR>')
 map('n', '<leader>drl', '<cmd>lua require"dap".repl.run_last()<CR>')
 
-map('n', '<leader>lui', '<cmd>lua require"dapui".toggle()<CR>')
+map('n', '<leader>dui', '<cmd>lua require"dapui".toggle()<CR>')
 
 -- telescope-dap
 map('n', '<leader>dcc', '<cmd>lua require"telescope".extensions.dap.commands(vim.g.telescope_theme)<CR>')
