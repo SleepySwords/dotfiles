@@ -1,29 +1,11 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
- local execute = vim.api.nvim_command
- local fn = vim.fn
- 
- local packer_install_dir = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
- 
- local plug_url_format = 'https://github.com/%s'
- 
- local packer_repo = string.format(plug_url_format, 'wbthomason/packer.nvim')
- local install_cmd = string.format('10split |term git clone --depth=1 %s %s', packer_repo, packer_install_dir)
- 
- if fn.empty(fn.glob(packer_install_dir)) > 0 then
-   vim.api.nvim_echo({{'Installing packer.nvim', 'Type'}}, true, {})
-   execute(install_cmd)
-   execute 'packadd packer.nvim'
- end
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
 
-
--- Figure how to autoinstall plugins (Bootstrapping)
-
-
--- Only required if you have packer configured as `opt`
--- vim.cmd [[packadd packer.nvim]]
--- Only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
-
-return require('packer').startup(function()
+return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
@@ -52,20 +34,20 @@ return require('packer').startup(function()
 	'RishabhRD/nvim-lsputils',
 	requires= {{'RishabhRD/popfix'}}
     }
-    use {
-	"folke/trouble.nvim",
-	requires = "kyazdani42/nvim-web-devicons",
-	ft = "cs",
-	config = function()
-	    require("trouble").setup {}
-	  end
-    }
+    -- use {
+	-- "folke/trouble.nvim",
+	-- requires = "kyazdani42/nvim-web-devicons",
+	-- ft = "cs",
+	-- config = function()
+	    -- require("trouble").setup {}
+	  -- end
+    -- }
 
     -- Completion plugins
-    use {
-	'OmniSharp/omnisharp-vim',
-	ft = "cs"
-    }
+    -- use {
+	-- 'OmniSharp/omnisharp-vim',
+	-- ft = "cs"
+    -- }
     -- use 'ms-jpq/coq_nvim'
     -- use 'ms-jpq/coq.artifacts'
     -- use 'ms-jpq/coq.thirdparty'
@@ -184,4 +166,8 @@ return require('packer').startup(function()
 	cmd = "discord"
     }
     use 'glepnir/dashboard-nvim'
+    
+    if packer_bootstrap then
+	require('packer').sync()
+    end
 end)
