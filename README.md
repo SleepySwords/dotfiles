@@ -7,12 +7,14 @@
 
 ## Docker installation and running
 1. Run `docker build -t neovim .` in the dotfiles director to build as an image (This only needs to be run one).
-2. run `docker run -d --tty neovim` to start a container.
+2. Run `docker run -d --tty neovim` to start a container.
 3. Run `docker exec -it OUTPUT_FROM_LAST_COMMAND /bin/fish` to enter the container with fish as the shell.
 
 alternatively
 
-2. run `docker run -it --tty neovim /bin/fish` to start and directly enter the container with fish as the shell.
+2. Run `docker run -it --tty neovim /bin/fish` to start and directly enter the container with fish as the shell.
+
+*Note: You may want to use the -v option to link your file system and the containers file system:* `docker run -it --tty -v (pwd):/home/dev/work neovim /bin/fish`
 
 ## Dependencies and requirements
 - Require minimum neovim 0.5.1 for lsp
