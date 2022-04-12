@@ -1,3 +1,6 @@
 karabiner/automatic_backups
 nvim/plugin
 fish/config.fish
+
+fish/config.fish.pysave
+fish/fish_variables
