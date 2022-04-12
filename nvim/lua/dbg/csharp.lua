@@ -2,7 +2,7 @@ local dap = require "dap"
 
 dap.adapters.netcoredbg = {
   type = 'executable',
-  command = '/Users/ibrahimhizamul/Stuff/Computer_Science/C#/netcoredbg/netcoredbg',
+  command = vim.fn.stdpath('data') .. '/dap_servers/netcoredbg/netcoredbg';
   args = {'--interpreter=vscode'}
 }
 

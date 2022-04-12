@@ -2,7 +2,7 @@ local dap = require('dap')
 
 dap.adapters.python = {
   type = 'executable';
-  command = '/Users/ibrahimhizamul/Stuff/Computer_Science/Python/debugpy/bin/python';
+  command = vim.fn.stdpath('data') .. '/dap_servers/debugpy/bin/python';
   args = { '-m', 'debugpy.adapter' };
 }
 
