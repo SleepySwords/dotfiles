@@ -3,13 +3,15 @@ local g = vim.g
 local cmd = vim.cmd
 
 require('plugins')
-require('completion.lsp')
-require('ui.ui')
-require('config.navigation')
-require('config.miscellaneous')
-require('keybindings')
-require('dbg.dbg')
 
+if not g.bootstrap then
+    require('completion.lsp')
+    require('ui.ui')
+    require('config.navigation')
+    require('config.miscellaneous')
+    require('keybindings')
+    require('dbg.dbg')
+end
 
 -- Vim options setup
 o.compatible = false
@@ -45,16 +47,18 @@ cmd("autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
 
 -- Global settings
 -- Theme settings
-g.edge_style = 'aura'
-g.edge_endable_italic = 1
-g.edge_disable_italic_comment = 1
-g.sonokai_style = 'shusia'
-g.sonokai_enable_italic = 1
-g.sonokai_disable_italic_comment = 1
-g.sonokai_diagnostic_virtual_text = 'colour_background'
-g.colors_name = 'sonokai'
-cmd[[colorscheme sonokai]]
-g.telescope_theme = require("ui.telescope").get_theme()
+if not g.bootstrap then
+    g.edge_style = 'aura'
+    g.edge_endable_italic = 1
+    g.edge_disable_italic_comment = 1
+    g.sonokai_style = 'shusia'
+    g.sonokai_enable_italic = 1
+    g.sonokai_disable_italic_comment = 1
+    g.sonokai_diagnostic_virtual_text = 'colour_background'
+    g.colors_name = 'sonokai'
+    cmd[[colorscheme sonokai]]
+    g.telescope_theme = require("ui.telescope").get_theme()
+end
 -- g.colors_name = 'tokyonight'
 -- g.colors_name = 'edge'
 -- g.telescope_theme = require("telescope.themes").get_ivy()
