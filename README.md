@@ -16,6 +16,8 @@ alternatively
 
 *Note: You may want to use the -v option to link your file system and the containers file system:* `docker run -it --tty -v (pwd):/home/dev/work neovim /bin/fish`
 
+Press Ctrl-D to exit the shell.
+
 ## Dependencies and requirements
 - Require minimum neovim 0.5.1 for lsp
 - The theme requires a terminal with true colours (or you could change the default theme)
