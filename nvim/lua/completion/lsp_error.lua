@@ -1,5 +1,5 @@
 -- Shows error diagnostics on cursor hold + specifies a dot for the inlay hint
-vim.cmd("autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})", true)
+vim.cmd("autocmd CursorHold * lua vim.diagnostic.open_float({focusable=false})", true)
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
 	prefix = '●', -- Could be '■', '▎', 'x'
