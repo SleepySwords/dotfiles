@@ -177,6 +177,9 @@ ins_left {
   end,
   color = { fg = colors.magenta, gui = 'bold' },
 }
+-- TODO Replace the above with the below and make an actual status line component.
+-- See: https://github.com/nvim-lua/lsp-status.nvim/blob/master/lua/lsp-status/statusline.lua
+-- and https://github.com/nvim-lua/lsp-status.nvim#usage
 
 -- ins_left {
 --   'diagnostics',
@@ -198,38 +201,38 @@ ins_right {
 }
 
 ins_right {
-  'fileformat',
-  fmt = string.upper,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = { fg = colors.green, gui = 'bold' },
+    'fileformat',
+    fmt = string.upper,
+    icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+    color = { fg = colors.green, gui = 'bold' },
 }
 
 ins_right {
-  'branch',
-  icon = '',
-  color = { fg = colors.violet, gui = 'bold' },
+    'branch',
+    icon = '',
+    color = { fg = colors.violet, gui = 'bold' },
 }
 
 ins_right {
-  'diff',
-  -- Is it me or the symbol for modified us really weird
-  symbols = { added = ' ', modified = '柳 ', removed = ' ' },
-  diff_color = {
-    added = { fg = colors.green },
-    modified = { fg = colors.orange },
-    removed = { fg = colors.red },
-  },
-  cond = conditions.hide_in_width,
+    'diff',
+    -- Is it me or the symbol for modified us really weird
+    symbols = { added = ' ', modified = '柳 ', removed = ' ' },
+    diff_color = {
+	added = { fg = colors.green },
+	modified = { fg = colors.orange },
+	removed = { fg = colors.red },
+    },
+    cond = conditions.hide_in_width,
 }
 
 ins_right { 'location' }
 
 ins_right {
-  function()
-    return '▊'
-  end,
-  color = { fg = colors.blue },
-  padding = { left = 1 },
+    function()
+	return '▊'
+    end,
+    color = { fg = colors.blue },
+    padding = { left = 1 },
 }
 
 -- Now don't forget to initialize lualine

@@ -18,17 +18,17 @@ if vim.g.discord then
     })
 end
 
-require("toggleterm").setup{}
-
-local Terminal  = require('toggleterm.terminal').Terminal
-local floatwindow = Terminal:new({
-    hidden = true,
-    -- cmd = "lazygit",
-    direction = "float",
-    float_opts = {
-	border = "curved",
-    }
-})
+-- require("toggleterm").setup{}
+--
+-- local Terminal  = require('toggleterm.terminal').Terminal
+-- local floatwindow = Terminal:new({
+    -- hidden = true,
+    -- -- cmd = "lazygit",
+    -- direction = "float",
+    -- float_opts = {
+	-- border = "curved",
+    -- }
+-- })
 
 function _floatwindow_toggle()
   floatwindow:toggle()

@@ -25,11 +25,11 @@ return require('packer').startup(function(use)
     -- use 'sickill/vim-monokai'
 
     --  LSP
-   use 'neovim/nvim-lspconfig'
-   use 'williamboman/nvim-lsp-installer'
-   use 'nvim-lua/lsp-status.nvim'
-   use 'nvim-lua/lsp_extensions.nvim'
-   -- use 'glepnir/lspsaga.nvim'
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/nvim-lsp-installer'
+    use 'nvim-lua/lsp-status.nvim'
+    use 'nvim-lua/lsp_extensions.nvim'
+    -- use 'glepnir/lspsaga.nvim'
     use {
 	'RishabhRD/nvim-lsputils',
 	requires= {{'RishabhRD/popfix'}}
@@ -52,28 +52,27 @@ return require('packer').startup(function(use)
     -- use 'ms-jpq/coq.artifacts'
     -- use 'ms-jpq/coq.thirdparty'
     use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
 
-    --
     -- -- CMP Sources
-    -- use 'hrsh7th/cmp-buffer'
-    -- use 'hrsh7th/cmp-cmdline'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-vsnip'
+    use 'hrsh7th/cmp-nvim-lsp'
 
     -- use 'rust-lang/rust.vim'
     -- use 'simrat39/rust-tools.nvim'
 
     --  Code snippets
-   use 'hrsh7th/vim-vsnip'
-   use 'rafamadriz/friendly-snippets'
+    use 'hrsh7th/vim-vsnip'
+    use 'rafamadriz/friendly-snippets'
 
     --  Fuzzy finder
     use {
-        'nvim-telescope/telescope.nvim',
-        requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+	'nvim-telescope/telescope.nvim',
+	requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
     }
-    use 'liuchengxu/vim-clap'
+    -- use 'liuchengxu/vim-clap'
     use 'junegunn/fzf'
     use 'junegunn/fzf.vim'
 
@@ -140,25 +139,24 @@ return require('packer').startup(function(use)
 
     -- Quality of life stuff
     use 'jiangmiao/auto-pairs'
-    -- use 'terrortylor/nvim-comment' 
-    use 'tpope/vim-commentary' 
-    use 'pwntester/octo.nvim'
-    use 'dyng/ctrlsf.vim'
+    -- use 'terrortylor/nvim-comment'
+    use 'tpope/vim-commentary'
+    -- use 'pwntester/octo.nvim'
+    -- use 'dyng/ctrlsf.vim'
     use 'vim-scripts/restore_view.vim'
-    use 'kassio/neoterm'
+    -- use 'kassio/neoterm'
     -- Why do i have lazygit if i have toggle term??!?!!
-    use {
-	'kdheepak/lazygit.nvim',
-	cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" }
-    }
-    use "akinsho/toggleterm.nvim"
+    -- use {
+	-- 'kdheepak/lazygit.nvim',
+	-- cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" }
+    -- }
+    -- use "akinsho/toggleterm.nvim"
     use {
 	'dstein64/vim-startuptime',
 	cmd = "StartupTime"
     }
---    use 'norcalli/profiler.nvim'
-
-    --    use 'github/copilot.vim'
+    -- use 'norcalli/profiler.nvim'
+    -- use 'github/copilot.vim'
 
     -- Dashboard
     use {
