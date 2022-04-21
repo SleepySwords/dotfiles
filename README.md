@@ -19,7 +19,7 @@ alternatively
 Press Ctrl-D to exit the shell.
 
 ## Dependencies and requirements
-- Require minimum neovim 0.5.1 for lsp
+- Require minimum neovim 0.7 for lsp and treesitter
 - The theme requires a terminal with true colours (or you could change the default theme)
     - Mac OS default terminal doesn't support true colours :(
 - nvim-lsputils requires [bat](https://github.com/sharkdp/bat) (this is lokecat but able to better colouring / formatting) to be installed.

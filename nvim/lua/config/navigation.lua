@@ -1,7 +1,3 @@
--- Telescope + DAP
--- local telescope = require('telescope')
--- telescope.load_extension('dap')
-
 -- Neovim tree
 require'nvim-tree'.setup {
     auto_close = false,
