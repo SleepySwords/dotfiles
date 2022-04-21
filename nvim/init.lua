@@ -80,5 +80,9 @@ g.OmniSharp_server_stdio = 1
 g.OmniSharp_highlight_types = 2
 g.completion_matching_stategy_list = {'exact', 'substring', 'fuzzy'}
 
--- Discord rich precence
+-- Global settings revolving this config
 g.discord = false
+g.indicator_ok = ''
+
+-- TODO: hightlight seleted line number
+-- TODO: fix glitchy tab in visual mode.

@@ -2,7 +2,6 @@
 -- Author: shadmansaleh
 -- Credit: glepnir
 local lualine = require('lualine')
-local lsp_status = require('lsp-status')
 -- Color table for highlights
 -- stylua: ignore
 local colors = {
@@ -171,26 +170,46 @@ ins_left {
 }
 
 ins_left {
+  'diagnostics',
+  sources = { 'nvim_lsp' },
+  -- The Symbols are sourced from DiagnosticSign, which is defined in lsp_error.lua
+  symbols = { error = ' ', warn = ' ', info = ' ' },
+  diagnostics_color = {
+    error = { fg = colors.red },
+    warn = { fg = colors.yellow },
+    info = { fg = colors.cyan },
+    hint = { fg = colors.green },
+  },
+}
+
+local diagnostics = require('lsp-status/diagnostics')
+local lsp_status = require('lsp-status')
+
+ins_left {
   -- Lsp status
   function()
-    return lsp_status.status()
+    if vim.tbl_count(vim.lsp.buf_get_clients(0)) == 0 then return '' end
+    local progress = lsp_status.status_progress()
+    if progress ~= '' then return progress end
+    local buf_diagnostics = diagnostics(0)
+    if buf_diagnostics then
+    	if buf_diagnostics.errors and buf_diagnostics.errors > 0 then
+    		return ''
+    	end
+    	if buf_diagnostics.warnings and buf_diagnostics.warnings > 0 then
+    		return ''
+    	end
+    	if buf_diagnostics.info and buf_diagnostics.info > 0 then
+    		return ''
+    	end
+    	if buf_diagnostics.hint and buf_diagnostics.hint > 0 then
+    		return ''
+    	end
+    end
+    return vim.g.indicator_ok
   end,
   color = { fg = colors.magenta, gui = 'bold' },
 }
--- TODO Replace the above with the below and make an actual status line component.
--- See: https://github.com/nvim-lua/lsp-status.nvim/blob/master/lua/lsp-status/statusline.lua
--- and https://github.com/nvim-lua/lsp-status.nvim#usage
-
--- ins_left {
---   'diagnostics',
---   sources = { 'nvim_lsp' },
---   symbols = { error = ' ', warn = ' ', info = ' ' },
---   diagnostics_color = {
---     color_error = { fg = colors.red },
---     color_warn = { fg = colors.yellow },
---     color_info = { fg = colors.cyan },
---   },
--- }
 
 -- Add components to right sections
 ins_right {
