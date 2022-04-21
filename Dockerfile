@@ -1,6 +1,6 @@
 FROM archlinux:latest
 
-RUN pacman -Sy --noconfirm neovim git wget fontconfig bat fzf git-delta fish
+RUN pacman -Sy --noconfirm neovim git wget fontconfig bat fzf git-delta fish sudo
 
 
 RUN useradd dev && \
@@ -17,3 +17,7 @@ RUN git clone https://github.com/SleepySwords/dotfiles
 RUN mv dotfiles/nvim $HOME/.config/nvim
 RUN mv dotfiles/fish $HOME/.config/fish
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+WORKDIR /home/dev/work
+
+CMD nvim
