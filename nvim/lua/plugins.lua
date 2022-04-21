@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
     use 'sainnhe/sonokai'
     use 'folke/tokyonight.nvim'
     use 'EdenEast/nightfox.nvim'
+    use 'joshdick/onedark.vim'
     -- use 'sickill/vim-monokai'
 
     --  LSP
@@ -34,6 +35,7 @@ return require('packer').startup(function(use)
     use 'williamboman/nvim-lsp-installer'
     use 'nvim-lua/lsp-status.nvim'
     use 'nvim-lua/lsp_extensions.nvim'
+
     -- use 'glepnir/lspsaga.nvim'
     use {
 	'RishabhRD/nvim-lsputils',
@@ -48,11 +50,20 @@ return require('packer').startup(function(use)
 	  -- end
     -- }
 
-    -- Completion plugins
-    -- use {
-	-- 'OmniSharp/omnisharp-vim',
-	-- ft = "cs"
-    -- }
+    -- Unfortunately the way decompilation works in omnisharp is that the client sends a
+    -- o#/v2/gotodefinition request, which returns with a metadata source field, that is used
+    -- in a o#/metadata request to get the decompilation. Unfortunately, LSP in neovim sends a 
+    -- textDocument/definition request, which doesn't return the metadata source, so either send another
+    -- o#/v2/gotodefinition when recieving the textDocument/definition request or send a o#/v2/gotodefinition
+    -- from the start, which is what is happening here with this plugin. Need to keep in mind that this uses
+    -- two instances of omnisharp as a result.
+    --
+    -- TODO: write a plugin that sends an o#/v2/gotodefinition and add handler for that. As well as changing the keybindings
+    -- when entering c sharp files.
+    use {
+	'OmniSharp/omnisharp-vim',
+	ft = 'cs'
+    }
     -- use 'ms-jpq/coq_nvim'
     -- use 'ms-jpq/coq.artifacts'
     -- use 'ms-jpq/coq.thirdparty'
@@ -84,7 +95,6 @@ return require('packer').startup(function(use)
     --  Syntax
     use {
 	'nvim-treesitter/nvim-treesitter',
-	event = 'VimEnter',
 	config = function()
 	    require('ui.treesitter')
 	end,
@@ -93,7 +103,6 @@ return require('packer').startup(function(use)
     use {
 	'nvim-treesitter/playground',
 	requires = {'nvim-treesitter/nvim-treesitter'},
-	event = 'VimEnter'
     }
 
     --  File explorer
@@ -118,7 +127,7 @@ return require('packer').startup(function(use)
 
     --  Debugging
     use {'mfussenegger/nvim-dap'}
-    -- use {'nvim-telescope/telescope-dap.nvim'}
+    use {'nvim-telescope/telescope-dap.nvim'}
     -- use {'mfussenegger/nvim-dap-python'}
     use {
 	'rcarriga/nvim-dap-ui',

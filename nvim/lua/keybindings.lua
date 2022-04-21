@@ -2,10 +2,10 @@ local g = vim.g
 
 local map_key = vim.api.nvim_set_keymap
 local function map(modes, lhs, rhs, opts)
-  opts = opts or {}
-  opts.noremap = opts.noremap == nil and true or opts.noremap
-  if type(modes) == 'string' then modes = {modes} end
-  for _, mode in ipairs(modes) do map_key(mode, lhs, rhs, opts) end
+	opts = opts or {}
+	opts.noremap = opts.noremap == nil and true or opts.noremap
+	if type(modes) == 'string' then modes = { modes } end
+	for _, mode in ipairs(modes) do map_key(mode, lhs, rhs, opts) end
 end
 
 g.mapleader = [[z]]
@@ -13,7 +13,9 @@ g.maplocalleader = [[\]]
 
 -- Enable completion triggered by <c-x><c-o>
 -- See `:help vim.lsp.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
+
+-- TODO: Really need to check if these keybindings override some other default bindings.
 map({ 'n' }, 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 map({ 'n' }, 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
 map({ 'n' }, 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -48,23 +50,29 @@ map({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 -- map('n', '<C-b>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 
 -- Bindings for Telescope and Nvim Tree
-map({ 'n' }, '<leader>ff', '<cmd>lua require("telescope.builtin").find_files(vim.g.telescope_theme)<CR>', { noremap=true })
-map({ 'n' }, '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>', { noremap=true })
-map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>', { noremap=true })
-map({ 'n' }, '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>', { noremap=true })
-map({ 'n' }, '<leader>fl', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>', { noremap=true })
-map({ 'n' }, '<leader>tt', '<cmd>NvimTreeToggle<CR>', { noremap=true })
-map({ 'n' }, '<leader>tr', '<cmd>NvimTreeRefresh<CR>', { noremap=true })
-map({ 'n' }, '<leader>tn', '<cmd>NvimTreeFindFile<CR>', { noremap=true })
+map({ 'n' }, '<leader>ff', '<cmd>lua require("telescope.builtin").find_files(vim.g.telescope_theme)<CR>', { noremap = true })
+map({ 'n' }, '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>', { noremap = true })
+map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>', { noremap = true })
+map({ 'n' }, '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>', { noremap = true })
+map({ 'n' }, '<leader>fl', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>', { noremap = true })
+map({ 'n' }, '<leader>tt', '<cmd>NvimTreeToggle<CR>', { noremap = true })
+map({ 'n' }, '<leader>tr', '<cmd>NvimTreeRefresh<CR>', { noremap = true })
+map({ 'n' }, '<leader>tn', '<cmd>NvimTreeFindFile<CR>', { noremap = true })
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
-map({ 'n' }, '\\', '\'_', { noremap=true })
+map({ 'n' }, '\\', '\'_', { noremap = true })
 
 
 -- Moving chunks of code using tab and shift tab in visual mode
-map({ 'v' }, '<Tab>', '>gv', { noremap=true })
-map({ 'v' }, '<S-Tab>', '<gv', { noremap=true })
+map({ 'v' }, '<Tab>', '>gv', { noremap = true })
+map({ 'v' }, '<S-Tab>', '<gv', { noremap = true })
+
+-- map({ 'v' }, '>', '>gv', { noremap=true })
+-- map({ 'v' }, '<', '<gv', { noremap=true })
+
+-- map({ 'n' }, '>', '>>', { noremap=true })
+-- map({ 'n' }, '<', '<<', { noremap=true })
 
 
 -- Buffer handling
@@ -158,4 +166,49 @@ nmap        s   <Plug>(vsnip-select-text)
 xmap        s   <Plug>(vsnip-select-text)
 nmap        S   <Plug>(vsnip-cut-text)
 xmap        S   <Plug>(vsnip-cut-text)
+]]
+
+vim.cmd[[
+augroup omnisharp_commands
+  autocmd!
+
+  " Show type information automatically when the cursor stops moving.
+  " Note that the type is echoed to the Vim command line, and will overwrite
+  " any other messages in this space including e.g. ALE linting messages.
+  autocmd CursorHold *.cs OmniSharpTypeLookup
+
+  " The following commands are contextual, based on the cursor position.
+  autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osfu <Plug>(omnisharp_find_usages)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osfi <Plug>(omnisharp_find_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ospd <Plug>(omnisharp_preview_definition)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ospi <Plug>(omnisharp_preview_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ost <Plug>(omnisharp_type_lookup)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osfs <Plug>(omnisharp_find_symbol)
+  autocmd FileType cs nmap <silent> <buffer> \[\[ <Plug>(omnisharp_navigate_up)
+  autocmd FileType cs nmap <silent> <buffer> \]\] <Plug>(omnisharp_navigate_down)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osfx <Plug>(omnisharp_fix_usings)
+  autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+  autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+
+  " Navigate up and down by method/property/field
+  " Find all code errors/warnings for the current solution and populate the quickfix window
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
+  " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+  autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+  " Repeat the last code action performed (does not use a selector)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
+  autocmd FileType cs xmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader>os= <Plug>(omnisharp_code_format)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osnm <Plug>(omnisharp_rename)
+
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
+  autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
+augroup END
+
 ]]
