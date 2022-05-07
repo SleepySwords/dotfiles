@@ -2,6 +2,8 @@ local o = vim.o
 local g = vim.g
 local cmd = vim.cmd
 
+require('impatient').enable_profile()
+
 require('plugins')
 
 if not g.bootstrap then
@@ -33,7 +35,7 @@ o.mouse = 'a'
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
 o.termguicolors = true
-o.guifont = 'Jetbrains Mono,Hack Nerd Font:l14'
+o.guifont = 'Jetbrains Mono,Hack Nerd Font:14'
 -- opt('guifont', 'Hack Nerd Font:l')
 -- opt('foldmethod', 'expr')
 -- opt('foldexpr', 'nvim_treesitter#foldexpr()')
@@ -56,7 +58,8 @@ if not g.bootstrap then
     g.sonokai_disable_italic_comment = 1
     g.sonokai_diagnostic_virtual_text = 'colour_background'
     g.colors_name = 'sonokai'
-    cmd[[colorscheme sonokai]]
+    -- cmd[[colorscheme sonokai]]
+    cmd[[colorscheme duskfox]]
     g.telescope_theme = require("ui.telescope").get_theme()
 end
 -- g.colors_name = 'tokyonight'
@@ -80,9 +83,17 @@ g.OmniSharp_server_stdio = 1
 g.OmniSharp_highlight_types = 2
 g.completion_matching_stategy_list = {'exact', 'substring', 'fuzzy'}
 
+
+g.Illuminate_ftblacklist = {'NvimTree', 'dashboard'}
+
 -- Global settings revolving this config
 g.discord = false
 g.indicator_ok = ''
 
 -- TODO: hightlight seleted line number
 -- TODO: fix glitchy tab in visual mode.
+vim.g.neon_style = "default"
+vim.g.neon_italic_keyword = true
+vim.g.neon_italic_function = true
+vim.g.neon_transparent = true
+-- vim.g.tokyonight_transparent = true

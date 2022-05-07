@@ -1,7 +1,5 @@
 -- Neovim tree
 require'nvim-tree'.setup {
-    auto_close = false,
-    auto_resize = true,
     view = {
 	   side = 'right'
     },
@@ -10,6 +8,7 @@ require'nvim-tree'.setup {
     },
     actions = {
 	open_file = {
+	    resize_window = true,
 	    quit_on_open = true
 	}
     }

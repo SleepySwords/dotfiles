@@ -10,7 +10,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
     packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-return require('packer').startup(function(use)
+return require('packer').startup((function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
@@ -28,6 +28,7 @@ return require('packer').startup(function(use)
     use 'folke/tokyonight.nvim'
     use 'EdenEast/nightfox.nvim'
     use 'joshdick/onedark.vim'
+    use 'rafamadriz/neon'
     -- use 'sickill/vim-monokai'
 
     --  LSP
@@ -42,12 +43,12 @@ return require('packer').startup(function(use)
 	requires= {{'RishabhRD/popfix'}}
     }
     -- use {
-	-- "folke/trouble.nvim",
-	-- requires = "kyazdani42/nvim-web-devicons",
-	-- ft = "cs",
-	-- config = function()
-	    -- require("trouble").setup {}
-	  -- end
+    -- "folke/trouble.nvim",
+    -- requires = "kyazdani42/nvim-web-devicons",
+    -- ft = "cs",
+    -- config = function()
+    -- require("trouble").setup {}
+    -- end
     -- }
 
     -- Unfortunately the way decompilation works in omnisharp is that the client sends a
@@ -70,9 +71,9 @@ return require('packer').startup(function(use)
     use 'hrsh7th/nvim-cmp'
 
     -- -- CMP Sources
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-cmdline'
-    use 'hrsh7th/cmp-path'
+    -- use 'hrsh7th/cmp-buffer'
+    -- use 'hrsh7th/cmp-cmdline'
+    -- use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/cmp-nvim-lsp'
 
@@ -101,20 +102,24 @@ return require('packer').startup(function(use)
 	-- run = ':TSUpdate'
     }
     use {
+	"SmiteshP/nvim-gps",
+	requires = "nvim-treesitter/nvim-treesitter"
+    }
+    use {
 	'nvim-treesitter/playground',
 	requires = {'nvim-treesitter/nvim-treesitter'},
     }
 
     --  File explorer
     use {
-        'kyazdani42/nvim-tree.lua',
-        requires = {'kyazdani42/nvim-web-devicons'}  --  for file icons
+	'kyazdani42/nvim-tree.lua',
+	requires = {'kyazdani42/nvim-web-devicons'}  --  for file icons
     }
 
     -- Status line
     -- use {
-	-- 'glepnir/galaxyline.nvim',
-	-- requires = {'kyazdani42/nvim-web-devicons', opt = true}
+    -- 'glepnir/galaxyline.nvim',
+    -- requires = {'kyazdani42/nvim-web-devicons', opt = true}
     -- }
     use {
 	'nvim-lualine/lualine.nvim', -- Limelight runs much faster, may consider switchign
@@ -144,29 +149,47 @@ return require('packer').startup(function(use)
     -- Testing
     -- TODO: Setup all commands
     use {
-        "rcarriga/vim-ultest",
-        config = "require('config.ultest').post()",
-        run = ":UpdateRemotePlugins",
-        requires = {"vim-test/vim-test"},
+	"rcarriga/vim-ultest",
+	config = "require('config.ultest').post()",
+	run = ":UpdateRemotePlugins",
+	requires = {"vim-test/vim-test"},
 	cmd = "ultest"
     }
 
     -- Quality of life stuff
-    use 'jiangmiao/auto-pairs'
+    -- use 'jiangmiao/auto-pairs'
+    -- use "steelsojka/pears.nvim"
+    use 'tpope/vim-surround'
     -- use 'terrortylor/nvim-comment'
+    use {
+	'folke/twilight.nvim',
+	config = function ()
+	    require("twilight").setup()
+	end
+    }
+    use {
+	'folke/zen-mode.nvim',
+	config = function ()
+	    require("zen-mode").setup()
+	end
+    }
     use 'tpope/vim-commentary'
     -- use 'pwntester/octo.nvim'
     -- use 'dyng/ctrlsf.vim'
+    use 'RRethy/vim-illuminate'
+    use 'lewis6991/nvim-treesitter-context'
+    use 'lewis6991/impatient.nvim'
     use 'vim-scripts/restore_view.vim'
     -- use 'kassio/neoterm'
     -- Why do i have lazygit if i have toggle term??!?!!
     -- use {
-	-- 'kdheepak/lazygit.nvim',
-	-- cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" }
+    -- 'kdheepak/lazygit.nvim',
+    -- cmd = { "LazyGit", "LazyGitConfig", "LazyGitFilter" }
     -- }
-    -- use "akinsho/toggleterm.nvim"
+    use "akinsho/toggleterm.nvim"
     use {
-	'dstein64/vim-startuptime',
+	'tweekmonster/startuptime.vim',
+	-- 'dstein64/vim-startuptime',
 	cmd = "StartupTime"
     }
     -- use 'norcalli/profiler.nvim'
@@ -179,7 +202,15 @@ return require('packer').startup(function(use)
     }
     use 'glepnir/dashboard-nvim'
 
+
+    use {
+	'phaazon/hop.nvim',
+	config = function()
+	    require('hop').setup()
+	end
+    }
+
     if packer_bootstrap then
 	require('packer').sync()
     end
-end)
+end))

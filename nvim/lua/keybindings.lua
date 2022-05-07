@@ -59,6 +59,9 @@ map({ 'n' }, '<leader>tt', '<cmd>NvimTreeToggle<CR>', { noremap = true })
 map({ 'n' }, '<leader>tr', '<cmd>NvimTreeRefresh<CR>', { noremap = true })
 map({ 'n' }, '<leader>tn', '<cmd>NvimTreeFindFile<CR>', { noremap = true })
 
+
+map({ 'n' }, '<leader>fn', '<cmd>HopWord<CR>', { noremap = true} )
+
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
 map({ 'n' }, '\\', '\'_', { noremap = true })
@@ -143,7 +146,7 @@ map({ 't' }, '<C-j>', [[<C-\><C-n><C-W>j]], { noremap = true })
 map({ 't' }, '<C-k>', [[<C-\><C-n><C-W>k]], { noremap = true })
 map({ 't' }, '<C-l>', [[<C-\><C-n><C-W>l]], { noremap = true })
 map({ 'n' }, '<leader>fo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
-map({ 'n' }, '<leader>fp', '<cmd>ToggleTerm<CR>', { noremap = true })
+map({ 'n' }, '<leader>fp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 
 -- Need to convert to lua
 vim.cmd [[ 
