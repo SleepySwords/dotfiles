@@ -6,6 +6,9 @@ lsp_installer.on_server_ready(function(server)
 	local opts = {
 		capabilities = require('lsp-status').capabilities,
 		on_attach = require('lsp-status').on_attach,
+		root_dir = function()
+			return vim.fn.getcwd()
+		end
 	}
 
 	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
@@ -18,7 +21,7 @@ require 'lspconfig'.rust_analyzer.setup(completion_engine.provide_capabilities({
 	capabilities = require('lsp-status').capabilities,
 	on_attach = function(client)
 		require('lsp-status').on_attach(client)
-		require 'illuminate'.on_attach(client)
+		-- require 'illuminate'.on_attach(client)
 	end,
 	root_dir = function()
 		return vim.fn.getcwd()

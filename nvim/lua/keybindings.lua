@@ -8,6 +8,14 @@ local function map(modes, lhs, rhs, opts)
 	for _, mode in ipairs(modes) do map_key(mode, lhs, rhs, opts) end
 end
 
+local function map_desc(modes, lhs, rhs, desc, opts)
+	opts = opts or {}
+	opts.noremap = opts.noremap == nil and true or opts.noremap
+	opts.desc = desc
+	if type(modes) == 'string' then modes = { modes } end
+	for _, mode in ipairs(modes) do map_key(mode, lhs, rhs, opts) end
+end
+
 g.mapleader = [[z]]
 g.maplocalleader = [[\]]
 
@@ -16,23 +24,23 @@ g.maplocalleader = [[\]]
 local opts = { noremap = true, silent = true }
 
 -- TODO: Really need to check if these keybindings override some other default bindings.
-map({ 'n' }, 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-map({ 'n' }, 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-map({ 'n' }, 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-map({ 'n' }, 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-map({ 'n' }, '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-map({ 'n' }, '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-map({ 'n' }, '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-map({ 'n' }, '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-map({ 'n' }, '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-map({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-map({ 'n' }, 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-map({ 'n' }, '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-map({ 'n' }, '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-map({ 'n' }, ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-map({ 'n' }, '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-map({ 'n' }, '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-map({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+map_desc({ 'n' }, 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', "LSP Declaration", opts)
+map_desc({ 'n' }, 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', "LSP Definition", opts)
+map_desc({ 'n' }, 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', "LSP Implementation", opts)
+map_desc({ 'n' }, 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', "LSP Rename", opts)
+map_desc({ 'n' }, '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', "LSP Signature Help", opts)
+map_desc({ 'n' }, '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', "LSP Add Workspace", opts)
+map_desc({ 'n' }, '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', "LSP Remove Workspace", opts)
+map_desc({ 'n' }, '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', "LSP List Workspaces", opts)
+map_desc({ 'n' }, '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', "LSP Type Definition", opts)
+map_desc({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', "LSP Code Action", opts)
+map_desc({ 'n' }, 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', "LSP References", opts)
+map_desc({ 'n' }, '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', "LSP Open Diagnostics", opts)
+map_desc({ 'n' }, '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', "LSP Previous Diagnostic", opts)
+map_desc({ 'n' }, ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', "LSP Next Diagnostic", opts)
+map_desc({ 'n' }, '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', "LSP Set Loclist", opts)
+map_desc({ 'n' }, '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', "LSP Format", opts)
+map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', "LSP Hover")
 
 -- map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
 
@@ -45,31 +53,34 @@ map({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 -- map('n', '<leader>d', "<cmd>lua require('lspsaga.floaterm').open_float_terminal()<CR>", opts) -- or open_float_terminal('lazygit')<CR>
 -- map('t', '<leader>d', "<C-\\><C-n>:lua require('lspsaga.floaterm').close_float_terminal()<CR>", opts)
 
+map('n', '<leader>gg', '<cmd>LazyGit<CR>', opts)
+
 -- map('n', 'K', "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
 -- map('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
 -- map('n', '<C-b>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 
 -- Bindings for Telescope and Nvim Tree
-map({ 'n' }, '<leader>ff', '<cmd>lua require("telescope.builtin").find_files(vim.g.telescope_theme)<CR>', { noremap = true })
-map({ 'n' }, '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>', { noremap = true })
-map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>', { noremap = true })
-map({ 'n' }, '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>', { noremap = true })
-map({ 'n' }, '<leader>fl', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>', { noremap = true })
-map({ 'n' }, '<leader>tt', '<cmd>NvimTreeToggle<CR>', { noremap = true })
-map({ 'n' }, '<leader>tr', '<cmd>NvimTreeRefresh<CR>', { noremap = true })
-map({ 'n' }, '<leader>tn', '<cmd>NvimTreeFindFile<CR>', { noremap = true })
+map_desc({ 'n' }, '<leader>ff', '<cmd>lua require("telescope.builtin").find_files(vim.g.telescope_theme)<CR>', "Open File Picker", { noremap = true })
+map_desc({ 'n' }, '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>', "Open Live Grep", { noremap = true })
+map_desc('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>', "Open Buffer Picker", { noremap = true })
+map_desc({ 'n' }, '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>', "Open Help Tags", { noremap = true })
+map_desc({ 'n' }, '<leader>fl', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>', "Open Git Files", { noremap = true })
+map_desc({ 'n' }, '<leader>tt', '<cmd>NvimTreeToggle<CR>', "Open File Tree", { noremap = true })
+map_desc({ 'n' }, '<leader>tr', '<cmd>NvimTreeRefresh<CR>', "Refresh File Tree", { noremap = true })
+map_desc({ 'n' }, '<leader>tn', '<cmd>NvimTreeFindFile<CR>', "Find Current File In Tree", { noremap = true })
 
+map_desc({ 'n' }, '<leader>ft', '<cmd>lua require("neotest").summary.open()<CR>', "Open summary test window", { noremap = true })
 
-map({ 'n' }, '<leader>fn', '<cmd>HopWord<CR>', { noremap = true} )
+map_desc({ 'n' }, '<leader>fn', '<cmd>HopWord<CR>', "Hop Word", { noremap = true} )
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
-map({ 'n' }, '\\', '\'_', { noremap = true })
+map_desc({ 'n' }, '\\', '\'_', "Blackhole Register", { noremap = true })
 
 
 -- Moving chunks of code using tab and shift tab in visual mode
-map({ 'v' }, '<Tab>', '>gv', { noremap = true })
-map({ 'v' }, '<S-Tab>', '<gv', { noremap = true })
+map_desc({ 'v' }, '<Tab>', '>gv', "Visual-Mode Indent Code", { noremap = true })
+map_desc({ 'v' }, '<S-Tab>', '<gv', "Visual-Mode Outdent Code", { noremap = true })
 
 -- map({ 'v' }, '>', '>gv', { noremap=true })
 -- map({ 'v' }, '<', '<gv', { noremap=true })
@@ -77,12 +88,12 @@ map({ 'v' }, '<S-Tab>', '<gv', { noremap = true })
 -- map({ 'n' }, '>', '>>', { noremap=true })
 -- map({ 'n' }, '<', '<<', { noremap=true })
 
-
 -- Buffer handling
-map({ 'n' }, 'L', '<cmd>let &number=1-&number<CR>')
-map({ 'n' }, '<leader>n', '<cmd>bnext<CR>')
-map({ 'n' }, '<leader>p', '<cmd>bprevious<CR>')
-map({ 'n' }, '<leader>bq', '<cmd>BufDel<CR>')
+-- map_desc({ 'n' }, 'L', '<cmd>let &number=1-&number<CR>', "Change Between Relative")
+map_desc({ 'n' }, 'L', '<cmd>if &rnu | set nornu | else | set rnu | endif<CR>', "Change Between Relative")
+map_desc({ 'n' }, '<leader>n', '<cmd>bnext<CR>', "Goto Next Buffer")
+map_desc({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', "Goto Prev Buffer")
+map_desc({ 'n' }, '<leader>bq', '<cmd>BufDel<CR>', "Delete The Current Buffer")
 map({ 'n' }, '<leader>bl', '<cmd>ls<CR>')
 map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>')
 -- http://stackoverflow.com/questions/7513380/vim-change-x-function-to-delete-buffer-instead-of-save-quit
@@ -140,7 +151,7 @@ map({ 'n' }, '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames(vi
 -- map('x', 'S', '<Plug>(vsnip-cut-text)')
 
 -- Terminal
-map({ 't' }, '<esc>', [[<C-\><C-n>]], { noremap = true })
+-- map({ 't' }, '<esc>', [[<C-\><C-n>]], { noremap = true })
 map({ 't' }, '<C-h>', [[<C-\><C-n><C-W>h]], { noremap = true })
 map({ 't' }, '<C-j>', [[<C-\><C-n><C-W>j]], { noremap = true })
 map({ 't' }, '<C-k>', [[<C-\><C-n><C-W>k]], { noremap = true })

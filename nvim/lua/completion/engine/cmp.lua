@@ -11,6 +11,12 @@ local feedkey = function(key, mode)
 end
 
 cmp.setup({
+	formatting = {
+		format = require('lspkind').cmp_format({
+			mode = 'text', -- show only symbol annotations
+			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+		})
+	},
 	sorting = {
 		priority_weight = 2,
 		comparators = {
@@ -52,7 +58,7 @@ cmp.setup({
 			--     -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
 		end,
 	},
-	mapping = cmp.mapping.preset.insert({
+	mapping = {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -82,15 +88,16 @@ cmp.setup({
 			c = cmp.mapping.close(),
 		}),
 		['<CR>'] = cmp.mapping.confirm({ select = true }),
-	}),
+	},
 	experimental = {
+		-- native_menu = false,
 		ghost_text = true
 	},
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'vsnip' },
-		-- { name = 'buffer' },
-		-- { name = 'path' },
+		{ name = 'path' },
+		{ name = 'buffer' },
 		-- { name = 'cmdline' }
 		-- { name = 'luasnip' }, -- For luasnip users.
 		-- { name = 'ultisnips' }, -- For ultisnips users.
