@@ -113,10 +113,10 @@ return require('packer').startup((function(use)
 	'nvim-treesitter/playground',
 	requires = { 'nvim-treesitter/nvim-treesitter' },
     }
-    use {
-	'p00f/nvim-ts-rainbow',
-	requires = { 'nvim-treesitter/nvim-treesitter' },
-    }
+    -- use {
+	-- 'p00f/nvim-ts-rainbow',
+	-- requires = { 'nvim-treesitter/nvim-treesitter' },
+    -- }
     use {
 	'nvim-treesitter/nvim-treesitter-textobjects',
 	requires = { 'nvim-treesitter/nvim-treesitter' },
@@ -282,6 +282,38 @@ return require('packer').startup((function(use)
 	cmd = "discord"
     }
     use 'glepnir/dashboard-nvim'
+
+    use {
+	'kevinhwang91/nvim-ufo',
+	requires = 'kevinhwang91/promise-async',
+	config = function ()
+		require('ufo').setup({
+    open_fold_hl_timeout = 150,
+    preview = {
+        win_config = {
+            border = {'', '─', '', '', '', '─', '', ''},
+            winhighlight = 'Normal:Folded',
+            winblend = 0
+        },
+        mappings = {
+            scrollU = '<C-u>',
+            scrollD = '<C-d>'
+        }
+    },
+})
+vim.keymap.set('n', 'K', function()
+    local winid = require('ufo').peekFoldedLinesUnderCursor()
+    if not winid then
+        -- choose one of them
+        -- coc.nvim
+        -- vim.fn.CocActionAsync('definitionHover')
+        -- nvimlsp
+        vim.lsp.buf.hover()
+    end
+end)
+
+	end
+    }
 
 
     use {

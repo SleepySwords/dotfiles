@@ -36,9 +36,9 @@ map_desc({ 'n' }, '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', "LSP
 map_desc({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', "LSP Code Action", opts)
 map_desc({ 'n' }, 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', "LSP References", opts)
 map_desc({ 'n' }, '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', "LSP Open Diagnostics", opts)
-map_desc({ 'n' }, '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', "LSP Previous Diagnostic", opts)
-map_desc({ 'n' }, ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', "LSP Next Diagnostic", opts)
-map_desc({ 'n' }, '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', "LSP Set Loclist", opts)
+map_desc({ 'n' }, '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', "LSP Previous Diagnostic", opts)
+map_desc({ 'n' }, ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', "LSP Next Diagnostic", opts)
+map_desc({ 'n' }, '<space>q', '<cmd>lua vim.diagnostic.set_loclist()<CR>', "LSP Set Loclist", opts)
 map_desc({ 'n' }, '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', "LSP Format", opts)
 map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', "LSP Hover")
 
