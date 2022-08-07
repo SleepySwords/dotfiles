@@ -1,31 +1,77 @@
 local completion_engine = require('completion.engine.cmp')
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-	-- Default options
-	local opts = {
-		capabilities = require('lsp-status').capabilities,
-		on_attach = require('lsp-status').on_attach,
-		root_dir = function()
-			return vim.fn.getcwd()
-		end
-	}
-	opts.capabilities.textDocument.foldingRange = {
-		dynamicRegistration = false,
-		lineFoldingOnly = true
-	}
+-- local lsp_installer = require("nvim-lsp-installer")
+-- lsp_installer.on_server_ready(function(server)
+-- 	-- Default options
+-- 	print(server)
+-- 	local opts = {
+-- 		capabilities = require('lsp-status').capabilities,
+-- 		on_attach = require('lsp-status').on_attach,
+-- 		root_dir = function()
+-- 			return vim.fn.getcwd()
+-- 		end
+-- 	}
+-- 	opts.capabilities.textDocument.foldingRange = {
+-- 		dynamicRegistration = false,
+-- 		lineFoldingOnly = true
+-- 	}
 
-	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-	server:setup(completion_engine.provide_capabilities(opts))
-	vim.cmd [[ do User LspAttachBuffers ]]
-end)
+-- 	-- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+-- 	server:setup(completion_engine.provide_capabilities(opts))
+-- 	vim.cmd [[ do User LspAttachBuffers ]]
+-- end)
+require("mason").setup()
+require("mason-lspconfig").setup()
+local lsp_config = require 'lspconfig'
 local capabilities = require('lsp-status').capabilities;
 capabilities.textDocument.foldingRange = {
 	dynamicRegistration = false,
 	lineFoldingOnly = true
 }
--- Probably will remove for LSP Install
-require 'lspconfig'.rust_analyzer.setup(completion_engine.provide_capabilities({
+lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	on_attach = function(client)
+		require('lsp-status').on_attach(client)
+		-- require 'illuminate'.on_attach(client)
+	end,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+lsp_config.sumneko_lua.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	on_attach = function(client)
+		require('lsp-status').on_attach(client)
+		-- require 'illuminate'.on_attach(client)
+	end,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+lsp_config.omnisharp.setup(completion_engine.provide_capabilities({
+	handlers = {
+		["textDocument/definition"] = require('omnisharp_extended').handler,
+	},
+	capabilities = capabilities,
+	on_attach = function(client)
+		require('lsp-status').on_attach(client)
+		-- require 'illuminate'.on_attach(client)
+	end,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+lsp_config.kotlin_language_server.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	on_attach = function(client)
+		require('lsp-status').on_attach(client)
+		-- require 'illuminate'.on_attach(client)
+	end,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+lsp_config.jdtls.setup(completion_engine.provide_capabilities({
 	capabilities = capabilities,
 	on_attach = function(client)
 		require('lsp-status').on_attach(client)

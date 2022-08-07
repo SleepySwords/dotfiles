@@ -10,6 +10,10 @@ if fn.empty(fn.glob(install_path)) > 0 then
     packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
+require('packer').init {
+max_jobs = 1
+}
+
 return require('packer').startup((function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
@@ -33,7 +37,8 @@ return require('packer').startup((function(use)
 
     --  LSP
     use 'neovim/nvim-lspconfig'
-    use 'williamboman/nvim-lsp-installer'
+    use 'williamboman/mason.nvim'
+    use "williamboman/mason-lspconfig.nvim"
     use 'nvim-lua/lsp-status.nvim'
     use 'nvim-lua/lsp_extensions.nvim'
 
@@ -59,13 +64,7 @@ return require('packer').startup((function(use)
     -- o#/v2/gotodefinition when recieving the textDocument/definition request or send a o#/v2/gotodefinition
     -- from the start, which is what is happening here with this plugin. Need to keep in mind that this uses
     -- two instances of omnisharp as a result.
-    --
-    -- TODO: write a plugin that sends an o#/v2/gotodefinition and add handler for that. As well as changing the keybindings
-    -- when entering c sharp files.
-    use {
-	'OmniSharp/omnisharp-vim',
-	ft = 'cs'
-    }
+    use 'Hoffs/omnisharp-extended-lsp.nvim'
     -- use 'ms-jpq/coq_nvim'
     -- use 'ms-jpq/coq.artifacts'
     -- use 'ms-jpq/coq.thirdparty'
@@ -222,7 +221,7 @@ return require('packer').startup((function(use)
 	    "vim-test/vim-test"
 	}
     }
-    
+
     -- use 'SleepySwords/neotest-rust'
 
     -- Quality of life stuff
@@ -283,37 +282,37 @@ return require('packer').startup((function(use)
     }
     use 'glepnir/dashboard-nvim'
 
-    use {
-	'kevinhwang91/nvim-ufo',
-	requires = 'kevinhwang91/promise-async',
-	config = function ()
-		require('ufo').setup({
-    open_fold_hl_timeout = 150,
-    preview = {
-        win_config = {
-            border = {'', '─', '', '', '', '─', '', ''},
-            winhighlight = 'Normal:Folded',
-            winblend = 0
-        },
-        mappings = {
-            scrollU = '<C-u>',
-            scrollD = '<C-d>'
-        }
-    },
-})
-vim.keymap.set('n', 'K', function()
-    local winid = require('ufo').peekFoldedLinesUnderCursor()
-    if not winid then
-        -- choose one of them
-        -- coc.nvim
-        -- vim.fn.CocActionAsync('definitionHover')
-        -- nvimlsp
-        vim.lsp.buf.hover()
-    end
-end)
+    -- use {
+	-- 'kevinhwang91/nvim-ufo',
+	-- requires = 'kevinhwang91/promise-async',
+	-- config = function ()
+	-- 	require('ufo').setup({
+    -- open_fold_hl_timeout = 150,
+    -- preview = {
+        -- win_config = {
+            -- border = {'', '─', '', '', '', '─', '', ''},
+            -- winhighlight = 'Normal:Folded',
+            -- winblend = 0
+        -- },
+        -- mappings = {
+            -- scrollU = '<C-u>',
+            -- scrollD = '<C-d>'
+        -- }
+    -- },
+-- })
+-- vim.keymap.set('n', 'K', function()
+    -- local winid = require('ufo').peekFoldedLinesUnderCursor()
+    -- if not winid then
+        -- -- choose one of them
+        -- -- coc.nvim
+        -- -- vim.fn.CocActionAsync('definitionHover')
+        -- -- nvimlsp
+        -- vim.lsp.buf.hover()
+    -- end
+-- end)
 
-	end
-    }
+	-- end
+    -- }
 
 
     use {

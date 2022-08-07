@@ -6,11 +6,11 @@ local cmd = vim.cmd
 
 vim.opt.runtimepath:append("~/Stuff/Computer_Science/lua/neotest-rust")
 
-require('impatient').enable_profile()
 
 require('plugins')
 
 if not g.bootstrap then
+	require('impatient').enable_profile()
 	require('completion.lsp')
 	require('ui.ui')
 	require('config.navigation')
@@ -110,7 +110,7 @@ g.OmniSharp_server_stdio = 1
 g.OmniSharp_highlight_types = 2
 g.completion_matching_stategy_list = { 'exact', 'substring', 'fuzzy' }
 
-vim.cmd[[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
+vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
 
 g.Illuminate_ftblacklist = { 'NvimTree', 'dashboard' }
 
