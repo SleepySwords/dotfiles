@@ -3,7 +3,7 @@
 ## Installation
 1. Git clone or download this repo.
 2. Copy and paste the contents of the nvim folder into your nvim config installation.
-3. First run would sync up the plugins but not apply them, exit and rerun after the sync has been done.
+3. The first run should sync up the plugins but does not apply them, exit and rerun after the sync has been done.
 
 ## Docker installation and running
 1. Run `docker build -t neovim .` in the dotfiles director to build as an image (This only needs to be run one).
@@ -19,15 +19,13 @@ alternatively
 Press Ctrl-D to exit the shell.
 
 ## Dependencies and requirements
-- Require minimum neovim 0.7 for lsp and treesitter
-- The theme requires a terminal with true colours (or you could change the default theme)
+- Minimum requirement neovim 0.7+ because of lsp and treesitter
+- The default theme requires a terminal with true colours (or you could change the default theme)
     - Mac OS default terminal doesn't support true colours :(
-- nvim-lsputils requires [bat](https://github.com/sharkdp/bat) (this is lokecat but able to better colouring / formatting) to be installed.
+    - Use kitty :)
+- nvim-lsputils requires [bat](https://github.com/sharkdp/bat) (which is like cat but with to better colouring / formatting) to be installed.
 - fzf.vim requires [fzf](https://github.com/junegunn/fzf) and [delta](https://github.com/dandavison/delta) to be installed.
-- [Rust-analyzer](https://rust-analyzer.github.io/) may be installed as it being used as a source for rust lsp.
-- DAP servers also should be installed in ~/.local/share/nvim/dap_servers and setup as their own individual dbg file (see python.lua in dbg)
-    - python, javascript, rust and c# already have configs but the dap servers don't come preinstalled
-	- You'll have to install them manually (should probs use a dap installer plugin)
+- [Rust-analyzer](https://rust-analyzer.github.io/) for rust lsp.
 
 ## Credits
 - Nvim config based on https://medium.com/swlh/neovim-lsp-dap-and-fuzzy-finder-60337ef08060
