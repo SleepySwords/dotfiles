@@ -35,4 +35,3 @@ function _floatwindow_toggle()
 end
 
 -- require "pears".setup()
-require("nvim-gps").setup()

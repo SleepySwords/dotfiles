@@ -69,8 +69,8 @@ map_desc({ 'n' }, '<leader>tt', '<cmd>NvimTreeToggle<CR>', "Open File Tree", { n
 map_desc({ 'n' }, '<leader>tr', '<cmd>NvimTreeRefresh<CR>', "Refresh File Tree", { noremap = true })
 map_desc({ 'n' }, '<leader>tn', '<cmd>NvimTreeFindFile<CR>', "Find Current File In Tree", { noremap = true })
 
-map_desc({ 'n' }, '<leader>ft', '<cmd>lua require("neotest").summary.open()<CR>', "Open summary test window", { noremap = true })
-
+map_desc({ 'n' }, '<leader>fts', '<cmd>lua require("neotest").summary.open()<CR>', "Open summary test window", { noremap = true })
+map_desc({ 'n' }, '<leader>fto', '<cmd>lua require("neotest").output.open()<CR>', "Open output test window", { noremap = true })
 map_desc({ 'n' }, '<leader>fn', '<cmd>HopWord<CR>', "Hop Word", { noremap = true} )
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
@@ -160,27 +160,28 @@ map({ 'n' }, '<leader>fo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = tru
 map({ 'n' }, '<leader>fp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 
 -- Need to convert to lua
-vim.cmd [[ 
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+-- TODO: Uncomment
+-- vim.cmd [[ 
+-- imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+-- smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
 
-" Expand or jump
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+-- " Expand or jump
+-- imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+-- smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 
-" Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+-- " Jump forward or backward
+-- imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+-- smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+-- imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+-- smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
-]]
+-- " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+-- " See https://github.com/hrsh7th/vim-vsnip/pull/50
+-- nmap        s   <Plug>(vsnip-select-text)
+-- xmap        s   <Plug>(vsnip-select-text)
+-- nmap        S   <Plug>(vsnip-cut-text)
+-- xmap        S   <Plug>(vsnip-cut-text)
+-- ]]
 
 -- vim.cmd[[
 -- augroup omnisharp_commands

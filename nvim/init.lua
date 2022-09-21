@@ -4,20 +4,7 @@ local cmd = vim.cmd
 
 -- require'plenary.profile'.start("profile.log")
 
-vim.opt.runtimepath:append("~/Stuff/Computer_Science/lua/neotest-rust")
-
-
-require('plugins')
-
-if not g.bootstrap then
-	require('impatient').enable_profile()
-	require('completion.lsp')
-	require('ui.ui')
-	require('config.navigation')
-	require('config.miscellaneous')
-	require('keybindings')
-	require('dbg.dbg')
-end
+-- vim.opt.runtimepath:append("~/Stuff/Computer_Science/lua/neotest-rust")
 
 -- Vim options setup
 o.compatible = false
@@ -38,9 +25,14 @@ o.omnifunc = 'v:lua.vim.lsp.omnifunc'
 o.mouse = 'a'
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
-o.termguicolors = true
 o.guifont = 'Jetbrains Mono,Hack Nerd Font:14'
 
+o.foldcolumn = '1'
+o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+o.foldlevelstart = 99
+o.foldenable = true
+o.tabstop = 4
 o.laststatus = 3
 
 -- opt('guifont', 'Hack Nerd Font:l')
@@ -77,9 +69,9 @@ if not g.bootstrap then
 	g.colors_name = 'sonokai'
 	g.tokyonight_style = "night"
 	-- cmd[[colorscheme sonokai]]
-	-- cmd [[colorscheme duskfox]]
+	cmd [[colorscheme duskfox]]
 	-- cmd [[colorscheme onedark]]
-	cmd [[colorscheme tokyonight]]
+	-- cmd [[colorscheme tokyonight]]
 	g.telescope_theme = require("ui.telescope").get_theme()
 end
 -- g.colors_name = 'tokyonight'
@@ -96,9 +88,6 @@ g.ultest_pass_sign = ''
 -- Neovide
 -- g.neovide_fullscreen = true
 g.neovide_cursor_vfx_mode = "pixiedust"
--- g.neovide_cursor_vfx_particle_lifetime=10
--- g.neovide_cursor_vfx_particle_density=1000.0
-
 
 -- Omnisharp settings
 g.OmniSharp_server_use_mono = 1
@@ -124,12 +113,16 @@ vim.g.neon_style = "default"
 vim.g.neon_italic_keyword = true
 vim.g.neon_italic_function = true
 vim.g.neon_transparent = true
--- vim.g.tokyonight_transparent = true
 
--- require'plenary.profile'.stop()
 
--- _G.gps_location = function()
---   local gps = require "nvim-gps"
---   return gps.is_available() and gps.get_location() or ""
--- end
--- vim.opt.winbar = "%{%v:lua.gps_location()%}"
+require('plugins')
+
+if not g.bootstrap then
+	require('impatient').enable_profile()
+	require('completion.lsp')
+	require('config.navigation')
+	require('config.miscellaneous')
+	require('keybindings')
+	require('dbg.dbg')
+	require('ui.ui')
+end

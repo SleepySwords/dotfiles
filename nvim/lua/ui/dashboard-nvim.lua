@@ -5,7 +5,7 @@ require('splashscreen-sprites')
 
 -- autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
 g.dashboard_default_executive = 'telescope'
-db.custom_header = g.dashboard_custom_header6
+db.custom_header = g.portal_cake
 db.preview_file_height = 12
 db.preview_file_width = 80
 db.center_pad = 2

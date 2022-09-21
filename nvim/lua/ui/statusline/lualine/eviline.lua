@@ -172,12 +172,6 @@ ins_left {
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
 ins_left {
-	function()
-		return '%='
-	end,
-}
-
-ins_left {
 	'diagnostics',
 	sources = { 'nvim_lsp' },
 	-- The Symbols are sourced from DiagnosticSign, which is defined in lsp_error.lua
@@ -192,6 +186,12 @@ ins_left {
 
 local diagnostics = require('lsp-status/diagnostics')
 local lsp_status = require('lsp-status')
+ins_left {
+	function()
+		return '%='
+	end,
+}
+
 
 ins_left {
 	-- Lsp status
