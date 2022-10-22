@@ -110,7 +110,7 @@ cmp.setup({
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
 local provide_capabilities = function(opts)
-	opts.capabilities = cmp_nvim_lsp.update_capabilities(opts.capabilities)
+	opts.capabilities = vim.tbl_extend('keep', cmp_nvim_lsp.default_capabilities(), opts.capabilities)
 	return opts
 end
 

@@ -64,7 +64,7 @@ local function get_next_colour(severity)
 		end
 	end
 	if severity == "STATUS" then
-		if diag.infos > 0 then
+		if diag.info > 0 then
 			return "aqua"
 		elseif diag.hints > 0 then
 			return "green"
@@ -219,7 +219,7 @@ local c = {
 				}
 			end
 		},
-		right_serp = "slant_right_2",
+		right_sep = "block",
 		enabled = function()
 			return lsp_provider.is_lsp_attached()
 		end,
@@ -260,7 +260,7 @@ local c = {
 			hl = function()
 				return {
 					fg = "magenta",
-					bg = get_next_colour("INFO")
+					bg = get_next_colour("STATUS")
 				}
 			end
 		},
