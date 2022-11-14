@@ -16,7 +16,7 @@ local function map_desc(modes, lhs, rhs, desc, opts)
 	for _, mode in ipairs(modes) do map_key(mode, lhs, rhs, opts) end
 end
 
-g.mapleader = [[ ]]
+g.mapleader = [[z]]
 g.maplocalleader = [[\]]
 
 -- Enable completion triggered by <c-x><c-o>
@@ -33,8 +33,7 @@ map_desc({ 'n' }, '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'
 map_desc({ 'n' }, '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', "LSP Remove Workspace", opts)
 map_desc({ 'n' }, '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
 	"LSP List Workspaces", opts)
-map_desc({ 'n' }, '<space>od', '<cmd>lua vim.diagnostic.open_float({focusable=true})<CR>', "Focue on the diagnostics",
-	opts)
+map_desc({ 'n' }, '<space>d', '<cmd>lua vim.diagnostic.open_float({focusable=true})<CR>', "Focue on the diagnostics", opts)
 map_desc({ 'n' }, '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', "LSP Type Definition", opts)
 map_desc({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', "LSP Code Action", opts)
 map_desc({ 'n' }, 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', "LSP References", opts)
@@ -42,7 +41,7 @@ map_desc({ 'n' }, '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', "LSP O
 map_desc({ 'n' }, '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', "LSP Previous Diagnostic", opts)
 map_desc({ 'n' }, ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', "LSP Next Diagnostic", opts)
 map_desc({ 'n' }, '<space>q', '<cmd>lua vim.diagnostic.set_loclist()<CR>', "LSP Set Loclist", opts)
-map_desc({ 'n' }, '<space>k', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', "LSP Format", opts)
+map_desc({ 'n' }, '<space>f', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', "LSP Format", opts)
 map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', "LSP Hover")
 
 -- map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
@@ -56,32 +55,32 @@ map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', "LSP Hover")
 -- map('n', '<leader>d', "<cmd>lua require('lspsaga.floaterm').open_float_terminal()<CR>", opts) -- or open_float_terminal('lazygit')<CR>
 -- map('t', '<leader>d', "<C-\\><C-n>:lua require('lspsaga.floaterm').close_float_terminal()<CR>", opts)
 
-map('n', '<leader>g', '<cmd>LazyGit<CR>', opts)
+map('n', '<leader>gg', '<cmd>LazyGit<CR>', opts)
 
 -- map('n', 'K', "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
 -- map('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
 -- map('n', '<C-b>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 
 -- Bindings for Telescope and Nvim Tree
-map_desc({ 'n' }, '<leader>f', '<cmd>lua require("telescope.builtin").find_files(vim.g.telescope_theme)<CR>',
+map_desc({ 'n' }, '<leader>ff', '<cmd>lua require("telescope.builtin").find_files(vim.g.telescope_theme)<CR>',
 	"Open File Picker", { noremap = true })
-map_desc({ 'n' }, '<leader>ag', '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>',
+map_desc({ 'n' }, '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>',
 	"Open Live Grep", { noremap = true })
-map_desc('n', '<leader>bb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>',
+map_desc('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>',
 	"Open Buffer Picker", { noremap = true })
-map_desc({ 'n' }, '<leader>h', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>',
+map_desc({ 'n' }, '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>',
 	"Open Help Tags", { noremap = true })
-map_desc({ 'n' }, '<leader>l', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>',
+map_desc({ 'n' }, '<leader>fl', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>',
 	"Open Git Files", { noremap = true })
-map_desc({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', "Open File Tree", { noremap = true })
-map_desc({ 'n' }, '<leader>ar', '<cmd>NvimTreeRefresh<CR>', "Refresh File Tree", { noremap = true })
-map_desc({ 'n' }, '<leader>an', '<cmd>NvimTreeFindFile<CR>', "Find Current File In Tree", { noremap = true })
+map_desc({ 'n' }, '<leader>tt', '<cmd>NvimTreeToggle<CR>', "Open File Tree", { noremap = true })
+map_desc({ 'n' }, '<leader>tr', '<cmd>NvimTreeRefresh<CR>', "Refresh File Tree", { noremap = true })
+map_desc({ 'n' }, '<leader>tn', '<cmd>NvimTreeFindFile<CR>', "Find Current File In Tree", { noremap = true })
 
-map_desc({ 'n' }, '<leader>as', '<cmd>lua require("neotest").summary.open()<CR>', "Open summary test window",
+map_desc({ 'n' }, '<leader>fts', '<cmd>lua require("neotest").summary.open()<CR>', "Open summary test window",
 	{ noremap = true })
-map_desc({ 'n' }, '<leader>ao', '<cmd>lua require("neotest").output.open()<CR>', "Open output test window",
+map_desc({ 'n' }, '<leader>fto', '<cmd>lua require("neotest").output.open()<CR>', "Open output test window",
 	{ noremap = true })
-map_desc({ 'n' }, '<leader>j', '<cmd>HopWord<CR>', "Hop Word", { noremap = true })
+map_desc({ 'n' }, '<leader>fn', '<cmd>HopWord<CR>', "Hop Word", { noremap = true })
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
@@ -166,8 +165,8 @@ map({ 't' }, '<C-h>', [[<C-\><C-n><C-W>h]], { noremap = true })
 map({ 't' }, '<C-j>', [[<C-\><C-n><C-W>j]], { noremap = true })
 map({ 't' }, '<C-k>', [[<C-\><C-n><C-W>k]], { noremap = true })
 map({ 't' }, '<C-l>', [[<C-\><C-n><C-W>l]], { noremap = true })
-map({ 'n' }, '<leader>wo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
-map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
+map({ 'n' }, '<leader>fo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
+map({ 'n' }, '<leader>fp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 
 -- Need to convert to lua
 -- TODO: Uncomment
@@ -191,4 +190,49 @@ map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = tr
 -- xmap        s   <Plug>(vsnip-select-text)
 -- nmap        S   <Plug>(vsnip-cut-text)
 -- xmap        S   <Plug>(vsnip-cut-text)
+-- ]]
+
+-- vim.cmd[[
+-- augroup omnisharp_commands
+--   autocmd!
+
+--   " Show type information automatically when the cursor stops moving.
+--   " Note that the type is echoed to the Vim command line, and will overwrite
+--   " any other messages in this space including e.g. ALE linting messages.
+--   autocmd CursorHold *.cs OmniSharpTypeLookup
+
+--   " The following commands are contextual, based on the cursor position.
+--   autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osfu <Plug>(omnisharp_find_usages)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osfi <Plug>(omnisharp_find_implementations)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>ospd <Plug>(omnisharp_preview_definition)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>ospi <Plug>(omnisharp_preview_implementations)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>ost <Plug>(omnisharp_type_lookup)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osfs <Plug>(omnisharp_find_symbol)
+--   autocmd FileType cs nmap <silent> <buffer> \[\[ <Plug>(omnisharp_navigate_up)
+--   autocmd FileType cs nmap <silent> <buffer> \]\] <Plug>(omnisharp_navigate_down)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osfx <Plug>(omnisharp_fix_usings)
+--   autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+--   autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+
+--   " Navigate up and down by method/property/field
+--   " Find all code errors/warnings for the current solution and populate the quickfix window
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
+--   " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+--   autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+--   " Repeat the last code action performed (does not use a selector)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
+--   autocmd FileType cs xmap <silent> <buffer> <Leader>os. <Plug>(omnisharp_code_action_repeat)
+
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>os= <Plug>(omnisharp_code_format)
+
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osnm <Plug>(omnisharp_rename)
+
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
+--   autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
+-- augroup END
+
 -- ]]

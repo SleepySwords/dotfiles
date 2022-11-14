@@ -78,3 +78,24 @@ lsp_config.jsonls.setup(completion_engine.provide_capabilities({
 		return vim.fn.getcwd()
 	end
 }))
+lsp_config.volar.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	on_attach = default_on_attach,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+lsp_config.tsserver.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	on_attach = default_on_attach,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+lsp_config.pyright.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	on_attach = default_on_attach,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))

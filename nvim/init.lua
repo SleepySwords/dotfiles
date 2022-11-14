@@ -25,7 +25,7 @@ o.omnifunc = 'v:lua.vim.lsp.omnifunc'
 o.mouse = 'a'
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
-o.guifont = 'Jetbrains Mono,Hack Nerd Font:14'
+-- o.guifont = 'Jetbrains Mono Medium,Hack Nerd Font:14'
 
 o.foldcolumn = '1'
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
