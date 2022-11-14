@@ -25,7 +25,7 @@ o.omnifunc = 'v:lua.vim.lsp.omnifunc'
 o.mouse = 'a'
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
--- o.guifont = 'Jetbrains Mono Medium,Hack Nerd Font:14'
+o.guifont = 'Jetbrains Mono Medium:12,Hack Nerd Font:12'
 
 o.foldcolumn = '1'
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -100,6 +100,11 @@ g.OmniSharp_highlight_types = 2
 g.completion_matching_stategy_list = { 'exact', 'substring', 'fuzzy' }
 
 vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
+-- vim.cmd [[highlight link TelescopeMatching Type]]
+vim.cmd [[highlight link TelescopeSelection Define]]
+-- Icons become weird when bolded
+-- vim.cmd [[highlight TelescopeSelection guifg=#f0a6cc gui=bold]]
+vim.cmd [[highlight TelescopeMatching guifg=#f6c177 gui=bold]]
 
 g.Illuminate_ftblacklist = { 'NvimTree', 'dashboard' }
 

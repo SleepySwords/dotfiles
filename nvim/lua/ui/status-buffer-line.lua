@@ -13,7 +13,7 @@ require("bufferline").setup {
 require('ui.statusline.feline.eviline')
 -- else
 -- 	-- Should 100% not be here, but oh well.
--- 	vim.o.laststatus = 0
+	vim.o.laststatus = 3
 -- end
 
 -- Provides the status of an lsp in the statusline

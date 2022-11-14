@@ -75,7 +75,11 @@ map_desc({ 'n' }, '<leader>l', '<cmd>lua require("telescope.builtin").git_files(
 	"Open Git Files", { noremap = true })
 map_desc({ 'n' }, '<leader>s', '<cmd>lua require("telescope.builtin").lsp_document_symbols(vim.g.telescope_theme)<cr>',
 	"Open document symbols", { noremap = true })
-map_desc({ 'n' }, '<leader>S', '<cmd>lua require("telescope.builtin").lsp_workspace_symbols(vim.g.telescope_theme)<cr>',
+map_desc({ 'n' }, '<leader>G', '<cmd>lua require("telescope.builtin").diagnostics(vim.g.telescope_theme)<cr>',
+	"Open diagnostics", { noremap = true })
+map_desc({ 'n' }, '<leader>S',
+	'<cmd>lua require("telescope.builtin").lsp_workspace_symbols(require("ui.telescope").get_theme({path_display = "hidden" }))<cr>'
+	,
 	"Open workspace symbols", { noremap = true })
 map_desc({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', "Open File Tree", { noremap = true })
 map_desc({ 'n' }, '<leader>ar', '<cmd>NvimTreeRefresh<CR>', "Refresh File Tree", { noremap = true })

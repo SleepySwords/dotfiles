@@ -91,7 +91,7 @@ local c = {
 			return {
 				fg = require("feline.providers.vi_mode").get_mode_color(),
 				bg = "darkblue",
-				style = "bold",
+				-- style = "bold",
 				name = "NeovimModeHLColor",
 			}
 		end,
@@ -271,7 +271,7 @@ local c = {
 		hl = {
 			fg = "purple",
 			bg = "darkblue",
-			style = "bold",
+			-- style = "bold",
 		},
 		left_sep = "left_filled",
 		right_sep = "block",
@@ -287,7 +287,7 @@ local c = {
 		hl = {
 			fg = "red",
 			bg = "darkblue",
-			style = "bold",
+			-- style = "bold",
 		},
 		left_sep = "block",
 		right_sep = "block",
