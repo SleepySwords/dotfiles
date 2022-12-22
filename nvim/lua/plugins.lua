@@ -34,6 +34,8 @@ return require('packer').startup((function(use)
 	use 'joshdick/onedark.vim'
 	use 'rafamadriz/neon'
 	-- use 'sickill/vim-monokai'
+	use 'tanvirtin/monokai.nvim'
+	use 'catppuccin/vim'
 
 	-- Adds LSP support
 	use 'neovim/nvim-lspconfig'
@@ -80,8 +82,24 @@ return require('packer').startup((function(use)
 
 	use 'onsails/lspkind.nvim'
 
-	-- use 'rust-lang/rust.vim'
-	-- use 'simrat39/rust-tools.nvim'
+	use 'YorickPeterse/rust.vim'
+	-- use {
+	-- 	'simrat39/rust-tools.nvim',
+	-- 	config = function()
+	-- 		local rt = require("rust-tools")
+
+	-- 		rt.setup({
+	-- 			server = {
+	-- 				on_attach = function(_, bufnr)
+	-- 					-- Hover actions
+	-- 					vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+	-- 					-- Code action groups
+	-- 					vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+	-- 				end,
+	-- 			},
+	-- 		})
+	-- 	end
+	-- }
 
 	--  Code snippets
 	use 'hrsh7th/vim-vsnip'
@@ -104,6 +122,7 @@ return require('packer').startup((function(use)
 		end,
 		-- run = ':TSUpdate'
 	}
+	-- use 'nvim-telescope/telescope-symbols.nvim'
 	use {
 		"SmiteshP/nvim-navic",
 		requires = "nvim-treesitter/nvim-treesitter"
@@ -112,10 +131,10 @@ return require('packer').startup((function(use)
 		'nvim-treesitter/playground',
 		requires = { 'nvim-treesitter/nvim-treesitter' },
 	}
-	-- use {
-	-- 'p00f/nvim-ts-rainbow',
-	-- requires = { 'nvim-treesitter/nvim-treesitter' },
-	-- }
+	use {
+		'p00f/nvim-ts-rainbow',
+		requires = { 'nvim-treesitter/nvim-treesitter' },
+	}
 	use {
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		requires = { 'nvim-treesitter/nvim-treesitter' },
@@ -139,16 +158,16 @@ return require('packer').startup((function(use)
 	-- }
 	use {
 		'feline-nvim/feline.nvim',
-        requires = {
-            {
-                'lewis6991/gitsigns.nvim',
-                requires = { 'nvim-lua/plenary.nvim' },
-                config = function()
-                    require('gitsigns').setup()
-                end,
-            },
-            'kyazdani42/nvim-web-devicons',
-        },
+		requires = {
+			{
+				'lewis6991/gitsigns.nvim',
+				requires = { 'nvim-lua/plenary.nvim' },
+				config = function()
+					require('gitsigns').setup()
+				end,
+			},
+			'kyazdani42/nvim-web-devicons',
+		},
 	}
 	use 'akinsho/nvim-bufferline.lua'
 	-- use 'nanozuki/tabby.nvim'
@@ -219,7 +238,7 @@ return require('packer').startup((function(use)
 					-- require("neotest-python")({
 					--     dap = { justMyCode = false },
 					-- }),
-					require("neotest-rust"),
+					-- require("neotest-rust"),
 					require("neotest-vim-test")({
 						ignore_file_types = { "rust", "python", "vim", "lua" },
 					}),
@@ -238,12 +257,21 @@ return require('packer').startup((function(use)
 
 	use 'rouge8/neotest-rust'
 
-	-- use 'SleepySwords/neotest-rust'
-
 	-- Quality of life stuff
 	-- use 'jiangmiao/auto-pairs'
+	use { "windwp/nvim-autopairs",
+		config = function() require("nvim-autopairs").setup {
+				enable_check_bracket_line = false
+			}
+		end
+	}
+
 	-- use "steelsojka/pears.nvim"
-	use 'tpope/vim-surround'
+	use { 'kylechui/nvim-surround', config = function()
+		require("nvim-surround").setup({})
+		-- Configuration here, or leave empty to use defaults
+	end
+	}
 	-- use 'terrortylor/nvim-comment'
 	use {
 		'folke/twilight.nvim',
@@ -270,8 +298,135 @@ return require('packer').startup((function(use)
 		end
 	}
 	-- use 'dyng/ctrlsf.vim'
-	-- use 'RRethy/vim-illuminate', conflicts with which-key
-	use 'lewis6991/nvim-treesitter-context'
+	use {
+		'RRethy/vim-illuminate', --, conflicts with which-key
+		config = function()
+			require('illuminate').configure({
+				providers = {
+					'lsp'
+				}, delay = 0
+			})
+		end
+	}
+	use { 'lvimuser/lsp-inlayhints.nvim', config = function()
+		-- require("lsp-inlayhints").setup({
+		-- inlay_hints = {
+		-- 	parameter_hints = {
+		-- 		show = true,
+		-- 		prefix = "<- ",
+		-- 		separator = ", ",
+		-- 		remove_colon_start = true,
+		-- 		remove_colon_end = true,
+		-- 	},
+		-- 	type_hints = {
+		-- 		-- type and other hints
+		-- 		show = true,
+		-- 		prefix = "",
+		-- 		separator = ", ",
+		-- 		remove_colon_start = true,
+		-- 		remove_colon_end = true,
+		-- 	},
+		-- 	only_current_line = false,
+		-- 	-- separator between types and parameter hints. Note that type hints are
+		-- 	-- shown before parameter
+		-- 	labels_separator = "  ",
+		-- 	-- whether to align to the length of the longest line in the file
+		-- 	max_len_align = false,
+		-- 	-- padding from the left if max_len_align is true
+		-- 	max_len_align_padding = 1,
+		-- 	-- highlight group
+		-- 	highlight = "LspInlayHint",
+		-- 	-- virt_text priority
+		-- 	priority = 0,
+		-- },
+		-- enabled_at_startup = true,
+		-- debug_mode = false,
+		-- })
+	end }
+
+	-- Maybe enable later?
+	-- use {
+	-- 	'nvim-treesitter/nvim-treesitter-context',
+	-- 	config = function()
+	-- 		require 'treesitter-context'.setup {
+	-- 			enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+	-- 			max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+	-- 			trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+	-- 			min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+	-- 			patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+	-- 				-- For all filetypes
+	-- 				-- Note that setting an entry here replaces all other patterns for this entry.
+	-- 				-- By setting the 'default' entry below, you can control which nodes you want to
+	-- 				-- appear in the context window.
+	-- 				default = {
+	-- 					'class',
+	-- 					'function',
+	-- 					'method',
+	-- 					'for',
+	-- 					'while',
+	-- 					'if',
+	-- 					'switch',
+	-- 					'case',
+	-- 				},
+	-- 				-- Patterns for specific filetypes
+	-- 				-- If a pattern is missing, *open a PR* so everyone can benefit.
+	-- 				tex = {
+	-- 					'chapter',
+	-- 					'section',
+	-- 					'subsection',
+	-- 					'subsubsection',
+	-- 				},
+	-- 				rust = {
+	-- 					'impl_item',
+	-- 					'struct',
+	-- 					'enum',
+	-- 				},
+	-- 				scala = {
+	-- 					'object_definition',
+	-- 				},
+	-- 				vhdl = {
+	-- 					'process_statement',
+	-- 					'architecture_body',
+	-- 					'entity_declaration',
+	-- 				},
+	-- 				markdown = {
+	-- 					'section',
+	-- 				},
+	-- 				elixir = {
+	-- 					'anonymous_function',
+	-- 					'arguments',
+	-- 					'block',
+	-- 					'do_block',
+	-- 					'list',
+	-- 					'map',
+	-- 					'tuple',
+	-- 					'quoted_content',
+	-- 				},
+	-- 				json = {
+	-- 					'pair',
+	-- 				},
+	-- 				yaml = {
+	-- 					'block_mapping_pair',
+	-- 				},
+	-- 			},
+	-- 			exact_patterns = {
+	-- 				-- Example for a specific filetype with Lua patterns
+	-- 				-- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
+	-- 				-- exactly match "impl_item" only)
+	-- 				-- rust = true,
+	-- 			},
+
+	-- 			-- [!] The options below are exposed but shouldn't require your attention,
+	-- 			--     you can safely ignore them.
+
+	-- 			zindex = 20, -- The Z-index of the context window
+	-- 			mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+	-- 			-- Separator between context and content. Should be a single character string, like '-'.
+	-- 			-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+	-- 			separator = nil,
+	-- 		}
+	-- 	end
+	-- }
 	use 'lewis6991/impatient.nvim'
 	use 'vim-scripts/restore_view.vim'
 	-- use 'kassio/neoterm'
@@ -297,6 +452,7 @@ return require('packer').startup((function(use)
 		cmd = "discord"
 	}
 	use 'glepnir/dashboard-nvim'
+	use 'samodostal/image.nvim'
 
 	use {
 		'kevinhwang91/nvim-ufo',
@@ -312,43 +468,62 @@ return require('packer').startup((function(use)
 		end
 	}
 
+	-- use({
+	-- 	"folke/noice.nvim",
+	-- 	config = function()
+	-- 		require("noice").setup({
+	-- 			-- add any options here
+	-- 		})
+	-- 	end,
+	-- 	requires = {
+	-- 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		-- OPTIONAL:
+	-- 		--   `nvim-notify` is only needed, if you want to use the notification view.
+	-- 		--   If not available, we use `mini` as the fallback
+	-- 		"rcarriga/nvim-notify",
+	-- 	}
+	-- })
+
 	-- use {
 	-- 	'glacambre/firenvim',
 	-- 	run = function() vim.fn['firenvim#install'](0) end
 	-- }
+	--
+	-- use 'lukas-reineke/indent-blankline.nvim'
 
-	use 'simrat39/symbols-outline.nvim'
+	use { 'simrat39/symbols-outline.nvim', config = function() require("symbols-outline").setup() end }
 
-	use 'spinks/vim-leader-guide'
+	-- use 'spinks/vim-leader-guide'
 
 	use { "beauwilliams/focus.nvim",
 		config = function() require("focus").setup({ autoresize = false, signcolumn = false }) end }
 
-	use {
-		"folke/which-key.nvim",
-		config = function()
-			-- Cursor is really off, but oh welll
-			require("which-key").setup {
-				window = {
-					position = 'bottom',
-					-- border = "solid",
-					margin = { 1, vim.o.columns - 60, 1, 0 },
-					padding = { 1, 1, 1, 1 }
-				},
-				triggers_blacklist = {
-					n = { 'v' }
-				},
-				show_help = false,
-				layout = {
-					height = { min = 10, max = 15 }, -- min and max width of the columns
-				},
-				-- triggers = ""
-			}
-			require("which-key").register({
-				["<Space>w"] = { name = "+LSP Workspaces" }
-			})
-		end
-	} -- Lua
+	-- use {
+	-- 	"folke/which-key.nvim",
+	-- 	config = function()
+	-- 		-- Cursor is really off, but oh welll
+	-- 		require("which-key").setup {
+	-- 			window = {
+	-- 				position = 'bottom',
+	-- 				-- border = "solid",
+	-- 				margin = { 1, vim.o.columns - 60, 1, 0 },
+	-- 				padding = { 1, 1, 1, 1 }
+	-- 			},
+	-- 			triggers_blacklist = {
+	-- 				n = { 'v', '>', '<' }
+	-- 			},
+	-- 			show_help = false,
+	-- 			layout = {
+	-- 				height = { min = 10, max = 15 }, -- min and max width of the columns
+	-- 			},
+	-- 			-- triggers = ""
+	-- 		}
+	-- 		require("which-key").register({
+	-- 			["<Space>w"] = { name = "+LSP Workspaces" }
+	-- 		})
+	-- 	end
+	-- } -- Lua
 
 	use {
 		"folke/todo-comments.nvim",

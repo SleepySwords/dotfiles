@@ -28,7 +28,7 @@ map_desc({ 'n' }, 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', "LSP Declarati
 map_desc({ 'n' }, 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', "LSP Definition", opts)
 map_desc({ 'n' }, 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', "LSP Implementation", opts)
 map_desc({ 'n' }, 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', "LSP Rename", opts)
-map_desc({ 'n' }, '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', "LSP Signature Help", opts)
+map_desc({ 'n' }, '<leader>k', '<cmd>lua vim.lsp.buf.signature_help()<CR>', "LSP Signature Help", opts)
 map_desc({ 'n' }, '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', "LSP Add Workspace", opts)
 map_desc({ 'n' }, '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', "LSP Remove Workspace", opts)
 map_desc({ 'n' }, '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
@@ -69,7 +69,9 @@ map_desc({ 'n' }, '<leader>ag', '<cmd>lua require("telescope.builtin").live_grep
 	"Open Live Grep", { noremap = true })
 map_desc('n', '<leader>bb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>',
 	"Open Buffer Picker", { noremap = true })
-map_desc({ 'n' }, '<leader>h', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>',
+map_desc({ 'n' }, '<leader>ht', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>',
+	"Open Help Tags", { noremap = true })
+map_desc({ 'n' }, '<leader>hh', '<cmd>lua require("telescope.builtin").highlights(vim.g.telescope_theme)<cr>',
 	"Open Help Tags", { noremap = true })
 map_desc({ 'n' }, '<leader>l', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>',
 	"Open Git Files", { noremap = true })
@@ -78,9 +80,18 @@ map_desc({ 'n' }, '<leader>s', '<cmd>lua require("telescope.builtin").lsp_docume
 map_desc({ 'n' }, '<leader>G', '<cmd>lua require("telescope.builtin").diagnostics(vim.g.telescope_theme)<cr>',
 	"Open diagnostics", { noremap = true })
 map_desc({ 'n' }, '<leader>S',
+	'<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols(require("ui.telescope").get_theme({path_display = "hidden" }))<cr>'
+	,
+	"Open workspace symbols", { noremap = true })
+map_desc({ 'n' }, '<leader><C-s>',
 	'<cmd>lua require("telescope.builtin").lsp_workspace_symbols(require("ui.telescope").get_theme({path_display = "hidden" }))<cr>'
 	,
 	"Open workspace symbols", { noremap = true })
+
+
+local command = [[<cmd>lua require("telescope.builtin").colorscheme(require("ui.telescope").get_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
+
+map_desc({ 'n' }, '<leader>cs', command, "Open Colour Scheme", { noremap = true })
 map_desc({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', "Open File Tree", { noremap = true })
 map_desc({ 'n' }, '<leader>ar', '<cmd>NvimTreeRefresh<CR>', "Refresh File Tree", { noremap = true })
 map_desc({ 'n' }, '<leader>an', '<cmd>NvimTreeFindFile<CR>', "Find Current File In Tree", { noremap = true })
@@ -93,7 +104,7 @@ map_desc({ 'n' }, '<leader>j', '<cmd>HopWord<CR>', "Hop Word", { noremap = true 
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
-map_desc({ 'n' }, '\\', '\'_', "Blackhole Register", { noremap = true })
+map_desc({ 'n', 'v' }, '\\', '"_', "Blackhole Register", { noremap = true })
 
 
 -- Moving chunks of code using tab and shift tab in visual mode
@@ -103,8 +114,8 @@ map_desc({ 'v' }, '<S-Tab>', '<gv', "Visual-Mode Outdent Code", { noremap = true
 -- map({ 'v' }, '>', '>gv', { noremap=true })
 -- map({ 'v' }, '<', '<gv', { noremap=true })
 
--- map({ 'n' }, '>', '>>', { noremap=true })
--- map({ 'n' }, '<', '<<', { noremap=true })
+map({ 'n' }, '>', '>>', opts)
+map({ 'n' }, '<', '<<', { noremap=true })
 
 -- Buffer handling
 -- map_desc({ 'n' }, 'L', '<cmd>let &number=1-&number<CR>', "Change Between Relative")
@@ -200,3 +211,9 @@ map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = tr
 -- nmap        S   <Plug>(vsnip-cut-text)
 -- xmap        S   <Plug>(vsnip-cut-text)
 -- ]]
+
+
+map({ 'n' }, '<C-j>', '<cmd>:m .+1<CR>==', opts)
+map({ 'n' }, '<C-k>', '<cmd>:m .-2<CR>==', opts)
+map({ 'v' }, '<C-j>', ":move'>+<CR>gv=gv", opts)
+map({ 'v' }, '<C-k>', ":move-2<CR>gv=gv", opts)

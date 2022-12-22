@@ -6,6 +6,7 @@ require("mason-lspconfig").setup()
 local lsp_config = require 'lspconfig'
 local lsp_status = require('lsp-status')
 local navic = require("nvim-navic")
+-- local lsp_inlay = require("lsp-inlayhints")
 local capabilities = lsp_status.capabilities;
 
 capabilities.textDocument.foldingRange = {
@@ -17,6 +18,7 @@ capabilities.textDocument.foldingRange = {
 local default_on_attach = function(client, bufnr)
 	lsp_status.on_attach(client)
 	navic.attach(client, bufnr)
+	-- lsp_inlay.on_attach(client, bufnr)
 end
 
 lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
@@ -93,6 +95,20 @@ lsp_config.tsserver.setup(completion_engine.provide_capabilities({
 	end
 }))
 lsp_config.pyright.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	on_attach = default_on_attach,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+lsp_config.hls.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	on_attach = default_on_attach,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+lsp_config.clangd.setup(completion_engine.provide_capabilities({
 	capabilities = capabilities,
 	on_attach = default_on_attach,
 	root_dir = function()

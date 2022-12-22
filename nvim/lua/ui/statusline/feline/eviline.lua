@@ -7,6 +7,8 @@ local diagnostics = require('lsp-status/diagnostics')
 local lsp_status = require('lsp-status')
 local lsp_provider = require("feline.providers.lsp")
 
+local navic = require("nvim-navic")
+
 local one_monokai = {
 	fg = "#abb2bf",
 	bg = "#1e2024",
@@ -95,6 +97,30 @@ local c = {
 				name = "NeovimModeHLColor",
 			}
 		end,
+		left_sep = "block",
+		right_sep = "block",
+	},
+	navic = {
+		provider = function()
+			return navic.get_location()
+		end,
+		enabled = function()
+			return navic.is_available()
+		end,
+		hl = {
+			-- fg = "magenta",
+			bg = "Normal",
+		},
+		-- left_sep = "block",
+		-- right_sep = "block",
+	},
+	file = {
+		provider = {
+			name = 'file_info',
+		},
+		hl = {
+			bg = "black",
+		},
 		left_sep = "block",
 		right_sep = "block",
 	},
@@ -333,6 +359,7 @@ local c = {
 
 local left = {
 	c.vim_mode,
+	-- c.navic,
 	c.gitBranch,
 	c.gitDiffAdded,
 	c.gitDiffRemoved,
@@ -358,7 +385,7 @@ local right = {
 	c.scroll_bar,
 }
 
-local components = {
+local statusline_components = {
 	active = {
 		left,
 		middle,
@@ -371,8 +398,24 @@ local components = {
 	},
 }
 
+local winbar_component = {
+	active = {
+		{ c.navic },
+		{ c.file }
+	},
+	inactive = {
+		{ c.navic },
+		{ c.file }
+	}
+}
+
 feline.setup({
-	components = components,
+	components = statusline_components,
+	theme = one_monokai,
+	vi_mode_colors = vi_mode_colors,
+})
+feline.winbar.setup({
+	components = winbar_component,
 	theme = one_monokai,
 	vi_mode_colors = vi_mode_colors,
 })

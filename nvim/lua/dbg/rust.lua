@@ -9,22 +9,18 @@ local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
 
 dap.adapters.lldb = {
 	type = 'executable',
-	attach = { pidProperty = "pid", pidSelect = "ask" },
 	command = '/opt/homebrew/opt/llvm/bin/lldb-vscode',
 	name = "lldb",
-	env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" }
 }
 
 dap.adapters.codelldb = {
 	type = 'server',
 	port = "${port}",
-	-- attach = { pidProperty = "pid", pidSelect = "ask" },
 	executable = {
 		command = codelldb_path,
 		args = { "--liblldb", liblldb_path, "--port", "${port}" },
-	}
-	, -- name = "lldb",
-	-- env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" }
+	},
+	name = "codelldb",
 }
 
 dap.configurations.cpp = {
@@ -54,7 +50,7 @@ dap.configurations.cpp = {
 		--
 		-- But you should be aware of the implications:
 		-- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-		runInTerminal = false,
+		-- runInTerminal = false,
 		sourceLanguages = { "rust" }
 	},
 	{
@@ -65,7 +61,7 @@ dap.configurations.cpp = {
 		request = 'attach',
 		pid = require('dap.utils').pick_process,
 		args = {},
-		sourceLanguages = { "rust" }
+		-- sourceLanguages = { "rust" },
 	},
 	{
 		name = "Cargo test",
@@ -78,7 +74,7 @@ dap.configurations.cpp = {
 			return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/',
 				'file')
 		end,
-		sourceLanguages = { "rust" },
+		-- sourceLanguages = { "rust" },
 	},
 	{
 		-- If you get an "Operation not permitted" error using this, try disabling YAMA:
@@ -88,7 +84,7 @@ dap.configurations.cpp = {
 		request = 'attach',
 		pid = require('dap.utils').pick_process,
 		args = {},
-		sourceLanguages = { "rust" }
+		-- sourceLanguages = { "rust" },
 	},
 }
 
