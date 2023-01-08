@@ -110,6 +110,9 @@ return require('packer').startup((function(use)
 		'nvim-telescope/telescope.nvim',
 		requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
 	}
+
+	use 'debugloop/telescope-undo.nvim'
+
 	-- use 'liuchengxu/vim-clap'
 	use 'junegunn/fzf'
 	use 'junegunn/fzf.vim'

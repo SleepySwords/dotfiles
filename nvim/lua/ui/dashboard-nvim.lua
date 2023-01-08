@@ -3,7 +3,7 @@ local g = vim.g
 local db = require('dashboard')
 require('splashscreen-sprites')
 
--- autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
+vim.cmd[[autocmd FileType dashboard set laststatus=0 | autocmd WinLeave <buffer> set laststatus=3]]
 g.dashboard_default_executive = 'telescope'
 db.custom_header = g.portal_cake
 db.preview_file_height = 12

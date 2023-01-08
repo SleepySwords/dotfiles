@@ -139,3 +139,5 @@ if not g.bootstrap then
 	require('dbg.dbg')
 	require('ui.ui')
 end
+
+o.laststatus = 3

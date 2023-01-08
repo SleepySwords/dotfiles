@@ -9,6 +9,7 @@ require'nvim-dap-virtual-text'.setup()
 -- Telescope + DAP
 local telescope = require('telescope')
 telescope.load_extension('dap')
+telescope.load_extension("undo")
 
 -- Is only for Sonokai
 vim.fn.sign_define('DapBreakpoint', {text='', texthl='Red', linehl='', numhl=''})
