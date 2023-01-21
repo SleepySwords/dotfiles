@@ -11,47 +11,30 @@ local feedkey = function(key, mode)
 end
 
 cmp.setup({
-	formatting = {
-		format = require('lspkind').cmp_format({
-			mode = 'text', -- show only symbol annotations
-			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-		})
-	},
-	-- sorting = {
-	-- 	priority_weight = 2,
-	-- 	comparators = {
-	-- 		cmp.config.compare.offset,
-	-- 		cmp.config.compare.exact,
-	-- 		cmp.config.compare.score,
-	-- 		function(entry1, entry2)
-	-- 			local kind1 = entry1:get_kind()
-	-- 			kind1 = kind1 == types.lsp.CompletionItemKind.Text and 100 or kind1
-	-- 			local kind2 = entry2:get_kind()
-	-- 			kind2 = kind2 == types.lsp.CompletionItemKind.Text and 100 or kind2
-	-- 			if kind1 ~= kind2 then
-	-- 				-- Removes Snippet priority
-	-- 				-- if kind1 == types.lsp.CompletionItemKind.Snippet then
-	-- 				-- 	return true
-	-- 				-- end
-	-- 				-- if kind2 == types.lsp.CompletionItemKind.Snippet then
-	-- 				-- 	return false
-	-- 				-- end
-	-- 				local diff = kind1 - kind2
-	-- 				if diff < 0 then
-	-- 					return true
-	-- 				elseif diff > 0 then
-	-- 					return false
-	-- 				end
-	-- 			end
-	-- 		end,
-	-- 		cmp.config.compare.sort_text,
-	-- 		cmp.config.compare.length,
-	-- 		cmp.config.compare.order,
-	-- 	},
+	-- formatting = {
+	-- 	format = require('lspkind').cmp_format({
+	-- 		mode = 'text', -- show only symbol annotations
+	-- 		maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+	-- 	})
 	-- },
+
 	window = {
-		-- completion = cmp.config.window.bordered(),
-		-- documentation = cmp.config.window.bordered(),
+		completion = {
+			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+			col_offset = -3,
+			side_padding = 0,
+		},
+	},
+	formatting = {
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, vim_item)
+			local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+			local strings = vim.split(kind.kind, "%s", { trimempty = true })
+			kind.kind = " " .. (strings[1] or "") .. " "
+			kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+			return kind
+		end,
 	},
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
@@ -64,12 +47,24 @@ cmp.setup({
 	},
 	mapping = {
 		["<Tab>"] = cmp.mapping(function(fallback)
+			-- if cmp.visible() then
+			-- 	cmp.select_next_item()
 			if vim.fn["vsnip#available"](1) == 1 then
 				feedkey("<Plug>(vsnip-expand-or-jump)", "")
 				-- elseif has_words_before() then
 				--   cmp.complete()
 			else
 				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+			end
+		end, { "i", "s" }),
+
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			-- if cmp.visible() then
+			-- 	cmp.select_prev_item()
+			if vim.fn["vsnip#jumpable"](-1) == 1 then
+				feedkey("<Plug>(vsnip-jump-prev)", "")
+			else
+				fallback()
 			end
 		end, { "i", "s" }),
 
@@ -82,17 +77,12 @@ cmp.setup({
 		end, { "i", "s" }),
 
 		["<C-p>"] = cmp.mapping(function(fallback)
-
 			if cmp.visible() then
 				cmp.select_prev_item()
+			else
+				fallback()
 			end
 		end),
-
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if vim.fn["vsnip#jumpable"](-1) == 1 then
-				feedkey("<Plug>(vsnip-jump-prev)", "")
-			end
-		end, { "i", "s" }),
 
 		['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
 		['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
@@ -128,5 +118,52 @@ local provide_capabilities = function(opts)
 	opts.capabilities = vim.tbl_extend('keep', cmp_nvim_lsp.default_capabilities(), opts.capabilities)
 	return opts
 end
+
+local highlights = {
+	PmenuSel = { bg = "#282C34", fg = "NONE" },
+	Pmenu = { fg = "#C5CDD9", bg = "#22252A" },
+
+	CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE", strikethrough = true },
+	CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true },
+	CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
+	CmpItemMenu = { fg = "#C792EA", bg = "NONE", italic = true },
+
+	CmpItemKindField = { fg = "#EED8DA", bg = "#B5585F" },
+	CmpItemKindProperty = { fg = "#EED8DA", bg = "#B5585F" },
+	CmpItemKindEvent = { fg = "#EED8DA", bg = "#B5585F" },
+
+	CmpItemKindText = { fg = "#C3E88D", bg = "#9FBD73" },
+	CmpItemKindEnum = { fg = "#C3E88D", bg = "#9FBD73" },
+	CmpItemKindKeyword = { fg = "#C3E88D", bg = "#9FBD73" },
+
+	CmpItemKindConstant = { fg = "#FFE082", bg = "#D4BB6C" },
+	CmpItemKindConstructor = { fg = "#FFE082", bg = "#D4BB6C" },
+	CmpItemKindReference = { fg = "#FFE082", bg = "#D4BB6C" },
+
+	CmpItemKindFunction = { fg = "#EADFF0", bg = "#A377BF" },
+	CmpItemKindStruct = { fg = "#EADFF0", bg = "#A377BF" },
+	CmpItemKindClass = { fg = "#EADFF0", bg = "#A377BF" },
+	CmpItemKindModule = { fg = "#EADFF0", bg = "#A377BF" },
+	CmpItemKindOperator = { fg = "#EADFF0", bg = "#A377BF" },
+
+	CmpItemKindVariable = { fg = "#C5CDD9", bg = "#7E8294" },
+	CmpItemKindFile = { fg = "#C5CDD9", bg = "#7E8294" },
+
+	CmpItemKindUnit = { fg = "#F5EBD9", bg = "#D4A959" },
+	CmpItemKindSnippet = { fg = "#F5EBD9", bg = "#D4A959" },
+	CmpItemKindFolder = { fg = "#F5EBD9", bg = "#D4A959" },
+
+	CmpItemKindMethod = { fg = "#DDE5F5", bg = "#6C8ED4" },
+	CmpItemKindValue = { fg = "#DDE5F5", bg = "#6C8ED4" },
+	CmpItemKindEnumMember = { fg = "#DDE5F5", bg = "#6C8ED4" },
+
+	CmpItemKindInterface = { fg = "#D8EEEB", bg = "#58B5A8" },
+	CmpItemKindColor = { fg = "#D8EEEB", bg = "#58B5A8" },
+	CmpItemKindTypeParameter = { fg = "#D8EEEB", bg = "#58B5A8" },
+}
+
+-- for k, v in pairs(highlights) do
+-- 	vim.api.nvim_set_hl(0, k, v)
+-- end
 
 return { provide_capabilities = provide_capabilities }

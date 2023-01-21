@@ -54,6 +54,21 @@ dap.configurations.cpp = {
 		sourceLanguages = { "rust" }
 	},
 	{
+		name = "Launch - lldb",
+		type = "lldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/',
+				'file')
+		end,
+		cwd = function()
+			return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/',
+				'file')
+		end,
+		stopOnEntry = true,
+		args = {},
+	},
+	{
 		-- If you get an "Operation not permitted" error using this, try disabling YAMA:
 		--  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 		name = "Attach",

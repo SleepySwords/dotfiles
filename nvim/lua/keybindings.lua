@@ -217,3 +217,14 @@ map({ 'n' }, '<C-j>', '<cmd>:m .+1<CR>==', opts)
 map({ 'n' }, '<C-k>', '<cmd>:m .-2<CR>==', opts)
 map({ 'v' }, '<C-j>', ":move'>+<CR>gv=gv", opts)
 map({ 'v' }, '<C-k>', ":move-2<CR>gv=gv", opts)
+
+
+
+map({ 'n' }, 'gl', "$", opts)
+map({ 'n' }, 'gh', "^", opts)
+map({ 'x' }, 'gl', "$", opts)
+map({ 'x' }, 'gh', "^", opts)
+map({ 'i' }, 'gl', "$", opts)
+map({ 'i' }, 'gh', "^", opts)
+map({ 'v' }, 'gl', "$", opts)
+map({ 'v' }, 'gh', "^", opts)

@@ -2,7 +2,7 @@ local o = vim.o
 local g = vim.g
 local cmd = vim.cmd
 
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 -- require'plenary.profile'.start("profile.log")
 
 -- vim.opt.runtimepath:append("~/Stuff/Computer_Science/lua/neotest-rust")
@@ -26,7 +26,7 @@ o.omnifunc = 'v:lua.vim.lsp.omnifunc'
 o.mouse = 'a'
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
-o.guifont = 'Jetbrains Mono Medium:12,Hack Nerd Font:12'
+o.guifont = 'Jetbrains Mono Medium:h11' -- ,Hack Nerd Font:11'
 
 o.foldcolumn = '1'
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -71,11 +71,11 @@ if not g.bootstrap then
 	g.sonokai_enable_italic = 1
 	g.sonokai_disable_italic_comment = 1
 	g.sonokai_diagnostic_virtual_text = 'colour_background'
-	g.colors_name = 'tokyonight-night'
+	g.colors_name = 'duskfox'
 	g.tokyonight_style = "night"
 	-- cmd[[colorscheme sonokai]]
-	-- cmd [[colorscheme duskfox]]
-	cmd [[colorscheme tokyonight-night]]
+	cmd [[colorscheme duskfox]]
+	-- cmd [[colorscheme tokyonight-night]]
 	-- cmd [[colorscheme onedark]]
 	-- cmd [[colorscheme tokyonight]]
 	g.telescope_theme = require("ui.telescope").get_theme()
