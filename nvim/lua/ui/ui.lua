@@ -5,7 +5,6 @@ require("nvim-navic").setup {
 
 vim.api.nvim_set_hl(0, "NavicSeparator", {fg = "#D8CFAF"})
 require('ui.status-buffer-line')
-require('ui.dashboard-nvim')
 
 local actions = require("telescope.actions")
 

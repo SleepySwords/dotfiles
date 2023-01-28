@@ -77,7 +77,6 @@ return require('packer').startup((function(use)
 	-- use 'hrsh7th/cmp-cmdline'
 	use 'hrsh7th/cmp-path'
 	use 'hrsh7th/cmp-nvim-lua'
-	use 'hrsh7th/cmp-vsnip'
 	use 'hrsh7th/cmp-nvim-lsp'
 
 	use 'onsails/lspkind.nvim'
@@ -103,6 +102,9 @@ return require('packer').startup((function(use)
 
 	--  Code snippets
 	use 'hrsh7th/vim-vsnip'
+	use 'hrsh7th/cmp-vsnip'
+	-- use 'L3MON4D3/LuaSnip'
+	-- use 'saadparwaiz1/cmp_luasnip'
 	use 'rafamadriz/friendly-snippets'
 
 	--  Fuzzy finder
@@ -454,15 +456,20 @@ return require('packer').startup((function(use)
 		'andweeb/presence.nvim',
 		cmd = "discord"
 	}
-	use 'glepnir/dashboard-nvim'
+	use {
+		'glepnir/dashboard-nvim',
+		event = 'VimEnter',
+		config = function()
+			require("ui.dashboard-nvim")
+		end,
+		requires = { 'nvim-tree/nvim-web-devicons' }
+	}
 	use 'samodostal/image.nvim'
 
 	use {
 		'kevinhwang91/nvim-ufo',
 		requires = 'kevinhwang91/promise-async'
 	}
-
-	-- TODO: Add back nvim-ufo when is more accesible
 
 	use {
 		'phaazon/hop.nvim',
@@ -478,22 +485,20 @@ return require('packer').startup((function(use)
 		end
 	}
 
-	-- use({
-	-- 	"folke/noice.nvim",
-	-- 	config = function()
-	-- 		require("noice").setup({
-	-- 			-- add any options here
-	-- 		})
-	-- 	end,
-	-- 	requires = {
-	-- 		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-	-- 		"MunifTanjim/nui.nvim",
-	-- 		-- OPTIONAL:
-	-- 		--   `nvim-notify` is only needed, if you want to use the notification view.
-	-- 		--   If not available, we use `mini` as the fallback
-	-- 		"rcarriga/nvim-notify",
-	-- 	}
-	-- })
+	use({
+		"folke/noice.nvim",
+		config = function()
+			require("ui.noice")
+		end,
+		requires = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+		}
+	})
 
 	-- use {
 	-- 	'glacambre/firenvim',
