@@ -28,7 +28,7 @@ lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
 		return vim.fn.getcwd()
 	end
 }))
-lsp_config.sumneko_lua.setup(completion_engine.provide_capabilities({
+lsp_config.lua_ls.setup(completion_engine.provide_capabilities({
 	capabilities = capabilities,
 	on_attach = default_on_attach,
 	root_dir = function()

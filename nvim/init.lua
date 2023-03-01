@@ -13,7 +13,8 @@ o.nu = true
 o.rnu = true
 o.completeopt = "menuone,noinsert,noselect"
 o.shortmess = o.shortmess .. "c"
-o.shiftwidth = 4
+-- o.shiftwidth = 4
+-- o.tabstop = 4
 o.autoindent = true
 o.smartindent = true
 o.cmdheight = 2
@@ -33,7 +34,6 @@ o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true
-o.tabstop = 4
 o.laststatus = 3
 
 o.ignorecase = true
@@ -139,5 +139,3 @@ if not g.bootstrap then
 	require('dbg.dbg')
 	require('ui.ui')
 end
-
-o.laststatus = 3

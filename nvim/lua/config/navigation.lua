@@ -22,12 +22,12 @@ require 'nvim-tree'.setup {
 		},
 		icons = {
 			git_placement = "signcolumn",
-			show = {
-				file = true,
-				folder = false,
-				folder_arrow = false,
-				git = true,
-			},
+			-- show = {
+			-- 	file = true,
+			-- 	folder = false,
+			-- 	folder_arrow = false,
+			-- 	git = true,
+			-- },
 		},
 	},
 }

@@ -19,7 +19,7 @@ return require('packer').startup((function(use)
 	use 'wbthomason/packer.nvim'
 
 	--  Sensible default
-	use 'tpope/vim-sensible'
+	-- use 'tpope/vim-sensible'
 
 	--  Color schemes
 	use 'sainnhe/edge'
@@ -50,14 +50,14 @@ return require('packer').startup((function(use)
 		requires = { { 'RishabhRD/popfix' } }
 	}
 
-	-- use {
-	-- "folke/trouble.nvim",
-	-- requires = "kyazdani42/nvim-web-devicons",
-	-- ft = "cs",
-	-- config = function()
-	-- require("trouble").setup {}
-	-- end
-	-- }
+	use {
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		-- ft = "cs",
+		config = function()
+			require("trouble").setup {}
+		end
+	}
 
 	-- Unfortunately the way decompilation works in omnisharp is that the client sends a
 	-- o#/v2/gotodefinition request, which returns with a metadata source field, that is used
@@ -85,18 +85,6 @@ return require('packer').startup((function(use)
 	-- use {
 	-- 	'simrat39/rust-tools.nvim',
 	-- 	config = function()
-	-- 		local rt = require("rust-tools")
-
-	-- 		rt.setup({
-	-- 			server = {
-	-- 				on_attach = function(_, bufnr)
-	-- 					-- Hover actions
-	-- 					vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-	-- 					-- Code action groups
-	-- 					vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-	-- 				end,
-	-- 			},
-	-- 		})
 	-- 	end
 	-- }
 
@@ -152,15 +140,7 @@ return require('packer').startup((function(use)
 		requires = { 'kyazdani42/nvim-web-devicons' } --  for file icons
 	}
 
-	-- Status line
-	-- use {
-	-- 'glepnir/galaxyline.nvim',
-	-- requires = {'kyazdani42/nvim-web-devicons', opt = true}
-	-- }
-	-- use {
-	-- 	'nvim-lualine/lualine.nvim', -- Limelight runs much faster, may consider switchign
-	-- 	requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-	-- }
+	-- Status line (galaxyline, lualine)
 	use {
 		'feline-nvim/feline.nvim',
 		requires = {
@@ -313,127 +293,19 @@ return require('packer').startup((function(use)
 			})
 		end
 	}
-	use { 'lvimuser/lsp-inlayhints.nvim', config = function()
-		-- require("lsp-inlayhints").setup({
-		-- inlay_hints = {
-		-- 	parameter_hints = {
-		-- 		show = true,
-		-- 		prefix = "<- ",
-		-- 		separator = ", ",
-		-- 		remove_colon_start = true,
-		-- 		remove_colon_end = true,
-		-- 	},
-		-- 	type_hints = {
-		-- 		-- type and other hints
-		-- 		show = true,
-		-- 		prefix = "",
-		-- 		separator = ", ",
-		-- 		remove_colon_start = true,
-		-- 		remove_colon_end = true,
-		-- 	},
-		-- 	only_current_line = false,
-		-- 	-- separator between types and parameter hints. Note that type hints are
-		-- 	-- shown before parameter
-		-- 	labels_separator = "  ",
-		-- 	-- whether to align to the length of the longest line in the file
-		-- 	max_len_align = false,
-		-- 	-- padding from the left if max_len_align is true
-		-- 	max_len_align_padding = 1,
-		-- 	-- highlight group
-		-- 	highlight = "LspInlayHint",
-		-- 	-- virt_text priority
-		-- 	priority = 0,
-		-- },
-		-- enabled_at_startup = true,
-		-- debug_mode = false,
-		-- })
-	end }
+	use { 'lvimuser/lsp-inlayhints.nvim' }
 
 	-- Maybe enable later?
 	-- use {
 	-- 	'nvim-treesitter/nvim-treesitter-context',
 	-- 	config = function()
 	-- 		require 'treesitter-context'.setup {
-	-- 			enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-	-- 			max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-	-- 			trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-	-- 			min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-	-- 			patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-	-- 				-- For all filetypes
-	-- 				-- Note that setting an entry here replaces all other patterns for this entry.
-	-- 				-- By setting the 'default' entry below, you can control which nodes you want to
-	-- 				-- appear in the context window.
-	-- 				default = {
-	-- 					'class',
-	-- 					'function',
-	-- 					'method',
-	-- 					'for',
-	-- 					'while',
-	-- 					'if',
-	-- 					'switch',
-	-- 					'case',
-	-- 				},
-	-- 				-- Patterns for specific filetypes
-	-- 				-- If a pattern is missing, *open a PR* so everyone can benefit.
-	-- 				tex = {
-	-- 					'chapter',
-	-- 					'section',
-	-- 					'subsection',
-	-- 					'subsubsection',
-	-- 				},
-	-- 				rust = {
-	-- 					'impl_item',
-	-- 					'struct',
-	-- 					'enum',
-	-- 				},
-	-- 				scala = {
-	-- 					'object_definition',
-	-- 				},
-	-- 				vhdl = {
-	-- 					'process_statement',
-	-- 					'architecture_body',
-	-- 					'entity_declaration',
-	-- 				},
-	-- 				markdown = {
-	-- 					'section',
-	-- 				},
-	-- 				elixir = {
-	-- 					'anonymous_function',
-	-- 					'arguments',
-	-- 					'block',
-	-- 					'do_block',
-	-- 					'list',
-	-- 					'map',
-	-- 					'tuple',
-	-- 					'quoted_content',
-	-- 				},
-	-- 				json = {
-	-- 					'pair',
-	-- 				},
-	-- 				yaml = {
-	-- 					'block_mapping_pair',
-	-- 				},
-	-- 			},
-	-- 			exact_patterns = {
-	-- 				-- Example for a specific filetype with Lua patterns
-	-- 				-- Treat patterns.rust as a Lua pattern (i.e "^impl_item$" will
-	-- 				-- exactly match "impl_item" only)
-	-- 				-- rust = true,
-	-- 			},
-
-	-- 			-- [!] The options below are exposed but shouldn't require your attention,
-	-- 			--     you can safely ignore them.
-
-	-- 			zindex = 20, -- The Z-index of the context window
-	-- 			mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
-	-- 			-- Separator between context and content. Should be a single character string, like '-'.
-	-- 			-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-	-- 			separator = nil,
 	-- 		}
 	-- 	end
 	-- }
+
 	use 'lewis6991/impatient.nvim'
-	use 'vim-scripts/restore_view.vim'
+	-- use 'vim-scripts/restore_view.vim'
 	-- use 'kassio/neoterm'
 	-- Why do i have lazygit if i have toggle term??!?!!
 	use 'kdheepak/lazygit.nvim'
@@ -451,6 +323,30 @@ return require('packer').startup((function(use)
 	-- use 'norcalli/profiler.nvim'
 	-- use 'github/copilot.vim'
 
+	use {
+		'nvim-orgmode/orgmode',
+		config = function()
+			require('orgmode').setup {}
+			-- Load custom treesitter grammar for org filetype
+			require('orgmode').setup_ts_grammar()
+
+			-- Treesitter configuration
+			require('nvim-treesitter.configs').setup {
+				-- If TS highlights are not enabled at all, or disabled via `disable` prop,
+				-- highlighting will fallback to default Vim syntax highlighting
+				highlight = {
+					enable = true,
+					-- Required for spellcheck, some LaTex highlights and
+					-- code block highlights that do not have ts grammar
+					additional_vim_regex_highlighting = { 'org' },
+				},
+				ensure_installed = { 'org' }, -- Or run :TSUpdate org
+			}
+		end
+
+	}
+
+
 	-- Dashboard
 	use {
 		'andweeb/presence.nvim',
@@ -464,7 +360,6 @@ return require('packer').startup((function(use)
 		end,
 		requires = { 'nvim-tree/nvim-web-devicons' }
 	}
-	use 'samodostal/image.nvim'
 
 	use {
 		'kevinhwang91/nvim-ufo',
@@ -478,12 +373,12 @@ return require('packer').startup((function(use)
 		end
 	}
 
-	use {
-		'ggandor/leap.nvim',
-		config = function()
-			require('leap').add_default_mappings()
-		end
-	}
+	-- use {
+	-- 	'ggandor/leap.nvim',
+	-- 	config = function()
+	-- 		require('leap').add_default_mappings()
+	-- 	end
+	-- }
 
 	use({
 		"folke/noice.nvim",
@@ -491,11 +386,7 @@ return require('packer').startup((function(use)
 			require("ui.noice")
 		end,
 		requires = {
-			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
-			-- OPTIONAL:
-			--   `nvim-notify` is only needed, if you want to use the notification view.
-			--   If not available, we use `mini` as the fallback
 			"rcarriga/nvim-notify",
 		}
 	})
@@ -514,6 +405,7 @@ return require('packer').startup((function(use)
 	use { "beauwilliams/focus.nvim",
 		config = function() require("focus").setup({ autoresize = false, signcolumn = false }) end }
 
+	-- Interferes with the > and < keybindings
 	-- use {
 	-- 	"folke/which-key.nvim",
 	-- 	config = function()
@@ -547,6 +439,11 @@ return require('packer').startup((function(use)
 			require("todo-comments").setup {}
 		end
 	}
+
+	use 'gpanders/editorconfig.nvim'
+
+	-- Could just use ftplugins instead /shrug
+	use 'tpope/vim-sleuth'
 
 	if packer_bootstrap then
 		require('packer').sync()

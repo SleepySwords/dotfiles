@@ -106,6 +106,7 @@ cmp.setup({
 	},
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
+		{ name = 'orgmode' },
 		-- { name = 'luasnip' }, -- For luasnip users.
 		{ name = 'vsnip' },
 		{ name = 'path' },

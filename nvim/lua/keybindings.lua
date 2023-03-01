@@ -33,17 +33,23 @@ map_desc({ 'n' }, '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'
 map_desc({ 'n' }, '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', "LSP Remove Workspace", opts)
 map_desc({ 'n' }, '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
 	"LSP List Workspaces", opts)
-map_desc({ 'n' }, '<space>od', '<cmd>lua vim.diagnostic.open_float({focusable=true})<CR>', "Focue on the diagnostics",
-	opts)
+-- map_desc({ 'n' }, '<space>od', '<cmd>lua vim.diagnostic.open_float({focusable=true})<CR>', "Focue on the diagnostics",
+-- 	opts)
 map_desc({ 'n' }, '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', "LSP Type Definition", opts)
 map_desc({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', "LSP Code Action", opts)
-map_desc({ 'n' }, 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', "LSP References", opts)
 map_desc({ 'n' }, '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', "LSP Open Diagnostics", opts)
 map_desc({ 'n' }, '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', "LSP Previous Diagnostic", opts)
 map_desc({ 'n' }, ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', "LSP Next Diagnostic", opts)
-map_desc({ 'n' }, '<space>q', '<cmd>lua vim.diagnostic.set_loclist()<CR>', "LSP Set Loclist", opts)
+map_desc({ 'n' }, '<space>lq', '<cmd>lua vim.diagnostic.set_loclist()<CR>', "LSP Set Loclist", opts)
 map_desc({ 'n' }, '<space>cf', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', "LSP Format", opts)
 map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', "LSP Hover")
+
+-- map_desc({ 'n' }, 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', "LSP References", opts)
+map_desc({ 'n' }, 'gR', '<cmd>TroubleToggle lsp_references<CR>', "LSP References", opts)
+map_desc({ 'n' }, '<leader>xx', '<cmd>TroubleToggle<CR>', "LSP References", opts)
+map_desc({ 'n' }, '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<CR>', "LSP References", opts)
+map_desc({ 'n' }, '<leader>xd', '<cmd>TroubleToggle document_diagnostics<CR>', "LSP References", opts)
+map_desc({ 'n' }, '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', "LSP References", opts)
 
 -- map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
 
@@ -67,7 +73,7 @@ map_desc({ 'n' }, '<leader>f', '<cmd>lua require("telescope.builtin").find_files
 	"Open File Picker", { noremap = true })
 map_desc({ 'n' }, '<leader>ag', '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>',
 	"Open Live Grep", { noremap = true })
-map_desc('n', '<leader>bb', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>',
+map_desc('n', '<leader>b', '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>',
 	"Open Buffer Picker", { noremap = true })
 map_desc({ 'n' }, '<leader>ht', '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>',
 	"Open Help Tags", { noremap = true })
@@ -122,8 +128,8 @@ map({ 'n' }, '<', '<<', { noremap=true })
 map_desc({ 'n' }, 'L', '<cmd>if &rnu | set nornu | else | set rnu | endif<CR>', "Change Between Relative")
 map_desc({ 'n' }, '<leader>n', '<cmd>bnext<CR>', "Goto Next Buffer")
 map_desc({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', "Goto Prev Buffer")
-map_desc({ 'n' }, '<leader>bq', '<cmd>BufDel<CR>', "Delete The Current Buffer")
-map({ 'n' }, '<leader>bl', '<cmd>ls<CR>')
+map_desc({ 'n' }, '<leader>q', '<cmd>BufDel<CR>', "Delete The Current Buffer")
+map({ 'n' }, '<leader>ls', '<cmd>ls<CR>')
 map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>')
 -- http://stackoverflow.com/questions/7513380/vim-change-x-function-to-delete-buffer-instead-of-save-quit
 -- Tooo lazy to port
@@ -224,7 +230,7 @@ map({ 'n' }, 'gl', "$", opts)
 map({ 'n' }, 'gh', "^", opts)
 map({ 'x' }, 'gl', "$", opts)
 map({ 'x' }, 'gh', "^", opts)
-map({ 'i' }, 'gl', "$", opts)
-map({ 'i' }, 'gh', "^", opts)
+-- map({ 'i' }, 'gl', "<esc>$<a>", opts)
+-- map({ 'i' }, 'gh', "^", opts)
 map({ 'v' }, 'gl', "$", opts)
 map({ 'v' }, 'gh', "^", opts)
