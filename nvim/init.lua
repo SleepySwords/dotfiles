@@ -113,6 +113,7 @@ vim.cmd [[highlight link TelescopeSelection Define]]
 -- Icons become weird when bolded
 -- vim.cmd [[highlight TelescopeSelection guifg=#f0a6cc gui=bold]]
 vim.cmd [[highlight TelescopeMatching guifg=#f6c177 gui=bold]]
+vim.cmd [[highlight! link FloatBorder NormalFloat]]
 
 g.Illuminate_ftblacklist = { 'NvimTree', 'dashboard' }
 
@@ -138,4 +139,6 @@ if not g.bootstrap then
 	require('keybindings')
 	require('dbg.dbg')
 	require('ui.ui')
+	require("luasnip").config.set_config({ history = true, updateevents = "TextChanged,TextChangedI" })
+	require("luasnip.loaders.from_vscode").lazy_load()
 end

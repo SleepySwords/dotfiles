@@ -42,7 +42,14 @@ return require('packer').startup((function(use)
 	use 'williamboman/mason.nvim'
 	use "williamboman/mason-lspconfig.nvim"
 	use 'nvim-lua/lsp-status.nvim'
-	use 'nvim-lua/lsp_extensions.nvim'
+
+	use { 'folke/neodev.nvim',
+		config = function()
+			require("neodev").setup()
+		end
+
+	}
+
 
 	-- use 'glepnir/lspsaga.nvim'
 	use {
@@ -55,7 +62,12 @@ return require('packer').startup((function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 		-- ft = "cs",
 		config = function()
-			require("trouble").setup {}
+			require("trouble").setup {
+				action_keys = {
+					jump = { "<tab>" },
+					jump_close = { "o", "<cr>" },
+				}
+			}
 		end
 	}
 
@@ -79,6 +91,9 @@ return require('packer').startup((function(use)
 	use 'hrsh7th/cmp-nvim-lua'
 	use 'hrsh7th/cmp-nvim-lsp'
 
+
+	use 'ray-x/lsp_signature.nvim'
+
 	use 'onsails/lspkind.nvim'
 
 	use 'YorickPeterse/rust.vim'
@@ -89,10 +104,10 @@ return require('packer').startup((function(use)
 	-- }
 
 	--  Code snippets
-	use 'hrsh7th/vim-vsnip'
-	use 'hrsh7th/cmp-vsnip'
-	-- use 'L3MON4D3/LuaSnip'
-	-- use 'saadparwaiz1/cmp_luasnip'
+	-- use 'hrsh7th/vim-vsnip'
+	-- use 'hrsh7th/cmp-vsnip'
+	use 'L3MON4D3/LuaSnip'
+	use 'saadparwaiz1/cmp_luasnip'
 	use 'rafamadriz/friendly-snippets'
 
 	--  Fuzzy finder
@@ -168,6 +183,14 @@ return require('packer').startup((function(use)
 		'rcarriga/nvim-dap-ui',
 		config = function()
 			require('dapui').setup({
+				icons = {
+					expanded = "",
+					current_frame = "",
+					collapsed = ""
+				},
+				floating = {
+					border = "solid"
+				},
 				layouts = {
 					{
 						elements = {

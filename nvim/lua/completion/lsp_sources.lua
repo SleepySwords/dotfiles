@@ -14,6 +14,11 @@ capabilities.textDocument.foldingRange = {
 	lineFoldingOnly = true
 }
 
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = { "documentation", "detail", "additionalTextEdits" },
+}
+
 
 local default_on_attach = function(client, bufnr)
 	lsp_status.on_attach(client)

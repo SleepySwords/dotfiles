@@ -25,7 +25,7 @@ dap.adapters.codelldb = {
 
 dap.configurations.cpp = {
 	{
-		name = "Launch",
+		name = "Launch - CodeLLDB",
 		type = "codelldb",
 		request = "launch",
 		program = function()
@@ -71,7 +71,7 @@ dap.configurations.cpp = {
 	{
 		-- If you get an "Operation not permitted" error using this, try disabling YAMA:
 		--  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-		name = "Attach",
+		name = "Attach - CodeLLDB",
 		type = 'codelldb', -- Adjust this to match your adapter name (`dap.adapters.<name>`)
 		request = 'attach',
 		pid = require('dap.utils').pick_process,

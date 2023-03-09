@@ -10,16 +10,9 @@ local feedkey = function(key, mode)
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
--- local luasnip = require("luasnip")
+local luasnip = require("luasnip")
 
 cmp.setup({
-	-- formatting = {
-	-- 	format = require('lspkind').cmp_format({
-	-- 		mode = 'text', -- show only symbol annotations
-	-- 		maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-	-- 	})
-	-- },
-
 	window = {
 		completion = {
 			winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
@@ -41,8 +34,8 @@ cmp.setup({
 	snippet = {
 		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-			-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
 			--     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
 			--     -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
 		end,
@@ -51,10 +44,10 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			-- if cmp.visible() then
 			-- 	cmp.select_next_item()
-			if vim.fn["vsnip#available"](1) == 1 then
-				feedkey("<Plug>(vsnip-expand-or-jump)", "")
-			-- if luasnip.expand_or_jumpable() then
-			-- 	luasnip.expand_or_jump()
+			-- if vim.fn["vsnip#available"](1) == 1 then
+			-- 	feedkey("<Plug>(vsnip-expand-or-jump)", "")
+				if luasnip.expand_or_locally_jumpable() then
+					luasnip.expand_or_jump()
 				-- elseif has_words_before() then
 				--   cmp.complete()
 			else
@@ -65,10 +58,10 @@ cmp.setup({
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			-- if cmp.visible() then
 			-- 	cmp.select_prev_item()
-			if vim.fn["vsnip#jumpable"](-1) == 1 then
-			feedkey("<Plug>(vsnip-jump-prev)", "")
-			-- if luasnip.jumpable(-1) then
-			-- 	luasnip.jump(-1)
+			-- if vim.fn["vsnip#jumpable"](-1) == 1 then
+			-- 	feedkey("<Plug>(vsnip-jump-prev)", "")
+				if luasnip.jumpable(-1) then
+					luasnip.jump(-1)
 			else
 				fallback()
 			end
@@ -107,8 +100,8 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'orgmode' },
-		-- { name = 'luasnip' }, -- For luasnip users.
-		{ name = 'vsnip' },
+		{ name = 'luasnip' }, -- For luasnip users.
+		-- { name = 'vsnip' },
 		{ name = 'path' },
 		{ name = 'buffer' },
 		-- { name = 'cmdline' }
@@ -128,49 +121,49 @@ end
 
 local highlights = {
 	PmenuSel = { bg = "#282C34", fg = "NONE" },
-	Pmenu = { fg = "#C5CDD9", bg = "#22252A" },
+	Pmenu = { link = "NormalFloat" },
 
 	CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE", strikethrough = true },
 	CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true },
 	CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
 	CmpItemMenu = { fg = "#C792EA", bg = "NONE", italic = true },
 
-	CmpItemKindField = { fg = "#EED8DA", bg = "#B5585F" },
-	CmpItemKindProperty = { fg = "#EED8DA", bg = "#B5585F" },
-	CmpItemKindEvent = { fg = "#EED8DA", bg = "#B5585F" },
+	-- CmpItemKindField = { fg = "#EED8DA", bg = "#B5585F" },
+	-- CmpItemKindProperty = { fg = "#EED8DA", bg = "#B5585F" },
+	-- CmpItemKindEvent = { fg = "#EED8DA", bg = "#B5585F" },
 
-	CmpItemKindText = { fg = "#C3E88D", bg = "#9FBD73" },
-	CmpItemKindEnum = { fg = "#C3E88D", bg = "#9FBD73" },
-	CmpItemKindKeyword = { fg = "#C3E88D", bg = "#9FBD73" },
+	-- CmpItemKindText = { fg = "#C3E88D", bg = "#9FBD73" },
+	-- CmpItemKindEnum = { fg = "#C3E88D", bg = "#9FBD73" },
+	-- CmpItemKindKeyword = { fg = "#C3E88D", bg = "#9FBD73" },
 
-	CmpItemKindConstant = { fg = "#FFE082", bg = "#D4BB6C" },
-	CmpItemKindConstructor = { fg = "#FFE082", bg = "#D4BB6C" },
-	CmpItemKindReference = { fg = "#FFE082", bg = "#D4BB6C" },
+	-- CmpItemKindConstant = { fg = "#FFE082", bg = "#D4BB6C" },
+	-- CmpItemKindConstructor = { fg = "#FFE082", bg = "#D4BB6C" },
+	-- CmpItemKindReference = { fg = "#FFE082", bg = "#D4BB6C" },
 
-	CmpItemKindFunction = { fg = "#EADFF0", bg = "#A377BF" },
-	CmpItemKindStruct = { fg = "#EADFF0", bg = "#A377BF" },
-	CmpItemKindClass = { fg = "#EADFF0", bg = "#A377BF" },
-	CmpItemKindModule = { fg = "#EADFF0", bg = "#A377BF" },
-	CmpItemKindOperator = { fg = "#EADFF0", bg = "#A377BF" },
+	-- CmpItemKindFunction = { fg = "#EADFF0", bg = "#A377BF" },
+	-- CmpItemKindStruct = { fg = "#EADFF0", bg = "#A377BF" },
+	-- CmpItemKindClass = { fg = "#EADFF0", bg = "#A377BF" },
+	-- CmpItemKindModule = { fg = "#EADFF0", bg = "#A377BF" },
+	-- CmpItemKindOperator = { fg = "#EADFF0", bg = "#A377BF" },
 
-	CmpItemKindVariable = { fg = "#C5CDD9", bg = "#7E8294" },
-	CmpItemKindFile = { fg = "#C5CDD9", bg = "#7E8294" },
+	-- CmpItemKindVariable = { fg = "#C5CDD9", bg = "#7E8294" },
+	-- CmpItemKindFile = { fg = "#C5CDD9", bg = "#7E8294" },
 
-	CmpItemKindUnit = { fg = "#F5EBD9", bg = "#D4A959" },
-	CmpItemKindSnippet = { fg = "#F5EBD9", bg = "#D4A959" },
-	CmpItemKindFolder = { fg = "#F5EBD9", bg = "#D4A959" },
+	-- CmpItemKindUnit = { fg = "#F5EBD9", bg = "#D4A959" },
+	-- CmpItemKindSnippet = { fg = "#F5EBD9", bg = "#D4A959" },
+	-- CmpItemKindFolder = { fg = "#F5EBD9", bg = "#D4A959" },
 
-	CmpItemKindMethod = { fg = "#DDE5F5", bg = "#6C8ED4" },
-	CmpItemKindValue = { fg = "#DDE5F5", bg = "#6C8ED4" },
-	CmpItemKindEnumMember = { fg = "#DDE5F5", bg = "#6C8ED4" },
+	-- CmpItemKindMethod = { fg = "#DDE5F5", bg = "#6C8ED4" },
+	-- CmpItemKindValue = { fg = "#DDE5F5", bg = "#6C8ED4" },
+	-- CmpItemKindEnumMember = { fg = "#DDE5F5", bg = "#6C8ED4" },
 
-	CmpItemKindInterface = { fg = "#D8EEEB", bg = "#58B5A8" },
-	CmpItemKindColor = { fg = "#D8EEEB", bg = "#58B5A8" },
+	-- CmpItemKindInterface = { fg = "#D8EEEB", bg = "#58B5A8" },
+	-- CmpItemKindColor = { fg = "#D8EEEB", bg = "#58B5A8" },
 	CmpItemKindTypeParameter = { fg = "#D8EEEB", bg = "#58B5A8" },
 }
 
--- for k, v in pairs(highlights) do
--- 	vim.api.nvim_set_hl(0, k, v)
--- end
+for k, v in pairs(highlights) do
+	vim.api.nvim_set_hl(0, k, v)
+end
 
 return { provide_capabilities = provide_capabilities }
