@@ -87,16 +87,16 @@ map_desc({ 'n' }, '<leader>s', '<cmd>lua require("telescope.builtin").lsp_docume
 map_desc({ 'n' }, '<leader>G', '<cmd>lua require("telescope.builtin").diagnostics(vim.g.telescope_theme)<cr>',
 	"Open diagnostics", { noremap = true })
 map_desc({ 'n' }, '<leader>S',
-	'<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols(require("ui.telescope").get_theme({path_display = "hidden" }))<cr>'
+	'<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>'
 	,
 	"Open workspace symbols", { noremap = true })
 map_desc({ 'n' }, '<leader><C-s>',
-	'<cmd>lua require("telescope.builtin").lsp_workspace_symbols(require("ui.telescope").get_theme({path_display = "hidden" }))<cr>'
+	'<cmd>lua require("telescope.builtin").lsp_workspace_symbols(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>'
 	,
 	"Open workspace symbols", { noremap = true })
 
 
-local command = [[<cmd>lua require("telescope.builtin").colorscheme(require("ui.telescope").get_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
+local command = [[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
 
 map_desc({ 'n' }, '<leader>cs', command, "Open Colour Scheme", { noremap = true })
 map_desc({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', "Open File Tree", { noremap = true })

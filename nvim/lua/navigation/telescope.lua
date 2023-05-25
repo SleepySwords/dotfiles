@@ -1,6 +1,6 @@
-local telescope = {}
+local M = {}
 
-function telescope.get_theme(opts)
+function M.get_telescope_theme(opts)
 	opts = opts or {}
 
 	local theme_opts = {
@@ -47,4 +47,27 @@ function telescope.get_theme(opts)
 	return vim.tbl_deep_extend("force", theme_opts, opts)
 end
 
-return telescope
+function M.setup()
+	local actions = require("telescope.actions")
+	local trouble = require("trouble.providers.telescope")
+
+	require("telescope").setup({
+		defaults = {
+			dynamic_preview_title = true,
+			results_title = false,
+			selection_caret = " > ",
+			entry_prefix = "   ",
+			mappings = {
+				i = {
+					["<tab>"] = actions.move_selection_next,
+					["<S-tab>"] = actions.move_selection_previous,
+					["<esc>"] = actions.close,
+					["<c-t>"] = trouble.open_with_trouble,
+				},
+				n = { ["<c-t>"] = trouble.open_with_trouble },
+			},
+		},
+	})
+end
+
+return M

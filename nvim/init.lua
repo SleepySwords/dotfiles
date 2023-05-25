@@ -1,11 +1,8 @@
 local o = vim.o
 local g = vim.g
-local cmd = vim.cmd
 
 -- vim.lsp.set_log_level("debug")
 -- require'plenary.profile'.start("profile.log")
-
--- vim.opt.runtimepath:append("~/Stuff/Computer_Science/lua/neotest-rust")
 
 -- Vim options setup
 o.compatible = false
@@ -27,41 +24,26 @@ o.omnifunc = 'v:lua.vim.lsp.omnifunc'
 o.mouse = 'a'
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
-o.guifont = 'Jetbrains Mono Medium:h11' -- ,Hack Nerd Font:11'
+-- o.guifont = 'Jetbrains Mono Medium:h11' -- ,Hack Nerd Font:11'
 
 o.foldcolumn = '1'
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true
-o.laststatus = 3
 
+o.laststatus = 3
+o.mousemodel = "extend"
 o.ignorecase = true
 
--- o.winbar = "af"
-
--- opt('guifont', 'Hack Nerd Font:l')
--- opt('foldmethod', 'expr')
--- opt('foldexpr', 'nvim_treesitter#foldexpr()')
--- opt('expandtab', true)
--- opt('tabstop', 4)
-
--- g.firenvim_config = {
---     localSettings = {}
--- }
-
--- local fc = g.firenvim_config['localSettings']
--- fc['.*'] = {
---     selector = 'textarea',
---     takeover = 'once',
--- }
--- fc['https?://*\\.google\\.com/*'] = { takeover = 'never', priority = 1 }
 -- Highlights when yannking (y)
-cmd("autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
+vim.cmd("autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
 
-cmd("autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>", true)
+vim.cmd("autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>", true)
 
--- Global settings
+-- Recognize wgsl
+vim.cmd("au BufNewFile,BufRead *.wgsl set filetype=wgsl")
+
 -- Theme settings
 if not g.bootstrap then
 	g.edge_style = 'aura'
@@ -74,18 +56,12 @@ if not g.bootstrap then
 	g.colors_name = 'duskfox'
 	g.tokyonight_style = "night"
 	-- cmd[[colorscheme sonokai]]
-	cmd [[colorscheme duskfox]]
 	-- cmd [[colorscheme tokyonight-night]]
 	-- cmd [[colorscheme onedark]]
 	-- cmd [[colorscheme tokyonight]]
-	g.telescope_theme = require("ui.telescope").get_theme()
+	vim.cmd [[colorscheme duskfox]]
+	g.telescope_theme = require("navigation.telescope").get_telescope_theme()
 end
--- g.colors_name = 'tokyonight'
--- g.colors_name = 'edge'
--- g.telescope_theme = require("telescope.themes").get_ivy()
-
--- vim.fn.sign_define("Cursor", { text = icon, texthl = hl, numhl = hl })
-
 
 -- Plugin settings
 g.ultest_fail_sign = ''
@@ -93,11 +69,16 @@ g.ultest_pass_sign = ''
 
 -- Neovide
 -- g.neovide_fullscreen = true
+g.neovide_transparency = 0.9
+
+g.neovide_floating_blur_amount_x = 2.0
+g.neovide_floating_blur_amount_y = 2.0
+g.neovide_refresh_rate = 250
+
 g.neovide_cursor_vfx_mode = "pixiedust"
 
 -- Omnisharp settings
 g.OmniSharp_server_use_mono = 1
-g.ale_linters = { cs = 'OmniSharp' }
 g.asyncomplete_auto_popup = 1
 g.asyncomplete_auto_completeopt = 0
 g.asyncomplete_force_refresh_on_context_changed = 1
@@ -107,7 +88,7 @@ g.completion_matching_stategy_list = { 'exact', 'substring', 'fuzzy' }
 
 g.indent_blankline_show_first_indent_level = false
 
-vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
+-- vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
 -- vim.cmd [[highlight link TelescopeMatching Type]]
 vim.cmd [[highlight link TelescopeSelection Define]]
 -- Icons become weird when bolded
@@ -123,22 +104,18 @@ g.indicator_ok = ''
 
 -- TODO: hightlight seleted line number
 -- TODO: fix glitchy tab in visual mode.
-vim.g.neon_style = "default"
-vim.g.neon_italic_keyword = true
-vim.g.neon_italic_function = true
-vim.g.neon_transparent = true
+g.neon_style = "default"
+g.neon_italic_keyword = true
+g.neon_italic_function = true
+g.neon_transparent = true
 
 
 require('plugins')
 
+vim.cmd [[highlight InlaySurround guifg=#2d2b46]]
+vim.cmd [[highlight InlayText guibg=#2d2b46 guifg=#8a87b6]]
+
 if not g.bootstrap then
-	require('impatient').enable_profile()
 	require('completion.lsp')
-	require('config.navigation')
-	require('config.miscellaneous')
 	require('keybindings')
-	require('dbg.dbg')
-	require('ui.ui')
-	require("luasnip").config.set_config({ history = true, updateevents = "TextChanged,TextChangedI" })
-	require("luasnip.loaders.from_vscode").lazy_load()
 end

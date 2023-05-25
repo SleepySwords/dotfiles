@@ -5,6 +5,8 @@ end
 
 local diagnostics = require('lsp-status/diagnostics')
 local lsp_status = require('lsp-status')
+
+-- TODO: This should be in it's own seperate thing rather than here.
 local lsp_provider = require("feline.providers.lsp")
 
 local navic = require("nvim-navic")

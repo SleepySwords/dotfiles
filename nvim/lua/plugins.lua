@@ -1,6 +1,7 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+local packer_bootstrap = false
 if fn.empty(fn.glob(install_path)) > 0 then
 	vim.g.bootstrap = true
 	local rtp_addition = vim.fn.stdpath('data') .. '/site/pack/*/start/*'
@@ -33,23 +34,19 @@ return require('packer').startup((function(use)
 	use 'EdenEast/nightfox.nvim'
 	use 'joshdick/onedark.vim'
 	use 'rafamadriz/neon'
-	-- use 'sickill/vim-monokai'
 	use 'tanvirtin/monokai.nvim'
 	use 'catppuccin/vim'
 
 	-- Adds LSP support
 	use 'neovim/nvim-lspconfig'
 	use 'williamboman/mason.nvim'
-	use "williamboman/mason-lspconfig.nvim"
-	use 'nvim-lua/lsp-status.nvim'
+	use 'williamboman/mason-lspconfig.nvim'
 
 	use { 'folke/neodev.nvim',
 		config = function()
-			require("neodev").setup()
+			require('neodev').setup()
 		end
-
 	}
-
 
 	-- use 'glepnir/lspsaga.nvim'
 	use {
@@ -58,14 +55,14 @@ return require('packer').startup((function(use)
 	}
 
 	use {
-		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		-- ft = "cs",
+		'folke/trouble.nvim',
+		requires = 'kyazdani42/nvim-web-devicons',
+		-- ft = 'cs',
 		config = function()
-			require("trouble").setup {
+			require('trouble').setup {
 				action_keys = {
-					jump = { "<tab>" },
-					jump_close = { "o", "<cr>" },
+					jump = { '<tab>' },
+					jump_close = { 'o', '<cr>' },
 				}
 			}
 		end
@@ -106,14 +103,22 @@ return require('packer').startup((function(use)
 	--  Code snippets
 	-- use 'hrsh7th/vim-vsnip'
 	-- use 'hrsh7th/cmp-vsnip'
-	use 'L3MON4D3/LuaSnip'
+	use {
+		'L3MON4D3/LuaSnip',
+		config = function()
+			require('completion.luasnip').setup()
+		end
+	}
 	use 'saadparwaiz1/cmp_luasnip'
 	use 'rafamadriz/friendly-snippets'
 
 	--  Fuzzy finder
 	use {
 		'nvim-telescope/telescope.nvim',
-		requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } }
+		requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
+		config = function()
+			require('navigation.telescope').setup()
+		end
 	}
 
 	use 'debugloop/telescope-undo.nvim'
@@ -132,17 +137,20 @@ return require('packer').startup((function(use)
 	}
 	-- use 'nvim-telescope/telescope-symbols.nvim'
 	use {
-		"SmiteshP/nvim-navic",
-		requires = "nvim-treesitter/nvim-treesitter"
+		'SmiteshP/nvim-navic',
+		requires = 'nvim-treesitter/nvim-treesitter',
+		config = function()
+			require('ui.navic').setup()
+		end
 	}
 	use {
 		'nvim-treesitter/playground',
 		requires = { 'nvim-treesitter/nvim-treesitter' },
 	}
-	use {
-		'p00f/nvim-ts-rainbow',
-		requires = { 'nvim-treesitter/nvim-treesitter' },
-	}
+	-- use {
+	-- 	'p00f/nvim-ts-rainbow',
+	-- 	requires = { 'nvim-treesitter/nvim-treesitter' },
+	-- }
 	use {
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		requires = { 'nvim-treesitter/nvim-treesitter' },
@@ -152,10 +160,14 @@ return require('packer').startup((function(use)
 	--  File explorer
 	use {
 		'kyazdani42/nvim-tree.lua',
-		requires = { 'kyazdani42/nvim-web-devicons' } --  for file icons
+		requires = { 'kyazdani42/nvim-web-devicons' }, --  for file icons
+		config = function()
+			require('navigation.tree').setup()
+		end
 	}
 
-	-- Status line (galaxyline, lualine)
+	-- Status line + winbar (galaxyline, lualine)
+	-- TODO: need to add dependencies for this!
 	use {
 		'feline-nvim/feline.nvim',
 		requires = {
@@ -167,88 +179,75 @@ return require('packer').startup((function(use)
 				end,
 			},
 			'kyazdani42/nvim-web-devicons',
+			'SmiteshP/nvim-navic',
+			'nvim-lua/lsp-status.nvim',
 		},
+		config = function()
+			require('ui.statusline.feline.eviline')
+		end
 	}
-	use 'akinsho/nvim-bufferline.lua'
-	-- use 'nanozuki/tabby.nvim'
+	use {
+		'akinsho/nvim-bufferline.lua',
+		config = function()
+			require('ui.bufferline').setup()
+		end
+	}
+	use {
+		'nvim-lua/lsp-status.nvim',
+		config = function()
+			require('ui.lsp_status').setup()
+		end
+	}
 
 	-- Buffers
 	use { 'ojroques/nvim-bufdel' }
 
 	--  Debugging
-	use { 'mfussenegger/nvim-dap' }
-	use { 'nvim-telescope/telescope-dap.nvim' }
-	-- use {'mfussenegger/nvim-dap-python'}
 	use {
-		'rcarriga/nvim-dap-ui',
+		'mfussenegger/nvim-dap',
+		requires = {
+			'nvim-telescope/telescope-dap.nvim',
+			'theHamsta/nvim-dap-virtual-text'
+		},
 		config = function()
-			require('dapui').setup({
-				icons = {
-					expanded = "",
-					current_frame = "",
-					collapsed = ""
-				},
-				floating = {
-					border = "solid"
-				},
-				layouts = {
-					{
-						elements = {
-							'scopes',
-							'breakpoints',
-							'stacks',
-							'watches',
-						},
-						size = 40,
-						position = 'left',
-					},
-					{
-						elements = {
-							'repl',
-							'console',
-						},
-						size = 10,
-						position = 'bottom',
-					},
-				}
-			})
+			require('dbg.dap').setup()
 		end
 	}
-	use { 'theHamsta/nvim-dap-virtual-text' }
+	use {
+		'rcarriga/nvim-dap-ui',
+		requires = {
+			'mfussenegger/nvim-dap'
+		},
+		config = function()
+			require('dbg.dap_ui').setup()
+		end
+	}
 
 	use { 'mfussenegger/nvim-lint' }
 
 	-- Testing
 	-- TODO: Setup all commands
 	use {
-		"nvim-neotest/neotest",
+		'nvim-neotest/neotest',
 		requires = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
+			'nvim-lua/plenary.nvim',
+			'nvim-treesitter/nvim-treesitter',
+			'antoinemadec/FixCursorHold.nvim',
 		},
 		config = function()
-			require("neotest").setup({
+			require('neotest').setup({
 				icons = {
-					expanded = "",
-					-- child_prefix = "",
-					-- child_indent = "",
-					-- final_child_prefix = "",
-					-- non_collapsible = "",
-					collapsed = "",
+					expanded = '',
+					collapsed = '',
 
-					passed = "",
-					running = "",
-					failed = "",
-					unknown = "",
+					passed = '',
+					running = '',
+					failed = '',
+					unknown = '',
 				},
 				adapters = {
-					-- require("neotest-python")({
-					--     dap = { justMyCode = false },
-					-- }),
-					-- require("neotest-rust"),
-					require("neotest-vim-test")({
-						ignore_file_types = { "rust", "python", "vim", "lua" },
+					require('neotest-vim-test')({
+						ignore_file_types = { 'rust', 'python', 'vim', 'lua' },
 					}),
 				},
 			})
@@ -257,40 +256,36 @@ return require('packer').startup((function(use)
 	}
 
 	use {
-		"nvim-neotest/neotest-vim-test",
+		'nvim-neotest/neotest-vim-test',
 		requires = {
-			"vim-test/vim-test"
+			'vim-test/vim-test'
 		}
 	}
 
 	use 'rouge8/neotest-rust'
 
 	-- Quality of life stuff
-	-- use 'jiangmiao/auto-pairs'
-	use { "windwp/nvim-autopairs",
-		config = function() require("nvim-autopairs").setup {
+	use { 'windwp/nvim-autopairs',
+		config = function() require('nvim-autopairs').setup {
 				enable_check_bracket_line = false
 			}
 		end
 	}
 
-	-- use "steelsojka/pears.nvim"
 	use { 'kylechui/nvim-surround', config = function()
-		require("nvim-surround").setup({})
-		-- Configuration here, or leave empty to use defaults
+		require('nvim-surround').setup()
 	end
 	}
-	-- use 'terrortylor/nvim-comment'
 	use {
 		'folke/twilight.nvim',
 		config = function()
-			require("twilight").setup()
+			require('twilight').setup()
 		end
 	}
 	use {
 		'folke/zen-mode.nvim',
 		config = function()
-			require("zen-mode").setup()
+			require('zen-mode').setup()
 		end
 	}
 	use 'tpope/vim-commentary'
@@ -302,7 +297,7 @@ return require('packer').startup((function(use)
 			'kyazdani42/nvim-web-devicons',
 		},
 		config = function()
-			require "octo".setup()
+			require 'octo'.setup()
 		end
 	}
 	-- use 'dyng/ctrlsf.vim'
@@ -316,32 +311,34 @@ return require('packer').startup((function(use)
 			})
 		end
 	}
-	use { 'lvimuser/lsp-inlayhints.nvim' }
+	use {
+		'lvimuser/lsp-inlayhints.nvim',
+		branch = 'anticonceal',
+		config = function()
+			require('ui.inlay_hints').setup()
+		end
+	}
 
-	-- Maybe enable later?
-	-- use {
-	-- 	'nvim-treesitter/nvim-treesitter-context',
-	-- 	config = function()
-	-- 		require 'treesitter-context'.setup {
-	-- 		}
-	-- 	end
-	-- }
-
-	use 'lewis6991/impatient.nvim'
+	use {
+		'lewis6991/impatient.nvim',
+		config = function()
+			require('impatient').enable_profile()
+		end
+	}
 	-- use 'vim-scripts/restore_view.vim'
 	-- use 'kassio/neoterm'
 	-- Why do i have lazygit if i have toggle term??!?!!
 	use 'kdheepak/lazygit.nvim'
 	use {
-		"akinsho/toggleterm.nvim",
+		'akinsho/toggleterm.nvim',
 		config = function()
-			require("toggleterm").setup()
+			require('toggleterm').setup()
 		end
 	}
 	use {
 		'tweekmonster/startuptime.vim',
 		-- 'dstein64/vim-startuptime',
-		cmd = "StartupTime"
+		cmd = 'StartupTime'
 	}
 	-- use 'norcalli/profiler.nvim'
 	-- use 'github/copilot.vim'
@@ -373,20 +370,38 @@ return require('packer').startup((function(use)
 	-- Dashboard
 	use {
 		'andweeb/presence.nvim',
-		cmd = "discord"
+		cmd = 'discord'
 	}
 	use {
 		'glepnir/dashboard-nvim',
 		event = 'VimEnter',
 		config = function()
-			require("ui.dashboard-nvim")
+			require('ui.dashboard')
 		end,
 		requires = { 'nvim-tree/nvim-web-devicons' }
 	}
 
 	use {
 		'kevinhwang91/nvim-ufo',
-		requires = 'kevinhwang91/promise-async'
+		requires = 'kevinhwang91/promise-async',
+		config = function()
+			require('ui.ufo').setup()
+		end
+	}
+
+	use {
+		'luukvbaal/statuscol.nvim',
+		config = function()
+			local builtin = require('statuscol.builtin')
+			require('statuscol').setup({
+				relculright = true,
+				segments = {
+					{ text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
+					{ text = { '%s' }, click = 'v:lua.ScSa' },
+					{ text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
+				},
+			})
+		end
 	}
 
 	use {
@@ -404,13 +419,13 @@ return require('packer').startup((function(use)
 	-- }
 
 	use({
-		"folke/noice.nvim",
+		'folke/noice.nvim',
 		config = function()
-			require("ui.noice")
+			require('ui.noice')
 		end,
 		requires = {
-			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
+			'MunifTanjim/nui.nvim',
+			'rcarriga/nvim-notify',
 		}
 	})
 
@@ -421,22 +436,22 @@ return require('packer').startup((function(use)
 	--
 	-- use 'lukas-reineke/indent-blankline.nvim'
 
-	use { 'simrat39/symbols-outline.nvim', config = function() require("symbols-outline").setup() end }
+	use { 'simrat39/symbols-outline.nvim', config = function() require('symbols-outline').setup() end }
 
 	-- use 'spinks/vim-leader-guide'
 
-	use { "beauwilliams/focus.nvim",
-		config = function() require("focus").setup({ autoresize = false, signcolumn = false }) end }
+	use { 'beauwilliams/focus.nvim',
+		config = function() require('focus').setup({ autoresize = false, signcolumn = false }) end }
 
 	-- Interferes with the > and < keybindings
 	-- use {
-	-- 	"folke/which-key.nvim",
+	-- 	'folke/which-key.nvim',
 	-- 	config = function()
 	-- 		-- Cursor is really off, but oh welll
-	-- 		require("which-key").setup {
+	-- 		require('which-key').setup {
 	-- 			window = {
 	-- 				position = 'bottom',
-	-- 				-- border = "solid",
+	-- 				-- border = 'solid',
 	-- 				margin = { 1, vim.o.columns - 60, 1, 0 },
 	-- 				padding = { 1, 1, 1, 1 }
 	-- 			},
@@ -447,19 +462,19 @@ return require('packer').startup((function(use)
 	-- 			layout = {
 	-- 				height = { min = 10, max = 15 }, -- min and max width of the columns
 	-- 			},
-	-- 			-- triggers = ""
+	-- 			-- triggers = ''
 	-- 		}
-	-- 		require("which-key").register({
-	-- 			["<Space>w"] = { name = "+LSP Workspaces" }
+	-- 		require('which-key').register({
+	-- 			['<Space>w'] = { name = '+LSP Workspaces' }
 	-- 		})
 	-- 	end
 	-- } -- Lua
 
 	use {
-		"folke/todo-comments.nvim",
-		requires = "nvim-lua/plenary.nvim",
+		'folke/todo-comments.nvim',
+		requires = 'nvim-lua/plenary.nvim',
 		config = function()
-			require("todo-comments").setup {}
+			require('todo-comments').setup {}
 		end
 	}
 
