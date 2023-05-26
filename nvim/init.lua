@@ -111,11 +111,8 @@ g.neon_transparent = true
 
 
 require('plugins')
+require('keybindings')
 
 vim.cmd [[highlight InlaySurround guifg=#2d2b46]]
 vim.cmd [[highlight InlayText guibg=#2d2b46 guifg=#8a87b6]]
 
-if not g.bootstrap then
-	require('completion.lsp')
-	require('keybindings')
-end

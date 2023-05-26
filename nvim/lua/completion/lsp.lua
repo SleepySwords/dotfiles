@@ -1,15 +1,4 @@
--- require('completion.lsp_ui_handlers')
-
--- require('lsp_extensions').inlay_hints()
-
-local lsp_status = require('lsp-status')
--- use properly: https://github.com/nvim-lua/lsp-status.nvim
-lsp_status.register_progress()
-
 require('completion.lsp_sources')
-require('completion.lsp_utils')
-require('completion.lsp_error')
-require('completion.lsp_utils')
 
 local signature_config = {
 	log_path = vim.fn.expand("$HOME") .. "/tmp/sig.log",
@@ -26,3 +15,21 @@ local signature_config = {
 }
 
 require("lsp_signature").setup(signature_config)
+
+-- Shows error diagnostics on cursor hold + specifies a dot for the inlay hint
+vim.cmd("autocmd CursorHold * lua vim.diagnostic.open_float({focusable=false})", true)
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = {
+	prefix = '●', -- Could be '■', '▎', 'x'
+    },
+    signs = true,
+    underline = true,
+    update_in_insert = false -- true,
+})
+
+-- Define the signs for the left number bar
+local signs = { Error = " ", Warn = " ", Hint = " ", Information = " " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end

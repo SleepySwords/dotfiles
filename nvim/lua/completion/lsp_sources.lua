@@ -1,8 +1,5 @@
 local completion_engine = require('completion.engine.cmp')
 
-require('mason').setup()
-require('mason-lspconfig').setup()
-
 local lsp_config = require 'lspconfig'
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

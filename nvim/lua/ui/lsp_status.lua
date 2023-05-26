@@ -6,6 +6,8 @@ function M.setup()
 		status_symbol = '',
 		diagnostics = false
 	})
+	lsp_status.register_progress()
+
 
 	vim.api.nvim_create_augroup("LspAttach_status", {})
 

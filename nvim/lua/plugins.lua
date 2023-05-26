@@ -38,9 +38,23 @@ return require('packer').startup((function(use)
 	use 'catppuccin/vim'
 
 	-- Adds LSP support
-	use 'neovim/nvim-lspconfig'
+	use {
+		'neovim/nvim-lspconfig',
+		config = function()
+			require('completion.lsp')
+		end
+	}
 	use 'williamboman/mason.nvim'
-	use 'williamboman/mason-lspconfig.nvim'
+	use {
+		'williamboman/mason-lspconfig.nvim',
+		requires = {
+			'williamboman/mason.nvim'
+		},
+		config = function()
+			require('completion.mason').setup()
+
+		end
+	}
 
 	use { 'folke/neodev.nvim',
 		config = function()
@@ -51,7 +65,13 @@ return require('packer').startup((function(use)
 	-- use 'glepnir/lspsaga.nvim'
 	use {
 		'RishabhRD/nvim-lsputils',
-		requires = { { 'RishabhRD/popfix' } }
+		requires = {
+			'RishabhRD/popfix',
+			'neovim/nvim-lspconfig'
+		},
+		config = function()
+			require('completion.lsp_utils').setup()
+		end
 	}
 
 	use {
@@ -167,7 +187,6 @@ return require('packer').startup((function(use)
 	}
 
 	-- Status line + winbar (galaxyline, lualine)
-	-- TODO: need to add dependencies for this!
 	use {
 		'feline-nvim/feline.nvim',
 		requires = {
