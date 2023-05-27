@@ -174,6 +174,7 @@ return require('packer').startup((function(use)
 	use {
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		requires = { 'nvim-treesitter/nvim-treesitter' },
+		after = "nvim-treesitter"
 	}
 
 
@@ -463,31 +464,12 @@ return require('packer').startup((function(use)
 		config = function() require('focus').setup({ autoresize = false, signcolumn = false }) end }
 
 	-- Interferes with the > and < keybindings
-	-- use {
-	-- 	'folke/which-key.nvim',
-	-- 	config = function()
-	-- 		-- Cursor is really off, but oh welll
-	-- 		require('which-key').setup {
-	-- 			window = {
-	-- 				position = 'bottom',
-	-- 				-- border = 'solid',
-	-- 				margin = { 1, vim.o.columns - 60, 1, 0 },
-	-- 				padding = { 1, 1, 1, 1 }
-	-- 			},
-	-- 			triggers_blacklist = {
-	-- 				n = { 'v', '>', '<' }
-	-- 			},
-	-- 			show_help = false,
-	-- 			layout = {
-	-- 				height = { min = 10, max = 15 }, -- min and max width of the columns
-	-- 			},
-	-- 			-- triggers = ''
-	-- 		}
-	-- 		require('which-key').register({
-	-- 			['<Space>w'] = { name = '+LSP Workspaces' }
-	-- 		})
-	-- 	end
-	-- } -- Lua
+	use {
+		'folke/which-key.nvim',
+		config = function()
+			require('ui.which_key').setup()
+		end
+	} -- Lua
 
 	use {
 		'folke/todo-comments.nvim',

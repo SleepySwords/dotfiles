@@ -32,12 +32,8 @@ cmp.setup({
 		end,
 	},
 	snippet = {
-		-- REQUIRED - you must specify a snippet engine
 		expand = function(args)
-			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
 			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-			--     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-			--     -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
 		end,
 	},
 	mapping = {
@@ -95,7 +91,7 @@ cmp.setup({
 	},
 	experimental = {
 		-- native_menu = false,
-		ghost_text = true
+		ghost_text = true,
 	},
 	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },

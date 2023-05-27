@@ -53,13 +53,12 @@ if not g.bootstrap then
 	g.sonokai_enable_italic = 1
 	g.sonokai_disable_italic_comment = 1
 	g.sonokai_diagnostic_virtual_text = 'colour_background'
-	g.colors_name = 'duskfox'
-	g.tokyonight_style = "night"
+	-- g.colors_name = 'duskfox'
 	-- cmd[[colorscheme sonokai]]
 	-- cmd [[colorscheme tokyonight-night]]
 	-- cmd [[colorscheme onedark]]
-	-- cmd [[colorscheme tokyonight]]
-	vim.cmd [[colorscheme duskfox]]
+	vim.cmd [[colorscheme tokyonight-night]]
+	-- vim.cmd [[colorscheme duskfox]]
 	g.telescope_theme = require("navigation.telescope").get_telescope_theme()
 end
 
@@ -90,10 +89,10 @@ g.indent_blankline_show_first_indent_level = false
 
 -- vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
 -- vim.cmd [[highlight link TelescopeMatching Type]]
-vim.cmd [[highlight link TelescopeSelection Define]]
+vim.cmd [[highlight! link TelescopeSelection Define]]
 -- Icons become weird when bolded
 -- vim.cmd [[highlight TelescopeSelection guifg=#f0a6cc gui=bold]]
-vim.cmd [[highlight TelescopeMatching guifg=#f6c177 gui=bold]]
+vim.cmd [[highlight! TelescopeMatching guifg=#f6c177 gui=bold]]
 vim.cmd [[highlight! link FloatBorder NormalFloat]]
 
 g.Illuminate_ftblacklist = { 'NvimTree', 'dashboard' }
