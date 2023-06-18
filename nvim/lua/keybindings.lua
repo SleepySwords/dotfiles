@@ -187,11 +187,15 @@ map({ 'n' }, '<leader>dv', '<cmd>lua require("dapui").float_element("scopes", { 
 -- map('x', 'S', '<Plug>(vsnip-cut-text)')
 
 -- Terminal
--- map({ 't' }, '<esc>', [[<C-\><C-n>]], { noremap = true })
-map({ 't' }, '<C-h>', [[<C-\><C-n><C-W>h]], { noremap = true })
-map({ 't' }, '<C-j>', [[<C-\><C-n><C-W>j]], { noremap = true })
-map({ 't' }, '<C-k>', [[<C-\><C-n><C-W>k]], { noremap = true })
-map({ 't' }, '<C-l>', [[<C-\><C-n><C-W>l]], { noremap = true })
+map({ 't' }, '<C-esc>', [[<C-\><C-n>]], { noremap = true })
+map({ 'n' }, '<leader>ot', '<cmd>ToggleTerm<CR>', { noremap = true })
+map({ 'n' }, '<leader>of', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
+map({ 'n' }, '<leader>ov', '<cmd>ToggleTerm direction=vertical<CR>', { noremap = true })
+map({ 'n' }, '<leader>oh', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap = true })
+-- map({ 't' }, '<C-h>', [[<C-\><C-n><C-W>h]], { noremap = true })
+-- map({ 't' }, '<C-j>', [[<C-\><C-n><C-W>j]], { noremap = true })
+-- map({ 't' }, '<C-k>', [[<C-\><C-n><C-W>k]], { noremap = true })
+-- map({ 't' }, '<C-l>', [[<C-\><C-n><C-W>l]], { noremap = true })
 map({ 'n' }, '<leader>wo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
 map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 
@@ -235,3 +239,11 @@ map({ 'x' }, 'gh', "^", opts)
 -- map({ 'i' }, 'gh', "^", opts)
 map({ 'v' }, 'gl', "$", opts)
 map({ 'v' }, 'gh', "^", opts)
+
+
+-- Harpoon
+map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)
+map({ 'n' }, '<leader>mn', '<cmd>lua require("harpoon.ui").nav_next()<cr>', opts)
+map({ 'n' }, '<leader>mp', '<cmd>lua require("harpoon.ui").nav_prev()<cr>', opts)
+map({ 'n' }, '<leader>ma', '<cmd>lua require("harpoon.mark").toggle_file()<cr>', opts)
+map({ 'n' }, '<leader>mr', '<cmd>lua require("harpoon.mark").create_mark()<cr>', opts)

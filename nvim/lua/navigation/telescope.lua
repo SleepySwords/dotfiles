@@ -66,7 +66,7 @@ function M.setup()
 				},
 				n = { ["<c-t>"] = trouble.open_with_trouble },
 			},
-		},
+		}
 	})
 end
 

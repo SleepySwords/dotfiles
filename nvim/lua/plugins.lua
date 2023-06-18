@@ -74,6 +74,15 @@ return require('packer').startup((function(use)
 		end
 	}
 
+	use { 'stevearc/dressing.nvim',
+		requires = {
+			'nvim-telescope/telescope.nvim'
+		},
+		config = function()
+			require('ui.dressing').setup()
+		end
+	}
+
 	use {
 		'folke/trouble.nvim',
 		requires = 'kyazdani42/nvim-web-devicons',
@@ -352,7 +361,7 @@ return require('packer').startup((function(use)
 	use {
 		'akinsho/toggleterm.nvim',
 		config = function()
-			require('toggleterm').setup()
+			require('ui.toggleterm_ui').setup()
 		end
 	}
 	use {
@@ -448,6 +457,19 @@ return require('packer').startup((function(use)
 			'rcarriga/nvim-notify',
 		}
 	})
+
+	use { 'ThePrimeagen/harpoon',
+		requires = {
+			'nvim-lua/plenary.nvim'
+		}
+	}
+
+
+	use { 'folke/edgy.nvim',
+		config = function()
+			require('ui.edgy_ui').setup()
+		end
+	}
 
 	-- use {
 	-- 	'glacambre/firenvim',
