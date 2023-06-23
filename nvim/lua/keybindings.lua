@@ -37,6 +37,7 @@ map_desc({ 'n' }, '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_work
 -- 	opts)
 map_desc({ 'n' }, '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', 'LSP Type Definition', opts)
 map_desc({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', 'LSP Code Action', opts)
+map_desc({ 'n' }, '<leader>ci', "<cmd>lua require('lsp-inlayhints').toggle()<CR>", 'LSP Code Action', opts)
 map_desc({ 'n' }, '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', 'LSP Open Diagnostics', opts)
 map_desc({ 'n' }, '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'LSP Previous Diagnostic', opts)
 map_desc({ 'n' }, ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'LSP Next Diagnostic', opts)
@@ -164,28 +165,6 @@ map({ 'n' }, '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables
 map({ 'n' }, '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames(vim.g.telescope_theme)<CR>')
 map({ 'n' }, '<leader>dv', '<cmd>lua require("dapui").float_element("scopes", { position = "center", enter = true, height = 40, width = 150 })<CR>')
 
--- Snippets
-
--- map('i', '<expr> <C-j>', "vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>'")
--- map('s', '<expr> <C-j>', "vsnip#expandable() ? '<Plug>(vsnip-expand)' : '<C-j>'")
-
--- -- Expand or jump
--- map('i', '<expr> <C-l>', "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
--- map('s', '<expr> <C-l>', "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'")
-
--- -- Jump forward or backward
--- map('i', '<expr> <Tab>', "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'")
--- map('s', '<expr> <Tab>', "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'")
--- map('i', '<expr> <S-Tab>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'")
--- map('s', '<expr> <S-Tab>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'")
-
--- -- Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
--- -- See https://github.com/hrsh7th/vim-vsnip/pull/50
--- map('n', 's', '<Plug>(vsnip-select-text)')
--- map('x', 's', '<Plug>(vsnip-select-text)')
--- map('n', 'S', '<Plug>(vsnip-cut-text)')
--- map('x', 'S', '<Plug>(vsnip-cut-text)')
-
 -- Terminal
 map({ 't' }, '<C-esc>', [[<C-\><C-n>]], { noremap = true })
 map({ 'n' }, '<leader>ot', '<cmd>ToggleTerm<CR>', { noremap = true })
@@ -198,31 +177,6 @@ map({ 'n' }, '<leader>oh', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap
 -- map({ 't' }, '<C-l>', [[<C-\><C-n><C-W>l]], { noremap = true })
 map({ 'n' }, '<leader>wo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
 map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
-
--- Need to convert to lua
--- TODO: Uncomment
--- vim.cmd [[
--- imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
--- smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
--- " Expand or jump
--- imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
--- smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
--- " Jump forward or backward
--- imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
--- smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
--- imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
--- smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
--- " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
--- " See https://github.com/hrsh7th/vim-vsnip/pull/50
--- nmap        s   <Plug>(vsnip-select-text)
--- xmap        s   <Plug>(vsnip-select-text)
--- nmap        S   <Plug>(vsnip-cut-text)
--- xmap        S   <Plug>(vsnip-cut-text)
--- ]]
-
 
 map({ 'n' }, '<C-j>', '<cmd>:m .+1<CR>==', opts)
 map({ 'n' }, '<C-k>', '<cmd>:m .-2<CR>==', opts)
@@ -247,3 +201,19 @@ map({ 'n' }, '<leader>mn', '<cmd>lua require("harpoon.ui").nav_next()<cr>', opts
 map({ 'n' }, '<leader>mp', '<cmd>lua require("harpoon.ui").nav_prev()<cr>', opts)
 map({ 'n' }, '<leader>ma', '<cmd>lua require("harpoon.mark").toggle_file()<cr>', opts)
 map({ 'n' }, '<leader>mr', '<cmd>lua require("harpoon.mark").create_mark()<cr>', opts)
+
+
+-- local hop = require('hop')
+-- local directions = require('hop.hint').HintDirection
+-- vim.keymap.set('', 'f', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+-- end, {remap=true})
+-- vim.keymap.set('', 'F', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+-- end, {remap=true})
+-- vim.keymap.set('', 't', function()
+--   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+-- end, {remap=true})
+-- vim.keymap.set('', 'T', function()
+--   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+-- end, {remap=true})

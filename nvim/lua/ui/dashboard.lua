@@ -5,6 +5,7 @@ require('splashscreen-sprites')
 
 db.setup {
 	theme = 'hyper',
+	disable_move = true,
 	config = {
 		header = g.portal_cake,
 		shortcut = {
@@ -24,5 +25,3 @@ db.setup {
 		},
 	}
 }
-
--- vim.cmd[[autocmd FileType dashboard set laststatus=0 | autocgmd WinLeave <buffer> set laststatus=3]]

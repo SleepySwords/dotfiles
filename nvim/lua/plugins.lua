@@ -198,7 +198,7 @@ return require('packer').startup((function(use)
 
 	-- Status line + winbar (galaxyline, lualine)
 	use {
-		'feline-nvim/feline.nvim',
+		'freddiehaddad/feline.nvim',
 		requires = {
 			{
 				'lewis6991/gitsigns.nvim',
