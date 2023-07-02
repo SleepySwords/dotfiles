@@ -83,11 +83,11 @@ map_desc({ 'n' }, '<leader>hh', '<cmd>lua require("telescope.builtin").highlight
 	"Open Help Tags", { noremap = true })
 map_desc({ 'n' }, '<leader>l', '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>',
 	"Open Git Files", { noremap = true })
-map_desc({ 'n' }, '<leader>s', '<cmd>lua require("telescope.builtin").lsp_document_symbols(vim.g.telescope_theme)<cr>',
+map_desc({ 'n' }, '<leader>S', '<cmd>lua require("telescope.builtin").lsp_document_symbols(vim.g.telescope_theme)<cr>',
 	"Open document symbols", { noremap = true })
 map_desc({ 'n' }, '<leader>G', '<cmd>lua require("telescope.builtin").diagnostics(vim.g.telescope_theme)<cr>',
 	"Open diagnostics", { noremap = true })
-map_desc({ 'n' }, '<leader>S',
+map_desc({ 'n' }, '<leader>s',
 	'<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>'
 	,
 	"Open workspace symbols", { noremap = true })
@@ -108,7 +108,10 @@ map_desc({ 'n' }, '<leader>as', '<cmd>lua require("neotest").summary.open()<CR>'
 	{ noremap = true })
 map_desc({ 'n' }, '<leader>ao', '<cmd>lua require("neotest").output.open()<CR>', "Open output test window",
 	{ noremap = true })
-map_desc({ 'n' }, '<leader>j', '<cmd>HopWord<CR>', "Hop Word", { noremap = true })
+
+-- TODO: Need to remove one of these.
+map_desc({ 'n' }, '<leader>j', '<cmd>HopWord<CR>', "hop word", { noremap = true })
+map_desc({ 'n' }, 'gj', '<cmd>HopWord<CR>', "hop word", { noremap = true })
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
@@ -171,10 +174,6 @@ map({ 'n' }, '<leader>ot', '<cmd>ToggleTerm<CR>', { noremap = true })
 map({ 'n' }, '<leader>of', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 map({ 'n' }, '<leader>ov', '<cmd>ToggleTerm direction=vertical<CR>', { noremap = true })
 map({ 'n' }, '<leader>oh', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap = true })
--- map({ 't' }, '<C-h>', [[<C-\><C-n><C-W>h]], { noremap = true })
--- map({ 't' }, '<C-j>', [[<C-\><C-n><C-W>j]], { noremap = true })
--- map({ 't' }, '<C-k>', [[<C-\><C-n><C-W>k]], { noremap = true })
--- map({ 't' }, '<C-l>', [[<C-\><C-n><C-W>l]], { noremap = true })
 map({ 'n' }, '<leader>wo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
 map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 
@@ -189,8 +188,6 @@ map({ 'n' }, 'gl', "$", opts)
 map({ 'n' }, 'gh', "^", opts)
 map({ 'x' }, 'gl', "$", opts)
 map({ 'x' }, 'gh', "^", opts)
--- map({ 'i' }, 'gl', "<esc>$<a>", opts)
--- map({ 'i' }, 'gh', "^", opts)
 map({ 'v' }, 'gl', "$", opts)
 map({ 'v' }, 'gh', "^", opts)
 

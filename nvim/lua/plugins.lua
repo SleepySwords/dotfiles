@@ -11,9 +11,9 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
-require('packer').init {
-	max_jobs = 1
-}
+require('packer').init({
+	max_jobs = 60
+})
 
 return require('packer').startup((function(use)
 	-- Packer can manage itself
@@ -162,7 +162,7 @@ return require('packer').startup((function(use)
 		config = function()
 			require('ui.treesitter')
 		end,
-		-- run = ':TSUpdate'
+		run = ':TSUpdate'
 	}
 	-- use 'nvim-telescope/telescope-symbols.nvim'
 	use {
@@ -176,14 +176,24 @@ return require('packer').startup((function(use)
 		'nvim-treesitter/playground',
 		requires = { 'nvim-treesitter/nvim-treesitter' },
 	}
-	-- use {
-	-- 	'p00f/nvim-ts-rainbow',
-	-- 	requires = { 'nvim-treesitter/nvim-treesitter' },
-	-- }
+
+	use {
+		'HiPhish/nvim-ts-rainbow2',
+		requires = { 'nvim-treesitter/nvim-treesitter' },
+	}
+
 	use {
 		'nvim-treesitter/nvim-treesitter-textobjects',
 		requires = { 'nvim-treesitter/nvim-treesitter' },
 		after = "nvim-treesitter"
+	}
+
+	use {
+		'ziontee113/syntax-tree-surfer',
+		requires = { 'nvim-treesitter/nvim-treesitter' },
+		config = function()
+			require('ui.treesurfer').setup()
+		end
 	}
 
 
