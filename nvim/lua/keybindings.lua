@@ -37,7 +37,7 @@ map_desc({ 'n' }, '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_work
 -- 	opts)
 map_desc({ 'n' }, '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', 'LSP Type Definition', opts)
 map_desc({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', 'LSP Code Action', opts)
-map_desc({ 'n' }, '<leader>ci', "<cmd>lua require('lsp-inlayhints').toggle()<CR>", 'LSP Code Action', opts)
+map_desc({ 'n' }, '<leader>ci', "<cmd>lua vim.lsp.inlay_hint(0)<CR>", 'LSP Code Action', opts)
 map_desc({ 'n' }, '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', 'LSP Open Diagnostics', opts)
 map_desc({ 'n' }, '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'LSP Previous Diagnostic', opts)
 map_desc({ 'n' }, ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'LSP Next Diagnostic', opts)
@@ -52,6 +52,8 @@ map_desc({ 'n' }, '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<CR>', 
 map_desc({ 'n' }, '<leader>xd', '<cmd>TroubleToggle document_diagnostics<CR>', 'Trouble document diagnostics', opts)
 map_desc({ 'n' }, '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', 'Trouble quickfix', opts)
 map_desc({ 'n' }, '<leader>xt', '<cmd>TodoTrouble<CR>', 'Trouble todo', opts)
+map_desc({ 'n' }, '<leader>xn', '<cmd>lua require("trouble").next({skip_groups = true, jump = true});<CR>', 'Trouble next', opts)
+map_desc({ 'n' }, '<leader>xp', '<cmd>lua require("trouble").previous({skip_groups = true, jump = true});<CR>', 'Trouble previous', opts)
 
 -- map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
 

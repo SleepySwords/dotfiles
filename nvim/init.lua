@@ -36,10 +36,15 @@ o.laststatus = 3
 o.mousemodel = "extend"
 o.ignorecase = true
 
+
+o.conceallevel = 1
+
+
 -- Highlights when yannking (y)
 vim.cmd("autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
 
 vim.cmd("autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>", true)
+-- vim.cmd("autocmd! FileType rust set softtabstop=0", true)
 
 -- Recognize wgsl
 vim.cmd("au BufNewFile,BufRead *.wgsl set filetype=wgsl")

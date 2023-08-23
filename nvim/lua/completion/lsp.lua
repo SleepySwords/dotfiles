@@ -11,7 +11,8 @@ local signature_config = {
 
 	handler_opts = {
 		border = "solid",
-	}
+	},
+    toggle_key = "<M-x>",
 }
 
 require("lsp_signature").setup(signature_config)
@@ -33,3 +34,11 @@ for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--     group = vim.api.nvim_create_augroup('InlayHintsAttach', {}),
+--     callback = function(args)
+--       local buf = args.buf
+--       vim.lsp.inlay_hint(buf, true)
+--     end,
+-- })

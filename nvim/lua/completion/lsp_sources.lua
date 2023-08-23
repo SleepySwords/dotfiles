@@ -111,3 +111,19 @@ lsp_config.wgsl_analyzer.setup(completion_engine.provide_capabilities({
 		return vim.fn.getcwd()
 	end
 }))
+lsp_config.zls.setup(completion_engine.provide_capabilities({
+	capabilities = capabilities,
+	root_dir = function()
+		return vim.fn.getcwd()
+	end
+}))
+
+-- Conflicts with clangd
+-- lsp_config.sourcekit.setup(completion_engine.provide_capabilities({
+-- 	capabilities = capabilities,
+-- 	root_dir = function()
+-- 		return vim.fn.getcwd()
+-- 	end
+-- }))
+
+lsp_config.marksman.setup{}

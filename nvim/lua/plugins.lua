@@ -8,13 +8,15 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	if not string.find(vim.o.runtimepath, rtp_addition) then
 		vim.o.runtimepath = rtp_addition .. ',' .. vim.o.runtimepath
 	end
-	packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+	packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+		install_path })
 end
 
 require('packer').init({
 	max_jobs = 60
 })
 
+-- TODO: Explain what each plugin actually does, i s2g i don't use half of these.
 return require('packer').startup((function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
@@ -30,7 +32,12 @@ return require('packer').startup((function(use)
 	use 'matsuuu/pinkmare'
 	use 'lifepillar/vim-solarized8'
 	use 'sainnhe/sonokai'
-	use 'folke/tokyonight.nvim'
+	use {
+		'folke/tokyonight.nvim',
+		config = function()
+			require('theme.tokyonight').setup()
+		end
+	}
 	use 'EdenEast/nightfox.nvim'
 	use 'joshdick/onedark.vim'
 	use 'rafamadriz/neon'
@@ -52,9 +59,22 @@ return require('packer').startup((function(use)
 		},
 		config = function()
 			require('completion.mason').setup()
-
 		end
 	}
+
+	-- FIX: may become irrelevent in the future.
+	-- use {
+	-- 	'jay-babu/mason-null-ls.nvim',
+	-- 	requires = {
+	-- 		'jose-elias-alvarez/null-ls.nvim',
+	-- 		'williamboman/mason.nvim',
+	-- 		'williamboman/mason-lspconfig.nvim'
+	-- 	},
+	-- 	config = function()
+	-- 		require('completion.nullls').setup()
+
+	-- 	end
+	-- }
 
 	use { 'folke/neodev.nvim',
 		config = function()
@@ -122,7 +142,7 @@ return require('packer').startup((function(use)
 
 	use 'onsails/lspkind.nvim'
 
-	use 'YorickPeterse/rust.vim'
+	-- use 'YorickPeterse/rust.vim'
 	-- use {
 	-- 	'simrat39/rust-tools.nvim',
 	-- 	config = function()
@@ -161,6 +181,7 @@ return require('packer').startup((function(use)
 		'nvim-treesitter/nvim-treesitter',
 		config = function()
 			require('ui.treesitter')
+			require('plg.headlines').setup()
 		end,
 		run = ':TSUpdate'
 	}
@@ -238,6 +259,13 @@ return require('packer').startup((function(use)
 		end
 	}
 
+	use {
+		'lewis6991/satellite.nvim',
+		config = function()
+			require('ui.satellite').setup()
+		end
+	}
+
 	-- Buffers
 	use { 'ojroques/nvim-bufdel' }
 
@@ -290,7 +318,6 @@ return require('packer').startup((function(use)
 					}),
 				},
 			})
-
 		end
 	}
 
@@ -305,7 +332,8 @@ return require('packer').startup((function(use)
 
 	-- Quality of life stuff
 	use { 'windwp/nvim-autopairs',
-		config = function() require('nvim-autopairs').setup {
+		config = function()
+			require('nvim-autopairs').setup {
 				enable_check_bracket_line = false
 			}
 		end
@@ -324,7 +352,39 @@ return require('packer').startup((function(use)
 	use {
 		'folke/zen-mode.nvim',
 		config = function()
-			require('zen-mode').setup()
+			require('zen-mode').setup {
+				window = {
+					backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+					-- height and width can be:
+					-- * an absolute number of cells when > 1
+					-- * a percentage of the width / height of the editor when <= 1
+					-- * a function that returns the width or the height
+					width = 100, -- width of the Zen window
+					height = 1, -- height of the Zen window
+					-- by default, no options are changed for the Zen window
+					-- uncomment any of the options below, or add other vim.wo options you want to apply
+					options = {
+						signcolumn = "no", -- disable signcolumn
+						number = false, -- disable number column
+						relativenumber = false, -- disable relative numbers
+						cursorline = false, -- disable cursorline
+						cursorcolumn = false, -- disable cursor column
+						foldcolumn = "0", -- disable fold column
+						list = false, -- disable whitespace characters
+					},
+				},
+				plugins = {
+					-- disable some global vim options (vim.o...)
+					-- comment the lines to not apply the options
+					options = {
+						enabled = true,
+						ruler = false, -- disables the ruler text in the cmd line area
+						showcmd = false, -- disables the command in the last line of the screen
+					},
+					twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
+					gitsigns = { enabled = false }, -- disables git signs_staged
+				}
+			}
 		end
 	}
 	use 'tpope/vim-commentary'
@@ -346,13 +406,14 @@ return require('packer').startup((function(use)
 			require('illuminate').configure({
 				providers = {
 					'lsp'
-				}, delay = 0
+				},
+				delay = 0
 			})
 		end
 	}
 	use {
-		'lvimuser/lsp-inlayhints.nvim',
-		branch = 'anticonceal',
+		'/Users/ibby/Stuff/computer_science/lua/lsp-inlayhints.nvim',
+		-- branch = 'anticonceal',
 		config = function()
 			require('ui.inlay_hints').setup()
 		end
@@ -381,31 +442,6 @@ return require('packer').startup((function(use)
 	}
 	-- use 'norcalli/profiler.nvim'
 	-- use 'github/copilot.vim'
-
-	use {
-		'nvim-orgmode/orgmode',
-		config = function()
-			require('orgmode').setup {}
-			-- Load custom treesitter grammar for org filetype
-			require('orgmode').setup_ts_grammar()
-
-			-- Treesitter configuration
-			require('nvim-treesitter.configs').setup {
-				-- If TS highlights are not enabled at all, or disabled via `disable` prop,
-				-- highlighting will fallback to default Vim syntax highlighting
-				highlight = {
-					enable = true,
-					-- Required for spellcheck, some LaTex highlights and
-					-- code block highlights that do not have ts grammar
-					additional_vim_regex_highlighting = { 'org' },
-				},
-				ensure_installed = { 'org' }, -- Or run :TSUpdate org
-			}
-		end
-
-	}
-
-
 	-- Dashboard
 	use {
 		'andweeb/presence.nvim',
@@ -435,8 +471,8 @@ return require('packer').startup((function(use)
 			require('statuscol').setup({
 				relculright = true,
 				segments = {
-					{ text = { builtin.foldfunc }, click = 'v:lua.ScFa' },
-					{ text = { '%s' }, click = 'v:lua.ScSa' },
+					{ text = { builtin.foldfunc },      click = 'v:lua.ScFa' },
+					{ text = { '%s' },                  click = 'v:lua.ScSa' },
 					{ text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
 				},
 			})
@@ -492,8 +528,9 @@ return require('packer').startup((function(use)
 
 	-- use 'spinks/vim-leader-guide'
 
-	use { 'beauwilliams/focus.nvim',
-		config = function() require('focus').setup({ autoresize = false, signcolumn = false }) end }
+	-- TODO: investigate why i have this
+	-- use { 'beauwilliams/focus.nvim',
+	-- 	config = function() require('focus').setup({ autoresize = false, signcolumn = false }) end }
 
 	-- Interferes with the > and < keybindings
 	use {
@@ -519,4 +556,27 @@ return require('packer').startup((function(use)
 	if packer_bootstrap then
 		require('packer').sync()
 	end
+
+
+	-- Markdown
+	-- use {
+	-- 	'lukas-reineke/headlines.nvim',
+	-- 	after = 'nvim-treesitter',
+	-- 	config = function()
+	-- 		require('headlines').setup {
+	-- 			markdown = {
+	-- 				dash_string = "•",
+
+	-- 			}
+	-- 		}
+	-- 	end,
+	-- }
+
+	use {
+		'nvim-neorg/neorg',
+		run = ":Neorg sync-parsers", -- This is the important bit!
+		config = function()
+			require('config.neorg').setup()
+		end,
+	}
 end))
