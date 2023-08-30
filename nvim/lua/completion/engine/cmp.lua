@@ -23,7 +23,11 @@ cmp.setup({
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
-			local kind = require("lspkind").cmp_format({ mode = "symbol_text", preset = 'codicons', maxwidth = 50 })(entry, vim_item)
+			local kind = require("lspkind").cmp_format({
+				mode = "symbol_text",
+				preset = 'codicons',
+				maxwidth = 50
+			})(entry, vim_item)
 			local strings = vim.split(kind.kind, "%s", { trimempty = true })
 			kind.kind = " " .. (strings[1] or "") .. " "
 			kind.menu = "    (" .. (strings[2] or "") .. ")"
@@ -42,8 +46,8 @@ cmp.setup({
 			-- 	cmp.select_next_item()
 			-- if vim.fn["vsnip#available"](1) == 1 then
 			-- 	feedkey("<Plug>(vsnip-expand-or-jump)", "")
-				if luasnip.expand_or_locally_jumpable() then
-					luasnip.expand_or_jump()
+			if luasnip.expand_or_locally_jumpable() then
+				luasnip.expand_or_jump()
 				-- elseif has_words_before() then
 				--   cmp.complete()
 			else
@@ -56,8 +60,8 @@ cmp.setup({
 			-- 	cmp.select_prev_item()
 			-- if vim.fn["vsnip#jumpable"](-1) == 1 then
 			-- 	feedkey("<Plug>(vsnip-jump-prev)", "")
-				if luasnip.jumpable(-1) then
-					luasnip.jump(-1)
+			if luasnip.jumpable(-1) then
+				luasnip.jump(-1)
 			else
 				fallback()
 			end
@@ -100,11 +104,34 @@ cmp.setup({
 		-- { name = 'vsnip' },
 		{ name = 'path' },
 		{ name = 'buffer' },
-		-- { name = 'cmdline' }
+		{ name = 'cmdline' }
 		-- { name = 'ultisnips' }, -- For ultisnips users.
 		-- { name = 'snippy' }, -- For snippy users.
 	})
 })
+
+
+cmp.setup.cmdline(':', {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = 'path' }
+	}, {
+		{
+			name = 'cmdline',
+			option = {
+				ignore_cmds = { 'Man', '!' }
+			}
+		}
+	})
+})
+
+-- cmp.setup.cmdline('/', {
+-- 	mapping = cmp.mapping.preset.cmdline(),
+-- 	sources = {
+-- 		{ name = 'buffer' }
+-- 	}
+-- })
+
 
 
 -- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())

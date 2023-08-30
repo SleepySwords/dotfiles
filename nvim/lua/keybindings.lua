@@ -41,7 +41,7 @@ map_desc({ 'n' }, '<leader>ci', "<cmd>lua vim.lsp.inlay_hint(0)<CR>", 'LSP Code 
 map_desc({ 'n' }, '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', 'LSP Open Diagnostics', opts)
 map_desc({ 'n' }, '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'LSP Previous Diagnostic', opts)
 map_desc({ 'n' }, ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', 'LSP Next Diagnostic', opts)
-map_desc({ 'n' }, '<space>lq', '<cmd>lua vim.diagnostic.set_loclist()<CR>', 'LSP Set Loclist', opts)
+map_desc({ 'n' }, '<space>dqf', '<cmd>lua vim.diagnostic.setqflist()<CR>', 'LSP Set Loclist', opts)
 map_desc({ 'n' }, '<space>cf', '<cmd>lua vim.lsp.buf.format { async = true }<CR>', 'LSP Format', opts)
 map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', 'LSP Hover')
 
@@ -52,8 +52,10 @@ map_desc({ 'n' }, '<leader>xw', '<cmd>TroubleToggle workspace_diagnostics<CR>', 
 map_desc({ 'n' }, '<leader>xd', '<cmd>TroubleToggle document_diagnostics<CR>', 'Trouble document diagnostics', opts)
 map_desc({ 'n' }, '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', 'Trouble quickfix', opts)
 map_desc({ 'n' }, '<leader>xt', '<cmd>TodoTrouble<CR>', 'Trouble todo', opts)
-map_desc({ 'n' }, '<leader>xn', '<cmd>lua require("trouble").next({skip_groups = true, jump = true});<CR>', 'Trouble next', opts)
-map_desc({ 'n' }, '<leader>xp', '<cmd>lua require("trouble").previous({skip_groups = true, jump = true});<CR>', 'Trouble previous', opts)
+map_desc({ 'n' }, '<leader>xn', '<cmd>lua require("trouble").next({skip_groups = true, jump = true});<CR>',
+	'Trouble next', opts)
+map_desc({ 'n' }, '<leader>xp', '<cmd>lua require("trouble").previous({skip_groups = true, jump = true});<CR>',
+	'Trouble previous', opts)
 
 -- map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
 
@@ -99,7 +101,8 @@ map_desc({ 'n' }, '<leader><C-s>',
 	"Open workspace symbols", { noremap = true })
 
 
-local command = [[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
+local command =
+[[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
 
 map_desc({ 'n' }, '<leader>cs', command, "Open Colour Scheme", { noremap = true })
 map_desc({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', "Open File Tree", { noremap = true })
@@ -113,7 +116,7 @@ map_desc({ 'n' }, '<leader>ao', '<cmd>lua require("neotest").output.open()<CR>',
 
 -- TODO: Need to remove one of these.
 map_desc({ 'n' }, '<leader>j', '<cmd>HopWord<CR>', "hop word", { noremap = true })
-map_desc({ 'n' }, 'gj', '<cmd>HopWord<CR>', "hop word", { noremap = true })
+-- map_desc({ 'n' }, 'gj', '<cmd>HopWord<CR>', "hop word", { noremap = true })
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
@@ -124,11 +127,11 @@ map_desc({ 'n', 'v' }, '\\', '"_', "Blackhole Register", { noremap = true })
 map_desc({ 'v' }, '<Tab>', '>gv', "Visual-Mode Indent Code", { noremap = true })
 map_desc({ 'v' }, '<S-Tab>', '<gv', "Visual-Mode Outdent Code", { noremap = true })
 
-map({ 'v' }, '>', '>gv', { noremap=true })
-map({ 'v' }, '<', '<gv', { noremap=true })
+map({ 'v' }, '>', '>gv', { noremap = true })
+map({ 'v' }, '<', '<gv', { noremap = true })
 
 map({ 'n' }, '>', '>>', opts)
-map({ 'n' }, '<', '<<', { noremap=true })
+map({ 'n' }, '<', '<<', { noremap = true })
 
 -- Buffer handling
 -- map_desc({ 'n' }, 'L', '<cmd>let &number=1-&number<CR>', "Change Between Relative")
@@ -138,6 +141,7 @@ map_desc({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', "Goto Prev Buffer")
 map_desc({ 'n' }, '<leader>q', '<cmd>BufDel<CR>', "Delete The Current Buffer")
 map({ 'n' }, '<leader>ls', '<cmd>ls<CR>')
 map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>')
+
 -- http://stackoverflow.com/questions/7513380/vim-change-x-function-to-delete-buffer-instead-of-save-quit
 -- Tooo lazy to port
 -- vim.cmd("cnoreabbrev <expr> q getcmdtype() == ':' && (getcmdline() == 'q' && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1) ? 'BufDel' : 'q'")
@@ -168,7 +172,8 @@ map({ 'n' }, '<leader>dto', '<cmd>lua require"telescope".extensions.dap.configur
 map({ 'n' }, '<leader>dlb', '<cmd>lua require"telescope".extensions.dap.list_breakpoints(vim.g.telescope_theme)<CR>')
 map({ 'n' }, '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables(vim.g.telescope_theme)<CR>')
 map({ 'n' }, '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames(vim.g.telescope_theme)<CR>')
-map({ 'n' }, '<leader>dv', '<cmd>lua require("dapui").float_element("scopes", { position = "center", enter = true, height = 40, width = 150 })<CR>')
+map({ 'n' }, '<leader>dv',
+	'<cmd>lua require("dapui").float_element("scopes", { position = "center", enter = true, height = 40, width = 150 })<CR>')
 
 -- Terminal
 map({ 't' }, '<C-esc>', [[<C-\><C-n>]], { noremap = true })
@@ -184,6 +189,8 @@ map({ 'n' }, '<C-k>', '<cmd>:m .-2<CR>==', opts)
 map({ 'v' }, '<C-j>', ":move'>+<CR>gv=gv", opts)
 map({ 'v' }, '<C-k>', ":move-2<CR>gv=gv", opts)
 
+map({ 'n' }, '<C-n>', ':cn<CR>', opts)
+map({ 'n' }, '<C-p>', ':cp<CR>', opts)
 
 
 map({ 'n' }, 'gl', "$", opts)
@@ -195,11 +202,11 @@ map({ 'v' }, 'gh', "^", opts)
 
 
 -- Harpoon
-map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)
-map({ 'n' }, '<leader>mn', '<cmd>lua require("harpoon.ui").nav_next()<cr>', opts)
-map({ 'n' }, '<leader>mp', '<cmd>lua require("harpoon.ui").nav_prev()<cr>', opts)
-map({ 'n' }, '<leader>ma', '<cmd>lua require("harpoon.mark").toggle_file()<cr>', opts)
-map({ 'n' }, '<leader>mr', '<cmd>lua require("harpoon.mark").create_mark()<cr>', opts)
+-- map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)
+-- map({ 'n' }, '<leader>mn', '<cmd>lua require("harpoon.ui").nav_next()<cr>', opts)
+-- map({ 'n' }, '<leader>mp', '<cmd>lua require("harpoon.ui").nav_prev()<cr>', opts)
+-- map({ 'n' }, '<leader>ma', '<cmd>lua require("harpoon.mark").toggle_file()<cr>', opts)
+-- map({ 'n' }, '<leader>mr', '<cmd>lua require("harpoon.mark").create_mark()<cr>', opts)
 
 
 -- local hop = require('hop')

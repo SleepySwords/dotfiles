@@ -1,3 +1,6 @@
+vim.loader.enable()
+
+
 local o = vim.o
 local g = vim.g
 
@@ -14,7 +17,7 @@ o.shortmess = o.shortmess .. "c"
 -- o.tabstop = 4
 o.autoindent = true
 o.smartindent = true
-o.cmdheight = 2
+o.cmdheight = 1
 o.updatetime = 500
 o.signcolumn = "yes"
 o.clipboard = "unnamed,unnamedplus"
@@ -120,3 +123,4 @@ require('keybindings')
 vim.cmd [[highlight InlaySurround guifg=#2d2b46]]
 vim.cmd [[highlight InlayText guibg=#2d2b46 guifg=#8a87b6]]
 
+vim.api.nvim_set_hl(0, 'Folded', {})

@@ -1,3 +1,4 @@
+-- test
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -132,7 +133,7 @@ return require('packer').startup((function(use)
 
 	-- Autocomplete Sources
 	use 'hrsh7th/cmp-buffer'
-	-- use 'hrsh7th/cmp-cmdline'
+	use 'hrsh7th/cmp-cmdline'
 	use 'hrsh7th/cmp-path'
 	use 'hrsh7th/cmp-nvim-lua'
 	use 'hrsh7th/cmp-nvim-lsp'
@@ -227,7 +228,7 @@ return require('packer').startup((function(use)
 		end
 	}
 
-	-- Status line + winbar (galaxyline, lualine)
+	-- Statusline + winbar (galaxyline, lualine) + bufferline
 	use {
 		'freddiehaddad/feline.nvim',
 		requires = {
@@ -259,12 +260,14 @@ return require('packer').startup((function(use)
 		end
 	}
 
-	use {
-		'lewis6991/satellite.nvim',
-		config = function()
-			require('ui.satellite').setup()
-		end
-	}
+	-- Scrollbar with a bunch of features in it
+	-- Disabled because of laggy while scrolling
+	-- use {
+	-- 	'lewis6991/satellite.nvim',
+	-- 	config = function()
+	-- 		require('ui.satellite').setup()
+	-- 	end
+	-- }
 
 	-- Buffers
 	use { 'ojroques/nvim-bufdel' }
@@ -330,7 +333,8 @@ return require('packer').startup((function(use)
 
 	use 'rouge8/neotest-rust'
 
-	-- Quality of life stuff
+	--- Quality of life stuff
+	-- auto add the ending bracket
 	use { 'windwp/nvim-autopairs',
 		config = function()
 			require('nvim-autopairs').setup {
@@ -339,16 +343,22 @@ return require('packer').startup((function(use)
 		end
 	}
 
+	-- adds ys, ds, cs,
+	-- Surround commands (ysiw')
 	use { 'kylechui/nvim-surround', config = function()
 		require('nvim-surround').setup()
 	end
 	}
+
+	-- Highlight only the code section you are editing
 	use {
 		'folke/twilight.nvim',
 		config = function()
 			require('twilight').setup()
 		end
 	}
+
+	-- Enter :ZenMode
 	use {
 		'folke/zen-mode.nvim',
 		config = function()
@@ -387,7 +397,11 @@ return require('packer').startup((function(use)
 			}
 		end
 	}
+
+	-- Able to comment stuff out, gcc
 	use 'tpope/vim-commentary'
+
+	-- Git integration
 	use {
 		'pwntester/octo.nvim',
 		requires = {
@@ -399,7 +413,10 @@ return require('packer').startup((function(use)
 			require 'octo'.setup()
 		end
 	}
+
 	-- use 'dyng/ctrlsf.vim'
+
+	-- Highlight variables with the same name.
 	use {
 		'RRethy/vim-illuminate', --, conflicts with which-key
 		config = function()
@@ -411,20 +428,7 @@ return require('packer').startup((function(use)
 			})
 		end
 	}
-	use {
-		'/Users/ibby/Stuff/computer_science/lua/lsp-inlayhints.nvim',
-		-- branch = 'anticonceal',
-		config = function()
-			require('ui.inlay_hints').setup()
-		end
-	}
 
-	use {
-		'lewis6991/impatient.nvim',
-		config = function()
-			require('impatient').enable_profile()
-		end
-	}
 	-- use 'vim-scripts/restore_view.vim'
 	-- use 'kassio/neoterm'
 	-- Why do i have lazygit if i have toggle term??!?!!
@@ -464,6 +468,7 @@ return require('packer').startup((function(use)
 		end
 	}
 
+	-- Adds statuscol plugin, allows for the down arrow folds.
 	use {
 		'luukvbaal/statuscol.nvim',
 		config = function()
@@ -479,6 +484,7 @@ return require('packer').startup((function(use)
 		end
 	}
 
+	-- Add easier navigation <leader>j
 	use {
 		'phaazon/hop.nvim',
 		config = function()
@@ -533,6 +539,8 @@ return require('packer').startup((function(use)
 	-- 	config = function() require('focus').setup({ autoresize = false, signcolumn = false }) end }
 
 	-- Interferes with the > and < keybindings
+
+	-- Displays the key that is present.
 	use {
 		'folke/which-key.nvim',
 		config = function()
@@ -540,6 +548,14 @@ return require('packer').startup((function(use)
 		end
 	} -- Lua
 
+	-- use {
+	-- 	'gelguy/wilder.nvim',
+	-- 	config = function()
+	-- 		require('ui.wilder').setup()
+	-- 	end
+	-- }
+
+	-- Highlights comments that are marked todo, fix, etc..
 	use {
 		'folke/todo-comments.nvim',
 		requires = 'nvim-lua/plenary.nvim',

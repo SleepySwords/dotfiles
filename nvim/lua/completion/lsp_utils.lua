@@ -79,7 +79,8 @@ function M.setup()
                 util.jump_to_location(result[1])
 
                 if #result > 1 then
-                    util.set_qflist(util.locations_to_items(result))
+                    -- FIX: investigae what this was doing.
+                    -- util.setqflist(util.locations_to_items(result))
                     api.nvim_command("copen")
                     api.nvim_command("wincmd p")
                 end
