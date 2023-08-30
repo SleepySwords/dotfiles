@@ -63,27 +63,14 @@ return require('packer').startup((function(use)
 		end
 	}
 
-	-- FIX: may become irrelevent in the future.
-	-- use {
-	-- 	'jay-babu/mason-null-ls.nvim',
-	-- 	requires = {
-	-- 		'jose-elias-alvarez/null-ls.nvim',
-	-- 		'williamboman/mason.nvim',
-	-- 		'williamboman/mason-lspconfig.nvim'
-	-- 	},
-	-- 	config = function()
-	-- 		require('completion.nullls').setup()
-
-	-- 	end
-	-- }
-
+	-- Adds neovim docs to lsp
 	use { 'folke/neodev.nvim',
 		config = function()
 			require('neodev').setup()
 		end
 	}
 
-	-- use 'glepnir/lspsaga.nvim'
+	-- Adds better defaults for LSP
 	use {
 		'RishabhRD/nvim-lsputils',
 		requires = {
@@ -95,6 +82,7 @@ return require('packer').startup((function(use)
 		end
 	}
 
+	-- Improves the vim.ui stuff, such as vim.ui.input() (gr)
 	use { 'stevearc/dressing.nvim',
 		requires = {
 			'nvim-telescope/telescope.nvim'
@@ -104,6 +92,7 @@ return require('packer').startup((function(use)
 		end
 	}
 
+	-- Adds trouble which displays references, diagnostics
 	use {
 		'folke/trouble.nvim',
 		requires = 'kyazdani42/nvim-web-devicons',
@@ -127,7 +116,6 @@ return require('packer').startup((function(use)
 	-- two instances of omnisharp as a result.
 	use 'Hoffs/omnisharp-extended-lsp.nvim'
 
-
 	-- Autocompletion
 	use 'hrsh7th/nvim-cmp'
 
@@ -138,21 +126,14 @@ return require('packer').startup((function(use)
 	use 'hrsh7th/cmp-nvim-lua'
 	use 'hrsh7th/cmp-nvim-lsp'
 
-
+	-- Displays the function signature and current field.
+	-- Keybind: <leader>k
 	use 'ray-x/lsp_signature.nvim'
 
+	-- Adds icons to lsp variables
 	use 'onsails/lspkind.nvim'
 
-	-- use 'YorickPeterse/rust.vim'
-	-- use {
-	-- 	'simrat39/rust-tools.nvim',
-	-- 	config = function()
-	-- 	end
-	-- }
-
-	--  Code snippets
-	-- use 'hrsh7th/vim-vsnip'
-	-- use 'hrsh7th/cmp-vsnip'
+	--  Code snippets support
 	use {
 		'L3MON4D3/LuaSnip',
 		config = function()
@@ -162,7 +143,7 @@ return require('packer').startup((function(use)
 	use 'saadparwaiz1/cmp_luasnip'
 	use 'rafamadriz/friendly-snippets'
 
-	--  Fuzzy finder
+	--  Fuzzy finders
 	use {
 		'nvim-telescope/telescope.nvim',
 		requires = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
@@ -170,10 +151,7 @@ return require('packer').startup((function(use)
 			require('navigation.telescope').setup()
 		end
 	}
-
 	use 'debugloop/telescope-undo.nvim'
-
-	-- use 'liuchengxu/vim-clap'
 	use 'junegunn/fzf'
 	use 'junegunn/fzf.vim'
 
@@ -186,7 +164,6 @@ return require('packer').startup((function(use)
 		end,
 		run = ':TSUpdate'
 	}
-	-- use 'nvim-telescope/telescope-symbols.nvim'
 	use {
 		'SmiteshP/nvim-navic',
 		requires = 'nvim-treesitter/nvim-treesitter',
@@ -260,15 +237,6 @@ return require('packer').startup((function(use)
 		end
 	}
 
-	-- Scrollbar with a bunch of features in it
-	-- Disabled because of laggy while scrolling
-	-- use {
-	-- 	'lewis6991/satellite.nvim',
-	-- 	config = function()
-	-- 		require('ui.satellite').setup()
-	-- 	end
-	-- }
-
 	-- Buffers
 	use { 'ojroques/nvim-bufdel' }
 
@@ -295,7 +263,7 @@ return require('packer').startup((function(use)
 
 	use { 'mfussenegger/nvim-lint' }
 
-	-- Testing
+	-- Testing plugins
 	-- TODO: Setup all commands
 	use {
 		'nvim-neotest/neotest',
@@ -323,14 +291,12 @@ return require('packer').startup((function(use)
 			})
 		end
 	}
-
 	use {
 		'nvim-neotest/neotest-vim-test',
 		requires = {
 			'vim-test/vim-test'
 		}
 	}
-
 	use 'rouge8/neotest-rust'
 
 	--- Quality of life stuff
@@ -343,8 +309,8 @@ return require('packer').startup((function(use)
 		end
 	}
 
-	-- adds ys, ds, cs,
 	-- Surround commands (ysiw')
+	-- Keybinds: ys, ds, cs,
 	use { 'kylechui/nvim-surround', config = function()
 		require('nvim-surround').setup()
 	end
@@ -446,11 +412,14 @@ return require('packer').startup((function(use)
 	}
 	-- use 'norcalli/profiler.nvim'
 	-- use 'github/copilot.vim'
-	-- Dashboard
+
+	-- Discord rich presence
 	use {
 		'andweeb/presence.nvim',
 		cmd = 'discord'
 	}
+
+	-- Adds dashboard
 	use {
 		'glepnir/dashboard-nvim',
 		event = 'VimEnter',
@@ -460,6 +429,7 @@ return require('packer').startup((function(use)
 		requires = { 'nvim-tree/nvim-web-devicons' }
 	}
 
+	-- Adds folds for lsp, treesitter, mainly functions
 	use {
 		'kevinhwang91/nvim-ufo',
 		requires = 'kevinhwang91/promise-async',
@@ -492,13 +462,6 @@ return require('packer').startup((function(use)
 		end
 	}
 
-	-- use {
-	-- 	'ggandor/leap.nvim',
-	-- 	config = function()
-	-- 		require('leap').add_default_mappings()
-	-- 	end
-	-- }
-
 	use({
 		'folke/noice.nvim',
 		config = function()
@@ -510,29 +473,8 @@ return require('packer').startup((function(use)
 		}
 	})
 
-	use { 'ThePrimeagen/harpoon',
-		requires = {
-			'nvim-lua/plenary.nvim'
-		}
-	}
-
-
-	use { 'folke/edgy.nvim',
-		config = function()
-			require('ui.edgy_ui').setup()
-		end
-	}
-
-	-- use {
-	-- 	'glacambre/firenvim',
-	-- 	run = function() vim.fn['firenvim#install'](0) end
-	-- }
-	--
-	-- use 'lukas-reineke/indent-blankline.nvim'
-
+	-- Adds :SymbolsOutline
 	use { 'simrat39/symbols-outline.nvim', config = function() require('symbols-outline').setup() end }
-
-	-- use 'spinks/vim-leader-guide'
 
 	-- TODO: investigate why i have this
 	-- use { 'beauwilliams/focus.nvim',
@@ -546,14 +488,7 @@ return require('packer').startup((function(use)
 		config = function()
 			require('ui.which_key').setup()
 		end
-	} -- Lua
-
-	-- use {
-	-- 	'gelguy/wilder.nvim',
-	-- 	config = function()
-	-- 		require('ui.wilder').setup()
-	-- 	end
-	-- }
+	}
 
 	-- Highlights comments that are marked todo, fix, etc..
 	use {
@@ -596,3 +531,14 @@ return require('packer').startup((function(use)
 		end,
 	}
 end))
+
+
+-- Plugins that need to try again
+-- Satellite.nvim (scrollbar)
+-- Wilder.nvim (cmdline popup menu)
+-- firenvim (in browser)
+-- lukas-reineke/indent-blankline.nvim (add ident lines)
+-- edgy.nvim
+-- Leap.nvim
+-- Harpoon
+-- LspSaga
