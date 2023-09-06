@@ -85,7 +85,7 @@ return require('packer').startup((function(use)
 	-- Improves the vim.ui stuff, such as vim.ui.input() (gr)
 	use { 'stevearc/dressing.nvim',
 		requires = {
-			'nvim-telescope/telescope.nvim'
+			-- 'nvim-telescope/telescope.nvim'
 		},
 		config = function()
 			require('ui.dressing').setup()
@@ -260,6 +260,8 @@ return require('packer').startup((function(use)
 			require('dbg.dap_ui').setup()
 		end
 	}
+	-- Add ability to debug lua plugins
+	use 'jbyuki/one-small-step-for-vimkind'
 
 	use { 'mfussenegger/nvim-lint' }
 
@@ -372,7 +374,7 @@ return require('packer').startup((function(use)
 		'pwntester/octo.nvim',
 		requires = {
 			'nvim-lua/plenary.nvim',
-			'nvim-telescope/telescope.nvim',
+			-- 'nvim-telescope/telescope.nvim',
 			'kyazdani42/nvim-web-devicons',
 		},
 		config = function()
