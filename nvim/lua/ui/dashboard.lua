@@ -1,7 +1,7 @@
 local g = vim.g
 
 local db = require('dashboard')
-require('splashscreen-sprites')
+require('splash_sprites')
 
 db.setup {
 	theme = 'hyper',

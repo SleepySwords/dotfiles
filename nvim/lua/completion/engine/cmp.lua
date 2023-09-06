@@ -102,28 +102,28 @@ cmp.setup({
 		{ name = 'orgmode' },
 		{ name = 'luasnip' }, -- For luasnip users.
 		-- { name = 'vsnip' },
-		{ name = 'path' },
-		{ name = 'buffer' },
-		{ name = 'cmdline' }
+		-- { name = 'path' },
+		-- { name = 'buffer' },
+		-- { name = 'cmdline' }
 		-- { name = 'ultisnips' }, -- For ultisnips users.
 		-- { name = 'snippy' }, -- For snippy users.
 	})
 })
 
 
-cmp.setup.cmdline(':', {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = 'path' }
-	}, {
-		{
-			name = 'cmdline',
-			option = {
-				ignore_cmds = { 'Man', '!' }
-			}
-		}
-	})
-})
+-- cmp.setup.cmdline(':', {
+-- 	mapping = cmp.mapping.preset.cmdline(),
+-- 	sources = cmp.config.sources({
+-- 		{ name = 'path' }
+-- 	}, {
+-- 		{
+-- 			name = 'cmdline',
+-- 			option = {
+-- 				ignore_cmds = { 'Man', '!' }
+-- 			}
+-- 		}
+-- 	})
+-- })
 
 -- cmp.setup.cmdline('/', {
 -- 	mapping = cmp.mapping.preset.cmdline(),

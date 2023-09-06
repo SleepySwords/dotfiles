@@ -6,7 +6,6 @@ function M.get_telescope_theme(opts)
 	local theme_opts = {
 		theme = "custom",
 
-		sorting_strategy = "ascending",
 		layout_strategy = "horizontal",
 		layout_config = {
 			horizontal = {
@@ -54,6 +53,7 @@ function M.setup()
 	require("telescope").setup({
 		defaults = {
 			dynamic_preview_title = true,
+			sorting_strategy = "ascending",
 			results_title = false,
 			selection_caret = " > ",
 			entry_prefix = "   ",

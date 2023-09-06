@@ -61,6 +61,8 @@ if not g.bootstrap then
 	g.sonokai_enable_italic = 1
 	g.sonokai_disable_italic_comment = 1
 	g.sonokai_diagnostic_virtual_text = 'colour_background'
+	-- FIX: stop hardcoding colours, add a rgb to hsl and modify defaults.
+
 	-- g.colors_name = 'duskfox'
 	-- cmd[[colorscheme sonokai]]
 	-- cmd [[colorscheme tokyonight-night]]
@@ -117,8 +119,8 @@ g.neon_italic_function = true
 g.neon_transparent = true
 
 
-require('plugins')
 require('keybindings')
+require('plugins')
 
 vim.cmd [[highlight InlaySurround guifg=#2d2b46]]
 vim.cmd [[highlight InlayText guibg=#2d2b46 guifg=#8a87b6]]

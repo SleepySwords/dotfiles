@@ -13,7 +13,7 @@ local navic = require("nvim-navic")
 
 local one_monokai = {
 	fg = "#abb2bf",
-	bg = "#1e2024",
+	bg = "#12121a",
 	green = "#98c379",
 	yellow = "#e5c07b",
 	purple = "#c678dd",
@@ -21,7 +21,7 @@ local one_monokai = {
 	peanut = "#f6d5a4",
 	red = "#e06c75",
 	aqua = "#61afef",
-	darkblue = "#282c34",
+	darkblue = "#1f1f26",
 	dark_red = "#f75f5f",
 	black = "#222222"
 }
@@ -121,7 +121,7 @@ local c = {
 			name = 'file_info',
 		},
 		hl = {
-			bg = "black",
+			bg = "#0f0e14",
 		},
 		left_sep = "block",
 		right_sep = "block",

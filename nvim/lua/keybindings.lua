@@ -152,13 +152,7 @@ map({ 'n' }, '<leader>dn', '<cmd>lua require"dap".step_over()<CR>')
 map({ 'n' }, '<leader>di', '<cmd>lua require"dap".step_into()<CR>')
 map({ 'n' }, '<leader>do', '<cmd>lua require"dap".step_out()<CR>')
 map({ 'n' }, '<leader>db', '<cmd>lua require"dap".toggle_breakpoint()<CR>')
-
--- map({ 'n' }, '<leader>dsc', '<cmd>lua require"dap.ui.variables".scopes()<CR>')
--- map({ 'n' }, '<leader>dhh', '<cmd>lua require"dap.ui.variables".hover()<CR>')
--- map({ 'v' }, '<leader>dhv', '<cmd>lua require"dap.ui.variables".visual_hover()<CR>')
-
 map({ 'n' }, '<leader>dh', '<cmd>lua require"dapui".eval()<CR>')
-
 map({ 'n' }, '<leader>dsbr', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>')
 map({ 'n' }, '<leader>dsbm', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>')
 map({ 'n' }, '<leader>dro', '<cmd>lua require"dap".repl.open()<CR>')
@@ -166,13 +160,13 @@ map({ 'n' }, '<leader>drl', '<cmd>lua require"dap".repl.run_last()<CR>')
 
 map({ 'n' }, '<leader>dui', '<cmd>lua require"dapui".toggle()<CR>')
 
--- telescope-dap
+-- Debugger Info
 map({ 'n' }, '<leader>dtc', '<cmd>lua require"telescope".extensions.dap.commands(vim.g.telescope_theme)<CR>')
 map({ 'n' }, '<leader>dto', '<cmd>lua require"telescope".extensions.dap.configurations(vim.g.telescope_theme)<CR>')
 map({ 'n' }, '<leader>dlb', '<cmd>lua require"telescope".extensions.dap.list_breakpoints(vim.g.telescope_theme)<CR>')
 map({ 'n' }, '<leader>dv', '<cmd>lua require"telescope".extensions.dap.variables(vim.g.telescope_theme)<CR>')
 map({ 'n' }, '<leader>df', '<cmd>lua require"telescope".extensions.dap.frames(vim.g.telescope_theme)<CR>')
-map({ 'n' }, '<leader>dv',
+map({ 'n' }, '<leader>ds',
 	'<cmd>lua require("dapui").float_element("scopes", { position = "center", enter = true, height = 40, width = 150 })<CR>')
 
 -- Terminal
@@ -184,10 +178,17 @@ map({ 'n' }, '<leader>oh', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap
 map({ 'n' }, '<leader>wo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
 map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 
+
+-- Be able to move chunks of code
 map({ 'n' }, '<C-j>', '<cmd>:m .+1<CR>==', opts)
 map({ 'n' }, '<C-k>', '<cmd>:m .-2<CR>==', opts)
 map({ 'v' }, '<C-j>', ":move'>+<CR>gv=gv", opts)
 map({ 'v' }, '<C-k>', ":move-2<CR>gv=gv", opts)
+
+
+-- TODO: decide on one for quick fix
+map({ 'n' }, ']q', ':cn<CR>', opts)
+map({ 'n' }, '[q', ':cp<CR>', opts)
 
 map({ 'n' }, '<C-n>', ':cn<CR>', opts)
 map({ 'n' }, '<C-p>', ':cp<CR>', opts)
