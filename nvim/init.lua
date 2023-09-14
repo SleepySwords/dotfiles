@@ -42,6 +42,9 @@ o.ignorecase = true
 
 o.conceallevel = 1
 
+require('keybindings')
+require('plugins')
+
 
 -- Highlights when yannking (y)
 vim.cmd("autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
@@ -118,9 +121,6 @@ g.neon_italic_keyword = true
 g.neon_italic_function = true
 g.neon_transparent = true
 
-
-require('keybindings')
-require('plugins')
 
 vim.cmd [[highlight InlaySurround guifg=#2d2b46]]
 vim.cmd [[highlight InlayText guibg=#2d2b46 guifg=#8a87b6]]

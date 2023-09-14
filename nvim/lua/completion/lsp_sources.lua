@@ -24,7 +24,7 @@ lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
 			inlayHints = {
 				chainingHints = {
 					enable = false
-				}
+				},
 			}
 		}
 	}
@@ -126,4 +126,4 @@ lsp_config.zls.setup(completion_engine.provide_capabilities({
 -- 	end
 -- }))
 
-lsp_config.marksman.setup{}
+lsp_config.marksman.setup {}
