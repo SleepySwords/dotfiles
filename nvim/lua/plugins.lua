@@ -450,14 +450,6 @@ require("lazy").setup({
 		end
 	},
 
-	-- Add easier navigation <leader>j
-	-- {
-	-- -- 'smoka7/hop.nvim', --phaazon/hop.nvim (<= has been deprecated)
-	-- 'phaazon/hop.nvim', -- (<= has been deprecated)
-	-- config = function()
-	-- 	require('hop').setup()
-	-- end
-	-- },
 	{
 		'folke/flash.nvim',
 		event = "VeryLazy",
@@ -509,7 +501,7 @@ require("lazy").setup({
 					local function format_second_lbl(opts)
 						-- always show only second
 						return {
-							{ opts.match.label2, "FlashKey1" },
+							{ opts.match.label2, "FlashLabel" },
 						}
 					end
 
@@ -553,32 +545,8 @@ require("lazy").setup({
 						end,
 					})
 				end,
-				desc = "Flash Treesitter"
+				desc = "Hop/Easymotion"
 			},
-			-- {
-			-- 	"r",
-			-- 	mode = "o",
-			-- 	function()
-			-- 		require("flash").remote()
-			-- 	end,
-			-- 	desc = "Remote Flash"
-			-- },
-			-- {
-			-- 	"R",
-			-- 	mode = { "o", "x" },
-			-- 	function()
-			-- 		require("flash").treesitter_search()
-			-- 	end,
-			-- 	desc = "Treesitter Search"
-			-- },
-			-- {
-			-- 	"<c-s>",
-			-- 	mode = { "c" },
-			-- 	function()
-			-- 		require("flash").toggle()
-			-- 	end,
-			-- 	desc = "Toggle Flash Search",
-			-- }
 		},
 	},
 
@@ -623,11 +591,6 @@ require("lazy").setup({
 
 	-- Could just use ftplugins instead /shrug
 	'tpope/vim-sleuth',
-
-	-- if packer_bootstrap then
-	-- 	require('packer').sync()
-	-- end
-
 
 	-- Markdown
 	-- Literally copy and pasted this :)

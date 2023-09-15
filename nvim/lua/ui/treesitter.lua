@@ -23,9 +23,9 @@ require 'nvim-treesitter.configs'.setup {
 			node_decremental = "gnrm",
 		},
 	},
-	indent = {
-		enable = true
-	},
+	-- indent = {
+	-- 	enable = true
+	-- },
 	rainbow = {
 		enable = true,
 	},
