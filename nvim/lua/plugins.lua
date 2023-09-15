@@ -497,11 +497,19 @@ require("lazy").setup({
 					local Flash = require("flash")
 
 					---@param opts Flash.Format
-					local function format(opts)
+					local function format_first_lbl(opts)
 						-- always show first and second label
 						return {
 							{ opts.match.label1, "FlashKey1" },
 							{ opts.match.label2, "FlashKey2" },
+						}
+					end
+
+					---@param opts Flash.Format
+					local function format_second_lbl(opts)
+						-- always show only second
+						return {
+							{ opts.match.label2, "FlashKey1" },
 						}
 					end
 
@@ -511,7 +519,7 @@ require("lazy").setup({
 							after = false,
 							before = { 0, 0 },
 							uppercase = false,
-							format = format
+							format = format_first_lbl
 						},
 						pattern = [[\<]],
 						action = function(match, state)
@@ -519,7 +527,7 @@ require("lazy").setup({
 							Flash.jump({
 								search = { max_length = 0 },
 								highlight = { matches = false },
-								label = { format = format },
+								label = { format = format_second_lbl },
 								matcher = function(win)
 									-- limit matches to the current label
 									return vim.tbl_filter(function(m)
