@@ -36,7 +36,7 @@ require("lazy").setup({
 	'joshdick/onedark.vim',
 	'rafamadriz/neon',
 	'tanvirtin/monokai.nvim',
-	'catppuccin/vim',
+	'catppuccin/nvim',
 
 	-- Adds LSP support
 	{
@@ -169,10 +169,11 @@ require("lazy").setup({
 			require('ui.navic').setup()
 		end
 	},
-	{
-		'HiPhish/rainbow-delimiters.nvim',
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-	},
+	-- Deprecation error currently
+	-- {
+	-- 	'HiPhish/rainbow-delimiters.nvim',
+	-- 	dependencies = { 'nvim-treesitter/nvim-treesitter' },
+	-- },
 
 	{
 		'nvim-treesitter/nvim-treesitter-textobjects',
@@ -614,6 +615,15 @@ require("lazy").setup({
 			require('config.neorg').setup()
 		end,
 	},
+
+
+	-- {
+	-- 	'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+	-- 	config = function()
+	-- 		require("lsp_lines").setup()
+	-- 	end,
+	-- },
+
 })
 
 

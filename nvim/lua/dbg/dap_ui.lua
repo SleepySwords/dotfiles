@@ -17,19 +17,18 @@ function M.setup()
           'breakpoints',
           'stacks',
           'watches',
-          'repl',
         },
         size = 40,
         position = 'left',
       },
-      -- {
-      --   elements = {
-      --     'repl',
-      --     'console',
-      --   },
-      --   size = 10,
-      --   position = 'bottom',
-      -- },
+      {
+        elements = {
+          'repl',
+          'console',
+        },
+        size = 10,
+        position = 'bottom',
+      },
     }
   })
 
