@@ -40,6 +40,7 @@ lsp_config.omnisharp.setup(completion_engine.provide_capabilities({
 		["textDocument/definition"] = require('omnisharp_extended').handler,
 	},
 	capabilities = capabilities,
+	cmd = { vim.env.HOME .. '/.local/share/nvim/mason/packages/omnisharp/omnisharp' },
 	root_dir = function()
 		return vim.fn.getcwd()
 	end
@@ -117,13 +118,5 @@ lsp_config.zls.setup(completion_engine.provide_capabilities({
 		return vim.fn.getcwd()
 	end
 }))
-
--- Conflicts with clangd
--- lsp_config.sourcekit.setup(completion_engine.provide_capabilities({
--- 	capabilities = capabilities,
--- 	root_dir = function()
--- 		return vim.fn.getcwd()
--- 	end
--- }))
 
 lsp_config.marksman.setup {}

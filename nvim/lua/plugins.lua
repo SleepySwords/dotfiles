@@ -36,7 +36,11 @@ require("lazy").setup({
 	'joshdick/onedark.vim',
 	'rafamadriz/neon',
 	'tanvirtin/monokai.nvim',
-	'catppuccin/nvim',
+	{
+		'catppuccin/nvim',
+		config = function()
+		end
+	},
 
 	-- Adds LSP support
 	{

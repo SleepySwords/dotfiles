@@ -114,6 +114,8 @@ g.neon_italic_function = true
 g.neon_transparent = true
 
 vim.cmd([[highlight InlaySurround guifg=#2d2b46]])
-vim.cmd([[highlight InlayText guibg=#2d2b46 guifg=#8a87b6]])
+vim.cmd([[highlight InlayText guibg=#2d2b46 guifg=#171724]])
+vim.cmd([[highlight LspInlayHint guibg=#232338]])
 
 vim.api.nvim_set_hl(0, "Folded", {})
+vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
