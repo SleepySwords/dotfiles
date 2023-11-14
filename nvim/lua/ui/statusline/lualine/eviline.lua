@@ -1,6 +1,3 @@
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
 local lualine = require('lualine')
 -- Color table for highlights
 -- stylua: ignore
@@ -32,68 +29,7 @@ local conditions = {
 	end,
 }
 
--- Config
-local config = {
-	options = {
-		-- Disable sections and component separators
-		component_separators = '',
-		section_separators = '',
-		theme = {
-			-- We are going to use lualine_c an lualine_x as left and
-			-- right section. Both are highlighted by c theme .  So we
-			-- are just setting default looks o statusline
-			normal = { c = { fg = colors.fg, bg = colors.bg } },
-			inactive = { c = { fg = colors.fg, bg = colors.bg } },
-		},
-	},
-	sections = {
-		-- these are to remove the defaults
-		lualine_a = {},
-		lualine_b = {},
-		lualine_y = {},
-		lualine_z = {},
-		-- These will be filled later
-		lualine_c = {},
-		lualine_f = {},
-		lualine_x = {},
-	},
-	inactive_sections = {
-		-- these are to remove the defaults
-		lualine_a = {},
-		lualine_v = {},
-		lualine_y = {},
-		lualine_z = {},
-		lualine_c = {},
-		lualine_x = {},
-	},
-	extensions = {
-		'quickfix',
-		'chadtree',
-		'nvim-tree',
-		'fzf',
-		'toggleterm'
-	}
-}
-
--- Inserts a component in lualine_c at left section
-local function ins_left(component)
-	table.insert(config.sections.lualine_c, component)
-end
-
--- Inserts a component in lualine_x ot right section
-local function ins_right(component)
-	table.insert(config.sections.lualine_x, component)
-end
-
-ins_left {
-	function()
-		return '▊'
-	end,
-	color = { fg = colors.blue }, -- Sets highlighting of component
-	padding = { left = 0, right = 1 }, -- We don't need space before this
-}
-
-ins_left {
+local vim_mode = {
 	-- mode component
 	function()
 		-- auto change color according to neovims mode
@@ -126,15 +62,15 @@ ins_left {
 	padding = { right = 1 },
 }
 
-ins_left {
+local file_size = {
 	-- filesize component
 	'filesize',
 	cond = conditions.buffer_not_empty,
 }
 
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+local progress = { 'progress', color = { fg = colors.fg, gui = 'bold' } }
 
-ins_left {
+local filename = {
 	'filename',
 	cond = conditions.buffer_not_empty,
 	color = { fg = colors.magenta, gui = 'bold' },
@@ -148,10 +84,9 @@ ins_left {
 -- 	icon = '> '
 -- }
 
-ins_left {
+local lsp = {
 	-- Lsp server name .
 	function()
-		local msg = 'No Active Lsp'
 		local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
 		local clients = vim.lsp.get_active_clients()
 		if next(clients) == nil then
@@ -163,37 +98,16 @@ ins_left {
 				return client.name
 			end
 		end
-		return msg
+		return ''
 	end,
 	icon = ' :',
 	color = { fg = colors.cyan, gui = 'bold' },
 }
 
--- Insert mid section. You can make any number of sections in neovim :)
--- for lualine it's any number greater then 2
-ins_left {
-	'diagnostics',
-	sources = { 'nvim_lsp' },
-	-- The Symbols are sourced from DiagnosticSign, which is defined in lsp_error.lua
-	symbols = { error = ' ', warn = ' ', info = ' ' },
-	diagnostics_color = {
-		error = { fg = colors.red },
-		warn = { fg = colors.yellow },
-		info = { fg = colors.cyan },
-		hint = { fg = colors.green },
-	},
-}
-
 local diagnostics = require('lsp-status/diagnostics')
 local lsp_status = require('lsp-status')
-ins_left {
-	function()
-		return '%='
-	end,
-}
 
-
-ins_left {
+local lsp_status = {
 	-- Lsp status
 	function()
 		if vim.tbl_count(vim.lsp.buf_get_clients(0)) == 0 then return '' end
@@ -220,27 +134,27 @@ ins_left {
 }
 
 -- Add components to right sections
-ins_right {
+local encoing = {
 	'o:encoding', -- option component same as &encoding in viml
 	fmt = string.upper, -- I'm not sure why it's upper case either ;)
 	cond = conditions.hide_in_width,
 	color = { fg = colors.green, gui = 'bold' },
 }
 
-ins_right {
+local format = {
 	'fileformat',
 	fmt = string.upper,
 	icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
 	color = { fg = colors.green, gui = 'bold' },
 }
 
-ins_right {
+local branch = {
 	'branch',
 	icon = '',
 	color = { fg = colors.violet, gui = 'bold' },
 }
 
-ins_right {
+local diff = {
 	'diff',
 	-- Is it me or the symbol for modified us really weird
 	symbols = { added = ' ', modified = '柳 ', removed = ' ' },
@@ -252,14 +166,41 @@ ins_right {
 	cond = conditions.hide_in_width,
 }
 
-ins_right { 'location' }
+local location = { 'location' }
 
-ins_right {
-	function()
-		return '▊'
-	end,
-	color = { fg = colors.blue },
-	padding = { left = 1 },
+local left = {
+	vim_mode
+}
+
+local centre = {
+	vim_mode
+}
+local right = {
+	vim_mode
+}
+
+
+
+-- Config
+local config = {
+	options = {
+		-- Disable sections and component separators
+		component_separators = '',
+		section_separators = '',
+	},
+	sections = {
+		lualine_c = {
+			'mode'
+		},
+	},
+	inactive_sections = {},
+	extensions = {
+		'quickfix',
+		'chadtree',
+		'nvim-tree',
+		'fzf',
+		'toggleterm'
+	}
 }
 
 -- Now don't forget to initialize lualine

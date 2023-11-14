@@ -10,9 +10,13 @@ function M.setup()
 			margin = { 1, 0, 1, 0.7 },
 			padding = { 1, 1, 1, 1 }
 		},
-		show_help = false,
+		-- show_help = false,
 		layout = {
 			height = { min = 10, max = 15 }, -- min and max width of the columns
+		},
+		popup_mappings = {
+			scroll_down = "<c-d>", -- binding to scroll down inside the popup
+			scroll_up = "<c-u>", -- binding to scroll up inside the popup
 		},
 		-- triggers = ''
 	}

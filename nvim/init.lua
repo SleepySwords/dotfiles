@@ -1,5 +1,19 @@
 vim.loader.enable()
 
+local function set_ft_option(ft, option, value)
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = ft,
+    group = vim.api.nvim_create_augroup('FtOptions', {}),
+    desc = ('set option "%s" to "%s" for this filetype'):format(option, value),
+    callback = function()
+      vim.opt_local[option] = value
+    end
+  })
+end
+
+set_ft_option("markdown", "spell", true)
+set_ft_option("markdown", "linebreak", true)
+
 local o = vim.o
 local g = vim.g
 
@@ -26,7 +40,7 @@ o.omnifunc = "v:lua.vim.lsp.omnifunc"
 o.mouse = "a"
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
-o.guifont = "Jetbrains Mono Medium:h11" -- ,Hack Nerd Font:11'
+o.guifont = "Fira code retina:h11" -- ,Hack Nerd Font:11'
 
 o.foldcolumn = "1"
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -38,7 +52,8 @@ o.laststatus = 3
 o.mousemodel = "extend"
 o.ignorecase = true
 
-o.conceallevel = 1
+-- This was set to 1 before for some reason, should probably investigate
+o.conceallevel = 3
 
 require("keybindings")
 require("plugins")
@@ -119,3 +134,4 @@ vim.cmd([[highlight LspInlayHint guibg=#232338]])
 
 vim.api.nvim_set_hl(0, "Folded", {})
 vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
+vim.api.nvim_set_hl(0, "UfoFoldedBg", {})
