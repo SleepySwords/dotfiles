@@ -1,5 +1,8 @@
 vim.loader.enable()
 
+local g = vim.g
+local o = vim.o
+
 local function set_ft_option(ft, option, value)
   vim.api.nvim_create_autocmd("FileType", {
     pattern = ft,
@@ -11,16 +14,10 @@ local function set_ft_option(ft, option, value)
   })
 end
 
+-- Vim options setup
 set_ft_option("markdown", "spell", true)
 set_ft_option("markdown", "linebreak", true)
 
-local o = vim.o
-local g = vim.g
-
--- vim.lsp.set_log_level("debug")
--- require'plenary.profile'.start("profile.log")
-
--- Vim options setup
 o.compatible = false
 o.nu = true
 o.rnu = true
@@ -67,7 +64,10 @@ vim.cmd("autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>", true)
 -- Recognize wgsl
 vim.cmd("au BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
+-- Global settings
+
 -- Theme settings
+-- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time)
 g.edge_style = "aura"
 g.edge_endable_italic = 1
 g.edge_disable_italic_comment = 1
@@ -75,10 +75,11 @@ g.sonokai_style = "shusia"
 g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
 g.sonokai_diagnostic_virtual_text = "colour_background"
+g.neon_style = "default"
+g.neon_italic_keyword = true
+g.neon_italic_function = true
+g.neon_transparent = true
 -- FIX: stop hardcoding colours, add a rgb to hsl and modify defaults.
-
--- g.colors_name = 'duskfox'
--- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time)
 vim.cmd([[colorscheme catppuccin-mocha]])
 g.telescope_theme = require("navigation.telescope").get_telescope_theme()
 
@@ -92,9 +93,8 @@ g.ultest_pass_sign = ""
 
 -- g.neovide_floating_blur_amount_x = 2.0
 -- g.neovide_floating_blur_amount_y = 2.0
-g.neovide_refresh_rate = 250
-
 -- g.neovide_cursor_vfx_mode = "pixiedust"
+g.neovide_refresh_rate = 250
 
 -- Omnisharp settings
 g.OmniSharp_server_use_mono = 1
@@ -106,32 +106,25 @@ g.OmniSharp_highlight_types = 2
 g.completion_matching_stategy_list = { "exact", "substring", "fuzzy" }
 
 g.indent_blankline_show_first_indent_level = false
-
--- vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
--- vim.cmd [[highlight link TelescopeMatching Type]]
-vim.cmd([[highlight! link TelescopeSelection Define]])
--- Icons become weird when bolded
--- vim.cmd [[highlight TelescopeSelection guifg=#f0a6cc gui=bold]]
-vim.cmd([[highlight! TelescopeMatching guifg=#f6c177 gui=bold]])
-vim.cmd([[highlight! link FloatBorder NormalFloat]])
-
 g.Illuminate_ftblacklist = { "NvimTree", "dashboard" }
 
--- Global settings revolving this config
 g.discord = false
 g.indicator_ok = ""
 
--- TODO: hightlight seleted line number
--- TODO: fix glitchy tab in visual mode.
-g.neon_style = "default"
-g.neon_italic_keyword = true
-g.neon_italic_function = true
-g.neon_transparent = true
 
-vim.cmd([[highlight InlaySurround guifg=#2d2b46]])
-vim.cmd([[highlight InlayText guibg=#2d2b46 guifg=#171724]])
-vim.cmd([[highlight LspInlayHint guibg=#232338]])
+vim.api.nvim_set_hl(0, "InlaySurround", { fg = "#2d2b46" })
+vim.api.nvim_set_hl(0, "InlayText", { bg = "#2d2b46", fg = "#171724" })
+vim.api.nvim_set_hl(0, "LspInlayHint", { bg = "#232338" })
 
 vim.api.nvim_set_hl(0, "Folded", {})
 vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
 vim.api.nvim_set_hl(0, "UfoFoldedBg", {})
+
+vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "Define" })
+vim.api.nvim_set_hl(0, "FloatBorder", { link = "NormalFloat" })
+vim.api.nvim_set_hl(0, "TelescopeMatching", { bold = true, fg = "#f6c177" })
+
+-- vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
+-- vim.cmd [[highlight link TelescopeMatching Type]]
+-- Icons become weird when bolded
+-- vim.cmd [[highlight TelescopeSelection guifg=#f0a6cc gui=bold]]

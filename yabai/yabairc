@@ -11,8 +11,8 @@
 # see this wiki page for information:
 #  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
 #
-sudo yabai --load-sa
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# sudo yabai --load-sa
+# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
 SPACEBAR_HEIGHT=$(sketchybar -m config height)
@@ -39,15 +39,29 @@ yabai -m config mouse_action2                resize
 yabai -m config mouse_drop_action            stack
 
 # general space settings
+# Using grid + float
 yabai -m config layout                       bsp
-yabai -m config top_padding                  45
-yabai -m config bottom_padding               45
-yabai -m config left_padding                 45
-yabai -m config right_padding                45
+yabai -m config top_padding                  15
+yabai -m config bottom_padding               15
+yabai -m config left_padding                 15
+yabai -m config right_padding                15
 yabai -m config window_gap                   6
 
 
 yabai -m config external_bar all:0:$SPACEBAR_HEIGHT
+
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^Wally$" manage=off
+yabai -m rule --add app="^Pika$" manage=off
+yabai -m rule --add app="^balenaEtcher$" manage=off
+yabai -m rule --add app="^Creative Cloud$" manage=off
+yabai -m rule --add app="^Logi Options$" manage=off
+yabai -m rule --add app="^Alfred Preferences$" manage=off
+yabai -m rule --add app="^Alfred Monitor$" manage=off
+yabai -m rule --add app="^App Store$" manage=off
+
+yabai -m rule --add can-resize="^false$" manage=off
 
 echo "yabai configuration loaded.."
 {"mode":"full","isActive":false}

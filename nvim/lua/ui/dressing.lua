@@ -1,6 +1,6 @@
 local M = {}
 
-function M.setup(opts)
+function M.setup()
 	require('dressing').setup({
 		input = {
 			enabled = true,

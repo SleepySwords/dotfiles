@@ -87,7 +87,7 @@ require("lazy").setup({
 	{
 		'stevearc/dressing.nvim',
 		dependencies = {
-			-- 'nvim-telescope/telescope.nvim'
+			'nvim-telescope/telescope.nvim'
 		},
 		config = function()
 			require('ui.dressing').setup()
@@ -98,7 +98,6 @@ require("lazy").setup({
 	{
 		'folke/trouble.nvim',
 		dependencies = 'nvim-tree/nvim-web-devicons',
-		-- ft = 'cs',
 		config = function()
 			require('trouble').setup {
 				action_keys = {
@@ -304,6 +303,16 @@ require("lazy").setup({
 		config = function()
 			require('nvim-autopairs').setup {
 				enable_check_bracket_line = false
+			}
+		end
+	},
+	{
+		'windwp/nvim-ts-autotag',
+		config = function()
+			require 'nvim-treesitter.configs'.setup {
+				autotag = {
+					enable = true,
+				}
 			}
 		end
 	},
@@ -554,26 +563,21 @@ require("lazy").setup({
 		},
 	},
 
-	{
-		'folke/noice.nvim',
-		config = function()
-			require('ui.noice')
-		end,
-		dependencies = {
-			'MunifTanjim/nui.nvim',
-			'rcarriga/nvim-notify',
-		}
-	},
+	-- {
+	-- 	'folke/noice.nvim',
+	-- 	config = function()
+	-- 		require('ui.noice')
+	-- 	end,
+	-- 	dependencies = {
+	-- 		'MunifTanjim/nui.nvim',
+	-- 		'rcarriga/nvim-notify',
+	-- 	}
+	-- },
 
 	-- Adds :SymbolsOutline
 	{ 'simrat39/symbols-outline.nvim', config = function() require('symbols-outline').setup() end },
 
-	-- TODO: investigate why i have this
-	-- use { 'beauwilliams/focus.nvim',
-	-- 	config = function() require('focus').setup({ autoresize = false, signcolumn = false }) end }
-
 	-- Interferes with the > and < keybindings
-
 	-- Displays the key that is present.
 	{
 		'folke/which-key.nvim',
@@ -584,12 +588,12 @@ require("lazy").setup({
 
 	-- Highlights comments that are marked todo, fix, etc..
 	{
-		'folke/todo-comments.nvim',
+		dir = '/Users/ibby/stuff/dev/lua/todo-comments.nvim/',
 		dependencies = 'nvim-lua/plenary.nvim',
 		config = function()
 			require('todo-comments').setup {
 				highlight = {
-					pattern = [[.*<((KEYWORDS).*)\s*:]]
+					pattern = [[.{-}<((KEYWORDS).{-})\s*:]]
 				},
 			}
 		end
@@ -622,17 +626,18 @@ require("lazy").setup({
 			require('config.neorg').setup()
 		end,
 	},
-
-
-	-- {
-	-- 	'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-	-- 	config = function()
-	-- 		require("lsp_lines").setup()
-	-- 	end,
-	-- },
-
+	{
+		"giusgad/pets.nvim",
+		dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
+	},
 })
 
+-- {
+-- 	'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+-- 	config = function()
+-- 		require("lsp_lines").setup()
+-- 	end,
+-- },
 
 -- Plugins that need to try again
 -- Satellite.nvim (scrollbar)
@@ -643,3 +648,8 @@ require("lazy").setup({
 -- Leap.nvim
 -- Harpoon
 -- LspSaga
+-- Fidget.nvim
+--
+--
+-- Prob not going to try again
+-- beauwilliams/focus.nvim
