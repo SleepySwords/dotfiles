@@ -1,5 +1,5 @@
 function fish_right_prompt
-    echo (fish_git_prompt)
+    echo (fish_git_prompt %s)
     echo " ["
     set_color cyan;
     echo $status

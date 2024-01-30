@@ -54,6 +54,27 @@ dap.configurations.cpp = {
 
 		sourceLanguages = { "rust" }
 	},
+	{
+		name = "Launch - CodeLLDB Options",
+		type = "codelldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/',
+				'file')
+		end,
+		-- cwd = '${workspaceFolder}',
+		cwd = function()
+			return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/',
+				'file')
+		end,
+		stopOnEntry = false,
+		args = function()
+			return { vim.fn.input('Options: ', '',
+				'file') }
+		end,
+
+		sourceLanguages = { "rust" }
+	},
 	-- {
 	-- 	name = "Launch - Cppdbg",
 	-- 	type = "cppdbg",

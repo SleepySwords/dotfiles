@@ -1,4 +1,4 @@
-vim.loader.enable()
+-- vim.loader.enable()
 
 local g = vim.g
 local o = vim.o
@@ -49,6 +49,9 @@ o.laststatus = 3
 o.mousemodel = "extend"
 o.ignorecase = true
 
+-- Formatting
+o.shiftwidth = 4
+
 -- This was set to 1 before for some reason, should probably investigate
 o.conceallevel = 3
 
@@ -91,10 +94,11 @@ g.ultest_pass_sign = ""
 -- g.neovide_fullscreen = true
 -- g.neovide_transparency = 0.9
 
--- g.neovide_floating_blur_amount_x = 2.0
--- g.neovide_floating_blur_amount_y = 2.0
+g.neovide_floating_blur_amount_x = 2.0
+g.neovide_floating_blur_amount_y = 2.0
 -- g.neovide_cursor_vfx_mode = "pixiedust"
 g.neovide_refresh_rate = 250
+g.neovide_window_blurred = true
 
 -- Omnisharp settings
 g.OmniSharp_server_use_mono = 1
