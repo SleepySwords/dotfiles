@@ -118,5 +118,11 @@ lsp_config.zls.setup(completion_engine.provide_capabilities({
 		return vim.fn.getcwd()
 	end
 }))
+-- lsp_config.biome.setup(completion_engine.provide_capabilities({
+-- 	capabilities = capabilities,
+-- 	root_dir = function()
+-- 		return vim.fn.getcwd()
+-- 	end
+-- }))
 
 lsp_config.marksman.setup {}

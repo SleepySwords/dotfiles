@@ -201,23 +201,21 @@ require("lazy").setup({
 		end
 	},
 
-	-- Statusline + winbar (galaxyline, lualine) + bufferline
 	{
-		'freddiehaddad/feline.nvim',
+		'nvim-lualine/lualine.nvim',
 		dependencies = {
-			{
-				'lewis6991/gitsigns.nvim',
-				dependencies = { 'nvim-lua/plenary.nvim' },
-				config = function()
-					require('gitsigns').setup()
-				end,
-			},
-			'nvim-tree/nvim-web-devicons',
-			'SmiteshP/nvim-navic',
 			'nvim-lua/lsp-status.nvim',
+			'nvim-tree/nvim-web-devicons',
+			'lewis6991/gitsigns.nvim',
 		},
 		config = function()
-			require('ui.statusline.feline.eviline')
+			vim.api.nvim_create_augroup("Scheme", {})
+			vim.api.nvim_create_autocmd("UIEnter", {
+				group = "Scheme",
+				callback = function()
+					require('ui.statusline.lualine')
+				end,
+			})
 		end
 	},
 	{
@@ -389,6 +387,12 @@ require("lazy").setup({
 			require 'octo'.setup()
 		end
 	},
+	{
+		'lewis6991/gitsigns.nvim',
+		config = function()
+			require('gitsigns').setup()
+		end
+	},
 
 	-- use 'dyng/ctrlsf.vim'
 
@@ -420,8 +424,6 @@ require("lazy").setup({
 		-- 'dstein64/vim-startuptime',
 		cmd = 'StartupTime'
 	},
-	-- use 'norcalli/profiler.nvim'
-	-- use 'github/copilot.vim'
 
 	-- Discord rich presence
 	{
@@ -537,13 +539,13 @@ require("lazy").setup({
 									-- limit matches to the current label
 									return vim.tbl_filter(function(m)
 										return m.label == match.label and
-										    m.win == win
+											m.win == win
 									end, state.results)
 								end,
 								labeler = function(matches)
 									for _, m in ipairs(matches) do
 										m.label = m
-										    .label2 -- use the second label
+											.label2 -- use the second label
 									end
 								end,
 							})
@@ -579,12 +581,12 @@ require("lazy").setup({
 
 	-- Interferes with the > and < keybindings
 	-- Displays the key that is present.
-	{
-		'folke/which-key.nvim',
-		config = function()
-			require('ui.which_key').setup()
-		end
-	},
+	-- {
+	-- 	'folke/which-key.nvim',
+	-- 	config = function()
+	-- 		require('ui.which_key').setup()
+	-- 	end
+	-- },
 
 	-- Highlights comments that are marked todo, fix, etc..
 	{
@@ -605,20 +607,6 @@ require("lazy").setup({
 	'tpope/vim-sleuth',
 
 	-- Markdown
-	-- Literally copy and pasted this :)
-	-- use {
-	-- 	'lukas-reineke/headlines.nvim',
-	-- 	after = 'nvim-treesitter',
-	-- 	config = function()
-	-- 		require('headlines').setup {
-	-- 			markdown = {
-	-- 				dash_string = "•",
-
-	-- 			}
-	-- 		}
-	-- 	end,
-	-- }
-
 	{
 		'nvim-neorg/neorg',
 		run = ":Neorg sync-parsers", -- This is the important bit!
@@ -640,6 +628,7 @@ require("lazy").setup({
 -- },
 
 -- Plugins that need to try again
+-- lukas-reineke/headlines.nvim (actually i coppied this)
 -- Satellite.nvim (scrollbar)
 -- Wilder.nvim (cmdline popup menu)
 -- firenvim (in browser)
@@ -653,3 +642,4 @@ require("lazy").setup({
 --
 -- Prob not going to try again
 -- beauwilliams/focus.nvim
+-- Feline.nvim :(

@@ -8,9 +8,10 @@ function fish_prompt
 
     # set_color normal;
 
-    set_color yellow;
-    echo -n (date +%T)
-    echo -n " "
+    ## Time
+    # set_color yellow;
+    # echo -n (date +%T)
+    # echo -n " "
 
     # echo -n "["
     set_color magenta;

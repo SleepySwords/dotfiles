@@ -1,7 +1,6 @@
-FROM archlinux:latest
+FROM alpine:latest
 
-RUN pacman -Sy --noconfirm neovim git wget fontconfig bat fzf git-delta fish sudo
-
+RUN apk add neovim git wget fontconfig bat fzf rust fish sudo
 
 RUN useradd dev && \
     echo "ALL            ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers

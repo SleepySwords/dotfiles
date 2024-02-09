@@ -24,7 +24,6 @@ o.rnu = true
 o.completeopt = "menuone,noinsert,noselect"
 o.shortmess = o.shortmess .. "c"
 -- o.shiftwidth = 4
--- o.tabstop = 4
 o.autoindent = true
 o.smartindent = true
 o.cmdheight = 1
@@ -51,6 +50,7 @@ o.ignorecase = true
 
 -- Formatting
 o.shiftwidth = 4
+o.tabstop = 4
 
 -- This was set to 1 before for some reason, should probably investigate
 o.conceallevel = 3
