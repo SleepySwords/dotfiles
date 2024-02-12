@@ -1,3 +1,5 @@
+require('neodev').setup()
+
 local completion_engine = require('completion.engine.cmp')
 
 local lsp_config = require 'lspconfig'
@@ -31,9 +33,17 @@ lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
 }))
 lsp_config.lua_ls.setup(completion_engine.provide_capabilities({
 	capabilities = capabilities,
+	-- before_init = require("neodev.lsp").before_init,
 	root_dir = function()
 		return vim.fn.getcwd()
-	end
+	end,
+	settings = {
+		Lua = {
+			completion = {
+				callSnippet = "Replace"
+			}
+		}
+	}
 }))
 lsp_config.omnisharp.setup(completion_engine.provide_capabilities({
 	handlers = {

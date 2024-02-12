@@ -130,8 +130,8 @@ map_desc({ 'v' }, '<S-Tab>', '<gv', "Visual-Mode Outdent Code", { noremap = true
 map({ 'v' }, '>', '>gv', { noremap = true })
 map({ 'v' }, '<', '<gv', { noremap = true })
 
-map({ 'n' }, '>', '>>', opts)
-map({ 'n' }, '<', '<<', { noremap = true })
+-- map({ 'n' }, '>', '>>', opts)
+-- map({ 'n' }, '<', '<<', { noremap = true })
 
 -- Buffer handling
 -- map_desc({ 'n' }, 'L', '<cmd>let &number=1-&number<CR>', "Change Between Relative")
@@ -171,10 +171,10 @@ map({ 'n' }, '<leader>ds',
 
 -- Terminal
 map({ 't' }, '<C-esc>', [[<C-\><C-n>]], { noremap = true })
-map({ 'n' }, '<leader>ot', '<cmd>ToggleTerm<CR>', { noremap = true })
-map({ 'n' }, '<leader>of', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
-map({ 'n' }, '<leader>ov', '<cmd>ToggleTerm direction=vertical<CR>', { noremap = true })
-map({ 'n' }, '<leader>oh', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap = true })
+map({ 'n' }, '<leader>Tt', '<cmd>ToggleTerm<CR>', { noremap = true })
+map({ 'n' }, '<leader>Tf', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
+map({ 'n' }, '<leader>Tv', '<cmd>ToggleTerm direction=vertical<CR>', { noremap = true })
+map({ 'n' }, '<leader>Th', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap = true })
 map({ 'n' }, '<leader>wo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
 map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 

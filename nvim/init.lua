@@ -1,71 +1,24 @@
--- vim.loader.enable()
+vim.loader.enable()
 
-local g = vim.g
-local o = vim.o
-
-local function set_ft_option(ft, option, value)
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = ft,
-    group = vim.api.nvim_create_augroup('FtOptions', {}),
-    desc = ('set option "%s" to "%s" for this filetype'):format(option, value),
-    callback = function()
-      vim.opt_local[option] = value
-    end
-  })
+-- Bootstrapping Lazy
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
-
--- Vim options setup
-set_ft_option("markdown", "spell", true)
-set_ft_option("markdown", "linebreak", true)
-
-o.compatible = false
-o.nu = true
-o.rnu = true
-o.completeopt = "menuone,noinsert,noselect"
-o.shortmess = o.shortmess .. "c"
--- o.shiftwidth = 4
-o.autoindent = true
-o.smartindent = true
-o.cmdheight = 1
-o.updatetime = 500
-o.signcolumn = "yes"
-o.clipboard = "unnamed,unnamedplus"
-o.showmatch = true
-o.termguicolors = true
-o.omnifunc = "v:lua.vim.lsp.omnifunc"
-o.mouse = "a"
--- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
-o.hidden = true
-o.guifont = "Fira code retina:h11" -- ,Hack Nerd Font:11'
-
-o.foldcolumn = "1"
-o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-o.foldlevelstart = 99
-o.foldenable = true
-
-o.laststatus = 3
-o.mousemodel = "extend"
-o.ignorecase = true
-
--- Formatting
-o.shiftwidth = 4
-o.tabstop = 4
-
--- This was set to 1 before for some reason, should probably investigate
-o.conceallevel = 3
+vim.opt.rtp:prepend(lazypath)
 
 require("keybindings")
-require("plugins")
+require("lazy").setup({{import = "plugins"}, {import = "plugins.editing"}})
+require('options')
 
--- Highlights when yannking (y)
-vim.cmd("autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()", true)
-
-vim.cmd("autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>", true)
--- vim.cmd("autocmd! FileType rust set softtabstop=0", true)
-
--- Recognize wgsl
-vim.cmd("au BufNewFile,BufRead *.wgsl set filetype=wgsl")
+local g = vim.g
 
 -- Global settings
 
@@ -77,12 +30,11 @@ g.edge_disable_italic_comment = 1
 g.sonokai_style = "shusia"
 g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
-g.sonokai_diagnostic_virtual_text = "colour_background"
-g.neon_style = "default"
+g.sonokai_diagnostic_virtual_text = "colour_background" g.neon_style = "default"
 g.neon_italic_keyword = true
 g.neon_italic_function = true
 g.neon_transparent = true
--- FIX: stop hardcoding colours, add a rgb to hsl and modify defaults.
+
 vim.cmd([[colorscheme catppuccin-mocha]])
 g.telescope_theme = require("navigation.telescope").get_telescope_theme()
 
@@ -90,6 +42,9 @@ g.telescope_theme = require("navigation.telescope").get_telescope_theme()
 g.ultest_fail_sign = ""
 g.ultest_pass_sign = ""
 
+if vim.g.neovide then
+	vim.cmd([[colorscheme catppuccin-latte]])
+end
 -- Neovide
 -- g.neovide_fullscreen = true
 -- g.neovide_transparency = 0.9
@@ -115,6 +70,16 @@ g.Illuminate_ftblacklist = { "NvimTree", "dashboard" }
 g.discord = false
 g.indicator_ok = ""
 
+-- -- Highlights when yannking (y)
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+--   pattern = "*",
+--   command = "silent! lua require'vim.highlight'.on_yank()"
+-- })
+
+-- vim.cmd("autocmd FileType fzf tnoremap <buffer> <esc> <c-c>", true)
+
+-- -- Recognize wgsl
+-- vim.cmd("au BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
 vim.api.nvim_set_hl(0, "InlaySurround", { fg = "#2d2b46" })
 vim.api.nvim_set_hl(0, "InlayText", { bg = "#2d2b46", fg = "#171724" })
@@ -129,6 +94,3 @@ vim.api.nvim_set_hl(0, "FloatBorder", { link = "NormalFloat" })
 vim.api.nvim_set_hl(0, "TelescopeMatching", { bold = true, fg = "#f6c177" })
 
 -- vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
--- vim.cmd [[highlight link TelescopeMatching Type]]
--- Icons become weird when bolded
--- vim.cmd [[highlight TelescopeSelection guifg=#f0a6cc gui=bold]]

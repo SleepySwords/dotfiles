@@ -1,50 +1,15 @@
--- test
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-
 -- TODO: Explain what each plugin actually does, i s2g i don't use half of these.
-require("lazy").setup({
+return {
 	--  Sensible default
-	-- use 'tpope/vim-sensible'
-
-	--  Color schemes
-	'sainnhe/edge',
-	'morhetz/gruvbox',
-	{ 'dracula/vim',   name = 'dracula' },
-	{ 'sonph/onehalf', rtp = 'vim' },
-	'matsuuu/pinkmare',
-	'lifepillar/vim-solarized8',
-	'sainnhe/sonokai',
-	{
-		'folke/tokyonight.nvim',
-		config = function()
-			require('theme.tokyonight').setup()
-		end
-	},
-	'EdenEast/nightfox.nvim',
-	'joshdick/onedark.vim',
-	'rafamadriz/neon',
-	'tanvirtin/monokai.nvim',
-	{
-		'catppuccin/nvim',
-		config = function()
-		end
-	},
+	'tpope/vim-sensible',
 
 	-- Adds LSP support
 	{
 		'neovim/nvim-lspconfig',
+		dependencies = {
+			-- Adds neovim docs to lsp
+			'folke/neodev.nvim'
+		},
 		config = function()
 			require('completion.lsp')
 		end
@@ -63,13 +28,6 @@ require("lazy").setup({
 	-- Hopefully easier to customise colours
 	'tjdevries/colorbuddy.nvim',
 
-	-- Adds neovim docs to lsp
-	{
-		'folke/neodev.nvim',
-		config = function()
-			require('neodev').setup()
-		end
-	},
 
 	-- Adds better defaults for LSP
 	{
@@ -201,8 +159,25 @@ require("lazy").setup({
 		end
 	},
 
+	-- {
+	-- 	'nvim-lualine/lualine.nvim',
+	-- 	dependencies = {
+	-- 		'nvim-lua/lsp-status.nvim',
+	-- 		'nvim-tree/nvim-web-devicons',
+	-- 		'lewis6991/gitsigns.nvim',
+	-- 	},
+	-- 	config = function()
+	-- 		vim.api.nvim_create_augroup("Scheme", {})
+	-- 		vim.api.nvim_create_autocmd("UIEnter", {
+	-- 			group = "Scheme",
+	-- 			callback = function()
+	-- 				require('ui.statusline.lualine')
+	-- 			end,
+	-- 		})
+	-- 	end
+	-- },
 	{
-		'nvim-lualine/lualine.nvim',
+		'rebelot/heirline.nvim',
 		dependencies = {
 			'nvim-lua/lsp-status.nvim',
 			'nvim-tree/nvim-web-devicons',
@@ -213,17 +188,17 @@ require("lazy").setup({
 			vim.api.nvim_create_autocmd("UIEnter", {
 				group = "Scheme",
 				callback = function()
-					require('ui.statusline.lualine')
+					require('ui.statusline.heirline')
 				end,
 			})
 		end
 	},
-	{
-		'akinsho/nvim-bufferline.lua',
-		config = function()
-			require('ui.bufferline').setup()
-		end
-	},
+	-- {
+	-- 	'akinsho/nvim-bufferline.lua',
+	-- 	config = function()
+	-- 		require('ui.bufferline').setup()
+	-- 	end
+	-- },
 	{
 		'nvim-lua/lsp-status.nvim',
 		config = function()
@@ -294,36 +269,6 @@ require("lazy").setup({
 	},
 	'rouge8/neotest-rust',
 
-	--- Quality of life stuff
-	-- auto add the ending bracket
-	{
-		'windwp/nvim-autopairs',
-		config = function()
-			require('nvim-autopairs').setup {
-				enable_check_bracket_line = false
-			}
-		end
-	},
-	{
-		'windwp/nvim-ts-autotag',
-		config = function()
-			require 'nvim-treesitter.configs'.setup {
-				autotag = {
-					enable = true,
-				}
-			}
-		end
-	},
-
-	-- Surround commands (ysiw')
-	-- Keybinds: ys, ds, cs,
-	{
-		'kylechui/nvim-surround',
-		config = function()
-			require('nvim-surround').setup()
-		end
-	},
-
 	-- Highlight only the code section you are editing
 	{
 		'folke/twilight.nvim',
@@ -371,9 +316,6 @@ require("lazy").setup({
 			}
 		end
 	},
-
-	-- Able to comment stuff out, gcc
-	'tpope/vim-commentary',
 
 	-- Git integration
 	{
@@ -465,105 +407,6 @@ require("lazy").setup({
 		end
 	},
 
-	{
-		'folke/flash.nvim',
-		event = "VeryLazy",
-		config = function()
-			vim.api.nvim_set_hl(0, 'FlashLabel', { bold = true, ctermfg = 45, fg = "#ff007c" })
-			vim.api.nvim_set_hl(0, 'FlashKey1', { bold = true, ctermfg = 45, fg = "#00dfff" })
-			vim.api.nvim_set_hl(0, 'FlashKey2', { bold = true, ctermfg = 45, fg = "#2b8db3" })
-			require "flash".setup({
-				label = {
-					-- style = "inline"
-					-- rainbow = {
-					-- 	enabled = true
-					-- }
-				},
-				modes = {
-					char = {
-						highlight = {
-							backdrop = false
-						}
-					}
-				}
-			})
-		end,
-		keys = {
-			{
-				"s",
-				mode = { "n", "o", "x" },
-				function()
-					require("flash").jump()
-				end,
-				desc = "Flash"
-			},
-			{
-				"<leader>j",
-				mode = { "n", "o", "x" },
-				function()
-					local Flash = require("flash")
-
-					---@param opts Flash.Format
-					local function format_first_lbl(opts)
-						-- always show first and second label
-						return {
-							{ opts.match.label1, "FlashKey1" },
-							{ opts.match.label2, "FlashKey2" },
-						}
-					end
-
-					---@param opts Flash.Format
-					local function format_second_lbl(opts)
-						-- always show only second
-						return {
-							{ opts.match.label2, "FlashLabel" },
-						}
-					end
-
-					Flash.jump({
-						search = { mode = "search" },
-						label = {
-							after = false,
-							before = { 0, 0 },
-							uppercase = false,
-							format = format_first_lbl
-						},
-						pattern = [[\<]],
-						action = function(match, state)
-							state:hide()
-							Flash.jump({
-								search = { max_length = 0 },
-								highlight = { matches = false },
-								label = { format = format_second_lbl },
-								matcher = function(win)
-									-- limit matches to the current label
-									return vim.tbl_filter(function(m)
-										return m.label == match.label and
-											m.win == win
-									end, state.results)
-								end,
-								labeler = function(matches)
-									for _, m in ipairs(matches) do
-										m.label = m
-											.label2 -- use the second label
-									end
-								end,
-							})
-						end,
-						labeler = function(matches, state)
-							local labels = state:labels()
-							for m, match in ipairs(matches) do
-								match.label1 = labels[math.floor((m - 1) / #labels) + 1]
-								match.label2 = labels[(m - 1) % #labels + 1]
-								match.label = match.label1
-							end
-						end,
-					})
-				end,
-				desc = "Hop/Easymotion"
-			},
-		},
-	},
 
 	-- {
 	-- 	'folke/noice.nvim',
@@ -581,12 +424,13 @@ require("lazy").setup({
 
 	-- Interferes with the > and < keybindings
 	-- Displays the key that is present.
-	-- {
-	-- 	'folke/which-key.nvim',
-	-- 	config = function()
-	-- 		require('ui.which_key').setup()
-	-- 	end
-	-- },
+	{
+		'willothy/which-key.nvim',
+		branch = "win-view-fix",
+		config = function()
+			require('ui.which_key').setup()
+		end
+	},
 
 	-- Highlights comments that are marked todo, fix, etc..
 	{
@@ -606,19 +450,11 @@ require("lazy").setup({
 	-- Could just use ftplugins instead /shrug
 	'tpope/vim-sleuth',
 
-	-- Markdown
-	{
-		'nvim-neorg/neorg',
-		run = ":Neorg sync-parsers", -- This is the important bit!
-		config = function()
-			require('config.neorg').setup()
-		end,
-	},
 	{
 		"giusgad/pets.nvim",
 		dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
 	},
-})
+}
 
 -- {
 -- 	'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
@@ -628,6 +464,9 @@ require("lazy").setup({
 -- },
 
 -- Plugins that need to try again
+-- none-ls - for something like eslint
+--
+--
 -- lukas-reineke/headlines.nvim (actually i coppied this)
 -- Satellite.nvim (scrollbar)
 -- Wilder.nvim (cmdline popup menu)
@@ -638,6 +477,7 @@ require("lazy").setup({
 -- Harpoon
 -- LspSaga
 -- Fidget.nvim
+-- nvim-neorg/neorg
 --
 --
 -- Prob not going to try again

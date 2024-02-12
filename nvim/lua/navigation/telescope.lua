@@ -37,8 +37,8 @@ function M.get_telescope_theme(opts)
 		theme_opts.sorting_strategy = "descending"
 	else
 		theme_opts.borderchars = {
-			results = { " ", "│", "─", "│", "│", "│", "┴", "└" },
 			prompt = { "─", "│", "─", "│", "┌", "┬", "│", "│" },
+			results = { " ", "│", "─", "│", "│", "│", "┴", "└" },
 			preview = { "─", "│", "─", " ", "─", "┐", "┘", "─" },
 		}
 	end

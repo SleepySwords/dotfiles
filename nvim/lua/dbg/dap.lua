@@ -14,7 +14,7 @@ function M.setup()
   require('dbg.javascript')
   require('dbg.lua')
 
-  require 'nvim-dap-virtual-text'.setup()
+  require 'nvim-dap-virtual-text'.setup({})
 
   -- Telescope + DAP
   local telescope = require('telescope')

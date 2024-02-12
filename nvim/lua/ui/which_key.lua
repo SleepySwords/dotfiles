@@ -2,17 +2,17 @@ local M = {}
 
 function M.setup()
 	-- Cursor is really off, but oh welll
-	vim.o.timeoutlen = 0
+	vim.o.timeoutlen = 500
 	require('which-key').setup {
 		window = {
 			position = 'bottom',
-			-- border = 'solid',
-			-- margin = { 1, 0, 1, 0.7 },
-			-- padding = { 1, 1, 1, 1 }
+			border = 'solid',
+			margin = { 1, 0, 1, 0.7 },
+			padding = { 1, 1, 1, 1 }
 		},
 		-- show_help = false,
 		layout = {
-			-- height = { min = 10, max = 15 }, -- min and max width of the columns
+			height = { min = 10, max = 15 }, -- min and max width of the columns
 		},
 		popup_mappings = {
 			scroll_down = "<c-d>", -- binding to scroll down inside the popup
