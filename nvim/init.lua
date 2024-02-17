@@ -15,7 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("keybindings")
-require("lazy").setup({{import = "plugins"}, {import = "plugins.editing"}})
+require("lazy").setup({ { import = "plugins" }, { import = "plugins.editing" } })
 require('options')
 
 local g = vim.g
@@ -30,7 +30,8 @@ g.edge_disable_italic_comment = 1
 g.sonokai_style = "shusia"
 g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
-g.sonokai_diagnostic_virtual_text = "colour_background" g.neon_style = "default"
+g.sonokai_diagnostic_virtual_text = "colour_background"
+g.neon_style = "default"
 g.neon_italic_keyword = true
 g.neon_italic_function = true
 g.neon_transparent = true
@@ -52,8 +53,9 @@ end
 g.neovide_floating_blur_amount_x = 2.0
 g.neovide_floating_blur_amount_y = 2.0
 -- g.neovide_cursor_vfx_mode = "pixiedust"
-g.neovide_refresh_rate = 250
+-- g.neovide_refresh_rate = 250
 g.neovide_window_blurred = true
+g.neovide_unlink_border_highlights = true
 
 -- Omnisharp settings
 g.OmniSharp_server_use_mono = 1
@@ -82,8 +84,20 @@ g.indicator_ok = ""
 -- vim.cmd("au BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
 vim.api.nvim_set_hl(0, "InlaySurround", { fg = "#2d2b46" })
-vim.api.nvim_set_hl(0, "InlayText", { bg = "#2d2b46", fg = "#171724" })
-vim.api.nvim_set_hl(0, "LspInlayHint", { bg = "#232338" })
+
+local colour_util = require("colours")
+local colour_to_hex = colour_util.tuple_to_hex
+local shade = colour_util.shade
+local colour_name_to_tuple = colour_util.colour_name_to_tuple
+local contrast = colour_util.contrast
+
+local get_hl = vim.api.nvim_get_hl
+
+local inlay_bg = contrast(colour_name_to_tuple(get_hl(0, { name = "normal" }).bg), 0.95)
+local inlay_fg = contrast(colour_name_to_tuple(get_hl(0, { name = "normal" }).bg), 0.50)
+
+vim.api.nvim_set_hl(0, "LspInlayHint", { bg = colour_to_hex(inlay_bg), fg = colour_to_hex(inlay_fg) })
+-- vim.api.nvim_set_hl(0, "LspInlayHint", { bg = "#232338" })
 
 vim.api.nvim_set_hl(0, "Folded", {})
 vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })

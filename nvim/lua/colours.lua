@@ -1,48 +1,47 @@
 local M = {}
 
+function M.colour_name_to_tuple(colour)
+	return {
+		red = bit.band(bit.rshift(colour, 16), 0xFF),
+		green = bit.band(bit.rshift(colour, 8), 0xFF),
+		blue = bit.band(colour, 0xFF)
+	}
+end
 
-function M.rgb_to_hsl(r, g, b)
-	local norm_r = r / 255
-	local norm_g = g / 255
-	local norm_b = b / 255
+function M.tint(colour, factor)
+	return {
+		red = colour.red + ((255 - colour.red) * factor),
+		green = colour.green + ((255 - colour.green) * factor),
+		blue = colour.blue + ((255 - colour.blue) * factor),
+	}
+end
 
-	local max = math.max(norm_r, norm_g, norm_b)
-	local min = math.min(norm_r, norm_g, norm_b)
+function M.shade(colour, factor)
+	return {
+		red = colour.red * factor,
+		green = colour.green * factor,
+		blue = colour.blue * factor,
+	}
+end
 
-	local lum_ran = max - min
-	local lum_tot = max + min
+function M.lightness(colour)
+	local max = math.max(colour.red, colour. green, colour.blue) / 255
+	local min = math.min(colour.red, colour. green, colour.blue) / 255
+	return (max + min) / 2
+end
 
-	local lightness = lum_tot / 2
+function M.tuple_to_hex(colour)
+	return '#' ..
+		("%X"):format(math.abs(colour.red)) ..
+		("%X"):format(math.abs(colour.green)) .. ("%X"):format(math.abs(colour.blue))
+end
 
-	local saturation = 0
-	if lightness > 0.5 then
-		saturation = lum_ran / (2 - lum_tot)
+function M.contrast(colour, factor)
+	if M.lightness(colour) > 0.5 then
+		return M.shade(colour, factor)
 	else
-		saturation = lum_ran / lum_tot
+		return M.tint(colour, 1 - factor)
 	end
-
-	local hue = 0
-	if max == min then
-		hue = 0
-	elseif max == norm_r then
-		hue = (norm_g - norm_r) / lum_ran + (g < b and 6 or 0)
-	elseif max == norm_g then
-		hue = (norm_b - norm_r) / lum_ran + 2
-	elseif max == norm_b then
-		hue = (norm_r - norm_g) / lum_ran + 4
-	end
-
-	hue = hue / 6
-	if hue < 0 then
-		hue = hue + 1/6
-	end
-
-	return hue, saturation, lightness
 end
-
-function M.convert(c)
-	return bit32.bor(c , 0xFF), bit32.bor(bit32.lshift(c, 8), 0xFF)
-end
-
 
 return M

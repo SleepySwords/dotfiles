@@ -9,41 +9,19 @@ local navic = require("nvim-navic")
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
 
-local function colour_name_to_tuple(colour)
-	return {
-		red = bit.band(bit.rshift(colour, 16), 0xFF),
-		green = bit.band(bit.rshift(colour, 8), 0xFF),
-		blue = bit.band(colour, 0xFF)
-	}
-end
+local colour_util = require("colours")
+local colour_to_hex = colour_util.tuple_to_hex
+local shade = colour_util.shade
+local colour_name_to_tuple = colour_util.colour_name_to_tuple
+local contrast = colour_util.contrast
 
-local function tint(colour, factor)
-	return {
-		red = colour.red + ((255 - colour.red) * factor),
-		green = colour.green + ((255 - colour.green) * factor),
-		blue = colour.blue + ((255 - colour.blue) * factor),
-	}
-end
-
-local function shade(colour, factor)
-	return {
-		red = colour.red * factor,
-		green = colour.green * factor,
-		blue = colour.blue * factor,
-	}
-end
-
-local function colour_to_hex(colour)
-	return '#' ..
-		("%X"):format(math.abs(colour.red)) ..
-		("%X"):format(math.abs(colour.green)) .. ("%X"):format(math.abs(colour.blue))
-end
+local get_hl = vim.api.nvim_get_hl
 
 local colours = {
-	component_bg = colour_to_hex(shade(colour_name_to_tuple(vim.api.nvim_get_hl(0, { name = "normal" }).bg), 0.93)),
-	text_bg      = colour_to_hex(shade(colour_name_to_tuple(vim.api.nvim_get_hl(0, { name = "normal" }).bg), 0.8)),
-	darker_bg    = colour_to_hex(shade(colour_name_to_tuple(vim.api.nvim_get_hl(0, { name = "normal" }).bg), 0.6)),
-	darker_fg    = colour_to_hex(shade(colour_name_to_tuple(vim.api.nvim_get_hl(0, { name = "normal" }).fg), 0.7)),
+	component_bg = colour_to_hex(shade(colour_name_to_tuple(get_hl(0, { name = "normal" }).bg), 0.93)),
+	text_bg      = colour_to_hex(shade(colour_name_to_tuple(get_hl(0, { name = "normal" }).bg), 0.8)),
+	darker_bg    = colour_to_hex(shade(colour_name_to_tuple(get_hl(0, { name = "normal" }).bg), 0.6)),
+	darker_fg    = colour_to_hex(contrast(colour_name_to_tuple(get_hl(0, { name = "normal" }).fg), 0.7)),
 	icon_fg      = "#12121a",
 	yellow       = '#ECBE7B',
 	cyan         = '#008080',
@@ -252,9 +230,17 @@ local git = {
 }
 
 
+local diagnostic_error_sep = {
+	provider = '',
+	hl = { bg = colours.red, fg = colours.text_bg },
+	condition = function(self)
+		return self.errors > 0
+	end,
+}
+
 local diagnostics_error = {
 	provider = function(self)
-		return '  ' .. self.errors .. ' '
+		return '  ' .. self.errors .. ' '
 	end,
 	condition = function(self)
 		return self.errors > 0
@@ -359,7 +345,7 @@ local diagnostic_status = {
 }
 
 local diagnostics = {
-	{ diagnostics_error,
+	{ diagnostic_error_sep, diagnostics_error,
 		diagnostic_warn_sep, diagnostic_warn,
 		diagnostic_hint_sep, diagnostic_hint,
 		diagnostic_info_sep, diagnostic_info,
@@ -457,7 +443,7 @@ local navic_win = {
 -- https://github.com/famiu/feline.nvim/blob/master/lua/feline/providers/file.lua#L85C38-L89C1
 local filename = {
 	provider = ' %m %f ',
-	hl = { bg = colours.text_bg, fg = colours.purple },
+	hl = { bg = colours.text_bg, fg = colours.magenta },
 }
 
 local bufferlineActive = {
@@ -568,9 +554,40 @@ local bufferlineBlock = {
 	end
 }
 
+local tablineBlock = {
+	static = {
+		tabs = {
+			"main",
+			"debug",
+		}
+	},
+	provider = function(self)
+		local name = self.tabs[self.tabnr] or self.tabnr
+		return " " .. name .. " "
+	end,
+	hl = function(self)
+		if self.is_active then
+			return "Normal"
+		else
+			return { bg = colours.text_bg, fg = colours.darker_fg }
+		end
+	end,
+	on_click = {
+		callback = function(_, minwid, _, _)
+			vim.api.nvim_set_current_tabpage(minwid)
+		end,
+		minwid = function(self)
+			return self.tabpage
+		end,
+		name = "heirline_tabpage"
+	}
+}
+
 local bufferline = utils.make_buflist(bufferlineBlock,
 	{ provider = " ", hl = { fg = "gray" } },
 	{ provider = " ", hl = { fg = "gray" } })
+
+local tabline = utils.make_tablist(tablineBlock)
 
 require("heirline").setup({
 	statusline = {
@@ -621,20 +638,79 @@ require("heirline").setup({
 		navic_win,
 		align,
 		filename,
+		hl = "Normal"
 	},
 	tabline = {
 		bufferline,
 		align,
+		{
+			tabline,
+			condition = function()
+				return #vim.api.nvim_list_tabpages() >= 2
+			end,
+		},
 		hl = { bg = colours.text_bg }
 	},
 	opts = {
 		-- if the callback returns true, the winbar will be disabled for that window
 		-- the args parameter corresponds to the table argument passed to autocommand callbacks. :h nvim_lua_create_autocmd()
-		disable_winbar_cb = function(args)
-			return conditions.buffer_matches({
-				buftype = { "nofile", "prompt", "help", "quickfix" },
-				filetype = { "^git.*", "fugitive", "Trouble", "dashboard" },
-			}, args.buf)
+		disable_winbar_cb = function(_)
+			return false
 		end,
 	},
 })
+
+local disable_winbar_cb = function(args)
+	return conditions.buffer_matches({
+		buftype = { "nofile", "prompt", "help", "quickfix" },
+		filetype = { "^git.*", "fugitive", "Trouble", "dashboard" },
+	}, args.buf)
+end
+
+local function setup_local_winbar_with_autocmd(callback)
+	local augrp_id = vim.api.nvim_create_augroup("Heirline_init_winbar", { clear = true })
+	vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter", "BufWinEnter", "FileType", "TermOpen" }, {
+		callback = function(args)
+			-- This is a hack until we send info about win_line to the gui
+			local heirline_winbar = " %{%v:lua.require'heirline'.eval_winbar()%}"
+			if args.event == "VimEnter" or args.event == "UIEnter" then
+				for _, win in ipairs(vim.api.nvim_list_wins()) do
+					local winbuf = vim.api.nvim_win_get_buf(win)
+					local new_args = vim.deepcopy(args)
+					new_args.buf = winbuf
+					if callback and callback(new_args) == true then
+						if vim.wo[win].winbar == heirline_winbar then
+							vim.wo[win].winbar = nil
+						end
+					else
+						vim.wo[win].winbar = heirline_winbar
+					end
+				end
+			end
+			if callback and callback(args) == true then
+				if vim.opt_local.winbar:get() == heirline_winbar then
+					vim.opt_local.winbar = nil
+				end
+				return
+			end
+
+			-- local wins = vim.tbl_filter(function(win)
+			--     return vim.api.nvim_win_get_buf(win) == args.buf
+			-- end, vim.api.nvim_list_wins())
+
+			-- if vim.api.nvim_win_get_config(wins[0] or 0).zindex then
+			-- if vim.api.nvim_win_get_config(0).zindex then
+			--     vim.opt_local.winbar = nil
+			--     return
+			-- end
+
+			if vim.api.nvim_win_get_height(0) > 1 then
+				vim.opt_local.winbar = heirline_winbar
+			end
+		end,
+		group = augrp_id,
+		desc = "Heirline: set window-local winbar",
+	})
+end
+
+setup_local_winbar_with_autocmd(disable_winbar_cb)

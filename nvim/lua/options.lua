@@ -28,6 +28,7 @@ o.updatetime = 500
 o.signcolumn = "yes"
 o.clipboard = "unnamed,unnamedplus"
 o.showmatch = true
+o.showtabline = 3
 o.termguicolors = true
 o.omnifunc = "v:lua.vim.lsp.omnifunc"
 o.mouse = "a"
