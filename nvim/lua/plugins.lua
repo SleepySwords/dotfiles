@@ -1,459 +1,450 @@
 -- TODO: Explain what each plugin actually does, i s2g i don't use half of these.
 return {
-	--  Sensible default
-	'tpope/vim-sensible',
+    --  Sensible default
+    'tpope/vim-sensible',
 
-	-- Adds LSP support
-	{
-		'neovim/nvim-lspconfig',
-		dependencies = {
-			-- Adds neovim docs to lsp
-			'folke/neodev.nvim'
-		},
-		config = function()
-			require('completion.lsp')
-		end
-	},
-	'williamboman/mason.nvim',
-	{
-		'williamboman/mason-lspconfig.nvim',
-		dependencies = {
-			'williamboman/mason.nvim'
-		},
-		config = function()
-			require('completion.mason').setup()
-		end
-	},
+    -- Adds LSP support
+    {
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            -- Adds neovim docs to lsp
+            'folke/neodev.nvim',
+        },
+        config = function()
+            require('completion.lsp')
+        end,
+    },
+    'williamboman/mason.nvim',
+    {
+        'williamboman/mason-lspconfig.nvim',
+        dependencies = {
+            'williamboman/mason.nvim',
+        },
+        config = function()
+            require('completion.mason').setup()
+        end,
+    },
 
-	-- Hopefully easier to customise colours
-	'tjdevries/colorbuddy.nvim',
+    -- Be able to add linters as formaters.
+    {
+        'jay-babu/mason-null-ls.nvim',
+        dependencies = {
+            'williamboman/mason.nvim',
+            'nvimtools/none-ls.nvim',
+        },
+        config = function()
+            require('mason-null-ls').setup({
+                handlers = {},
+            })
+            require('null-ls').setup({})
+        end,
+    },
 
+    -- Adds better defaults for LSP
+    {
+        'RishabhRD/nvim-lsputils',
+        dependencies = {
+            'RishabhRD/popfix',
+            'neovim/nvim-lspconfig',
+        },
+        config = function()
+            require('completion.lsp_utils').setup()
+        end,
+    },
 
-	-- Adds better defaults for LSP
-	{
-		'RishabhRD/nvim-lsputils',
-		dependencies = {
-			'RishabhRD/popfix',
-			'neovim/nvim-lspconfig'
-		},
-		config = function()
-			require('completion.lsp_utils').setup()
-		end
-	},
+    -- Improves the vim.ui stuff, such as vim.ui.input() (gr)
+    {
+        'stevearc/dressing.nvim',
+        dependencies = {
+            'nvim-telescope/telescope.nvim',
+        },
+        config = function()
+            require('ui.dressing').setup()
+        end,
+    },
 
-	-- Improves the vim.ui stuff, such as vim.ui.input() (gr)
-	{
-		'stevearc/dressing.nvim',
-		dependencies = {
-			'nvim-telescope/telescope.nvim'
-		},
-		config = function()
-			require('ui.dressing').setup()
-		end
-	},
+    -- Adds trouble which displays references, diagnostics
+    {
+        'folke/trouble.nvim',
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        config = function()
+            require('trouble').setup({
+                action_keys = {
+                    jump = { '<tab>' },
+                    jump_close = { 'o', '<cr>' },
+                },
+            })
+        end,
+    },
 
-	-- Adds trouble which displays references, diagnostics
-	{
-		'folke/trouble.nvim',
-		dependencies = 'nvim-tree/nvim-web-devicons',
-		config = function()
-			require('trouble').setup {
-				action_keys = {
-					jump = { '<tab>' },
-					jump_close = { 'o', '<cr>' },
-				}
-			}
-		end
-	},
+    -- Unfortunately the way decompilation works in omnisharp is that the client sends a
+    -- o#/v2/gotodefinition request, which returns with a metadata source field, that is used
+    -- in a o#/metadata request to get the decompilation. Unfortunately, LSP in neovim sends a
+    -- textDocument/definition request, which doesn't return the metadata source, so either send another
+    -- o#/v2/gotodefinition when recieving the textDocument/definition request or send a o#/v2/gotodefinition
+    -- from the start, which is what is happening here with this plugin. Need to keep in mind that this uses
+    -- two instances of omnisharp as a result.
+    'Hoffs/omnisharp-extended-lsp.nvim',
 
-	-- Unfortunately the way decompilation works in omnisharp is that the client sends a
-	-- o#/v2/gotodefinition request, which returns with a metadata source field, that is used
-	-- in a o#/metadata request to get the decompilation. Unfortunately, LSP in neovim sends a
-	-- textDocument/definition request, which doesn't return the metadata source, so either send another
-	-- o#/v2/gotodefinition when recieving the textDocument/definition request or send a o#/v2/gotodefinition
-	-- from the start, which is what is happening here with this plugin. Need to keep in mind that this uses
-	-- two instances of omnisharp as a result.
-	'Hoffs/omnisharp-extended-lsp.nvim',
+    -- Autocompletion
+    'hrsh7th/nvim-cmp',
 
-	-- Autocompletion
-	'hrsh7th/nvim-cmp',
+    -- Autocomplete Sources
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-nvim-lua',
+    'hrsh7th/cmp-nvim-lsp',
 
-	-- Autocomplete Sources
-	'hrsh7th/cmp-buffer',
-	'hrsh7th/cmp-cmdline',
-	'hrsh7th/cmp-path',
-	'hrsh7th/cmp-nvim-lua',
-	'hrsh7th/cmp-nvim-lsp',
+    -- Displays the function signature and current field.
+    -- Keybind: <leader>k
+    'ray-x/lsp_signature.nvim',
 
-	-- Displays the function signature and current field.
-	-- Keybind: <leader>k
-	'ray-x/lsp_signature.nvim',
+    -- Adds icons to lsp variables
+    'onsails/lspkind.nvim',
 
-	-- Adds icons to lsp variables
-	'onsails/lspkind.nvim',
+    --  Fuzzy finders
+    {
+        'nvim-telescope/telescope.nvim',
+        dependencies = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
+        config = function()
+            require('navigation.telescope').setup()
+        end,
+    },
+    'debugloop/telescope-undo.nvim',
+    'junegunn/fzf',
+    'junegunn/fzf.vim',
 
-	--  Code snippets support
-	{
-		'L3MON4D3/LuaSnip',
-		config = function()
-			require('completion.luasnip').setup()
-		end
-	},
-	'saadparwaiz1/cmp_luasnip',
-	'rafamadriz/friendly-snippets',
+    --  Syntax + treesitter
+    {
+        'nvim-treesitter/nvim-treesitter',
+        config = function()
+            require('ui.treesitter')
+            require('plg.headlines').setup()
+        end,
+        run = ':TSUpdate',
+    },
+    {
+        'SmiteshP/nvim-navic',
+        dependencies = 'nvim-treesitter/nvim-treesitter',
+        config = function()
+            require('ui.navic').setup()
+        end,
+    },
+    -- Deprecation error currently
+    -- {
+    -- 	'HiPhish/rainbow-delimiters.nvim',
+    -- 	dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    -- },
 
-	--  Fuzzy finders
-	{
-		'nvim-telescope/telescope.nvim',
-		dependencies = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
-		config = function()
-			require('navigation.telescope').setup()
-		end
-	},
-	'debugloop/telescope-undo.nvim',
-	'junegunn/fzf',
-	'junegunn/fzf.vim',
+    {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        after = 'nvim-treesitter',
+    },
 
-	--  Syntax + treesitter
-	{
-		'nvim-treesitter/nvim-treesitter',
-		config = function()
-			require('ui.treesitter')
-			require('plg.headlines').setup()
-		end,
-		run = ':TSUpdate'
-	},
-	{
-		'SmiteshP/nvim-navic',
-		dependencies = 'nvim-treesitter/nvim-treesitter',
-		config = function()
-			require('ui.navic').setup()
-		end
-	},
-	-- Deprecation error currently
-	-- {
-	-- 	'HiPhish/rainbow-delimiters.nvim',
-	-- 	dependencies = { 'nvim-treesitter/nvim-treesitter' },
-	-- },
+    {
+        'ziontee113/syntax-tree-surfer',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = function()
+            require('ui.treesurfer').setup()
+        end,
+    },
 
-	{
-		'nvim-treesitter/nvim-treesitter-textobjects',
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		after = "nvim-treesitter"
-	},
+    --  File explorer
+    {
+        'nvim-tree/nvim-tree.lua',
+        dependencies = { 'nvim-tree/nvim-web-devicons' }, --  for file icons
+        config = function()
+            require('navigation.tree').setup()
+        end,
+    },
 
-	{
-		'ziontee113/syntax-tree-surfer',
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
-		config = function()
-			require('ui.treesurfer').setup()
-		end
-	},
+    -- {
+    -- 	'nvim-lualine/lualine.nvim',
+    -- 	dependencies = {
+    -- 		'nvim-lua/lsp-status.nvim',
+    -- 		'nvim-tree/nvim-web-devicons',
+    -- 		'lewis6991/gitsigns.nvim',
+    -- 	},
+    -- 	config = function()
+    -- 		vim.api.nvim_create_augroup("Scheme", {})
+    -- 		vim.api.nvim_create_autocmd("UIEnter", {
+    -- 			group = "Scheme",
+    -- 			callback = function()
+    -- 				require('ui.statusline.lualine')
+    -- 			end,
+    -- 		})
+    -- 	end
+    -- },
+    {
+        'rebelot/heirline.nvim',
+        dependencies = {
+            'nvim-lua/lsp-status.nvim',
+            'nvim-tree/nvim-web-devicons',
+            'lewis6991/gitsigns.nvim',
+        },
+        config = function()
+            vim.api.nvim_create_augroup('Scheme', {})
+            vim.api.nvim_create_autocmd('UIEnter', {
+                group = 'Scheme',
+                callback = function()
+                    require('ui.statusline.heirline')
+                end,
+            })
+        end,
+    },
+    -- {
+    -- 	'akinsho/nvim-bufferline.lua',
+    -- 	config = function()
+    -- 		require('ui.bufferline').setup()
+    -- 	end
+    -- },
+    {
+        'nvim-lua/lsp-status.nvim',
+        config = function()
+            require('ui.lsp_status').setup()
+        end,
+    },
 
-	--  File explorer
-	{
-		'nvim-tree/nvim-tree.lua',
-		dependencies = { 'nvim-tree/nvim-web-devicons' }, --  for file icons
-		config = function()
-			require('navigation.tree').setup()
-		end
-	},
+    -- Buffers
+    { 'ojroques/nvim-bufdel' },
 
-	-- {
-	-- 	'nvim-lualine/lualine.nvim',
-	-- 	dependencies = {
-	-- 		'nvim-lua/lsp-status.nvim',
-	-- 		'nvim-tree/nvim-web-devicons',
-	-- 		'lewis6991/gitsigns.nvim',
-	-- 	},
-	-- 	config = function()
-	-- 		vim.api.nvim_create_augroup("Scheme", {})
-	-- 		vim.api.nvim_create_autocmd("UIEnter", {
-	-- 			group = "Scheme",
-	-- 			callback = function()
-	-- 				require('ui.statusline.lualine')
-	-- 			end,
-	-- 		})
-	-- 	end
-	-- },
-	{
-		'rebelot/heirline.nvim',
-		dependencies = {
-			'nvim-lua/lsp-status.nvim',
-			'nvim-tree/nvim-web-devicons',
-			'lewis6991/gitsigns.nvim',
-		},
-		config = function()
-			vim.api.nvim_create_augroup("Scheme", {})
-			vim.api.nvim_create_autocmd("UIEnter", {
-				group = "Scheme",
-				callback = function()
-					require('ui.statusline.heirline')
-				end,
-			})
-		end
-	},
-	-- {
-	-- 	'akinsho/nvim-bufferline.lua',
-	-- 	config = function()
-	-- 		require('ui.bufferline').setup()
-	-- 	end
-	-- },
-	{
-		'nvim-lua/lsp-status.nvim',
-		config = function()
-			require('ui.lsp_status').setup()
-		end
-	},
+    --  Debugging
+    {
+        'mfussenegger/nvim-dap',
+        dependencies = {
+            'nvim-telescope/telescope-dap.nvim',
+            'theHamsta/nvim-dap-virtual-text',
+        },
+        config = function()
+            require('dbg.dap').setup()
+        end,
+    },
+    {
+        'rcarriga/nvim-dap-ui',
+        dependencies = {
+            'mfussenegger/nvim-dap',
+        },
+        config = function()
+            require('dbg.dap_ui').setup()
+        end,
+    },
+    -- Add ability to debug lua plugins
+    'jbyuki/one-small-step-for-vimkind',
 
-	-- Buffers
-	{ 'ojroques/nvim-bufdel' },
+    { 'mfussenegger/nvim-lint' },
 
-	--  Debugging
-	{
-		'mfussenegger/nvim-dap',
-		dependencies = {
-			'nvim-telescope/telescope-dap.nvim',
-			'theHamsta/nvim-dap-virtual-text'
-		},
-		config = function()
-			require('dbg.dap').setup()
-		end
-	},
-	{
-		'rcarriga/nvim-dap-ui',
-		dependencies = {
-			'mfussenegger/nvim-dap'
-		},
-		config = function()
-			require('dbg.dap_ui').setup()
-		end
-	},
-	-- Add ability to debug lua plugins
-	'jbyuki/one-small-step-for-vimkind',
+    -- Testing plugins
+    -- TODO: Setup all commands
+    {
+        'nvim-neotest/neotest',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-treesitter/nvim-treesitter',
+        },
+        config = function()
+            require('neotest').setup({
+                icons = {
+                    expanded = '',
+                    collapsed = '',
 
-	{ 'mfussenegger/nvim-lint' },
+                    passed = '',
+                    running = '',
+                    failed = '',
+                    unknown = '',
+                },
+                adapters = {
+                    require('neotest-vim-test')({
+                        ignore_file_types = { 'rust', 'python', 'vim', 'lua' },
+                    }),
+                },
+            })
+        end,
+    },
+    {
+        'nvim-neotest/neotest-vim-test',
+        dependencies = {
+            'vim-test/vim-test',
+        },
+    },
+    'rouge8/neotest-rust',
 
-	-- Testing plugins
-	-- TODO: Setup all commands
-	{
-		'nvim-neotest/neotest',
-		dependencies = {
-			'nvim-lua/plenary.nvim',
-			'nvim-treesitter/nvim-treesitter',
-		},
-		config = function()
-			require('neotest').setup({
-				icons = {
-					expanded = '',
-					collapsed = '',
+    -- Highlight only the code section you are editing
+    {
+        'folke/twilight.nvim',
+        config = function()
+            require('twilight').setup()
+        end,
+    },
 
-					passed = '',
-					running = '',
-					failed = '',
-					unknown = '',
-				},
-				adapters = {
-					require('neotest-vim-test')({
-						ignore_file_types = { 'rust', 'python', 'vim', 'lua' },
-					}),
-				},
-			})
-		end
-	},
-	{
-		'nvim-neotest/neotest-vim-test',
-		dependencies = {
-			'vim-test/vim-test'
-		}
-	},
-	'rouge8/neotest-rust',
+    -- Enter :ZenMode
+    {
+        'folke/zen-mode.nvim',
+        config = function()
+            require('zen-mode').setup({
+                window = {
+                    backdrop = 0.95,
+                    width = 100,
+                    height = 1,
+                    options = {
+                        signcolumn = "no"
+                    }
+                },
+                plugins = {
+                    options = {
+                        enabled = true,
+                        ruler = false,
+                        showcmd = false,
+                    },
+                    twilight = { enabled = false },
+                    gitsigns = { enabled = false }, -- disables git signs_staged
+                },
+            })
+        end,
+    },
 
-	-- Highlight only the code section you are editing
-	{
-		'folke/twilight.nvim',
-		config = function()
-			require('twilight').setup()
-		end
-	},
+    -- Git integration
+    {
+        'pwntester/octo.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            -- 'nvim-telescope/telescope.nvim',
+            'nvim-tree/nvim-web-devicons',
+        },
+        config = function()
+            require('octo').setup()
+        end,
+    },
+    {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup()
+        end,
+    },
 
-	-- Enter :ZenMode
-	{
-		'folke/zen-mode.nvim',
-		config = function()
-			require('zen-mode').setup {
-				window = {
-					backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
-					-- height and width can be:
-					-- * an absolute number of cells when > 1
-					-- * a percentage of the width / height of the editor when <= 1
-					-- * a function that returns the width or the height
-					width = 100, -- width of the Zen window
-					height = 1, -- height of the Zen window
-					-- by default, no options are changed for the Zen window
-					-- uncomment any of the options below, or add other vim.wo options you want to apply
-					options = {
-						signcolumn = "no", -- disable signcolumn
-						number = false, -- disable number column
-						relativenumber = false, -- disable relative numbers
-						cursorline = false, -- disable cursorline
-						cursorcolumn = false, -- disable cursor column
-						foldcolumn = "0", -- disable fold column
-						list = false, -- disable whitespace characters
-					},
-				},
-				plugins = {
-					-- disable some global vim options (vim.o...)
-					-- comment the lines to not apply the options
-					options = {
-						enabled = true,
-						ruler = false, -- disables the ruler text in the cmd line area
-						showcmd = false, -- disables the command in the last line of the screen
-					},
-					twilight = { enabled = false }, -- enable to start Twilight when zen mode opens
-					gitsigns = { enabled = false }, -- disables git signs_staged
-				}
-			}
-		end
-	},
+    -- use 'dyng/ctrlsf.vim'
 
-	-- Git integration
-	{
-		'pwntester/octo.nvim',
-		dependencies = {
-			'nvim-lua/plenary.nvim',
-			-- 'nvim-telescope/telescope.nvim',
-			'nvim-tree/nvim-web-devicons',
-		},
-		config = function()
-			require 'octo'.setup()
-		end
-	},
-	{
-		'lewis6991/gitsigns.nvim',
-		config = function()
-			require('gitsigns').setup()
-		end
-	},
+    -- Highlight variables with the same name.
+    {
+        'RRethy/vim-illuminate', --, conflicts with which-key
+        config = function()
+            require('illuminate').configure({
+                providers = {
+                    'lsp',
+                },
+                delay = 0,
+            })
+        end,
+    },
 
-	-- use 'dyng/ctrlsf.vim'
+    -- use 'vim-scripts/restore_view.vim'
+    -- use 'kassio/neoterm'
+    -- Why do i have lazygit if i have toggle term??!?!!
+    'kdheepak/lazygit.nvim',
+    {
+        'akinsho/toggleterm.nvim',
+        config = function()
+            require('ui.toggleterm_ui').setup()
+        end,
+    },
+    {
+        'tweekmonster/startuptime.vim',
+        -- 'dstein64/vim-startuptime',
+        cmd = 'StartupTime',
+    },
 
-	-- Highlight variables with the same name.
-	{
-		'RRethy/vim-illuminate', --, conflicts with which-key
-		config = function()
-			require('illuminate').configure({
-				providers = {
-					'lsp'
-				},
-				delay = 0
-			})
-		end
-	},
+    -- Discord rich presence
+    {
+        'andweeb/presence.nvim',
+    },
 
-	-- use 'vim-scripts/restore_view.vim'
-	-- use 'kassio/neoterm'
-	-- Why do i have lazygit if i have toggle term??!?!!
-	'kdheepak/lazygit.nvim',
-	{
-		'akinsho/toggleterm.nvim',
-		config = function()
-			require('ui.toggleterm_ui').setup()
-		end
-	},
-	{
-		'tweekmonster/startuptime.vim',
-		-- 'dstein64/vim-startuptime',
-		cmd = 'StartupTime'
-	},
+    -- Adds dashboard
+    {
+        'glepnir/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require('ui.dashboard')
+        end,
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+    },
 
-	-- Discord rich presence
-	{
-		'andweeb/presence.nvim',
-	},
+    -- Adds folds for lsp, treesitter, mainly functions
+    {
+        'kevinhwang91/nvim-ufo',
+        dependencies = 'kevinhwang91/promise-async',
+        config = function()
+            require('ui.ufo').setup()
+        end,
+    },
 
-	-- Adds dashboard
-	{
-		'glepnir/dashboard-nvim',
-		event = 'VimEnter',
-		config = function()
-			require('ui.dashboard')
-		end,
-		dependencies = { 'nvim-tree/nvim-web-devicons' }
-	},
+    -- Adds statuscol plugin, allows for the down arrow folds.
+    {
+        'luukvbaal/statuscol.nvim',
+        config = function()
+            local builtin = require('statuscol.builtin')
+            require('statuscol').setup({
+                relculright = true,
+                segments = {
+                    { text = { builtin.foldfunc },      click = 'v:lua.ScFa' },
+                    { text = { '%s' },                  click = 'v:lua.ScSa' },
+                    { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
+                },
+            })
+        end,
+    },
 
-	-- Adds folds for lsp, treesitter, mainly functions
-	{
-		'kevinhwang91/nvim-ufo',
-		dependencies = 'kevinhwang91/promise-async',
-		config = function()
-			require('ui.ufo').setup()
-		end
-	},
+    -- {
+    -- 	'folke/noice.nvim',
+    -- 	config = function()
+    -- 		require('ui.noice')
+    -- 	end,
+    -- 	dependencies = {
+    -- 		'MunifTanjim/nui.nvim',
+    -- 		'rcarriga/nvim-notify',
+    -- 	}
+    -- },
 
-	-- Adds statuscol plugin, allows for the down arrow folds.
-	{
-		'luukvbaal/statuscol.nvim',
-		config = function()
-			local builtin = require('statuscol.builtin')
-			require('statuscol').setup({
-				relculright = true,
-				segments = {
-					{ text = { builtin.foldfunc },      click = 'v:lua.ScFa' },
-					{ text = { '%s' },                  click = 'v:lua.ScSa' },
-					{ text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
-				},
-			})
-		end
-	},
+    -- Adds :SymbolsOutline
+    {
+        'simrat39/symbols-outline.nvim',
+        config = function()
+            require('symbols-outline').setup()
+        end,
+    },
 
+    -- Interferes with the > and < keybindings
+    -- Displays the key that is present.
+    {
+        'willothy/which-key.nvim',
+        branch = 'win-view-fix',
+        config = function()
+            require('ui.which_key').setup()
+        end,
+    },
 
-	-- {
-	-- 	'folke/noice.nvim',
-	-- 	config = function()
-	-- 		require('ui.noice')
-	-- 	end,
-	-- 	dependencies = {
-	-- 		'MunifTanjim/nui.nvim',
-	-- 		'rcarriga/nvim-notify',
-	-- 	}
-	-- },
+    -- Highlights comments that are marked todo, fix, etc..
+    {
+        dir = '/Users/ibby/stuff/dev/lua/todo-comments.nvim/',
+        dependencies = 'nvim-lua/plenary.nvim',
+        config = function()
+            require('todo-comments').setup({
+                highlight = {
+                    pattern = [[.{-}<((KEYWORDS).{-})\s*:]],
+                },
+            })
+        end,
+    },
 
-	-- Adds :SymbolsOutline
-	{ 'simrat39/symbols-outline.nvim', config = function() require('symbols-outline').setup() end },
+    'gpanders/editorconfig.nvim',
 
-	-- Interferes with the > and < keybindings
-	-- Displays the key that is present.
-	{
-		'willothy/which-key.nvim',
-		branch = "win-view-fix",
-		config = function()
-			require('ui.which_key').setup()
-		end
-	},
+    -- Could just use ftplugins instead /shrug
+    'tpope/vim-sleuth',
 
-	-- Highlights comments that are marked todo, fix, etc..
-	{
-		dir = '/Users/ibby/stuff/dev/lua/todo-comments.nvim/',
-		dependencies = 'nvim-lua/plenary.nvim',
-		config = function()
-			require('todo-comments').setup {
-				highlight = {
-					pattern = [[.{-}<((KEYWORDS).{-})\s*:]]
-				},
-			}
-		end
-	},
-
-	'gpanders/editorconfig.nvim',
-
-	-- Could just use ftplugins instead /shrug
-	'tpope/vim-sleuth',
-
-	{
-		"giusgad/pets.nvim",
-		dependencies = { "MunifTanjim/nui.nvim", "giusgad/hologram.nvim" },
-	},
+    {
+        'giusgad/pets.nvim',
+        dependencies = { 'MunifTanjim/nui.nvim', 'giusgad/hologram.nvim' },
+    },
 }
 
 -- {
@@ -483,3 +474,6 @@ return {
 -- Prob not going to try again
 -- beauwilliams/focus.nvim
 -- Feline.nvim :(
+
+-- Hopefully easier to customise colours
+-- 'tjdevries/colorbuddy.nvim' (I might just do this manually)

@@ -1,21 +1,21 @@
 vim.loader.enable()
 
 -- Bootstrapping Lazy
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
+    vim.fn.system({
+        'git',
+        'clone',
+        '--filter=blob:none',
+        'https://github.com/folke/lazy.nvim.git',
+        '--branch=stable', -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("keybindings")
-require("lazy").setup({ { import = "plugins" }, { import = "plugins.editing" } })
+require('keybindings')
+require('lazy').setup({ { import = 'plugins' }, { import = 'plugins.editing' } })
 require('options')
 
 local g = vim.g
@@ -24,27 +24,24 @@ local g = vim.g
 
 -- Theme settings
 -- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time)
-g.edge_style = "aura"
+g.edge_style = 'aura'
 g.edge_endable_italic = 1
 g.edge_disable_italic_comment = 1
-g.sonokai_style = "shusia"
+g.sonokai_style = 'shusia'
 g.sonokai_enable_italic = 1
 g.sonokai_disable_italic_comment = 1
-g.sonokai_diagnostic_virtual_text = "colour_background"
-g.neon_style = "default"
+g.sonokai_diagnostic_virtual_text = 'colour_background'
+g.neon_style = 'default'
 g.neon_italic_keyword = true
 g.neon_italic_function = true
 g.neon_transparent = true
 
 vim.cmd([[colorscheme catppuccin-mocha]])
-g.telescope_theme = require("navigation.telescope").get_telescope_theme()
-
--- Plugin settings
-g.ultest_fail_sign = ""
-g.ultest_pass_sign = ""
+g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
 if vim.g.neovide then
-	vim.cmd([[colorscheme catppuccin-latte]])
+    -- vim.cmd([[colorscheme duskfox]])
+    vim.cmd([[colorscheme catppuccin-latte]])
 end
 -- Neovide
 -- g.neovide_fullscreen = true
@@ -64,13 +61,13 @@ g.asyncomplete_auto_completeopt = 0
 g.asyncomplete_force_refresh_on_context_changed = 1
 g.OmniSharp_server_stdio = 1
 g.OmniSharp_highlight_types = 2
-g.completion_matching_stategy_list = { "exact", "substring", "fuzzy" }
+g.completion_matching_stategy_list = { 'exact', 'substring', 'fuzzy' }
 
 g.indent_blankline_show_first_indent_level = false
-g.Illuminate_ftblacklist = { "NvimTree", "dashboard" }
+g.Illuminate_ftblacklist = { 'NvimTree', 'dashboard' }
 
 g.discord = false
-g.indicator_ok = ""
+g.indicator_ok = ''
 
 -- -- Highlights when yannking (y)
 -- vim.api.nvim_create_autocmd("TextYankPost", {
@@ -83,9 +80,9 @@ g.indicator_ok = ""
 -- -- Recognize wgsl
 -- vim.cmd("au BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
-vim.api.nvim_set_hl(0, "InlaySurround", { fg = "#2d2b46" })
+vim.api.nvim_set_hl(0, 'InlaySurround', { fg = '#2d2b46' })
 
-local colour_util = require("colours")
+local colour_util = require('colours')
 local colour_to_hex = colour_util.tuple_to_hex
 local shade = colour_util.shade
 local colour_name_to_tuple = colour_util.colour_name_to_tuple
@@ -93,18 +90,22 @@ local contrast = colour_util.contrast
 
 local get_hl = vim.api.nvim_get_hl
 
-local inlay_bg = contrast(colour_name_to_tuple(get_hl(0, { name = "normal" }).bg), 0.95)
-local inlay_fg = contrast(colour_name_to_tuple(get_hl(0, { name = "normal" }).bg), 0.50)
+local inlay_bg = contrast(colour_name_to_tuple(get_hl(0, { name = 'normal' }).bg), 0.95)
+local inlay_fg = contrast(colour_name_to_tuple(get_hl(0, { name = 'normal' }).bg), 0.50)
 
-vim.api.nvim_set_hl(0, "LspInlayHint", { bg = colour_to_hex(inlay_bg), fg = colour_to_hex(inlay_fg) })
+vim.api.nvim_set_hl(
+    0,
+    'LspInlayHint',
+    { bg = colour_to_hex(inlay_bg), fg = colour_to_hex(inlay_fg) }
+)
 -- vim.api.nvim_set_hl(0, "LspInlayHint", { bg = "#232338" })
 
-vim.api.nvim_set_hl(0, "Folded", {})
-vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
-vim.api.nvim_set_hl(0, "UfoFoldedBg", {})
+vim.api.nvim_set_hl(0, 'Folded', {})
+vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
+vim.api.nvim_set_hl(0, 'UfoFoldedBg', {})
 
-vim.api.nvim_set_hl(0, "TelescopeSelection", { link = "Define" })
-vim.api.nvim_set_hl(0, "FloatBorder", { link = "NormalFloat" })
-vim.api.nvim_set_hl(0, "TelescopeMatching", { bold = true, fg = "#f6c177" })
+vim.api.nvim_set_hl(0, 'TelescopeSelection', { link = 'Define' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'NormalFloat' })
+vim.api.nvim_set_hl(0, 'TelescopeMatching', { bold = true, fg = '#f6c177' })
 
 -- vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]

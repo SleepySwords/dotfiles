@@ -1,14 +1,17 @@
 local M = {}
 
-M.namespace = vim.api.nvim_create_namespace "headlines_namespace"
-local q = require "vim.treesitter.query"
+M.namespace = vim.api.nvim_create_namespace('headlines_namespace')
+local q = require('vim.treesitter.query')
 
-local use_legacy_query = vim.fn.has "nvim-0.9.0" ~= 1
+local use_legacy_query = vim.fn.has('nvim-0.9.0') ~= 1
 
 local parse_query_save = function(language, query)
     -- vim.treesitter.query.parse_query() is deprecated, use vim.treesitter.query.parse() instead
-    local ok, parsed_query =
-        pcall(use_legacy_query and vim.treesitter.query.parse_query or vim.treesitter.query.parse, language, query)
+    local ok, parsed_query = pcall(
+        use_legacy_query and vim.treesitter.query.parse_query or vim.treesitter.query.parse,
+        language,
+        query
+    )
     if not ok then
         return nil
     end
@@ -18,7 +21,7 @@ end
 M.config = {
     markdown = {
         query = parse_query_save(
-            "markdown",
+            'markdown',
             [[
                 (atx_heading [
                     (atx_h1_marker)
@@ -41,21 +44,21 @@ M.config = {
                 (list_marker_star) @list
             ]]
         ),
-        headline_highlights = { "Headline" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
-        dash_string = "-",
-        quote_highlight = "Quote",
-        quote_string = "┃",
-        list_highlight = "@punctuation.special.markdown",
-        list_string = "•",
+        headline_highlights = { 'Headline' },
+        codeblock_highlight = 'CodeBlock',
+        dash_highlight = 'Dash',
+        dash_string = '-',
+        quote_highlight = 'Quote',
+        quote_string = '┃',
+        list_highlight = '@punctuation.special.markdown',
+        list_string = '•',
         fat_headlines = false,
-        fat_headline_upper_string = "▃",
-        fat_headline_lower_string = "🬂",
+        fat_headline_upper_string = '▃',
+        fat_headline_lower_string = '🬂',
     },
     rmd = {
         query = parse_query_save(
-            "markdown",
+            'markdown',
             [[
                 (atx_heading [
                     (atx_h1_marker)
@@ -74,20 +77,20 @@ M.config = {
                 (block_quote (paragraph (inline (block_continuation) @quote)))
             ]]
         ),
-        treesitter_language = "markdown",
-        headline_highlights = { "Headline" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
-        dash_string = "-",
-        quote_highlight = "Quote",
-        quote_string = "┃",
+        treesitter_language = 'markdown',
+        headline_highlights = { 'Headline' },
+        codeblock_highlight = 'CodeBlock',
+        dash_highlight = 'Dash',
+        dash_string = '-',
+        quote_highlight = 'Quote',
+        quote_string = '┃',
         fat_headlines = true,
-        fat_headline_upper_string = "▃",
-        fat_headline_lower_string = "🬂",
+        fat_headline_upper_string = '▃',
+        fat_headline_lower_string = '🬂',
     },
     norg = {
         query = parse_query_save(
-            "norg",
+            'norg',
             [[
                 [
                     (heading1_prefix)
@@ -113,21 +116,21 @@ M.config = {
                 (quote1_prefix) @quote
             ]]
         ),
-        headline_highlights = { "Headline" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
-        dash_string = "-",
-        doubledash_highlight = "DoubleDash",
-        doubledash_string = "=",
-        quote_highlight = "Quote",
-        quote_string = "┃",
+        headline_highlights = { 'Headline' },
+        codeblock_highlight = 'CodeBlock',
+        dash_highlight = 'Dash',
+        dash_string = '-',
+        doubledash_highlight = 'DoubleDash',
+        doubledash_string = '=',
+        quote_highlight = 'Quote',
+        quote_string = '┃',
         fat_headlines = true,
-        fat_headline_upper_string = "▃",
-        fat_headline_lower_string = "🬂",
+        fat_headline_upper_string = '▃',
+        fat_headline_lower_string = '🬂',
     },
     org = {
         query = parse_query_save(
-            "org",
+            'org',
             [[
                 (headline (stars) @headline)
 
@@ -146,43 +149,50 @@ M.config = {
                 )
             ]]
         ),
-        headline_highlights = { "Headline" },
-        codeblock_highlight = "CodeBlock",
-        dash_highlight = "Dash",
-        dash_string = "-",
-        quote_highlight = "Quote",
-        quote_string = "┃",
+        headline_highlights = { 'Headline' },
+        codeblock_highlight = 'CodeBlock',
+        dash_highlight = 'Dash',
+        dash_string = '-',
+        quote_highlight = 'Quote',
+        quote_string = '┃',
         fat_headlines = true,
-        fat_headline_upper_string = "▃",
-        fat_headline_lower_string = "🬂",
+        fat_headline_upper_string = '▃',
+        fat_headline_lower_string = '🬂',
     },
 }
 
 M.make_reverse_highlight = function(name)
-    local reverse_name = name .. "Reverse"
+    local reverse_name = name .. 'Reverse'
 
-    if vim.fn.synIDattr(reverse_name, "fg") ~= "" then
+    if vim.fn.synIDattr(reverse_name, 'fg') ~= '' then
         return reverse_name
     end
 
     local highlight = vim.fn.synIDtrans(vim.fn.hlID(name))
-    local gui_bg = vim.fn.synIDattr(highlight, "bg", "gui")
-    local cterm_bg = vim.fn.synIDattr(highlight, "bg", "cterm")
+    local gui_bg = vim.fn.synIDattr(highlight, 'bg', 'gui')
+    local cterm_bg = vim.fn.synIDattr(highlight, 'bg', 'cterm')
 
-    if gui_bg == "" then
-        gui_bg = "None"
+    if gui_bg == '' then
+        gui_bg = 'None'
     end
-    if cterm_bg == "" then
-        cterm_bg = "None"
+    if cterm_bg == '' then
+        cterm_bg = 'None'
     end
 
-    vim.cmd(string.format("highlight %s guifg=%s ctermfg=%s", reverse_name, gui_bg or "None", cterm_bg or "None"))
+    vim.cmd(
+        string.format(
+            'highlight %s guifg=%s ctermfg=%s',
+            reverse_name,
+            gui_bg or 'None',
+            cterm_bg or 'None'
+        )
+    )
     return reverse_name
 end
 
 M.setup = function(config)
     config = config or {}
-    M.config = vim.tbl_deep_extend("force", M.config, config)
+    M.config = vim.tbl_deep_extend('force', M.config, config)
 
     -- tbl_deep_extend does not handle metatables
     for filetype, conf in pairs(config) do
@@ -191,19 +201,19 @@ M.setup = function(config)
         end
     end
 
-    vim.cmd [[
+    vim.cmd([[
         highlight default link Headline ColorColumn
         highlight default link CodeBlock ColorColumn
         highlight default link Dash LineNr
         highlight default link DoubleDash LineNr
         highlight default link Quote LineNr
-    ]]
+    ]])
 
-    vim.cmd [[
+    vim.cmd([[
         augroup Headlines
         autocmd FileChangedShellPost,Syntax,TextChanged,InsertLeave,WinScrolled * lua require('plg.headlines').refresh()
         augroup END
-    ]]
+    ]])
 end
 
 local nvim_buf_set_extmark = function(...)
@@ -232,9 +242,9 @@ M.refresh = function()
         for id, node in pairs(match) do
             local capture = c.query.captures[id]
             local start_row, start_column, end_row, _ =
-                unpack(vim.tbl_extend("force", { node:range() }, (metadata[id] or {}).range or {}))
+                unpack(vim.tbl_extend('force', { node:range() }, (metadata[id] or {}).range or {}))
 
-            if capture == "headline" and c.headline_highlights then
+            if capture == 'headline' and c.headline_highlights then
                 -- vim.treesitter.query.get_node_text() is deprecated, use vim.treesitter.get_node_text() instead.
                 local get_text_function = use_legacy_query and q.get_node_text(node, bufnr)
                     or vim.treesitter.get_node_text(node, bufnr)
@@ -250,14 +260,16 @@ M.refresh = function()
                 if c.fat_headlines then
                     local reverse_hl_group = M.make_reverse_highlight(hl_group)
 
-                    local padding_above = { { c.fat_headline_upper_string:rep(width), reverse_hl_group } }
+                    local padding_above =
+                        { { c.fat_headline_upper_string:rep(width), reverse_hl_group } }
                     if start_row > 0 then
-                        local line_above = vim.api.nvim_buf_get_lines(bufnr, start_row - 1, start_row, false)[1]
-                        if line_above == "" and start_row - 1 ~= last_fat_headline then
+                        local line_above =
+                            vim.api.nvim_buf_get_lines(bufnr, start_row - 1, start_row, false)[1]
+                        if line_above == '' and start_row - 1 ~= last_fat_headline then
                             nvim_buf_set_extmark(bufnr, M.namespace, start_row - 1, 0, {
                                 virt_text = padding_above,
-                                virt_text_pos = "overlay",
-                                hl_mode = "combine",
+                                virt_text_pos = 'overlay',
+                                hl_mode = 'combine',
                             })
                         else
                             nvim_buf_set_extmark(bufnr, M.namespace, start_row, 0, {
@@ -267,13 +279,15 @@ M.refresh = function()
                         end
                     end
 
-                    local padding_below = { { c.fat_headline_lower_string:rep(width), reverse_hl_group } }
-                    local line_below = vim.api.nvim_buf_get_lines(bufnr, start_row + 1, start_row + 2, false)[1]
-                    if line_below == "" then
+                    local padding_below =
+                        { { c.fat_headline_lower_string:rep(width), reverse_hl_group } }
+                    local line_below =
+                        vim.api.nvim_buf_get_lines(bufnr, start_row + 1, start_row + 2, false)[1]
+                    if line_below == '' then
                         nvim_buf_set_extmark(bufnr, M.namespace, start_row + 1, 0, {
                             virt_text = padding_below,
-                            virt_text_pos = "overlay",
-                            hl_mode = "combine",
+                            virt_text_pos = 'overlay',
+                            hl_mode = 'combine',
                         })
                         last_fat_headline = start_row + 1
                     else
@@ -284,23 +298,23 @@ M.refresh = function()
                 end
             end
 
-            if capture == "dash" and c.dash_highlight and c.dash_string then
+            if capture == 'dash' and c.dash_highlight and c.dash_string then
                 nvim_buf_set_extmark(bufnr, M.namespace, start_row, 0, {
                     virt_text = { { c.dash_string:rep(width), c.dash_highlight } },
-                    virt_text_pos = "overlay",
-                    hl_mode = "combine",
+                    virt_text_pos = 'overlay',
+                    hl_mode = 'combine',
                 })
             end
 
-            if capture == "doubledash" and c.doubledash_highlight and c.doubledash_string then
+            if capture == 'doubledash' and c.doubledash_highlight and c.doubledash_string then
                 nvim_buf_set_extmark(bufnr, M.namespace, start_row, 0, {
                     virt_text = { { c.doubledash_string:rep(width), c.doubledash_highlight } },
-                    virt_text_pos = "overlay",
-                    hl_mode = "combine",
+                    virt_text_pos = 'overlay',
+                    hl_mode = 'combine',
                 })
             end
 
-            if capture == "codeblock" and c.codeblock_highlight then
+            if capture == 'codeblock' and c.codeblock_highlight then
                 nvim_buf_set_extmark(bufnr, M.namespace, start_row, 0, {
                     end_col = 0,
                     end_row = end_row,
@@ -308,14 +322,15 @@ M.refresh = function()
                     hl_eol = true,
                 })
 
-                local start_line = vim.api.nvim_buf_get_lines(bufnr, start_row, start_row + 1, false)[1]
-                local _, padding = start_line:find "^ +"
+                local start_line =
+                    vim.api.nvim_buf_get_lines(bufnr, start_row, start_row + 1, false)[1]
+                local _, padding = start_line:find('^ +')
                 local codeblock_padding = math.max((padding or 0) - left_offset, 0)
 
                 if codeblock_padding > 0 then
                     for i = start_row, end_row do
                         nvim_buf_set_extmark(bufnr, M.namespace, i, 0, {
-                            virt_text = { { string.rep(" ", codeblock_padding), "Normal" } },
+                            virt_text = { { string.rep(' ', codeblock_padding), 'Normal' } },
                             virt_text_win_col = 0,
                             priority = 1,
                         })
@@ -323,19 +338,19 @@ M.refresh = function()
                 end
             end
 
-            if capture == "quote" and c.quote_highlight and c.quote_string then
+            if capture == 'quote' and c.quote_highlight and c.quote_string then
                 nvim_buf_set_extmark(bufnr, M.namespace, start_row, start_column, {
                     virt_text = { { c.quote_string, c.quote_highlight } },
-                    virt_text_pos = "overlay",
-                    hl_mode = "combine",
+                    virt_text_pos = 'overlay',
+                    hl_mode = 'combine',
                 })
             end
 
-            if capture == "list" and c.list_highlight and c.list_string then
+            if capture == 'list' and c.list_highlight and c.list_string then
                 nvim_buf_set_extmark(bufnr, M.namespace, start_row, start_column, {
                     virt_text = { { c.list_string, c.list_highlight } },
-                    virt_text_pos = "overlay",
-                    hl_mode = "combine",
+                    virt_text_pos = 'overlay',
+                    hl_mode = 'combine',
                 })
             end
         end
