@@ -239,16 +239,37 @@ map_desc(
 
 map_desc(
     { 'n' },
-    '<leader>as',
-    '<cmd>lua require("neotest").summary.open()<CR>',
+    '<leader>Ns',
+    '<cmd>Neotest summary<CR>',
     'Open summary test window',
     { noremap = true }
 )
 map_desc(
     { 'n' },
-    '<leader>ao',
-    '<cmd>lua require("neotest").output.open()<CR>',
+    '<leader>No',
+    '<cmd>Neotest output<CR>',
     'Open output test window',
+    { noremap = true }
+)
+map_desc(
+    { 'n' },
+    '<leader>Nd',
+    '<cmd>lua require("neotest").run.run({strategy = "dap"})<CR>',
+    'Run test while attaching debug',
+    { noremap = true }
+)
+map_desc(
+    { 'n' },
+    '<leader>NR',
+    '<cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>',
+    'Run all tests',
+    { noremap = true }
+)
+map_desc(
+    { 'n' },
+    '<leader>Nr',
+    '<cmd>lua require("neotest").run.run()<CR>',
+    'Run current test',
     { noremap = true }
 )
 

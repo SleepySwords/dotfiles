@@ -12,7 +12,7 @@ local utils = require('heirline.utils')
 local colour_util = require('colours')
 local colour_to_hex = colour_util.tuple_to_hex
 local shade = colour_util.shade
-local colour_name_to_tuple = colour_util.colour_name_to_tuple
+local colour_name_to_tuple = colour_util.name_to_tuple
 local contrast = colour_util.contrast
 
 local get_hl = vim.api.nvim_get_hl
@@ -116,6 +116,7 @@ local mode = {
             ['r?'] = colours.cyan,
             ['!'] = colours.red,
             t = colours.red,
+            nt = colours.blue,
         },
         mode_names = {
             n = 'NORMAL',
@@ -138,16 +139,17 @@ local mode = {
             ['r?'] = 'CONFIRM',
             ['!'] = 'SHELL',
             t = 'TERMINAL',
+            nt = 'SCRATCH',
         },
     },
     provider = function(self)
-        return '  ' .. self.mode_names[self.mode] .. ' '
+        return '  ' .. self.mode_names[self.mode] or 'NOT ADDED' .. ' '
     end,
     init = function(self)
         self.mode = vim.fn.mode(1)
     end,
     hl = function(self)
-        return { fg = self.mode_color[self.mode], bg = colours.component_bg }
+        return { fg = self.mode_color[self.mode] or 'normal', bg = colours.component_bg }
     end,
     update = {
         'ModeChanged',
@@ -348,7 +350,7 @@ local diagnostic_status = {
     provider = function()
         local progress = lsp_status.status_progress()
         if progress ~= '' then
-            return progress
+            return ' ' .. progress .. ' '
         end
         return ' ' .. vim.g.indicator_ok .. ' '
     end,

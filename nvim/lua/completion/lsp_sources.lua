@@ -141,3 +141,9 @@ lsp_config.zls.setup(completion_engine.provide_capabilities({
 -- }))
 
 lsp_config.marksman.setup({})
+lsp_config.texlab.setup(completion_engine.provide_capabilities({
+    capabilities = capabilities,
+    root_dir = function()
+        return vim.fn.getcwd()
+    end,
+}))

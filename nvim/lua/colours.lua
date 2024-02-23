@@ -1,11 +1,15 @@
 local M = {}
 
-function M.colour_name_to_tuple(colour)
+function M.name_to_tuple(colour)
     return {
         red = bit.band(bit.rshift(colour, 16), 0xFF),
         green = bit.band(bit.rshift(colour, 8), 0xFF),
         blue = bit.band(colour, 0xFF),
     }
+end
+
+function M.get_colour_tuple(name, item)
+    return M.name_to_tuple(vim.api.nvim_get_hl(0, { name = name, link = false})[item])
 end
 
 function M.tint(colour, factor)
@@ -32,13 +36,21 @@ end
 
 function M.tuple_to_hex(colour)
     return '#'
-        .. ('%X'):format(math.abs(colour.red))
-        .. ('%X'):format(math.abs(colour.green))
-        .. ('%X'):format(math.abs(colour.blue))
+        .. ('%02x'):format(math.abs(colour.red))
+        .. ('%02x'):format(math.abs(colour.green))
+        .. ('%02x'):format(math.abs(colour.blue))
 end
 
 function M.contrast(colour, factor)
     if M.lightness(colour) > 0.5 then
+        return M.shade(colour, factor)
+    else
+        return M.tint(colour, 1 - factor)
+    end
+end
+
+function M.contrast_based_on(colour, factor, light)
+    if not light then
         return M.shade(colour, factor)
     else
         return M.tint(colour, 1 - factor)

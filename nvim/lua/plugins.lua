@@ -120,9 +120,19 @@ return {
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require('ui.treesitter')
-            require('plg.headlines').setup()
         end,
         run = ':TSUpdate',
+    },
+    {
+        "lukas-reineke/headlines.nvim",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = {
+            markdown = {
+                bullets = { "●" },
+                fat_headline_lower_string = '▔',
+                headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4" },
+            }
+        },
     },
     {
         'SmiteshP/nvim-navic',
@@ -159,24 +169,6 @@ return {
             require('navigation.tree').setup()
         end,
     },
-
-    -- {
-    -- 	'nvim-lualine/lualine.nvim',
-    -- 	dependencies = {
-    -- 		'nvim-lua/lsp-status.nvim',
-    -- 		'nvim-tree/nvim-web-devicons',
-    -- 		'lewis6991/gitsigns.nvim',
-    -- 	},
-    -- 	config = function()
-    -- 		vim.api.nvim_create_augroup("Scheme", {})
-    -- 		vim.api.nvim_create_autocmd("UIEnter", {
-    -- 			group = "Scheme",
-    -- 			callback = function()
-    -- 				require('ui.statusline.lualine')
-    -- 			end,
-    -- 		})
-    -- 	end
-    -- },
     {
         'rebelot/heirline.nvim',
         dependencies = {
@@ -194,12 +186,6 @@ return {
             })
         end,
     },
-    -- {
-    -- 	'akinsho/nvim-bufferline.lua',
-    -- 	config = function()
-    -- 		require('ui.bufferline').setup()
-    -- 	end
-    -- },
     {
         'nvim-lua/lsp-status.nvim',
         config = function()
@@ -242,6 +228,12 @@ return {
         dependencies = {
             'nvim-lua/plenary.nvim',
             'nvim-treesitter/nvim-treesitter',
+            -- Might use 'mrcjkb/rustaceanvim' but have
+            -- to fix showing files even when
+            -- no tests (copy neotest-rust is_test_file thing)
+            'rouge8/neotest-rust',
+            'neotest-vim-test',
+            'Issafalcon/neotest-dotnet',
         },
         config = function()
             require('neotest').setup({
@@ -258,6 +250,10 @@ return {
                     require('neotest-vim-test')({
                         ignore_file_types = { 'rust', 'python', 'vim', 'lua' },
                     }),
+                    require('neotest-rust') {
+                        dap_adapter = "codelldb",
+                    },
+                    require("neotest-dotnet"),
                 },
             })
         end,
@@ -268,7 +264,6 @@ return {
             'vim-test/vim-test',
         },
     },
-    'rouge8/neotest-rust',
 
     -- Highlight only the code section you are editing
     {
@@ -278,38 +273,11 @@ return {
         end,
     },
 
-    -- Enter :ZenMode
-    {
-        'folke/zen-mode.nvim',
-        config = function()
-            require('zen-mode').setup({
-                window = {
-                    backdrop = 0.95,
-                    width = 100,
-                    height = 1,
-                    options = {
-                        signcolumn = "no"
-                    }
-                },
-                plugins = {
-                    options = {
-                        enabled = true,
-                        ruler = false,
-                        showcmd = false,
-                    },
-                    twilight = { enabled = false },
-                    gitsigns = { enabled = false }, -- disables git signs_staged
-                },
-            })
-        end,
-    },
-
     -- Git integration
     {
         'pwntester/octo.nvim',
         dependencies = {
             'nvim-lua/plenary.nvim',
-            -- 'nvim-telescope/telescope.nvim',
             'nvim-tree/nvim-web-devicons',
         },
         config = function()
@@ -327,7 +295,7 @@ return {
 
     -- Highlight variables with the same name.
     {
-        'RRethy/vim-illuminate', --, conflicts with which-key
+        'RRethy/vim-illuminate',
         config = function()
             require('illuminate').configure({
                 providers = {
@@ -338,35 +306,9 @@ return {
         end,
     },
 
-    -- use 'vim-scripts/restore_view.vim'
-    -- use 'kassio/neoterm'
-    -- Why do i have lazygit if i have toggle term??!?!!
-    'kdheepak/lazygit.nvim',
-    {
-        'akinsho/toggleterm.nvim',
-        config = function()
-            require('ui.toggleterm_ui').setup()
-        end,
-    },
-    {
-        'tweekmonster/startuptime.vim',
-        -- 'dstein64/vim-startuptime',
-        cmd = 'StartupTime',
-    },
-
     -- Discord rich presence
     {
         'andweeb/presence.nvim',
-    },
-
-    -- Adds dashboard
-    {
-        'glepnir/dashboard-nvim',
-        event = 'VimEnter',
-        config = function()
-            require('ui.dashboard')
-        end,
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 
     -- Adds folds for lsp, treesitter, mainly functions
