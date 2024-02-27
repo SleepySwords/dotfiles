@@ -1,18 +1,27 @@
-ralt - a : yabai -m window --focus west
-ralt - s : yabai -m window --focus south
-ralt - d : yabai -m window --focus north
-ralt - f : yabai -m window --focus east
+:: default : borders width=0.0
+:: vim @ : borders width=2.0 active_color=0xffF5E0DC hidpi=on
 
-ralt - n : yabai -m window --focus next || yabai -m window --focus first
-ralt - space : yabai -m window --toggle zoom-fullscreen
-ralt - w : yabai -m window --toggle float
+vim < ctrl - b ; default
+vim < escape ; default
+default < ctrl - b ; vim
 
-ralt + shift - a : yabai -m window --swap west
-ralt + shift - s : yabai -m window --swap south
-ralt + shift - d : yabai -m window --swap north
-ralt + shift - f : yabai -m <M-D-w>window --swap east
+vim < h : yabai -m window --focus west
+vim < j : yabai -m window --focus south
+vim < k : yabai -m window --focus north
+vim < l : yabai -m window --focus east
 
-ralt - z : yabai -m window west --resize right:-20:0 2> /dev/null || yabai -m window --resize right:-20:0
-ralt - x : yabai -m window north --resize bottom:0:20 2> /dev/null || yabai -m window --resize bottom:0:20
-ralt - c : yabai -m window south --resize top:0:-20 2> /dev/null || yabai -m window --resize top:0:-20
-ralt - v : yabai -m window east --resize left:20:0 2> /dev/null || yabai -m window --resize left:20:0
+vim < n : yabai -m window --focus next || yabai -m window --focus first
+vim < space : yabai -m window --toggle zoom-fullscreen
+vim < w : yabai -m window --toggle float
+
+vim < b : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+
+vim < shift - h : yabai -m window --swap west
+vim < shift - j : yabai -m window --swap south
+vim < shift - k : yabai -m window --swap north
+vim < shift - l : yabai -m window --swap east
+
+vim < ctrl - h : yabai -m window west --resize right:-20:0 2> /dev/null || yabai -m window --resize right:-20:0
+vim < ctrl - j : yabai -m window north --resize bottom:0:20 2> /dev/null || yabai -m window --resize bottom:0:20
+vim < ctrl - k : yabai -m window south --resize top:0:-20 2> /dev/null || yabai -m window --resize top:0:-20
+vim < ctrl - l : yabai -m window east --resize left:20:0 2> /dev/null || yabai -m window --resize left:20:0

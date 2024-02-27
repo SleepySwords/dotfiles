@@ -26,7 +26,6 @@ Press Ctrl-D to exit the shell.
 - nvim-lsputils requires [bat](https://github.com/sharkdp/bat) (which is like cat but with to better colouring / formatting) to be installed.
 - fzf.vim requires [fzf](https://github.com/junegunn/fzf) and [delta](https://github.com/dandavison/delta) to be installed.
 - [Rust-analyzer](https://rust-analyzer.github.io/) for rust lsp.
+- If you are using the skhd config, make sure to install [borders](https://github.com/FelixKratz/JankyBorders)
 
 ## Credits
-- Nvim config based on https://medium.com/swlh/neovim-lsp-dap-and-fuzzy-finder-60337ef08060
-    - It's probably nowhere near the same anymore

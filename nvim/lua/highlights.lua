@@ -44,3 +44,8 @@ vim.api.nvim_set_hl(0, "Headline1", { bg = headline1 })
 vim.api.nvim_set_hl(0, "Headline2", { bg = headline2 })
 vim.api.nvim_set_hl(0, "Headline3", { bg = headline3 })
 vim.api.nvim_set_hl(0, "Headline4", { bg = headline4 })
+
+local visual_colour = is_light and "#555555" or "#FFFFFF"
+
+vim.api.nvim_set_hl(0, "Visual",
+    { bg = vim.api.nvim_get_hl(0, { name = "Visual", link = false }).bg, fg = visual_colour, bold = true })

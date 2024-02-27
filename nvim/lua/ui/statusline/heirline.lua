@@ -12,19 +12,17 @@ local utils = require('heirline.utils')
 local colour_util = require('colours')
 local colour_to_hex = colour_util.tuple_to_hex
 local shade = colour_util.shade
-local colour_name_to_tuple = colour_util.name_to_tuple
+local get_colour_tuple = colour_util.get_colour_tuple
 local contrast = colour_util.contrast
-
-local get_hl = vim.api.nvim_get_hl
 
 local colours = {
     component_bg = colour_to_hex(
-        shade(colour_name_to_tuple(get_hl(0, { name = 'normal' }).bg), 0.93)
+        shade(get_colour_tuple('Normal', 'bg'), 0.93)
     ),
-    text_bg = colour_to_hex(shade(colour_name_to_tuple(get_hl(0, { name = 'normal' }).bg), 0.8)),
-    darker_bg = colour_to_hex(shade(colour_name_to_tuple(get_hl(0, { name = 'normal' }).bg), 0.6)),
+    text_bg = colour_to_hex(shade(get_colour_tuple('Normal', 'bg'), 0.8)),
+    darker_bg = colour_to_hex(shade(get_colour_tuple('Normal', 'bg'), 0.6)),
     darker_fg = colour_to_hex(
-        contrast(colour_name_to_tuple(get_hl(0, { name = 'normal' }).fg), 0.7)
+        contrast(get_colour_tuple('Normal', 'fg'), 0.7)
     ),
     icon_fg = '#12121a',
     yellow = '#ECBE7B',
@@ -133,7 +131,7 @@ local mode = {
             R = 'REPLACE',
             Rv = 'V-REPLACE',
             cv = 'EX-MODE',
-            ce = colours.red,
+            ce = 'RED',
             r = 'HIT-ENTER',
             rm = 'MORE',
             ['r?'] = 'CONFIRM',
@@ -143,13 +141,17 @@ local mode = {
         },
     },
     provider = function(self)
-        return '  ' .. self.mode_names[self.mode] or 'NOT ADDED' .. ' '
+        if self.mode_names[self.mode] == nil then
+            return '  ' .. string.format('NOT ADDED %s', self.mode) .. ' '
+        else
+            return '  ' .. self.mode_names[self.mode] .. ' '
+        end
     end,
     init = function(self)
         self.mode = vim.fn.mode(1)
     end,
     hl = function(self)
-        return { fg = self.mode_color[self.mode] or 'normal', bg = colours.component_bg }
+        return { fg = self.mode_color[self.mode] or colours.violet, bg = colours.component_bg }
     end,
     update = {
         'ModeChanged',
@@ -464,7 +466,7 @@ local navic_win = {
     condition = function()
         return navic.is_available()
     end,
-    hl = 'normal',
+    hl = 'Normal',
 }
 
 -- FIXME: use webicons like
