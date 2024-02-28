@@ -41,10 +41,10 @@ yabai -m config mouse_drop_action            stack
 # general space settings
 # Using grid + float
 yabai -m config layout                       float
-yabai -m config top_padding                  15
-yabai -m config bottom_padding               15
-yabai -m config left_padding                 15
-yabai -m config right_padding                15
+yabai -m config top_padding                  10
+yabai -m config bottom_padding               10
+yabai -m config left_padding                 10
+yabai -m config right_padding                10
 yabai -m config window_gap                   6
 
 
@@ -65,3 +65,5 @@ yabai -m rule --add can-resize="^false$" manage=off
 
 echo "yabai configuration loaded.."
 {"mode":"full","isActive":false}
+
+borders

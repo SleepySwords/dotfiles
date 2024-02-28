@@ -1,5 +1,5 @@
 :: default : borders width=0.0
-:: vim @ : borders width=2.0 active_color=0xffF5E0DC hidpi=on
+:: vim @ : borders width=4.0
 
 vim < ctrl - b ; default
 vim < escape ; default
@@ -12,14 +12,22 @@ vim < l : yabai -m window --focus east
 
 vim < n : yabai -m window --focus next || yabai -m window --focus first
 vim < space : yabai -m window --toggle zoom-fullscreen
-vim < w : yabai -m window --toggle float
+vim < f : yabai -m window --toggle float
 
-vim < b : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
+vim < a : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')
 
 vim < shift - h : yabai -m window --swap west
 vim < shift - j : yabai -m window --swap south
 vim < shift - k : yabai -m window --swap north
 vim < shift - l : yabai -m window --swap east
+
+vim < ctrl + shift - h : yabai -m window --warp west
+vim < ctrl + shift - j : yabai -m window --warp south
+vim < ctrl + shift - k : yabai -m window --warp north
+vim < ctrl + shift - l : yabai -m window --warp east
+
+vim < r : yabai -m space --rotate 90
+vim < shift - r : yabai -m space --rotate 270
 
 vim < ctrl - h : yabai -m window west --resize right:-20:0 2> /dev/null || yabai -m window --resize right:-20:0
 vim < ctrl - j : yabai -m window north --resize bottom:0:20 2> /dev/null || yabai -m window --resize bottom:0:20
