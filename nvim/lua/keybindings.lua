@@ -94,31 +94,33 @@ map_desc({ 'n' }, '<space>dqf', '<cmd>lua vim.diagnostic.setqflist()<CR>', 'LSP 
 map_desc(
     { 'n' },
     '<space>cf',
-    '<cmd>lua vim.lsp.buf.format { async = true }<CR>',
+    '<cmd>lua vim.lsp.buf.format { async = true, filter = function(client) return client.name ~= "tsserver" end }<CR>',
     'LSP Format',
     opts
 )
 map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', 'LSP Hover')
 
 -- map_desc({ 'n' }, 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', 'LSP References', opts)
-map_desc({ 'n' }, 'gR', '<cmd>TroubleToggle lsp_references<CR>', 'LSP References', opts)
-map_desc({ 'n' }, '<leader>xx', '<cmd>TroubleToggle<CR>', 'Trouble Toggle', opts)
+map_desc({ 'n' }, 'gR', '<cmd>Trouble lsp_references toggle follow=true focus=true auto_refresh=false<CR>',
+    'LSP References', opts)
+map_desc({ 'n' }, '<leader>xx', '<cmd>Trouble toggle<CR>', 'Trouble Toggle', opts)
 map_desc(
     { 'n' },
     '<leader>xe',
-    '<cmd>TroubleToggle workspace_diagnostics<CR>',
+    '<cmd>Trouble workspace_diagnostics toggle<CR>',
     'Trouble workspace diagnostics',
     opts
 )
 map_desc(
     { 'n' },
     '<leader>xd',
-    '<cmd>TroubleToggle document_diagnostics<CR>',
+    '<cmd>Trouble diagnostics toggle<CR>',
     'Trouble document diagnostics',
     opts
 )
-map_desc({ 'n' }, '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', 'Trouble quickfix', opts)
-map_desc({ 'n' }, '<leader>xt', '<cmd>TodoTrouble<CR>', 'Trouble todo', opts)
+-- map_desc({ 'n' }, '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', 'Trouble quickfix', opts)
+map_desc({ 'n' }, '<leader>xq', '<cmd>Trouble quickfix toggle<CR>', 'Trouble quickfix', opts)
+map_desc({ 'n' }, '<leader>xt', '<cmd>TodoTrouble<CR>', 'Troule todo', opts)
 map_desc(
     { 'n' },
     '<leader>xn',
@@ -222,9 +224,12 @@ map_desc(
     'Open workspace symbols',
     { noremap = true }
 )
+map_desc({ 'n' }, '<leader>u',
+    '<cmd>lua require("telescope").extensions.undo.undo(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>',
+    'Undo tree', { noremap = true });
 
 local command =
-    [[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
+[[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
 
 map_desc({ 'n' }, '<leader>cs', command, 'Open Colour Scheme', { noremap = true })
 map_desc({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', 'Open File Tree', { noremap = true })
@@ -390,6 +395,17 @@ map({ 'x' }, 'gl', '$', opts)
 map({ 'x' }, 'gh', '^', opts)
 map({ 'v' }, 'gl', '$', opts)
 map({ 'v' }, 'gh', '^', opts)
+
+map({ 'n' }, '<leader>Ts', 'hi', {
+    noremap = true,
+    silent = true,
+    callback = function()
+        vim.cmd('tab split')
+        vim.api.nvim_tabpage_set_var(1, "name", "Code");
+        vim.api.nvim_tabpage_set_var(2, "name", "Debug");
+        vim.api.nvim_set_current_tabpage(1);
+    end
+})
 
 -- Harpoon
 -- map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)

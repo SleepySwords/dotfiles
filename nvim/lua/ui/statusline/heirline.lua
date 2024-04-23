@@ -672,17 +672,17 @@ require('heirline').setup({
         filename,
         hl = 'Normal',
     },
-    tabline = {
-        bufferline,
-        align,
-        {
-            tabline,
-            condition = function()
-                return #vim.api.nvim_list_tabpages() >= 2
-            end,
-        },
-        hl = { bg = colours.text_bg },
-    },
+    -- tabline = {
+    --     bufferline,
+    --     align,
+    --     {
+    --         tabline,
+    --         condition = function()
+    --             return #vim.api.nvim_list_tabpages() >= 2
+    --         end,
+    --     },
+    --     hl = { bg = colours.text_bg },
+    -- },
     opts = {
         -- if the callback returns true, the winbar will be disabled for that window
         -- the args parameter corresponds to the table argument passed to autocommand callbacks. :h nvim_lua_create_autocmd()

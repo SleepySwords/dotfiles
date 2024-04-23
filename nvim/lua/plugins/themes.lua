@@ -1,7 +1,7 @@
 return {
     'sainnhe/edge',
     'morhetz/gruvbox',
-    { 'dracula/vim', name = 'dracula' },
+    { 'dracula/vim',   name = 'dracula' },
     { 'sonph/onehalf', rtp = 'vim' },
     'matsuuu/pinkmare',
     'lifepillar/vim-solarized8',

@@ -22,4 +22,5 @@ function fish_prompt
     set_color grey;
     echo -n ' % '
     set_color normal;
+    # echo -n 'liam was here'
 end

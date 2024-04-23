@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#.fn_type(param_types, is_var_args)!/usr/bin/env sh
 
 # the scripting-addition must be loaded manually if
 # you are running yabai on macOS Big Sur. Uncomment

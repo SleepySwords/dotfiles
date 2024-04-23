@@ -66,6 +66,7 @@ return {
     -- Adds trouble which displays references, diagnostics
     {
         'folke/trouble.nvim',
+        branch = 'dev',
         dependencies = 'nvim-tree/nvim-web-devicons',
         config = function()
             require('trouble').setup({
@@ -113,7 +114,7 @@ return {
     },
     'debugloop/telescope-undo.nvim',
     'junegunn/fzf',
-    'junegunn/fzf.vim',
+    'ibhagwan/fzf-lua',
 
     --  Syntax + treesitter
     {
@@ -142,6 +143,15 @@ return {
                 headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4" },
             }
         },
+    },
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        build = "cd app && yarn install",
+        init = function()
+            vim.g.mkdp_filetypes = { "markdown" }
+        end,
+        ft = { "markdown" },
     },
     {
         'SmiteshP/nvim-navic',
@@ -196,6 +206,14 @@ return {
         end,
     },
     {
+        'akinsho/bufferline.nvim',
+        version = "*",
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        config = function()
+            require("bufferline").setup {}
+        end
+    },
+    {
         'nvim-lua/lsp-status.nvim',
         config = function()
             require('ui.lsp_status').setup()
@@ -219,6 +237,7 @@ return {
     {
         'rcarriga/nvim-dap-ui',
         dependencies = {
+            "nvim-neotest/nvim-nio",
             'mfussenegger/nvim-dap',
         },
         config = function()
@@ -234,12 +253,14 @@ return {
     {
         'nvim-neotest/neotest',
         dependencies = {
+            "nvim-neotest/nvim-nio",
             'nvim-lua/plenary.nvim',
             'nvim-treesitter/nvim-treesitter',
             -- Might use 'mrcjkb/rustaceanvim' but have
             -- to fix showing files even when
             -- no tests (copy neotest-rust is_test_file thing)
             'rouge8/neotest-rust',
+            'nvim-neotest/neotest-jest',
             'neotest-vim-test',
             'Issafalcon/neotest-dotnet',
         },
@@ -263,6 +284,13 @@ return {
                         dap_adapter = "codelldb",
                     },
                     require("neotest-dotnet"),
+                    require('neotest-jest')({
+                        jestCommand = 'yarn test --watch',
+                        env = { CI = true },
+                        cwd = function(path)
+                            return vim.fn.getcwd()
+                        end,
+                    }),
                 },
             })
         end,
@@ -275,12 +303,12 @@ return {
     },
 
     -- Highlight only the code section you are editing
-    {
-        'folke/twilight.nvim',
-        config = function()
-            require('twilight').setup()
-        end,
-    },
+    -- {
+    --     'folke/twilight.nvim',
+    --     config = function()
+    --         require('twilight').setup()
+    --     end,
+    -- },
 
     -- Git integration
     {
@@ -300,7 +328,7 @@ return {
         end,
     },
 
-    -- use 'dyng/ctrlsf.vim'
+    { 'dyng/ctrlsf.vim' },
 
     -- Highlight variables with the same name.
     {
@@ -387,26 +415,18 @@ return {
         end,
     },
 
-    'gpanders/editorconfig.nvim',
-
     -- Could just use ftplugins instead /shrug
     'tpope/vim-sleuth',
 
-    {
-        'giusgad/pets.nvim',
-        dependencies = { 'MunifTanjim/nui.nvim', 'giusgad/hologram.nvim' },
-    },
+    -- {
+    --     'giusgad/pets.nvim',
+    --     dependencies = { 'MunifTanjim/nui.nvim', 'giusgad/hologram.nvim' },
+    -- },
 }
-
--- {
--- 	'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
--- 	config = function()
--- 		require("lsp_lines").setup()
--- 	end,
--- },
 
 -- Plugins that need to try again
 -- none-ls - for something like eslint
+-- lsp_lines
 --
 --
 -- lukas-reineke/headlines.nvim (actually i coppied this)

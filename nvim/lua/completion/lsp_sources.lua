@@ -147,3 +147,24 @@ lsp_config.texlab.setup(completion_engine.provide_capabilities({
         return vim.fn.getcwd()
     end,
 }))
+lsp_config.java_language_server.setup(completion_engine.provide_capabilities({
+    capabilities = capabilities,
+    cmd = function()
+        vim.fn.expand('$HOME/lsp/java-langauge-server')
+    end,
+    root_dir = function()
+        return vim.fn.getcwd()
+    end,
+}))
+lsp_config.eslint.setup(completion_engine.provide_capabilities({
+    capabilities = capabilities,
+    root_dir = function()
+        return vim.fn.getcwd()
+    end,
+}))
+lsp_config.tailwindcss.setup(completion_engine.provide_capabilities({
+    capabilities = capabilities,
+    root_dir = function()
+        return vim.fn.getcwd()
+    end,
+}))

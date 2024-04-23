@@ -51,7 +51,7 @@ end
 
 function M.setup()
     local actions = require('telescope.actions')
-    local trouble = require('trouble.providers.telescope')
+    local trouble = require('trouble.sources.telescope')
 
     require('telescope').setup({
         defaults = {
@@ -65,9 +65,19 @@ function M.setup()
                     ['<tab>'] = actions.move_selection_next,
                     ['<S-tab>'] = actions.move_selection_previous,
                     ['<esc>'] = actions.close,
-                    ['<c-t>'] = trouble.open_with_trouble,
+                    ['<c-t>'] = trouble.open,
                 },
                 n = { ['<c-t>'] = trouble.open_with_trouble },
+            },
+        },
+        extensions = {
+            undo = {
+                side_by_side = true,
+                sorting_strategy = 'descending',
+                layout_strategy = "horizontal",
+                layout_config = {
+                    preview_height = 0.8,
+                },
             },
         },
     })

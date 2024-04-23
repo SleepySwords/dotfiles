@@ -12,7 +12,8 @@ local signature_config = {
     handler_opts = {
         border = 'solid',
     },
-    toggle_key = '<M-x>',
+    toggle_key = '<M-k>',
+    toggle_key_flip_floatwin_setting = true
 }
 
 require('lsp_signature').setup(signature_config)

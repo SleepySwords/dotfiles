@@ -70,23 +70,19 @@ g.neon_italic_keyword = true
 g.neon_italic_function = true
 g.neon_transparent = true
 
-vim.cmd([[colorscheme catppuccin-mocha]])
+-- vim.cmd([[colorscheme catppuccin-mocha]])
+vim.cmd([[colorscheme catppuccin-latte]])
 g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
 if vim.g.neovide then
     -- vim.cmd([[colorscheme duskfox]])
     vim.cmd([[colorscheme catppuccin-latte]])
+    vim.g.neovide_floating_blur_amount_x = 0.0
+    vim.g.neovide_floating_blur_amount_y = 0.0
 end
 -- Neovide
 -- g.neovide_fullscreen = true
 -- g.neovide_transparency = 0.9
-
-g.neovide_floating_blur_amount_x = 2.0
-g.neovide_floating_blur_amount_y = 2.0
--- g.neovide_cursor_vfx_mode = "pixiedust"
--- g.neovide_refresh_rate = 250
-g.neovide_window_blurred = true
-g.neovide_unlink_border_highlights = true
 
 -- Omnisharp settings
 g.OmniSharp_server_use_mono = 1
