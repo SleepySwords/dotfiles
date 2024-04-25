@@ -18,7 +18,7 @@ function M.get_telescope_theme(opts)
             },
             width = 0.9,
             height = 0.95,
-            preview_cutoff = 120,
+            -- preview_cutoff = 120,
         },
 
         border = true,
@@ -54,7 +54,7 @@ function M.setup()
     local trouble = require('trouble.sources.telescope')
 
     require('telescope').setup({
-        defaults = {
+        defaults = M.get_telescope_theme({
             dynamic_preview_title = true,
             sorting_strategy = 'ascending',
             results_title = false,
@@ -69,11 +69,11 @@ function M.setup()
                 },
                 n = { ['<c-t>'] = trouble.open_with_trouble },
             },
-        },
+        }),
         extensions = {
             undo = {
                 side_by_side = true,
-                sorting_strategy = 'descending',
+                -- sorting_strategy = 'descending',
                 layout_strategy = "horizontal",
                 layout_config = {
                     preview_height = 0.8,

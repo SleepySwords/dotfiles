@@ -17,9 +17,8 @@ function M.setup()
                 return
             end
 
-            local bufnr = args.buf
             local client = vim.lsp.get_client_by_id(args.data.client_id)
-            lsp_status.on_attach(client, bufnr)
+            lsp_status.on_attach(client)
         end,
     })
 end

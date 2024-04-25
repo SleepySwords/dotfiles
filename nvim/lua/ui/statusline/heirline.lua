@@ -466,7 +466,11 @@ local navic_win = {
     condition = function()
         return navic.is_available()
     end,
-    hl = 'Normal',
+}
+local neovide_fix = {
+    provider = function()
+        return "%#Normal# "
+    end
 }
 
 -- FIXME: use webicons like
@@ -613,15 +617,23 @@ local tablineBlock = {
     },
 }
 
-local bufferline = utils.make_buflist(
-    bufferlineBlock,
-    { provider = ' ', hl = { fg = 'gray' } },
-    { provider = ' ', hl = { fg = 'gray' } }
-)
+-- local bufferline = utils.make_buflist(
+--     bufferlineBlock,
+--     { provider = ' ', hl = { fg = 'gray' } },
+--     { provider = ' ', hl = { fg = 'gray' } }
+-- )
 
-local tabline = utils.make_tablist(tablineBlock)
+-- local tabline = utils.make_tablist(tablineBlock)
+
+local disable_winbar_cb = function(args)
+    return conditions.buffer_matches({
+        buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
+        filetype = { '^git.*', 'fugitive', 'Trouble', 'dashboard' },
+    }, args.buf)
+end
 
 require('heirline').setup({
+    ---@diagnostic disable-next-line missing-fields
     statusline = {
         {
             mode,
@@ -666,11 +678,12 @@ require('heirline').setup({
             bg = colours.text_bg,
         },
     },
+    ---@diagnostic disable-next-line missing-fields
     winbar = {
+        neovide_fix,
         navic_win,
         align,
         filename,
-        hl = 'Normal',
     },
     -- tabline = {
     --     bufferline,
@@ -686,63 +699,6 @@ require('heirline').setup({
     opts = {
         -- if the callback returns true, the winbar will be disabled for that window
         -- the args parameter corresponds to the table argument passed to autocommand callbacks. :h nvim_lua_create_autocmd()
-        disable_winbar_cb = function(_)
-            return false
-        end,
+        disable_winbar_cb = disable_winbar_cb,
     },
 })
-
-local disable_winbar_cb = function(args)
-    return conditions.buffer_matches({
-        buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
-        filetype = { '^git.*', 'fugitive', 'Trouble', 'dashboard' },
-    }, args.buf)
-end
-
-local function setup_local_winbar_with_autocmd(callback)
-    local augrp_id = vim.api.nvim_create_augroup('Heirline_init_winbar', { clear = true })
-    vim.api.nvim_create_autocmd({ 'VimEnter', 'UIEnter', 'BufWinEnter', 'FileType', 'TermOpen' }, {
-        callback = function(args)
-            -- This is a hack until we send info about win_line to the gui
-            local heirline_winbar = " %{%v:lua.require'heirline'.eval_winbar()%}"
-            if args.event == 'VimEnter' or args.event == 'UIEnter' then
-                for _, win in ipairs(vim.api.nvim_list_wins()) do
-                    local winbuf = vim.api.nvim_win_get_buf(win)
-                    local new_args = vim.deepcopy(args)
-                    new_args.buf = winbuf
-                    if callback and callback(new_args) == true then
-                        if vim.wo[win].winbar == heirline_winbar then
-                            vim.wo[win].winbar = nil
-                        end
-                    else
-                        vim.wo[win].winbar = heirline_winbar
-                    end
-                end
-            end
-            if callback and callback(args) == true then
-                if vim.opt_local.winbar:get() == heirline_winbar then
-                    vim.opt_local.winbar = nil
-                end
-                return
-            end
-
-            -- local wins = vim.tbl_filter(function(win)
-            --     return vim.api.nvim_win_get_buf(win) == args.buf
-            -- end, vim.api.nvim_list_wins())
-
-            -- if vim.api.nvim_win_get_config(wins[0] or 0).zindex then
-            -- if vim.api.nvim_win_get_config(0).zindex then
-            --     vim.opt_local.winbar = nil
-            --     return
-            -- end
-
-            if vim.api.nvim_win_get_height(0) > 1 then
-                vim.opt_local.winbar = heirline_winbar
-            end
-        end,
-        group = augrp_id,
-        desc = 'Heirline: set window-local winbar',
-    })
-end
-
-setup_local_winbar_with_autocmd(disable_winbar_cb)

@@ -2,9 +2,13 @@ local M = {}
 
 function M.setup()
     local navic = require('nvim-navic')
+    vim.api.nvim_set_hl(0, 'NavicSeparator', { fg = '#D8CFAF' })
     navic.setup({
         separator = ' -> ',
         highlight = true,
+        lsp = {
+            auto_attach = true
+        },
         icons = {
             File = ' ',
             Module = ' ',
@@ -33,25 +37,6 @@ function M.setup()
             Operator = ' ',
             TypeParameter = ' ',
         },
-    })
-
-    vim.api.nvim_set_hl(0, 'NavicSeparator', { fg = '#D8CFAF' })
-
-    vim.api.nvim_create_augroup('LspAttach_navic', {})
-
-    vim.api.nvim_create_autocmd('LspAttach', {
-        group = 'LspAttach_navic',
-        callback = function(args)
-            if not (args.data and args.data.client_id) then
-                return
-            end
-
-            local bufnr = args.buf
-            local client = vim.lsp.get_client_by_id(args.data.client_id)
-            if client and client.server_capabilities.documentLinkProvider and client.name ~= "tailwindcss" then
-                navic.attach(client, bufnr)
-            end
-        end,
     })
 end
 

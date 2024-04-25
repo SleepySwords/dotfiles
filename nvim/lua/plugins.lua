@@ -40,6 +40,8 @@ return {
         end,
     },
 
+    'mbbill/undotree',
+
     -- Adds better defaults for LSP
     {
         'RishabhRD/nvim-lsputils',
@@ -85,14 +87,21 @@ return {
     -- o#/v2/gotodefinition when recieving the textDocument/definition request or send a o#/v2/gotodefinition
     -- from the start, which is what is happening here with this plugin. Need to keep in mind that this uses
     -- two instances of omnisharp as a result.
-    'Hoffs/omnisharp-extended-lsp.nvim',
+    {
+        'Hoffs/omnisharp-extended-lsp.nvim',
+        lazy = true,
+        ft = 'cs',
+        config = function()
+            require('completion.lsp_sources').setup_omni()
+        end
+    },
 
     -- Autocompletion
     'hrsh7th/nvim-cmp',
 
     -- Autocomplete Sources
+    -- 'hrsh7th/cmp-cmdline', -- A bit annoying as it takes up the screen...
     'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-nvim-lsp',
@@ -103,18 +112,6 @@ return {
 
     -- Adds icons to lsp variables
     'onsails/lspkind.nvim',
-
-    --  Fuzzy finders
-    {
-        'nvim-telescope/telescope.nvim',
-        dependencies = { { 'nvim-lua/popup.nvim' }, { 'nvim-lua/plenary.nvim' } },
-        config = function()
-            require('navigation.telescope').setup()
-        end,
-    },
-    'debugloop/telescope-undo.nvim',
-    'junegunn/fzf',
-    'ibhagwan/fzf-lua',
 
     --  Syntax + treesitter
     {
@@ -153,18 +150,6 @@ return {
         end,
         ft = { "markdown" },
     },
-    {
-        'SmiteshP/nvim-navic',
-        dependencies = 'nvim-treesitter/nvim-treesitter',
-        config = function()
-            require('ui.navic').setup()
-        end,
-    },
-    -- Deprecation error currently
-    -- {
-    -- 	'HiPhish/rainbow-delimiters.nvim',
-    -- 	dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    -- },
 
     {
         'nvim-treesitter/nvim-treesitter-textobjects',
@@ -186,37 +171,6 @@ return {
         dependencies = { 'nvim-tree/nvim-web-devicons' }, --  for file icons
         config = function()
             require('navigation.tree').setup()
-        end,
-    },
-    {
-        'rebelot/heirline.nvim',
-        dependencies = {
-            'nvim-lua/lsp-status.nvim',
-            'nvim-tree/nvim-web-devicons',
-            'lewis6991/gitsigns.nvim',
-        },
-        config = function()
-            vim.api.nvim_create_augroup('Scheme', {})
-            vim.api.nvim_create_autocmd('UIEnter', {
-                group = 'Scheme',
-                callback = function()
-                    require('ui.statusline.heirline')
-                end,
-            })
-        end,
-    },
-    {
-        'akinsho/bufferline.nvim',
-        version = "*",
-        dependencies = 'nvim-tree/nvim-web-devicons',
-        config = function()
-            require("bufferline").setup {}
-        end
-    },
-    {
-        'nvim-lua/lsp-status.nvim',
-        config = function()
-            require('ui.lsp_status').setup()
         end,
     },
 
@@ -247,68 +201,8 @@ return {
     -- Add ability to debug lua plugins
     'jbyuki/one-small-step-for-vimkind',
 
-    { 'mfussenegger/nvim-lint' },
+    -- { 'mfussenegger/nvim-lint' },
 
-    -- Testing plugins
-    {
-        'nvim-neotest/neotest',
-        dependencies = {
-            "nvim-neotest/nvim-nio",
-            'nvim-lua/plenary.nvim',
-            'nvim-treesitter/nvim-treesitter',
-            -- Might use 'mrcjkb/rustaceanvim' but have
-            -- to fix showing files even when
-            -- no tests (copy neotest-rust is_test_file thing)
-            'rouge8/neotest-rust',
-            'nvim-neotest/neotest-jest',
-            'neotest-vim-test',
-            'Issafalcon/neotest-dotnet',
-        },
-        config = function()
-            ---@diagnostic disable-next-line missing-fields
-            require('neotest').setup({
-                icons = {
-                    expanded = '',
-                    collapsed = '',
-
-                    passed = '',
-                    running = '',
-                    failed = '',
-                    unknown = '',
-                },
-                adapters = {
-                    require('neotest-vim-test')({
-                        ignore_file_types = { 'rust', 'python', 'vim', 'lua' },
-                    }),
-                    require('neotest-rust') {
-                        dap_adapter = "codelldb",
-                    },
-                    require("neotest-dotnet"),
-                    require('neotest-jest')({
-                        jestCommand = 'yarn test --watch',
-                        env = { CI = true },
-                        cwd = function(path)
-                            return vim.fn.getcwd()
-                        end,
-                    }),
-                },
-            })
-        end,
-    },
-    {
-        'nvim-neotest/neotest-vim-test',
-        dependencies = {
-            'vim-test/vim-test',
-        },
-    },
-
-    -- Highlight only the code section you are editing
-    -- {
-    --     'folke/twilight.nvim',
-    --     config = function()
-    --         require('twilight').setup()
-    --     end,
-    -- },
 
     -- Git integration
     {
@@ -327,8 +221,6 @@ return {
             require('gitsigns').setup()
         end,
     },
-
-    { 'dyng/ctrlsf.vim' },
 
     -- Highlight variables with the same name.
     {
@@ -373,25 +265,6 @@ return {
         end,
     },
 
-    -- {
-    -- 	'folke/noice.nvim',
-    -- 	config = function()
-    -- 		require('ui.noice')
-    -- 	end,
-    -- 	dependencies = {
-    -- 		'MunifTanjim/nui.nvim',
-    -- 		'rcarriga/nvim-notify',
-    -- 	}
-    -- },
-
-    -- Adds :SymbolsOutline
-    {
-        'simrat39/symbols-outline.nvim',
-        config = function()
-            require('symbols-outline').setup()
-        end,
-    },
-
     -- Interferes with the > and < keybindings
     -- Displays the key that is present.
     {
@@ -417,11 +290,6 @@ return {
 
     -- Could just use ftplugins instead /shrug
     'tpope/vim-sleuth',
-
-    -- {
-    --     'giusgad/pets.nvim',
-    --     dependencies = { 'MunifTanjim/nui.nvim', 'giusgad/hologram.nvim' },
-    -- },
 }
 
 -- Plugins that need to try again
@@ -440,11 +308,14 @@ return {
 -- LspSaga
 -- Fidget.nvim
 -- nvim-neorg/neorg
+-- noice.nvim (config at: ui.noice)
+-- giusgad/pets.nvim (no cat)
 --
+-- mfussenegger/nvim-lint (never used)
+-- simrat39/symbols-outline.nvim (never used)
 --
 -- Prob not going to try again
 -- beauwilliams/focus.nvim
 -- Feline.nvim :(
-
--- Hopefully easier to customise colours
--- 'tjdevries/colorbuddy.nvim' (I might just do this manually)
+-- folke/twilight.nvim
+-- Rainbow braces

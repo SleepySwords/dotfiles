@@ -48,8 +48,8 @@ cmp.setup({
             -- 	feedkey("<Plug>(vsnip-expand-or-jump)", "")
             if luasnip.expand_or_locally_jumpable() then
                 luasnip.expand_or_jump()
-            -- elseif has_words_before() then
-            --   cmp.complete()
+                -- elseif has_words_before() then
+                --   cmp.complete()
             else
                 fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
             end
@@ -100,13 +100,10 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'orgmode' },
-        { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'vsnip' },
-        -- { name = 'path' },
+        { name = 'luasnip' },
+        { name = 'path' },
         -- { name = 'buffer' },
         -- { name = 'cmdline' }
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
     }),
 })
 

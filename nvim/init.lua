@@ -15,6 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('keybindings')
-require('lazy').setup({ { import = 'plugins' }, { import = 'plugins.editing' }, { import = 'plugins.ui'} })
+require('lazy').setup({ { import = 'plugins' }, { import = 'plugins.editing' }, { import = 'plugins.editing.search' }, { import = 'plugins.ui' } })
 require('settings')
 require('highlights')

@@ -47,7 +47,6 @@ vim.api.nvim_set_hl(0, "Headline4", { bg = headline4 })
 
 local visual_colour = is_light and "#555555" or "#FFFFFF"
 
-
 -- vim.api.nvim_set_hl(0, "Cursor", {fg="#ebbab9"})
 
 vim.api.nvim_set_hl(0, "Visual",

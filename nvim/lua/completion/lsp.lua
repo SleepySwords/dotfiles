@@ -1,4 +1,4 @@
-require('completion.lsp_sources')
+require('completion.lsp_sources').setup()
 
 local signature_config = {
     log_path = vim.fn.expand('$HOME') .. '/tmp/sig.log',

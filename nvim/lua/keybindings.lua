@@ -225,7 +225,7 @@ map_desc(
     { noremap = true }
 )
 map_desc({ 'n' }, '<leader>u',
-    '<cmd>lua require("telescope").extensions.undo.undo(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>',
+    '<cmd>UndotreeToggle<cr>',
     'Undo tree', { noremap = true });
 
 local command =
