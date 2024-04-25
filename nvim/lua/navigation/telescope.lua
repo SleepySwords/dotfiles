@@ -70,16 +70,6 @@ function M.setup()
                 n = { ['<c-t>'] = trouble.open_with_trouble },
             },
         }),
-        extensions = {
-            undo = {
-                side_by_side = true,
-                -- sorting_strategy = 'descending',
-                layout_strategy = "horizontal",
-                layout_config = {
-                    preview_height = 0.8,
-                },
-            },
-        },
     })
 end
 
