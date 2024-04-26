@@ -79,6 +79,8 @@ if vim.g.neovide then
     vim.cmd([[colorscheme catppuccin-latte]])
     vim.g.neovide_floating_blur_amount_x = 0.0
     vim.g.neovide_floating_blur_amount_y = 0.0
+    vim.g.neovide_padding_top = 5
+    vim.g.neovide_padding_bottom = 5
 end
 -- Neovide
 -- g.neovide_fullscreen = true

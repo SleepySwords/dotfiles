@@ -469,7 +469,7 @@ local navic_win = {
 }
 local neovide_fix = {
     provider = function()
-        return "%#Normal# "
+        return "%#Winbar# "
     end
 }
 

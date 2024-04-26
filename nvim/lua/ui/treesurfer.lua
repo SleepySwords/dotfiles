@@ -20,14 +20,14 @@ function M.setup()
     -- Visual Selection from Normal Mode
     map_desc(
         'n',
-        '<leader>rx',
+        '<leader>lm',
         '<cmd>STSSelectMasterNode<cr>',
         'Treesurfer select master node',
         opts
     )
     map_desc(
         'n',
-        '<leader>rn',
+        '<leader>ln',
         '<cmd>STSSelectCurrentNode<cr>',
         'Treesurfer select current node',
         opts

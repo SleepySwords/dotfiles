@@ -1,4 +1,3 @@
--- TODO: Explain what each plugin actually does, i s2g i don't use half of these.
 return {
     --  Sensible default
     'tpope/vim-sensible',
@@ -259,6 +258,7 @@ return {
                 segments = {
                     { text = { builtin.foldfunc },      click = 'v:lua.ScFa' },
                     { text = { '%s' },                  click = 'v:lua.ScSa' },
+                    { text = { '%s' },                  click = 'v:lua.ScSa' },
                     { text = { builtin.lnumfunc, ' ' }, click = 'v:lua.ScLa' },
                 },
             })
@@ -293,21 +293,15 @@ return {
 }
 
 -- Plugins that need to try again
--- none-ls - for something like eslint
 -- lsp_lines
---
---
--- lukas-reineke/headlines.nvim (actually i coppied this)
 -- Satellite.nvim (scrollbar)
 -- Wilder.nvim (cmdline popup menu)
 -- firenvim (in browser)
 -- lukas-reineke/indent-blankline.nvim (add ident lines)
 -- edgy.nvim
--- Leap.nvim
 -- Harpoon
 -- LspSaga
 -- Fidget.nvim
--- nvim-neorg/neorg
 -- noice.nvim (config at: ui.noice)
 -- giusgad/pets.nvim (no cat)
 --

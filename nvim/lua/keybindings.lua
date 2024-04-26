@@ -27,8 +27,6 @@ end
 g.mapleader = [[ ]]
 g.maplocalleader = [[\]]
 
--- Enable completion triggered by <c-x><c-o>
--- See `:help vim.lsp.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
 
 -- TODO: Really need to check if these keybindings override some other default bindings.
@@ -64,8 +62,6 @@ map_desc(
     'LSP List Workspaces',
     opts
 )
--- map_desc({ 'n' }, '<space>od', '<cmd>lua vim.diagnostic.open_float({focusable=true})<CR>', 'Focue on the diagnostics',
--- 	opts)
 map_desc(
     { 'n' },
     '<space>D',
@@ -100,9 +96,8 @@ map_desc(
 )
 map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', 'LSP Hover')
 
--- map_desc({ 'n' }, 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', 'LSP References', opts)
 map_desc({ 'n' }, 'gR', '<cmd>Trouble lsp_references toggle follow=true focus=true auto_refresh=false<CR>',
-    'LSP References', opts)
+    'LSP References', opts) -- lua vim.lsp.buf.references()
 map_desc({ 'n' }, '<leader>xx', '<cmd>Trouble toggle<CR>', 'Trouble Toggle', opts)
 map_desc(
     { 'n' },
@@ -118,7 +113,6 @@ map_desc(
     'Trouble document diagnostics',
     opts
 )
--- map_desc({ 'n' }, '<leader>xq', '<cmd>TroubleToggle quickfix<CR>', 'Trouble quickfix', opts)
 map_desc({ 'n' }, '<leader>xq', '<cmd>Trouble quickfix toggle<CR>', 'Trouble quickfix', opts)
 map_desc({ 'n' }, '<leader>xt', '<cmd>TodoTrouble<CR>', 'Troule todo', opts)
 map_desc(
@@ -136,7 +130,6 @@ map_desc(
     opts
 )
 
--- map('i', '<C-p>', '<Plug>(completion_trigger)', { silent=true })
 
 -- LSP Saga (Until LSP Sage is fixed)
 -- map('n', '<leader>ca', "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opts)
@@ -147,7 +140,7 @@ map_desc(
 -- map('n', '<leader>d', "<cmd>lua require('lspsaga.floaterm').open_float_terminal()<CR>", opts) -- or open_float_terminal('lazygit')<CR>
 -- map('t', '<leader>d', "<C-\\><C-n>:lua require('lspsaga.floaterm').close_float_terminal()<CR>", opts)
 
-map('n', '<leader>g', '<cmd>LazyGit<CR>', opts)
+map_desc('n', '<leader>g', '<cmd>LazyGit<CR>', 'Opens up LazyGit', opts)
 
 -- map('n', 'K', "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
 -- map('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
@@ -191,7 +184,7 @@ map_desc(
 )
 map_desc(
     { 'n' },
-    '<leader>l',
+    '<leader>lg',
     '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>',
     'Open Git Files',
     { noremap = true }
@@ -278,9 +271,7 @@ map_desc(
     { noremap = true }
 )
 
--- TODO: Need to remove one of these.
 map_desc({ 'n' }, '<leader>j', '<cmd>HopWord<CR>', 'hop word', { noremap = true })
--- map_desc({ 'n' }, 'gj', '<cmd>HopWord<CR>', "hop word", { noremap = true })
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928
@@ -308,10 +299,6 @@ map_desc({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', 'Goto Prev Buffer')
 map_desc({ 'n' }, '<leader>q', '<cmd>BufDel<CR>', 'Delete The Current Buffer')
 map({ 'n' }, '<leader>ls', '<cmd>ls<CR>')
 map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>')
-
--- http://stackoverflow.com/questions/7513380/vim-change-x-function-to-delete-buffer-instead-of-save-quit
--- Tooo lazy to port
--- vim.cmd("cnoreabbrev <expr> q getcmdtype() == ':' && (getcmdline() == 'q' && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1) ? 'BufDel' : 'q'")
 
 -- Debugging
 map({ 'n' }, '<leader>dc', '<cmd>lua require"dap".continue()<CR>')
@@ -389,12 +376,8 @@ map({ 'n' }, '[q', ':cp<CR>', opts)
 map({ 'n' }, '<C-n>', ':cn<CR>', opts)
 map({ 'n' }, '<C-p>', ':cp<CR>', opts)
 
-map({ 'n' }, 'gl', '$', opts)
-map({ 'n' }, 'gh', '^', opts)
-map({ 'x' }, 'gl', '$', opts)
-map({ 'x' }, 'gh', '^', opts)
-map({ 'v' }, 'gl', '$', opts)
-map({ 'v' }, 'gh', '^', opts)
+map({ 'n', 'x', 'v' }, 'gl', '$', opts)
+map({ 'n', 'x', 'v' }, 'gh', '^', opts)
 
 map({ 'n' }, '<leader>Ts', 'hi', {
     noremap = true,
@@ -407,24 +390,23 @@ map({ 'n' }, '<leader>Ts', 'hi', {
     end
 })
 
+-- Marks
+map({ 'n' }, '<leader>m',
+    '<cmd>lua require("telescope.builtin").marks(vim.g.telescope_theme)<CR>'
+)
+map({ 'n' }, 'dm', 'hi', {
+    noremap = true,
+    silent = true,
+    callback = function()
+        -- TODO: consider using vim.api.input instead (prettier box)
+        local mark = vim.fn.input('Mark to delete: ');
+        vim.cmd([[delmarks ]] .. mark)
+    end
+})
+
 -- Harpoon
 -- map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)
 -- map({ 'n' }, '<leader>mn', '<cmd>lua require("harpoon.ui").nav_next()<cr>', opts)
 -- map({ 'n' }, '<leader>mp', '<cmd>lua require("harpoon.ui").nav_prev()<cr>', opts)
 -- map({ 'n' }, '<leader>ma', '<cmd>lua require("harpoon.mark").toggle_file()<cr>', opts)
 -- map({ 'n' }, '<leader>mr', '<cmd>lua require("harpoon.mark").create_mark()<cr>', opts)
-
--- local hop = require('hop')
--- local directions = require('hop.hint').HintDirection
--- vim.keymap.set('', 'f', function()
---   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
--- end, {remap=true})
--- vim.keymap.set('', 'F', function()
---   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
--- end, {remap=true})
--- vim.keymap.set('', 't', function()
---   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
--- end, {remap=true})
--- vim.keymap.set('', 'T', function()
---   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
--- end, {remap=true})
