@@ -12,7 +12,10 @@ return {
             vim.api.nvim_create_autocmd('UIEnter', {
                 group = 'Scheme',
                 callback = function()
-                    require('ui.statusline.heirline')
+                    require('ui.statusline.heirline').setup()
+                    vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+                        callback = function() require('ui.statusline.heirline').setup() end,
+                    })
                 end,
             })
         end,
