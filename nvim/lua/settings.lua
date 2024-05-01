@@ -26,7 +26,7 @@ o.smartindent = true
 o.cmdheight = 1
 o.updatetime = 500
 o.signcolumn = 'yes'
-o.clipboard = 'unnamed,unnamedplus'
+o.clipboard = 'unnamedplus'
 o.showmatch = true
 o.showtabline = 3
 o.termguicolors = true
@@ -76,7 +76,9 @@ g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
 if vim.g.neovide then
     -- vim.cmd([[colorscheme duskfox]])
-    vim.cmd([[colorscheme catppuccin-latte]])
+    -- vim.cmd([[colorscheme catppuccin-latte]])
+    -- vim.cmd([[colorscheme industry]])
+    vim.cmd([[colorscheme carbonfox]])
     vim.g.neovide_floating_blur_amount_x = 0.0
     vim.g.neovide_floating_blur_amount_y = 0.0
     vim.g.neovide_padding_top = 5

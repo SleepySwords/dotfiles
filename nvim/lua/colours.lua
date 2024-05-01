@@ -9,7 +9,7 @@ function M.name_to_tuple(colour)
 end
 
 function M.get_colour_tuple(name, item)
-    return M.name_to_tuple(vim.api.nvim_get_hl(0, { name = name, link = false})[item])
+    return M.name_to_tuple(vim.api.nvim_get_hl(0, { name = name, link = false})[item] or 0)
 end
 
 function M.tint(colour, factor)

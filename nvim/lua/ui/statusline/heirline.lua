@@ -682,10 +682,10 @@ function M.setup()
         },
         ---@diagnostic disable-next-line missing-fields
         winbar = {
-            neovide_fix,
             navic_win,
             align,
             filename,
+            neovide_fix,
         },
         -- tabline = {
         --     bufferline,
