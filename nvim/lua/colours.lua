@@ -9,7 +9,7 @@ function M.name_to_tuple(colour)
 end
 
 function M.get_colour_tuple(name, item)
-    return M.name_to_tuple(vim.api.nvim_get_hl(0, { name = name, link = false})[item] or 0)
+    return M.name_to_tuple(vim.api.nvim_get_hl(0, { name = name, link = false })[item] or 0)
 end
 
 function M.tint(colour, factor)
@@ -55,6 +55,10 @@ function M.contrast_based_on(colour, factor, light)
     else
         return M.tint(colour, 1 - factor)
     end
+end
+
+function M.is_light()
+    return M.lightness(M.get_colour_tuple("normal", "bg")) > 0.5
 end
 
 return M

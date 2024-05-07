@@ -69,16 +69,19 @@ g.neon_style = 'default'
 g.neon_italic_keyword = true
 g.neon_italic_function = true
 g.neon_transparent = true
+g.edge_diagnostic_virtual_text = 'colored'
 
 -- vim.cmd([[colorscheme catppuccin-mocha]])
 vim.cmd([[colorscheme catppuccin-latte]])
 g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
 if vim.g.neovide then
-    -- vim.cmd([[colorscheme duskfox]])
+    -- vim.cmd([[colorscheme carbonfox]])
     -- vim.cmd([[colorscheme catppuccin-latte]])
     -- vim.cmd([[colorscheme industry]])
-    vim.cmd([[colorscheme carbonfox]])
+    -- vim.cmd([[colorscheme duskfox]])
+    -- vim.cmd([[colorscheme edge]])
+    vim.cmd([[colorscheme tokyonight-moon]])
     vim.g.neovide_floating_blur_amount_x = 0.0
     vim.g.neovide_floating_blur_amount_y = 0.0
     vim.g.neovide_padding_top = 5

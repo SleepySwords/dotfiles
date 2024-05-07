@@ -35,10 +35,10 @@ vim.api.nvim_set_hl(0, 'TelescopeMatching', { bold = true, fg = '#f6c177' })
 
 local is_light = lightness(get_colour_tuple("normal", "bg")) > 0.5
 
-local headline1 = tuple_to_hex(contrast_based_on(get_colour_tuple("@text.title.1.markdown", "fg"), 0.3, is_light))
-local headline2 = tuple_to_hex(contrast_based_on(get_colour_tuple("@text.title.2.markdown", "fg"), 0.3, is_light))
-local headline3 = tuple_to_hex(contrast_based_on(get_colour_tuple("@text.title.3.markdown", "fg"), 0.3, is_light))
-local headline4 = tuple_to_hex(contrast_based_on(get_colour_tuple("@text.title.4.markdown", "fg"), 0.3, is_light))
+local headline1 = tuple_to_hex(contrast_based_on(get_colour_tuple("@markup.heading.1.markdown", "fg"), 0.3, is_light))
+local headline2 = tuple_to_hex(contrast_based_on(get_colour_tuple("@markup.heading.2.markdown", "fg"), 0.3, is_light))
+local headline3 = tuple_to_hex(contrast_based_on(get_colour_tuple("@markup.heading.3.markdown", "fg"), 0.3, is_light))
+local headline4 = tuple_to_hex(contrast_based_on(get_colour_tuple("@markup.heading.4.markdown", "fg"), 0.3, is_light))
 
 vim.api.nvim_set_hl(0, "Headline1", { bg = headline1 })
 vim.api.nvim_set_hl(0, "Headline2", { bg = headline2 })

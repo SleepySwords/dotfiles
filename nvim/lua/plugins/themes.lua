@@ -1,3 +1,5 @@
+local colours = require "colours"
+
 return {
     'sainnhe/edge',
     'morhetz/gruvbox',
@@ -11,33 +13,24 @@ return {
         config = function()
             require('tokyonight').setup({
                 on_highlights = function(hl, c)
-                    hl['@text.literal.markdown_inline'] = {
-                        bg = '#151612',
+                    hl['@markup.raw.markdown_inline'] = {
+                        bg = colours.tuple_to_hex(colours.shade(colours.get_colour_tuple('Normal', 'bg'), 0.15)),
                         fg = '#7aa2fa',
+                    }
+                    hl.TelescopePromptBorder = {
+                        bg = hl.TelescopeBorder.bg,
+                        fg = hl.TelescopeBorder.fg,
                     }
                 end,
             })
-            vim.cmd([[colorscheme tokyonight-night]])
-
             -- vim.cmd [[highlight Cursor guifg=#000000 guibg=#FBC3BC]]
             -- vim.cmd [[highlight link TelescopeMatching Type]]
+            vim.cmd([[colorscheme tokyonight-night]])
             vim.cmd([[highlight! link TelescopeSelection Define]])
             -- Icons become weird when bolded
             -- vim.cmd [[highlight TelescopeSelection guifg=#f0a6cc gui=bold]]
             vim.cmd([[highlight! TelescopeMatching guifg=#f6c177 gui=bold]])
             vim.cmd([[highlight! link FloatBorder NormalFloat]])
-            vim.api.nvim_set_hl(0, '@text.title.1.markdown', { fg = '#cb7676', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.1.marker.markdown', { fg = '#cb7676', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.2.markdown', { fg = '#c99076', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.2.marker.markdown', { fg = '#c99076', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.3.markdown', { fg = '#80a665', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.3.marker.markdown', { fg = '#80a665', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.4.markdown', { fg = '#4c9a91', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.4.marker.markdown', { fg = '#4c9a91', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.5.markdown', { fg = '#6893bf', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.5.marker.markdown', { fg = '#6893bf', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.6.markdown', { fg = '#d3869b', bold = true })
-            vim.api.nvim_set_hl(0, '@text.title.6.marker.markdown', { fg = '#d3869b', bold = true })
         end,
     },
     'EdenEast/nightfox.nvim',

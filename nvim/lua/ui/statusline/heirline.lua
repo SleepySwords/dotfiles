@@ -686,6 +686,7 @@ function M.setup()
             align,
             filename,
             neovide_fix,
+            hl = "Normal"
         },
         -- tabline = {
         --     bufferline,

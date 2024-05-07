@@ -23,6 +23,8 @@ return {
             require('completion.mason').setup()
         end,
     },
+    -- Rust specific lsp extensions
+    { 'mrcjkb/rustaceanvim' },
 
     -- Be able to add linters as formaters.
     {
@@ -125,8 +127,7 @@ return {
         dependencies = "nvim-treesitter/nvim-treesitter",
         config = {
             markdown = {
-                bullets = {
-                    "●" },
+                bullets = {},
                 bullet_highlights = {
                     "@text.title.1.markdown",
                     "@text.title.2.markdown",
@@ -135,7 +136,7 @@ return {
                     "@text.title.5.markdown",
                     "@text.title.6.markdown",
                 },
-                fat_headline_lower_string = '▔',
+                fat_headline_lower_string = '',
                 headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4" },
             }
         },
@@ -308,7 +309,7 @@ return {
 -- simrat39/symbols-outline.nvim (never used)
 --
 -- Prob not going to try again
--- beauwilliams/focus.nvim
+-- focus.nvim
 -- Feline.nvim :(
 -- folke/twilight.nvim
 -- Rainbow braces
