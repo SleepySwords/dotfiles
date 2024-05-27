@@ -22,7 +22,8 @@ local inlay_fg = contrast(get_colour_tuple("normal", "bg"), 0.50)
 vim.api.nvim_set_hl(
     0,
     'LspInlayHint',
-    { bg = tuple_to_hex(inlay_bg), fg = tuple_to_hex(inlay_fg) }
+    -- { bg = tuple_to_hex(inlay_bg), fg = tuple_to_hex(inlay_fg) }
+    { fg = tuple_to_hex(inlay_fg), italic = true }
 )
 
 vim.api.nvim_set_hl(0, 'Folded', {})

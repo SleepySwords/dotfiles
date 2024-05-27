@@ -49,6 +49,7 @@ o.conceallevel = 3
 
 -- Formatting
 o.shiftwidth = 4
+o.expandtab = true
 o.tabstop = 4
 
 

@@ -6,6 +6,7 @@ return {
             'SmiteshP/nvim-navic',
             'nvim-tree/nvim-web-devicons',
             'lewis6991/gitsigns.nvim',
+            'kevinhwang91/nvim-ufo'
         },
         config = function()
             vim.api.nvim_create_augroup('Scheme', {})
@@ -18,6 +19,14 @@ return {
                     })
                 end,
             })
+        end,
+    },
+    -- Adds folds for lsp, treesitter, mainly functions
+    {
+        'kevinhwang91/nvim-ufo',
+        dependencies = 'kevinhwang91/promise-async',
+        config = function()
+            require('ui.ufo').setup()
         end,
     },
     {

@@ -73,7 +73,7 @@ map_desc({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', 'LSP C
 map_desc(
     { 'n' },
     '<leader>ci',
-    '<cmd>lua vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())<CR>',
+    '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>',
     'LSP Code Action',
     opts
 )
@@ -373,8 +373,28 @@ map({ 'v' }, '<C-k>', ':move-2<CR>gv=gv', opts)
 map({ 'n' }, ']q', ':cn<CR>', opts)
 map({ 'n' }, '[q', ':cp<CR>', opts)
 
-map({ 'n' }, '<C-n>', ':cn<CR>', opts)
-map({ 'n' }, '<C-p>', ':cp<CR>', opts)
+-- map({ 'n' }, '<C-n>', ':cn<CR>', opts)
+-- map({ 'n' }, '<C-p>', ':cp<CR>', opts)
+
+map({ 'n' }, '<C-n>', '', vim.tbl_extend('keep', opts, {
+    callback = function()
+        if require "trouble".is_open({}) then
+            require("trouble").next({ jump = true });
+        else
+            -- FIXME: This should detect if there is a quickfix list first.
+            vim.cmd [[silent! cn]]
+        end
+    end
+}))
+map({ 'n' }, '<C-p>', '', vim.tbl_extend('keep', opts, {
+    callback = function()
+        if require "trouble".is_open({}) then
+            require("trouble").prev({ jump = true });
+        else
+            vim.cmd [[silent! cp]]
+        end
+    end
+}))
 
 map({ 'n', 'x', 'v' }, 'gl', '$', opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', opts)

@@ -22,21 +22,21 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 M.capabilities = capabilities;
 
 function M.setup()
-    -- lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
-    --     capabilities = capabilities,
-    --     root_dir = function()
-    --         return vim.fn.getcwd()
-    --     end,
-    --     settings = {
-    --         ['rust-analyzer'] = {
-    --             inlayHints = {
-    --                 chainingHints = {
-    --                     enable = false,
-    --                 },
-    --             },
-    --         },
-    --     },
-    -- }))
+    lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
+        capabilities = capabilities,
+        root_dir = function()
+            return vim.fn.getcwd()
+        end,
+        settings = {
+            ['rust-analyzer'] = {
+                inlayHints = {
+                    chainingHints = {
+                        enable = false,
+                    },
+                },
+            },
+        },
+    }))
     lsp_config.lua_ls.setup(completion_engine.provide_capabilities({
         capabilities = capabilities,
         -- before_init = require("neodev.lsp").before_init,
