@@ -1,16 +1,28 @@
 -- Vim options
 local o = vim.o
 
+local group = vim.api.nvim_create_augroup('FtOptions', {})
+
 local function set_ft_option(ft, option, value)
     vim.api.nvim_create_autocmd('FileType', {
         pattern = ft,
-        group = vim.api.nvim_create_augroup('FtOptions', {}),
+        group = group,
         desc = ('set option "%s" to "%s" for this filetype'):format(option, value),
         callback = function()
             vim.opt_local[option] = value
         end,
     })
 end
+
+vim.api.nvim_create_autocmd('TermOpen', {
+    group = group,
+    desc = 'set option terminal',
+    callback = function()
+        vim.opt_local["number"] = false
+        vim.opt_local["relativenumber"] = false
+        vim.opt_local["filetype"] = "terminal"
+    end,
+})
 
 -- Vim options setup
 set_ft_option('markdown', 'spell', true)
@@ -82,7 +94,7 @@ if vim.g.neovide then
     -- vim.cmd([[colorscheme industry]])
     -- vim.cmd([[colorscheme duskfox]])
     -- vim.cmd([[colorscheme edge]])
-    vim.cmd([[colorscheme tokyonight-moon]])
+    -- vim.cmd([[colorscheme tokyonight-moon]])
     vim.g.neovide_floating_blur_amount_x = 0.0
     vim.g.neovide_floating_blur_amount_y = 0.0
     vim.g.neovide_padding_top = 5
