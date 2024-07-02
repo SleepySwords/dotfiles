@@ -2,13 +2,15 @@
 return {
     {
         'neovim/nvim-lspconfig',
-        dependencies = {
-            -- Adds neovim docs to lsp
-            'folke/neodev.nvim',
-        },
         config = function()
             require('completion.lsp')
         end,
+    },
+
+    {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {}
     },
 
     -- Rust specific lsp extensions
@@ -56,7 +58,16 @@ return {
     },
 
     -- Autocompletion
-    'hrsh7th/nvim-cmp',
+    {
+        'hrsh7th/nvim-cmp',
+        opts = function(_, opts)
+            opts.sources = opts.sources or {}
+            table.insert(opts.sources, {
+                name = "lazydev",
+                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+            })
+        end,
+    },
 
     -- Autocomplete Sources
     -- 'hrsh7th/cmp-cmdline', -- A bit annoying as it takes up the screen...

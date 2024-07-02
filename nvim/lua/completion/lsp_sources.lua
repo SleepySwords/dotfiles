@@ -1,5 +1,3 @@
-require('neodev').setup()
-
 local completion_engine = require('completion.engine.cmp')
 
 local lsp_config = require('lspconfig')

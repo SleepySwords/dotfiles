@@ -1,5 +1,5 @@
 git:
   paging:
     colorArg: always
-    pager: delta --paging=never
+    pager: delta --paging=never --features "noside"
     # pager: delta --dark --paging=never
