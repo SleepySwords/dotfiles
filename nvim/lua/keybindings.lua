@@ -399,16 +399,7 @@ map({ 'n' }, '<C-p>', '', vim.tbl_extend('keep', opts, {
 map({ 'n', 'x', 'v' }, 'gl', '$', opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', opts)
 
-map({ 'n' }, '<leader>Ts', 'hi', {
-    noremap = true,
-    silent = true,
-    callback = function()
-        vim.cmd('tab split')
-        vim.api.nvim_tabpage_set_var(1, "name", "Code");
-        vim.api.nvim_tabpage_set_var(2, "name", "Debug");
-        vim.api.nvim_set_current_tabpage(1);
-    end
-})
+map({ 'n' }, 'ZZ', '<cmd>qa<CR>', opts)
 
 -- Marks
 map({ 'n' }, '<leader>m',

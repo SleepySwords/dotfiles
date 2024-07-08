@@ -14,16 +14,6 @@ local function set_ft_option(ft, option, value)
     })
 end
 
-vim.api.nvim_create_autocmd('TermOpen', {
-    group = group,
-    desc = 'set option terminal',
-    callback = function()
-        vim.opt_local["number"] = false
-        vim.opt_local["relativenumber"] = false
-        vim.opt_local["filetype"] = "terminal"
-    end,
-})
-
 -- Vim options setup
 set_ft_option('markdown', 'spell', true)
 set_ft_option('markdown', 'linebreak', true)
@@ -47,6 +37,7 @@ o.mouse = 'a'
 -- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
 o.guifont = 'Jetbrains Mono:h11'
+-- o.guifont = 'Firacode nerd font:h11'
 
 o.foldcolumn = '1'
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]

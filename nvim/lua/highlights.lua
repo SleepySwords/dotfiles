@@ -1,11 +1,5 @@
 -- Custom highlights
 
--- -- Highlights when yannking (y)
-vim.api.nvim_create_autocmd("TextYankPost", {
-    pattern = "*",
-    command = "silent! lua require'vim.highlight'.on_yank()"
-})
-
 vim.api.nvim_set_hl(0, 'InlaySurround', { fg = '#2d2b46' })
 
 local colour_util = require('colours')

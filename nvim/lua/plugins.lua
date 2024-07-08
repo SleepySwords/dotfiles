@@ -46,12 +46,12 @@ return {
     {
         'NeogitOrg/neogit',
         dependencies = {
-            "nvim-lua/plenary.nvim", -- required
+            "nvim-lua/plenary.nvim",  -- required
             "sindrets/diffview.nvim", -- optional - Diff integration
 
             -- Only one of these is needed, not both.
             "nvim-telescope/telescope.nvim", -- optional
-            "ibhagwan/fzf-lua",      -- optional
+            "ibhagwan/fzf-lua",              -- optional
         },
         config = true
     },
@@ -76,6 +76,15 @@ return {
             })
         end,
     },
+
+    -- {
+    --     'vague2k/huez.nvim',
+    --     branch = "stable",
+    --     event = "UIEnter",
+    --     config = function()
+    --         require("huez").setup({})
+    --     end,
+    -- },
 
     -- Could just use ftplugins instead /shrug
     'tpope/vim-sleuth',

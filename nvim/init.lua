@@ -20,3 +20,4 @@ require('lazy').setup(
     { ui = { backdrop = 100 } })
 require('settings')
 require('highlights')
+require('autocmds')
