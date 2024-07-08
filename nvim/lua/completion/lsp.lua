@@ -1,4 +1,5 @@
 require('completion.lsp_sources').setup()
+local diagnostic_signs = require("completion.diagnostic_signs");
 
 local signature_config = {
     log_path = vim.fn.expand('$HOME') .. '/tmp/sig.log',
@@ -20,22 +21,25 @@ require('lsp_signature').setup(signature_config)
 
 -- Shows error diagnostics on cursor hold + specifies a dot for the inlay hint
 vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float({focusable=false})', true)
-vim.lsp.handlers['textDocument/publishDiagnostics'] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = {
-            prefix = '●',
-        },
-        signs = true,
-        underline = true,
-        update_in_insert = false,
-    })
 
--- Define the signs for the left number bar
-local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-for type, icon in pairs(signs) do
-    local hl = 'DiagnosticSign' .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+local diagnostic_highlights = {
+    [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+    [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+    [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+    [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo'
+}
+
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = '●',
+    },
+    signs = {
+        text = diagnostic_signs,
+        numhl = diagnostic_highlights,
+    },
+    underline = true,
+    update_in_insert = false,
+});
 
 -- vim.api.nvim_create_autocmd('LspAttach', {
 --     group = vim.api.nvim_create_augroup('InlayHintsAttach', {}),

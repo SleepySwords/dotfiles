@@ -401,6 +401,7 @@ map({ 'n', 'x', 'v' }, 'gh', '^', opts)
 
 map({ 'n' }, 'ZZ', '<cmd>qa<CR>', opts)
 
+
 -- Marks
 map({ 'n' }, '<leader>m',
     '<cmd>lua require("telescope.builtin").marks(vim.g.telescope_theme)<CR>'

@@ -8,6 +8,8 @@ local navic = require('nvim-navic')
 
 local conditions = require('heirline.conditions')
 
+local diagnostic_signs = require("completion.diagnostic_signs");
+
 local colour_util = require('colours')
 local colour_to_hex = colour_util.tuple_to_hex
 local shade = colour_util.shade
@@ -382,10 +384,10 @@ function M.setup()
             },
         },
         static = {
-            error_sign = vim.fn.sign_getdefined('DiagnosticSignError')[1].text,
-            warn_sign = vim.fn.sign_getdefined('DiagnosticSignWarn')[1].text,
-            hint_sign = vim.fn.sign_getdefined('DiagnosticSignHint')[1].text,
-            info_sign = vim.fn.sign_getdefined('DiagnosticSignInfo')[1].text,
+            error_sign = diagnostic_signs[vim.diagnostic.severity.ERROR],
+            warn_sign  = diagnostic_signs[vim.diagnostic.severity.WARN],
+            hint_sign  = diagnostic_signs[vim.diagnostic.severity.HINT],
+            info_sign  = diagnostic_signs[vim.diagnostic.severity.INFO],
         },
         condition = function()
             return vim.tbl_count(vim.lsp.get_clients({ bufnr = 0 })) ~= 0

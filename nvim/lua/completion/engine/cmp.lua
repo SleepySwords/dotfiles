@@ -21,16 +21,17 @@ cmp.setup({
         },
     },
     formatting = {
+        expandable_indicator = false,
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
+            local menu_item = vim_item.kind
             local kind = require('lspkind').cmp_format({
-                mode = 'symbol_text',
-                preset = 'codicons',
+                mode = 'symbol',
+                preset = 'default',
                 maxwidth = 50,
             })(entry, vim_item)
-            local strings = vim.split(kind.kind, '%s', { trimempty = true })
-            kind.kind = ' ' .. (strings[1] or '') .. ' '
-            kind.menu = '    (' .. (strings[2] or '') .. ')'
+            kind.kind = ' ' .. kind.kind .. ' '
+            kind.menu = '    ' .. menu_item
 
             return kind
         end,
