@@ -64,7 +64,7 @@ map_desc(
 )
 map_desc(
     { 'n' },
-    '<space>D',
+    '<leader>TD',
     '<cmd>lua vim.lsp.buf.type_definition()<CR>',
     'LSP Type Definition',
     opts
@@ -81,7 +81,7 @@ map_desc(
     { 'n' },
     '<space>e',
     '<cmd>lua vim.diagnostic.open_float()<CR>',
-    'LSP Open Diagnostics',
+    'LSP Open Diagnostics float',
     opts
 )
 map_desc({ 'n' }, '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', 'LSP Previous Diagnostic', opts)
@@ -108,7 +108,7 @@ map_desc(
 )
 map_desc(
     { 'n' },
-    '<leader>xd',
+    '<leader>cd',
     '<cmd>Trouble diagnostics toggle<CR>',
     'Trouble document diagnostics',
     opts
@@ -198,9 +198,16 @@ map_desc(
 )
 map_desc(
     { 'n' },
-    '<leader>G',
+    '<leader>TD',
     '<cmd>lua require("telescope.builtin").diagnostics(vim.g.telescope_theme)<cr>',
-    'Open diagnostics',
+    'Open telescope diagnostics',
+    { noremap = true }
+)
+map_desc(
+    { 'n' },
+    '<leader>TR',
+    '<cmd>lua require("telescope.builtin").lsp_references(vim.g.telescope_theme)<cr>',
+    'Open telescope references',
     { noremap = true }
 )
 map_desc(
@@ -237,35 +244,35 @@ map_desc(
 
 map_desc(
     { 'n' },
-    '<leader>Ns',
+    '<leader>cts',
     '<cmd>Neotest summary<CR>',
     'Open summary test window',
     { noremap = true }
 )
 map_desc(
     { 'n' },
-    '<leader>No',
+    '<leader>cto',
     '<cmd>Neotest output<CR>',
     'Open output test window',
     { noremap = true }
 )
 map_desc(
     { 'n' },
-    '<leader>Nd',
+    '<leader>ctd',
     '<cmd>lua require("neotest").run.run({strategy = "dap"})<CR>',
     'Run test while attaching debug',
     { noremap = true }
 )
 map_desc(
     { 'n' },
-    '<leader>NR',
+    '<leader>ctR',
     '<cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>',
     'Run all tests',
     { noremap = true }
 )
 map_desc(
     { 'n' },
-    '<leader>Nr',
+    '<leader>ctr',
     '<cmd>lua require("neotest").run.run()<CR>',
     'Run current test',
     { noremap = true }
@@ -302,7 +309,7 @@ map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>')
 
 -- Debugging
 map({ 'n' }, '<leader>dc', '<cmd>lua require"dap".continue()<CR>')
-map({ 'n' }, '<leader>dn', '<cmd>lua require"dap".step_over()<CR>')
+map({ 'n' }, '<leader>dn', '<cmd>lua require"dap".step_over()/<CR>')
 map({ 'n' }, '<leader>di', '<cmd>lua require"dap".step_into()<CR>')
 map({ 'n' }, '<leader>do', '<cmd>lua require"dap".step_out()<CR>')
 map({ 'n' }, '<leader>db', '<cmd>lua require"dap".toggle_breakpoint()<CR>')
@@ -363,6 +370,8 @@ map({ 'n' }, '<leader>Th', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap
 map({ 'n' }, '<leader>wo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
 map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 
+map({ 'n' }, '<leader>Tn', '<cmd>tab split<cr>')
+
 -- Be able to move chunks of code
 map({ 'n' }, '<C-j>', '<cmd>:m .+1<CR>==', opts)
 map({ 'n' }, '<C-k>', '<cmd>:m .-2<CR>==', opts)
@@ -400,7 +409,8 @@ map({ 'n', 'x', 'v' }, 'gl', '$', opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', opts)
 
 map({ 'n' }, 'ZZ', '<cmd>qa<CR>', opts)
-
+map_desc({ 'n' }, '<leader>r', '<cmd>CompilerOpen<CR>', 'Open compiler', opts)
+map_desc({ 'n' }, '<leader>cct', '<cmd>CompilerToggleResults<CR>', 'Toggle compiler window', opts)
 
 -- Marks
 map({ 'n' }, '<leader>m',

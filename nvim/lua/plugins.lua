@@ -71,7 +71,7 @@ return {
                 }
             })
 
-            vim.api.nvim_set_keymap("n", "<leader>cr", "", {
+            vim.api.nvim_set_keymap("n", "<leader>cr", "Change function", {
                 callback = change_function.change_function,
             })
         end,

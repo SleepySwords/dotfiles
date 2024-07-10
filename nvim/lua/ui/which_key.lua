@@ -21,13 +21,14 @@ function M.setup()
         -- triggers = ''
     })
     require('which-key').register({
-        ['<leader>w'] = { name = 'LSP Workspaces' },
-        ['<leader>x'] = { name = 'Trouble' },
-        ['<leader>a'] = { name = 'Test/Tree' },
-        ['<leader>d'] = { name = 'Debugger' },
-        ['<leader>h'] = { name = 'Help Tags/Highlights' },
-        ['<leader>o'] = { name = 'Org mode' },
-        ['<leader>c'] = { name = 'LSP Code Actions/Format + Colourscheme' },
+        ['<leader>w']  = { name = 'LSP Workspaces' },
+        ['<leader>x']  = { name = 'Trouble' },
+        ['<leader>a']  = { name = 'Test/Tree' },
+        ['<leader>d']  = { name = 'Debugger' },
+        ['<leader>h']  = { name = 'Help Tags/Highlights' },
+        ['<leader>o']  = { name = 'Org mode' },
+        ['<leader>c']  = { name = 'LSP Code Actions/Format + Colourscheme' },
+        ['<leader>ct'] = { name = 'Testing' },
     })
 end
 
