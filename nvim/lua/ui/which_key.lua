@@ -4,31 +4,35 @@ function M.setup()
     -- Cursor is really off, but oh welll
     vim.o.timeoutlen = 500
     require('which-key').setup({
-        window = {
-            position = 'bottom',
-            border = 'solid',
-            margin = { 1, 0, 1, 0.7 },
-            padding = { 1, 1, 1, 1 },
+        preset = "helix",
+        win = {
+            border = "none",
+            padding = { 1, 3 },
+            height = { min = 4, max = 20 },
+            width = 60,
+            title = true,
+            title_pos = "left",
+            -- title_pos = "center",
         },
-        -- show_help = false,
-        layout = {
-            height = { min = 10, max = 15 }, -- min and max width of the columns
+        spec = {
+            { '<leader>w',  group = 'LSP Workspaces' },
+            { '<leader>x',  group = 'Trouble' },
+            { '<leader>a',  group = 'Test/Tree' },
+            { '<leader>d',  group = 'Debugger' },
+            { '<leader>h',  group = 'Help Tags/Highlights' },
+            { '<leader>o',  group = 'Org mode' },
+            { '<leader>c',  group = 'Code actions + Colourscheme' },
+            { '<leader>ct', group = 'Testing' },
         },
-        popup_mappings = {
+        icons = {
+            mappings = false
+        },
+        delay = 0,
+        keys = {
             scroll_down = '<c-d>', -- binding to scroll down inside the popup
-            scroll_up = '<c-u>', -- binding to scroll up inside the popup
+            scroll_up = '<c-u>',   -- binding to scroll up inside the popup
         },
         -- triggers = ''
-    })
-    require('which-key').register({
-        ['<leader>w']  = { name = 'LSP Workspaces' },
-        ['<leader>x']  = { name = 'Trouble' },
-        ['<leader>a']  = { name = 'Test/Tree' },
-        ['<leader>d']  = { name = 'Debugger' },
-        ['<leader>h']  = { name = 'Help Tags/Highlights' },
-        ['<leader>o']  = { name = 'Org mode' },
-        ['<leader>c']  = { name = 'LSP Code Actions/Format + Colourscheme' },
-        ['<leader>ct'] = { name = 'Testing' },
     })
 end
 

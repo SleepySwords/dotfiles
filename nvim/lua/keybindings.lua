@@ -43,24 +43,40 @@ map_desc(
 )
 map_desc(
     { 'n' },
-    '<space>wa',
+    '<leader>cwa',
     '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
     'LSP Add Workspace',
     opts
 )
 map_desc(
     { 'n' },
-    '<space>wr',
+    '<leader>cwr',
     '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
     'LSP Remove Workspace',
     opts
 )
 map_desc(
     { 'n' },
-    '<space>wl',
+    '<leader>cwl',
     '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
     'LSP List Workspaces',
     opts
+)
+map_desc(
+    { 'n' },
+    '<leader>w',
+    '',
+    'Which-key window',
+    {
+        noremap = true,
+        silent = true,
+        callback = function()
+            require("which-key").show({
+                keys = "<c-w>",
+                loop = true, -- this will keep the popup open until you hit <esc>
+            })
+        end
+    }
 )
 map_desc(
     { 'n' },
@@ -367,8 +383,6 @@ map({ 'n' }, '<leader>Tt', '<cmd>ToggleTerm<CR>', { noremap = true })
 map({ 'n' }, '<leader>Tf', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 map({ 'n' }, '<leader>Tv', '<cmd>ToggleTerm direction=vertical<CR>', { noremap = true })
 map({ 'n' }, '<leader>Th', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap = true })
-map({ 'n' }, '<leader>wo', '<cmd>lua _floatwindow_toggle()<CR>', { noremap = true })
-map({ 'n' }, '<leader>wp', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 
 map({ 'n' }, '<leader>Tn', '<cmd>tab split<cr>')
 
@@ -409,7 +423,7 @@ map({ 'n', 'x', 'v' }, 'gl', '$', opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', opts)
 
 map({ 'n' }, 'ZZ', '<cmd>qa<CR>', opts)
-map_desc({ 'n' }, '<leader>r', '<cmd>CompilerOpen<CR>', 'Open compiler', opts)
+map_desc({ 'n' }, '<leader>ccr', '<cmd>CompilerOpen<CR>', 'Open compiler', opts)
 map_desc({ 'n' }, '<leader>cct', '<cmd>CompilerToggleResults<CR>', 'Toggle compiler window', opts)
 
 -- Marks
