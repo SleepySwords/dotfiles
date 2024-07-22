@@ -15,7 +15,6 @@ function M.setup()
             -- title_pos = "center",
         },
         spec = {
-            { '<leader>w',  group = 'LSP Workspaces' },
             { '<leader>x',  group = 'Trouble' },
             { '<leader>a',  group = 'Test/Tree' },
             { '<leader>d',  group = 'Debugger' },
@@ -23,6 +22,7 @@ function M.setup()
             { '<leader>o',  group = 'Org mode' },
             { '<leader>c',  group = 'Code actions + Colourscheme' },
             { '<leader>ct', group = 'Testing' },
+            { '<leader>cw', group = 'LSP Workspaces' },
         },
         icons = {
             mappings = false

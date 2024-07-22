@@ -59,9 +59,8 @@ return {
     },
     { -- The task runner we use
         "stevearc/overseer.nvim",
-        commit = "6271cab7ccc4ca840faa93f54440ffae3a3918bd",
-        cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
         opts = {
+            templates = { "builtin", "cpp.build", "cpp.run", "c.run", "c.build" },
             task_list = {
                 direction = "bottom",
                 min_height = 15,

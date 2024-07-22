@@ -423,8 +423,10 @@ map({ 'n', 'x', 'v' }, 'gl', '$', opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', opts)
 
 map({ 'n' }, 'ZZ', '<cmd>qa<CR>', opts)
-map_desc({ 'n' }, '<leader>ccr', '<cmd>CompilerOpen<CR>', 'Open compiler', opts)
-map_desc({ 'n' }, '<leader>cct', '<cmd>CompilerToggleResults<CR>', 'Toggle compiler window', opts)
+map_desc({ 'n' }, '<leader>cor', '<cmd>OverseerRun<CR>', 'Overseer run', opts)
+map_desc({ 'n' }, '<leader>coa', '<cmd>OverseerQuickAction<CR>', 'Overseer quick actions', opts)
+map_desc({ 'n' }, '<leader>coc', '<cmd>CompilerOpen<CR>', 'Open compiler', opts)
+map_desc({ 'n' }, '<leader>cot', '<cmd>OverseerToggle<CR>', 'Toggle Overseer window', opts)
 
 -- Marks
 map({ 'n' }, '<leader>m',
