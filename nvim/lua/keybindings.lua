@@ -33,7 +33,13 @@ local opts = { noremap = true, silent = true }
 map_desc({ 'n' }, 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', 'LSP Declaration', opts)
 map_desc({ 'n' }, 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', 'LSP Definition', opts)
 map_desc({ 'n' }, 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', 'LSP Implementation', opts)
-map_desc({ 'n' }, 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', 'LSP Rename', opts)
+
+-- FIXME: I need to decide if i like the default keybinds or not (grn)
+-- they can be removed see :help grn
+-- map_desc({ 'n' }, 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', 'LSP Rename', opts)
+map_desc({ 'n' }, 'grr', '<cmd>Trouble lsp_references toggle follow=true focus=true auto_refresh=false<CR>',
+    'LSP References', opts) -- lua vim.lsp.buf.references()
+
 map_desc(
     { 'n' },
     '<leader>k',
@@ -112,8 +118,6 @@ map_desc(
 )
 map_desc({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', 'LSP Hover')
 
-map_desc({ 'n' }, 'gR', '<cmd>Trouble lsp_references toggle follow=true focus=true auto_refresh=false<CR>',
-    'LSP References', opts) -- lua vim.lsp.buf.references()
 map_desc({ 'n' }, '<leader>xx', '<cmd>Trouble toggle<CR>', 'Trouble Toggle', opts)
 map_desc(
     { 'n' },

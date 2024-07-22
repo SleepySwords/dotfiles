@@ -21,6 +21,7 @@ function M.setup()
             { '<leader>h',  group = 'Help Tags/Highlights' },
             { '<leader>o',  group = 'Org mode' },
             { '<leader>c',  group = 'Code actions + Colourscheme' },
+            { '<leader>co', group = 'Overseer (code runner)' },
             { '<leader>ct', group = 'Testing' },
             { '<leader>cw', group = 'LSP Workspaces' },
         },
