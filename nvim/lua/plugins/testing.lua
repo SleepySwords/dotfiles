@@ -2,6 +2,8 @@
 return {
     {
         'nvim-neotest/neotest',
+        cmd = "Neotest",
+        lazy = true,
         dependencies = {
             "nvim-neotest/nvim-nio",
             'nvim-lua/plenary.nvim',
@@ -47,6 +49,7 @@ return {
     },
     {
         'nvim-neotest/neotest-vim-test',
+        lazy = true,
         dependencies = {
             'vim-test/vim-test',
         },
@@ -59,6 +62,7 @@ return {
     },
     { -- The task runner we use
         "stevearc/overseer.nvim",
+        cmd = { "OverseerRun", "OverseerQuickAction", "OverseerToggle" },
         opts = {
             templates = { "builtin", "cpp.build", "cpp.run", "c.run", "c.build" },
             task_list = {

@@ -18,6 +18,7 @@ return {
     {
         'nvim-tree/nvim-tree.lua',
         dependencies = { 'nvim-tree/nvim-web-devicons' }, --  for file icons
+        cmd = "NvimTreeToggle",
         config = function()
             require('navigation.tree').setup()
         end,
@@ -29,6 +30,7 @@ return {
     -- Git integration
     {
         'pwntester/octo.nvim',
+        cmd = "Octo",
         dependencies = {
             'nvim-lua/plenary.nvim',
             'nvim-tree/nvim-web-devicons',
@@ -45,6 +47,7 @@ return {
     },
     {
         'NeogitOrg/neogit',
+        cmd = { "Neogit", "NeogitResetState" },
         dependencies = {
             "nvim-lua/plenary.nvim",  -- required
             "sindrets/diffview.nvim", -- optional - Diff integration
@@ -73,18 +76,10 @@ return {
 
             vim.api.nvim_set_keymap("n", "<leader>cr", "Change function", {
                 callback = change_function.change_function,
+                desc = "Change function signature"
             })
         end,
     },
-
-    -- {
-    --     'vague2k/huez.nvim',
-    --     branch = "stable",
-    --     event = "UIEnter",
-    --     config = function()
-    --         require("huez").setup({})
-    --     end,
-    -- },
 
     -- Could just use ftplugins instead /shrug
     'tpope/vim-sleuth',
@@ -102,6 +97,8 @@ return {
 -- Fidget.nvim
 -- noice.nvim (config at: ui.noice)
 -- giusgad/pets.nvim (no cat)
+-- huez.nvim
+--
 --
 -- mfussenegger/nvim-lint (never used)
 -- simrat39/symbols-outline.nvim (never used)

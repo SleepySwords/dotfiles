@@ -2,6 +2,7 @@ return {
     --  Debugging
     {
         'mfussenegger/nvim-dap',
+        lazy = true,
         dependencies = {
             'nvim-telescope/telescope-dap.nvim',
             'theHamsta/nvim-dap-virtual-text',
@@ -12,6 +13,7 @@ return {
     },
     {
         'rcarriga/nvim-dap-ui',
+        lazy = true,
         dependencies = {
             "nvim-neotest/nvim-nio",
             'mfussenegger/nvim-dap',

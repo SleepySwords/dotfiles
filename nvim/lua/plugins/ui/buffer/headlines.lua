@@ -1,6 +1,8 @@
 return {
     {
         "lukas-reineke/headlines.nvim",
+        ft = "markdown",
+        lazy = true,
         dependencies = "nvim-treesitter/nvim-treesitter",
         config = {
             markdown = {
