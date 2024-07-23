@@ -1,6 +1,7 @@
 return {
-    --  Sensible default
-    'tpope/vim-sensible',
+    --  Sensible default, that are no longer required (bless neovim)
+    --  Thanks tpope for providing these defaults that I have used for many years!
+    -- 'tpope/vim-sensible',
 
     'mbbill/undotree',
 

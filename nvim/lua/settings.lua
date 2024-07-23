@@ -22,20 +22,17 @@ o.compatible = false
 o.nu = true
 o.rnu = true
 o.completeopt = 'menuone,noinsert,noselect'
+o.omnifunc = 'v:lua.vim.lsp.omnifunc'
 o.shortmess = o.shortmess .. 'c'
-o.autoindent = true
-o.smartindent = true
-o.cmdheight = 1
-o.updatetime = 500
 o.signcolumn = 'yes'
 o.clipboard = 'unnamedplus'
-o.showmatch = true
-o.showtabline = 3
-o.termguicolors = true
-o.omnifunc = 'v:lua.vim.lsp.omnifunc'
-o.mouse = 'a'
--- https://superuser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
+
+-- https://supo.updatetimeeruser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
+o.ignorecase = true
+o.showmatch = true
+
+o.termguicolors = true
 o.guifont = 'Jetbrains Mono:h11'
 -- o.guifont = 'Firacode nerd font:h11'
 
@@ -45,16 +42,27 @@ o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease
 o.foldlevelstart = 99
 o.foldenable = true
 
-o.laststatus = 3
+o.mouse = 'a'
 o.mousemodel = 'extend'
-o.ignorecase = true
+
+o.laststatus = 3
+o.showtabline = 3
+
 o.conceallevel = 3
+o.cmdheight = 1
+o.scrolloff = 1
+o.sidescrolloff = 2
 
 -- Formatting
 o.shiftwidth = 4
 o.expandtab = true
 o.tabstop = 4
+o.softtabstop = 4
+o.autoindent = true
+o.smartindent = true
 
+o.listchars = [[tab:  ,trail: ,extends:>,precedes:<,nbsp:+,]]
+o.list = true
 
 local g = vim.g
 
