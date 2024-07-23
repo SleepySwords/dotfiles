@@ -7,7 +7,7 @@ return {
         local outfile = vim.fn.expand("%:p:r") .. ".out"
         return {
             cmd = { "gcc" },
-            args = { file, "-o", outfile },
+            args = { file, "-o", outfile, "-g" },
             components = { { "on_output_quickfix" }, "default" },
         }
     end,

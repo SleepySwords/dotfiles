@@ -329,7 +329,7 @@ map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>')
 
 -- Debugging
 map({ 'n' }, '<leader>dc', '<cmd>lua require"dap".continue()<CR>')
-map({ 'n' }, '<leader>dn', '<cmd>lua require"dap".step_over()/<CR>')
+map({ 'n' }, '<leader>dn', '<cmd>lua require"dap".step_over()<CR>')
 map({ 'n' }, '<leader>di', '<cmd>lua require"dap".step_into()<CR>')
 map({ 'n' }, '<leader>do', '<cmd>lua require"dap".step_out()<CR>')
 map({ 'n' }, '<leader>db', '<cmd>lua require"dap".toggle_breakpoint()<CR>')
@@ -440,9 +440,11 @@ map({ 'n' }, 'dm', 'hi', {
     noremap = true,
     silent = true,
     callback = function()
-        -- TODO: consider using vim.api.input instead (prettier box)
-        local mark = vim.fn.input('Mark to delete: ');
-        vim.cmd([[delmarks ]] .. mark)
+        vim.ui.input({ prompt = 'Mark to delete' }, function(mark)
+            if mark then
+                vim.cmd([[delmarks ]] .. mark)
+            end
+        end);
     end
 })
 
