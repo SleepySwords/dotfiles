@@ -1,5 +1,5 @@
 -- Vim options
-local o = vim.o
+local o = vim.opt
 
 local group = vim.api.nvim_create_augroup('FtOptions', {})
 
@@ -23,8 +23,9 @@ o.nu = true
 o.rnu = true
 o.completeopt = 'menuone,noinsert,noselect'
 o.omnifunc = 'v:lua.vim.lsp.omnifunc'
-o.shortmess = o.shortmess .. 'c'
+table.insert(o.shortmess, 'c')
 o.signcolumn = 'yes'
+o.updatetime = 500
 o.clipboard = 'unnamedplus'
 
 -- https://supo.updatetimeeruser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
@@ -37,7 +38,7 @@ o.guifont = 'Jetbrains Mono:h11'
 -- o.guifont = 'Firacode nerd font:h11'
 
 o.foldcolumn = '1'
-o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+o.fillchars = { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
 o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true
@@ -61,7 +62,7 @@ o.softtabstop = 4
 o.autoindent = true
 o.smartindent = true
 
-o.listchars = [[tab:  ,trail: ,extends:>,precedes:<,nbsp:+,]]
+o.listchars = { tab = '  ', trail = ' ', extends = '>', precedes = '<', nbsp = '+', }
 o.list = true
 
 local g = vim.g
@@ -83,8 +84,6 @@ g.neon_italic_function = true
 g.neon_transparent = true
 g.edge_diagnostic_virtual_text = 'colored'
 
--- vim.cmd([[colorscheme catppuccin-mocha]])
-vim.cmd([[colorscheme catppuccin-latte]])
 g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
 if vim.g.neovide then
@@ -92,12 +91,15 @@ if vim.g.neovide then
     -- vim.cmd([[colorscheme catppuccin-latte]])
     -- vim.cmd([[colorscheme industry]])
     -- vim.cmd([[colorscheme duskfox]])
-    -- vim.cmd([[colorscheme edge]])
+    vim.cmd([[colorscheme edge]])
     -- vim.cmd([[colorscheme tokyonight-moon]])
     vim.g.neovide_floating_blur_amount_x = 0.0
     vim.g.neovide_floating_blur_amount_y = 0.0
     vim.g.neovide_padding_top = 5
     vim.g.neovide_padding_bottom = 5
+else
+    -- vim.cmd([[colorscheme catppuccin-mocha]])
+    vim.cmd([[colorscheme catppuccin-latte]])
 end
 -- Neovide
 -- g.neovide_fullscreen = true

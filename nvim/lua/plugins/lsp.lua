@@ -19,11 +19,8 @@ return {
     'williamboman/mason.nvim',
     {
         'williamboman/mason-lspconfig.nvim',
-        dependencies = {
-            'williamboman/mason.nvim',
-        },
         config = function()
-            require('completion.mason').setup()
+            require('mason').setup()
         end,
     },
     -- Be able to add linters as formaters.
