@@ -25,6 +25,6 @@ require('lazy').setup(
         { import = 'plugins.ui.buffer' }
     },
     { ui = { backdrop = 100 } })
+require('autocmds')
 require('settings')
 require('highlights')
-require('autocmds')

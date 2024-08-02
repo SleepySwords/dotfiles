@@ -10,14 +10,14 @@ local lightness = colour_util.lightness
 local get_colour_tuple = colour_util.get_colour_tuple
 
 
-local inlay_bg = contrast(get_colour_tuple("normal", "bg"), 0.95)
+local inlay_bg = contrast(get_colour_tuple("normal", "bg"), 0.98)
 local inlay_fg = contrast(get_colour_tuple("normal", "bg"), 0.50)
 
 vim.api.nvim_set_hl(
     0,
     'LspInlayHint',
-    -- { bg = tuple_to_hex(inlay_bg), fg = tuple_to_hex(inlay_fg) }
-    { fg = tuple_to_hex(inlay_fg), italic = true }
+    { bg = tuple_to_hex(inlay_bg), fg = tuple_to_hex(inlay_fg), italic = true }
+    -- { fg = tuple_to_hex(inlay_fg), italic = true }
 )
 
 vim.api.nvim_set_hl(0, 'Folded', {})
