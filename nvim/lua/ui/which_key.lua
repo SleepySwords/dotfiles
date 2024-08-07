@@ -16,7 +16,7 @@ function M.setup()
         },
         spec = {
             { '<leader>x',  group = 'Trouble' },
-            { '<leader>a',  group = 'Test/Tree' },
+            { '<leader>a',  group = 'Sessions/Grep' },
             { '<leader>d',  group = 'Debugger' },
             { '<leader>h',  group = 'Help Tags/Highlights' },
             { '<leader>o',  group = 'Org mode' },

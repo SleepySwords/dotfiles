@@ -1,13 +1,29 @@
 local colours = require "colours"
 
 return {
-    'sainnhe/edge',
+    {
+        'sainnhe/edge',
+        init = function()
+            vim.g.edge_style = 'aura'
+            vim.g.edge_endable_italic = 1
+            vim.g.edge_disable_italic_comment = 1
+            vim.g.edge_diagnostic_virtual_text = 'colored'
+        end
+    },
     'morhetz/gruvbox',
     { 'dracula/vim',   name = 'dracula' },
     { 'sonph/onehalf', rtp = 'vim' },
     'matsuuu/pinkmare',
     'lifepillar/vim-solarized8',
-    'sainnhe/sonokai',
+    {
+        'sainnhe/sonokai',
+        init = function()
+            vim.g.sonokai_style = 'shusia'
+            vim.g.sonokai_enable_italic = 1
+            vim.g.sonokai_disable_italic_comment = 1
+            vim.g.sonokai_diagnostic_virtual_text = 'colour_background'
+        end
+    },
     {
         'folke/tokyonight.nvim',
         config = function()
@@ -33,9 +49,27 @@ return {
             vim.cmd([[highlight! link FloatBorder NormalFloat]])
         end,
     },
+    {
+        "0xstepit/flow.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {
+            fluo_color = "pink",
+            mode = "normal",
+            aggressive_spell = false,
+        },
+    },
     'EdenEast/nightfox.nvim',
     'joshdick/onedark.vim',
-    'rafamadriz/neon',
+    {
+        'rafamadriz/neon',
+        init = function()
+            vim.g.neon_style = 'default'
+            vim.g.neon_italic_keyword = true
+            vim.g.neon_italic_function = true
+            vim.g.neon_transparent = true
+        end
+    },
     'tanvirtin/monokai.nvim',
     {
         'catppuccin/nvim',

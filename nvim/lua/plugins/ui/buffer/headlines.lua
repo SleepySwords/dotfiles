@@ -22,15 +22,16 @@ return {
         }
     },
 
-    -- {
-    --     "OXY2DEV/markview.nvim",
-
-    --     dependencies = {
-    --         -- You may not need this if you don't lazy load
-    --         -- Or if the parsers are in your $RUNTIMEPATH
-    --         "nvim-treesitter/nvim-treesitter",
-
-    --         "nvim-tree/nvim-web-devicons"
-    --     },
-    -- }
+    {
+        "OXY2DEV/markview.nvim",
+        enabled = false,
+        opts = {
+            modes = { "n", "i", "c" },
+            hybrid_modes = { "n", "i" },
+        },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons"
+        },
+    }
 };

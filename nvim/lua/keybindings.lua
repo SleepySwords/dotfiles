@@ -448,6 +448,9 @@ map({ 'n' }, 'dm', 'hi', {
     end
 })
 
+map({ 'n' }, "<leader>al", '<cmd>SessionSearch<CR>', { desc = 'Session load' })
+map({ 'n' }, "<leader>ad", '<cmd>Autosession delete<CR>', { desc = 'Session delete' })
+
 -- Harpoon
 -- map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)
 -- map({ 'n' }, '<leader>mn', '<cmd>lua require("harpoon.ui").nav_next()<cr>', opts)

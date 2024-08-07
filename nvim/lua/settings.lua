@@ -64,58 +64,37 @@ o.smartindent = true
 
 o.listchars = { tab = '  ', trail = ' ', extends = '>', precedes = '<', nbsp = '+', }
 o.list = true
+o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 local g = vim.g
+g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
 -- Global settings
 
 -- Theme settings
 -- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time)
-g.edge_style = 'aura'
-g.edge_endable_italic = 1
-g.edge_disable_italic_comment = 1
-g.sonokai_style = 'shusia'
-g.sonokai_enable_italic = 1
-g.sonokai_disable_italic_comment = 1
-g.sonokai_diagnostic_virtual_text = 'colour_background'
-g.neon_style = 'default'
-g.neon_italic_keyword = true
-g.neon_italic_function = true
-g.neon_transparent = true
-g.edge_diagnostic_virtual_text = 'colored'
 
-g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
 if vim.g.neovide then
     -- vim.cmd([[colorscheme carbonfox]])
     -- vim.cmd([[colorscheme catppuccin-latte]])
     -- vim.cmd([[colorscheme industry]])
     -- vim.cmd([[colorscheme duskfox]])
-    vim.cmd([[colorscheme edge]])
     -- vim.cmd([[colorscheme tokyonight-moon]])
-    vim.g.neovide_floating_blur_amount_x = 0.0
-    vim.g.neovide_floating_blur_amount_y = 0.0
+    vim.cmd([[colorscheme edge]])
+
+    vim.g.neovide_floating_blur_amount_x = 2.0
+    vim.g.neovide_floating_blur_amount_y = 2.0
+    vim.g.neovide_floating_shadow = true
     vim.g.neovide_padding_top = 5
     vim.g.neovide_padding_bottom = 5
+
+    vim.o.winblend = 30
 else
     -- vim.cmd([[colorscheme catppuccin-mocha]])
     vim.cmd([[colorscheme catppuccin-latte]])
+    -- vim.cmd "colorscheme nightfox"
 end
--- Neovide
--- g.neovide_fullscreen = true
--- g.neovide_transparency = 0.9
-
--- Omnisharp settings
-g.OmniSharp_server_use_mono = 1
-g.asyncomplete_auto_popup = 1
-g.asyncomplete_auto_completeopt = 0
-g.asyncomplete_force_refresh_on_context_changed = 1
-g.OmniSharp_server_stdio = 1
-g.OmniSharp_highlight_types = 2
-g.completion_matching_stategy_list = { 'exact', 'substring', 'fuzzy' }
-
-g.indent_blankline_show_first_indent_level = false
-g.Illuminate_ftblacklist = { 'NvimTree', 'dashboard' }
 
 g.discord = false
 g.indicator_ok = ''

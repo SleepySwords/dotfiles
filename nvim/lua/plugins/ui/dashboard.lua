@@ -21,6 +21,18 @@ return {
                         action = 'Telescope find_files',
                         key = 'f',
                     },
+                    {
+                        desc = ' Autosession load',
+                        group = '@include',
+                        action = 'Autosession search',
+                        key = 'l',
+                    },
+                    {
+                        desc = ' Autosession delete',
+                        group = 'diffRemoved',
+                        action = 'Autosession delete',
+                        key = 'd',
+                    },
                 },
             },
         })

@@ -75,9 +75,44 @@ return {
                 }
             })
 
+            -- FIXME: maybe fr
             vim.api.nvim_set_keymap("n", "<leader>cr", "Change function", {
                 callback = change_function.change_function,
                 desc = "Change function signature"
+            })
+        end,
+    },
+    {
+        "rmagatti/auto-session", -- Maybe replace with Shatur/neovim-session-manager or folke/persistence.nvim
+        lazy = false,
+        dependencies = {
+            'nvim-telescope/telescope.nvim',
+        },
+        config = function()
+            require('auto-session').setup({
+                auto_session_enabled = true,
+                auto_restore_enabled = false,
+                bypass_session_save_file_types = { 'dashboard' },
+                session_lens = {
+                    load_on_setup = true,
+                    theme_conf = { border = true },
+                    previewer = false,
+                },
+                pre_restore_cmds = {
+                    function()
+                        vim.g.has_setup_tabs = true
+                    end
+                },
+                post_restore_cmds = {
+                    function()
+                        local tab_names = { "Code", "Debug", "Terminal" }
+                        for _, v in ipairs(vim.api.nvim_list_tabpages()) do
+                            if tab_names[v] ~= nil then
+                                vim.api.nvim_tabpage_set_var(v, "name", tab_names[v]);
+                            end
+                        end
+                    end
+                }
             })
         end,
     },
