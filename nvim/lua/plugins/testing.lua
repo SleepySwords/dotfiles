@@ -54,17 +54,11 @@ return {
             'vim-test/vim-test',
         },
     },
-    { -- This plugin
-        "Zeioth/compiler.nvim",
-        cmd = { "CompilerOpen", "CompilerToggleResults", "CompilerRedo" },
-        dependencies = { "stevearc/overseer.nvim", "nvim-telescope/telescope.nvim" },
-        opts = {},
-    },
     { -- The task runner we use
         "stevearc/overseer.nvim",
         cmd = { "OverseerRun", "OverseerQuickAction", "OverseerToggle" },
         opts = {
-            templates = { "builtin", "cpp.build", "cpp.run", "c.run", "c.build" },
+            templates = { "builtin", "cpp.build", "cpp.run", "c.run", "c.build", "haskell.runhaskell" },
             task_list = {
                 direction = "bottom",
                 min_height = 15,
@@ -72,5 +66,15 @@ return {
                 default_detail = 1
             },
         },
+    },
+    {
+        'mistweaverco/kulala.nvim',
+        lazy = true,
+        config = function()
+            require('kulala').setup({
+                debug = false, -- Enable debug mode
+                default_view = "headers_body",
+            })
+        end
     },
 }

@@ -4,7 +4,7 @@ return {
         ft = "markdown",
         lazy = true,
         dependencies = "nvim-treesitter/nvim-treesitter",
-        config = {
+        opts = {
             markdown = {
                 bullets = {},
                 bullet_highlights = {
@@ -31,7 +31,7 @@ return {
         },
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons"
+            "echasnovski/mini.icons"
         },
     }
 };

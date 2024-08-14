@@ -18,11 +18,44 @@ return {
     --  File explorer
     {
         'nvim-tree/nvim-tree.lua',
-        dependencies = { 'nvim-tree/nvim-web-devicons' }, --  for file icons
+        dependencies = {
+            'echasnovski/mini.icons',
+            {
+                "antosha417/nvim-lsp-file-operations",
+                dependencies = {
+                    "nvim-lua/plenary.nvim",
+                },
+                config = function()
+                    require("lsp-file-operations").setup()
+                end,
+            }
+        },
         cmd = "NvimTreeToggle",
         config = function()
             require('navigation.tree').setup()
         end,
+    },
+    {
+        "echasnovski/mini.icons",
+        lazy = true,
+        opts = {},
+        init = function()
+            package.preload["nvim-web-devicons"] = function()
+                require("mini.icons").mock_nvim_web_devicons()
+                return package.loaded["nvim-web-devicons"]
+            end
+        end,
+    },
+    {
+        'stevearc/oil.nvim',
+        opts = {
+            view_options = {
+                show_hidden = true
+            }
+        },
+        -- Optional dependencies
+        dependencies = { { "echasnovski/mini.icons", opts = {} } },
+        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
     },
 
     -- Buffers
@@ -34,7 +67,7 @@ return {
         cmd = "Octo",
         dependencies = {
             'nvim-lua/plenary.nvim',
-            'nvim-tree/nvim-web-devicons',
+            'echasnovski/mini.icons',
         },
         config = function()
             require('octo').setup()
@@ -59,6 +92,49 @@ return {
         },
         config = true
     },
+    {
+        'isakbm/gitgraph.nvim',
+        dependencies = { 'sindrets/diffview.nvim' },
+        opts = {
+            symbols = {
+                merge_commit = '',
+                commit = '',
+                merge_commit_end = '',
+                commit_end = '',
+
+                -- Advanced symbols
+                GVER = '',
+                GHOR = '',
+                GCLD = '',
+                GCRD = '╭',
+                GCLU = '',
+                GCRU = '',
+                GLRU = '',
+                GLRD = '',
+                GLUD = '',
+                GRUD = '',
+                GFORKU = '',
+                GFORKD = '',
+                GRUDCD = '',
+                GRUDCU = '',
+                GLUDCD = '',
+                GLUDCU = '',
+                GLRDCL = '',
+                GLRDCR = '',
+                GLRUCL = '',
+                GLRUCR = '',
+                format = {
+                },
+                timestamp = '%H:%M:%S %d-%m-%Y',
+                fields = { 'hash', 'timestamp', 'author', 'branch_name', 'tag' },
+            },
+        },
+        init = function()
+            vim.keymap.set('n', '<leader>gl', function()
+                require('gitgraph').draw({}, { all = true, max_count = 5000 })
+            end, { desc = 'new git graph' })
+        end,
+    },
 
     -- Discord rich presence
     {
@@ -70,6 +146,11 @@ return {
         config = function()
             local change_function = require("change-function")
             change_function.setup({
+                queries = {
+                    go = "function_params",
+                    rust = "function_params",
+                    python = "function_params",
+                },
                 mappings = {
                     quit = 'a'
                 }
@@ -84,6 +165,7 @@ return {
     },
     {
         "rmagatti/auto-session", -- Maybe replace with Shatur/neovim-session-manager or folke/persistence.nvim
+        -- Perhaps even ahmedkhalf/project.nvim
         lazy = false,
         dependencies = {
             'nvim-telescope/telescope.nvim',
@@ -116,6 +198,34 @@ return {
             })
         end,
     },
+    -- {
+    --     "folke/noice.nvim",
+    --     event = "VeryLazy",
+    --     opts = {
+    --         lsp = {
+    --             signature = {
+    --                 enabled = false
+    --             }
+    --         },
+    --         cmdline = {
+    --             view = "cmdline"
+    --         }
+    --     },
+    --     config = function ()
+    --         vim.opt.cmdheight = 1
+    --     end,
+    --     dependencies = {
+    --         "MunifTanjim/nui.nvim",
+    --         "rcarriga/nvim-notify",
+    --     },
+    -- },
+    -- {
+    --     "rcarriga/nvim-notify",
+    --     opts = {
+    --         render = "simple",
+    --         stages = "fade"
+    --     }
+    -- },
 
     -- Could just use ftplugins instead /shrug
     'tpope/vim-sleuth',

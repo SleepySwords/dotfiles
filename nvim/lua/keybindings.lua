@@ -261,6 +261,7 @@ map_desc(
     'Find Current File In Tree',
     { noremap = true }
 )
+map_desc({ 'n' }, '<leader>o', '<cmd>Oil<CR>', 'Open File Tree', { noremap = true })
 
 map_desc(
     { 'n' },
@@ -324,6 +325,7 @@ map_desc(
 map_desc({ 'n' }, '<leader>n', '<cmd>bnext<CR>', 'Goto Next Buffer')
 map_desc({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', 'Goto Prev Buffer')
 map_desc({ 'n' }, '<leader>q', '<cmd>BufDel<CR>', 'Delete The Current Buffer')
+map_desc({ 'n' }, '<leader>Q', '<cmd>BufDelOthers<CR>', 'Delete All Other Buffers Than The Current')
 map({ 'n' }, '<leader>ls', '<cmd>ls<CR>')
 map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>')
 
@@ -450,6 +452,9 @@ map({ 'n' }, 'dm', 'hi', {
 
 map({ 'n' }, "<leader>al", '<cmd>SessionSearch<CR>', { desc = 'Session load' })
 map({ 'n' }, "<leader>ad", '<cmd>Autosession delete<CR>', { desc = 'Session delete' })
+
+-- q: is also useful...
+map({ 'n' }, '<leader>aqf', '<cmd>caddexpr expand("%") .. ":" .. line(".") ..  ":" .. col(".") .. ":" .. getline(".")<CR>', {desc = "Add current pos to quickfix"})
 
 -- Harpoon
 -- map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)

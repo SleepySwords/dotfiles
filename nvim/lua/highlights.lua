@@ -17,7 +17,7 @@ vim.api.nvim_set_hl(
     0,
     'LspInlayHint',
     { bg = tuple_to_hex(inlay_bg), fg = tuple_to_hex(inlay_fg), italic = true }
-    -- { fg = tuple_to_hex(inlay_fg), italic = true }
+-- { fg = tuple_to_hex(inlay_fg), italic = true }
 )
 
 vim.api.nvim_set_hl(0, 'Folded', {})
@@ -46,3 +46,27 @@ local visual_colour = is_light and "#555555" or "#FFFFFF"
 
 vim.api.nvim_set_hl(0, "Visual",
     { bg = vim.api.nvim_get_hl(0, { name = "Visual", link = false }).bg, fg = visual_colour, bold = true })
+
+
+vim.api.nvim_set_hl(0, 'GitGraphBranch1', { fg = '#458588' });
+vim.api.nvim_set_hl(0, 'GitGraphBranch2', { fg = '#b16286' });
+vim.api.nvim_set_hl(0, 'GitGraphBranch3', { fg = '#d79921' });
+vim.api.nvim_set_hl(0, 'GitGraphBranch4', { fg = '#98971a' });
+vim.api.nvim_set_hl(0, 'GitGraphBranch5', { fg = '#d5651c' });
+
+-- FIXME: This is theme specific, will probs remove
+--
+-- local highlights = {
+--     PmenuSel = { bg = '#282C34', fg = 'NONE' },
+--     Pmenu = { link = 'NormalFloat' },
+--
+--     CmpItemAbbrDeprecated = { fg = '#7E8294', bg = 'NONE', strikethrough = true },
+--     CmpItemAbbrMatch = { fg = '#82AAFF', bg = 'NONE', bold = true },
+--     CmpItemAbbrMatchFuzzy = { fg = '#82AAFF', bg = 'NONE', bold = true },
+--     CmpItemMenu = { fg = '#C792EA', bg = 'NONE', italic = true },
+--     CmpItemKindTypeParameter = { fg = '#D8EEEB', bg = '#58B5A8' },
+-- }
+--
+-- for k, v in pairs(highlights) do
+--     vim.api.nvim_set_hl(0, k, v)
+-- end

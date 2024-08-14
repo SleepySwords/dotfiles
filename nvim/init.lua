@@ -18,13 +18,13 @@ require('keybindings')
 require('lazy').setup(
     {
         { import = 'plugins' },
+        { import = 'plugins.themes' },
         { import = 'plugins.editing' },
         { import = 'plugins.editing.search' },
         { import = 'plugins.ui' },
         { import = 'plugins.ui.editor' },
         { import = 'plugins.ui.buffer' }
-    },
-    { ui = { backdrop = 100 } })
+    })
 require('autocmds')
 require('settings')
 require('highlights')

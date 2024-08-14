@@ -44,6 +44,11 @@ function M.get_telescope_theme(opts)
             results = { ' ', '│', '─', '│', '│', '│', '┴', '└' },
             preview = { '─', '│', '─', ' ', '─', '┐', '┘', '─' },
         }
+        -- theme_opts.borderchars = {
+        --     prompt = { ' ', ' ', '─', ' ', ' ', ' ', ' ', ' ' },
+        --     results = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+        --     preview = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+        -- }
     end
 
     return vim.tbl_deep_extend('force', theme_opts, opts)

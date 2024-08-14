@@ -1,7 +1,7 @@
 return {
     -- Adds trouble which displays references, diagnostics
     'folke/trouble.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = 'echasnovski/mini.icons',
     config = function()
         require('trouble').setup({
             action_keys = {

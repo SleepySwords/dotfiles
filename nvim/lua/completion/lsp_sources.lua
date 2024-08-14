@@ -1,4 +1,4 @@
-local completion_engine = require('completion.engine.cmp')
+local completion_engine = require('completion.engine.cmp-capatibilities')
 
 local lsp_config = require('lspconfig')
 

@@ -4,7 +4,7 @@ return {
         dependencies = {
             'nvim-lua/lsp-status.nvim',
             'SmiteshP/nvim-navic',
-            'nvim-tree/nvim-web-devicons',
+            'echasnovski/mini.icons',
             'lewis6991/gitsigns.nvim',
             'kevinhwang91/nvim-ufo'
         },
@@ -45,7 +45,7 @@ return {
     {
         'akinsho/bufferline.nvim',
         -- version = "*",
-        dependencies = 'nvim-tree/nvim-web-devicons',
+        dependencies = 'echasnovski/mini.icons',
         opts = {}
     },
 }

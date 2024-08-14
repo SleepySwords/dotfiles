@@ -26,6 +26,7 @@ return {
     -- Be able to add linters as formaters.
     {
         'jay-babu/mason-null-ls.nvim',
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             'williamboman/mason.nvim',
             'nvimtools/none-ls.nvim',
@@ -57,26 +58,38 @@ return {
     -- Autocompletion
     {
         'hrsh7th/nvim-cmp',
-        opts = function(_, opts)
-            opts.sources = opts.sources or {}
-            table.insert(opts.sources, {
-                name = "lazydev",
-                group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-            })
+        event = 'InsertEnter',
+        config = function()
+            require("completion.engine.nvim-cmp")
         end,
-    },
+        dependencies = {
+            -- Autocomplete Sources
+            -- 'hrsh7th/cmp-cmdline', -- A bit annoying as it takes up the screen...
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-nvim-lua',
+            'hrsh7th/cmp-nvim-lsp',
 
-    -- Autocomplete Sources
-    -- 'hrsh7th/cmp-cmdline', -- A bit annoying as it takes up the screen...
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-nvim-lua',
-    'hrsh7th/cmp-nvim-lsp',
+            -- Adds icons to lsp variables
+            'onsails/lspkind.nvim',
+            {
+                'L3MON4D3/LuaSnip',
+                dependencies = {
+                    'saadparwaiz1/cmp_luasnip',
+                    'rafamadriz/friendly-snippets',
+                },
+                config = function()
+                    require('luasnip').config.set_config({
+                        history = true,
+                        updateevents = 'TextChanged,TextChangedI',
+                    })
+                    require('luasnip.loaders.from_vscode').lazy_load()
+                end,
+            }
+        },
+    },
 
     -- Displays the function signature and current field.
     -- Keybind: <leader>k
     'ray-x/lsp_signature.nvim',
-
-    -- Adds icons to lsp variables
-    'onsails/lspkind.nvim',
 }
