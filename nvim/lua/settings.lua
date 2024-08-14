@@ -34,7 +34,7 @@ o.ignorecase = true
 o.showmatch = true
 
 o.termguicolors = true
-o.guifont = 'Jetbrains Mono:h11'
+-- o.guifont = 'Jetbrains Mono:h11'
 -- o.guifont = 'Firacode nerd font:h11'
 
 o.foldcolumn = '1'
@@ -64,6 +64,7 @@ o.smartindent = true
 
 o.listchars = { tab = '  ', trail = ' ', extends = '>', precedes = '<', nbsp = '+', }
 o.list = true
+o.showcmdloc = 'statusline'
 o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 local g = vim.g
@@ -86,8 +87,8 @@ if vim.g.neovide then
     -- vim.g.neovide_floating_blur_amount_x = 2.0
     -- vim.g.neovide_floating_blur_amount_y = 2.0
     -- vim.g.neovide_floating_shadow = true
-    vim.g.neovide_padding_top = 5
-    vim.g.neovide_padding_bottom = 5
+    -- vim.g.neovide_padding_top = 5
+    -- vim.g.neovide_padding_bottom = 5
 
     -- vim.o.winblend = 30
 else

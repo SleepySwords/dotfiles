@@ -6,13 +6,13 @@ return {
     'mbbill/undotree',
 
     {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        build = "cd app && yarn install",
+        'iamcco/markdown-preview.nvim',
+        cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+        build = 'cd app && yarn install',
         init = function()
-            vim.g.mkdp_filetypes = { "markdown" }
+            vim.g.mkdp_filetypes = { 'markdown' }
         end,
-        ft = { "markdown" },
+        ft = { 'markdown' },
     },
 
     --  File explorer
@@ -21,28 +21,28 @@ return {
         dependencies = {
             'echasnovski/mini.icons',
             {
-                "antosha417/nvim-lsp-file-operations",
+                'antosha417/nvim-lsp-file-operations',
                 dependencies = {
-                    "nvim-lua/plenary.nvim",
+                    'nvim-lua/plenary.nvim',
                 },
                 config = function()
-                    require("lsp-file-operations").setup()
+                    require('lsp-file-operations').setup()
                 end,
-            }
+            },
         },
-        cmd = "NvimTreeToggle",
+        cmd = 'NvimTreeToggle',
         config = function()
             require('navigation.tree').setup()
         end,
     },
     {
-        "echasnovski/mini.icons",
+        'echasnovski/mini.icons',
         lazy = true,
         opts = {},
         init = function()
-            package.preload["nvim-web-devicons"] = function()
-                require("mini.icons").mock_nvim_web_devicons()
-                return package.loaded["nvim-web-devicons"]
+            package.preload['nvim-web-devicons'] = function()
+                require('mini.icons').mock_nvim_web_devicons()
+                return package.loaded['nvim-web-devicons']
             end
         end,
     },
@@ -50,11 +50,11 @@ return {
         'stevearc/oil.nvim',
         opts = {
             view_options = {
-                show_hidden = true
-            }
+                show_hidden = true,
+            },
         },
         -- Optional dependencies
-        dependencies = { { "echasnovski/mini.icons", opts = {} } },
+        dependencies = { { 'echasnovski/mini.icons', opts = {} } },
         -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
     },
 
@@ -64,7 +64,7 @@ return {
     -- Git integration
     {
         'pwntester/octo.nvim',
-        cmd = "Octo",
+        cmd = 'Octo',
         dependencies = {
             'nvim-lua/plenary.nvim',
             'echasnovski/mini.icons',
@@ -81,16 +81,16 @@ return {
     },
     {
         'NeogitOrg/neogit',
-        cmd = { "Neogit", "NeogitResetState" },
+        cmd = { 'Neogit', 'NeogitResetState' },
         dependencies = {
-            "nvim-lua/plenary.nvim",  -- required
-            "sindrets/diffview.nvim", -- optional - Diff integration
+            'nvim-lua/plenary.nvim', -- required
+            'sindrets/diffview.nvim', -- optional - Diff integration
 
             -- Only one of these is needed, not both.
-            "nvim-telescope/telescope.nvim", -- optional
-            "ibhagwan/fzf-lua",              -- optional
+            'nvim-telescope/telescope.nvim', -- optional
+            'ibhagwan/fzf-lua', -- optional
         },
-        config = true
+        config = true,
     },
     {
         'isakbm/gitgraph.nvim',
@@ -123,8 +123,7 @@ return {
                 GLRDCR = '',
                 GLRUCL = '',
                 GLRUCR = '',
-                format = {
-                },
+                format = {},
                 timestamp = '%H:%M:%S %d-%m-%Y',
                 fields = { 'hash', 'timestamp', 'author', 'branch_name', 'tag' },
             },
@@ -141,30 +140,30 @@ return {
         'andweeb/presence.nvim',
     },
     {
-        dir = "/Users/ibby/stuff/dev/lua/change-function.nvim",
+        dir = '/Users/ibby/stuff/dev/lua/change-function.nvim',
         dependencies = { 'MunifTanjim/nui.nvim' },
         config = function()
-            local change_function = require("change-function")
+            local change_function = require('change-function')
             change_function.setup({
                 queries = {
-                    go = "function_params",
-                    rust = "function_params",
-                    python = "function_params",
+                    go = 'function_params',
+                    rust = 'function_params',
+                    python = 'function_params',
                 },
                 mappings = {
-                    quit = 'a'
-                }
+                    quit = 'a',
+                },
             })
 
             -- FIXME: maybe fr
-            vim.api.nvim_set_keymap("n", "<leader>cr", "Change function", {
+            vim.api.nvim_set_keymap('n', '<leader>cr', 'Change function', {
                 callback = change_function.change_function,
-                desc = "Change function signature"
+                desc = 'Change function signature',
             })
         end,
     },
     {
-        "rmagatti/auto-session", -- Maybe replace with Shatur/neovim-session-manager or folke/persistence.nvim
+        'rmagatti/auto-session', -- Maybe replace with Shatur/neovim-session-manager or folke/persistence.nvim
         -- Perhaps even ahmedkhalf/project.nvim
         lazy = false,
         dependencies = {
@@ -183,48 +182,47 @@ return {
                 pre_restore_cmds = {
                     function()
                         vim.g.has_setup_tabs = true
-                    end
+                    end,
                 },
                 post_restore_cmds = {
                     function()
-                        local tab_names = { "Code", "Debug", "Terminal" }
+                        local tab_names = { 'Code', 'Debug', 'Terminal' }
                         for _, v in ipairs(vim.api.nvim_list_tabpages()) do
                             if tab_names[v] ~= nil then
-                                vim.api.nvim_tabpage_set_var(v, "name", tab_names[v]);
+                                vim.api.nvim_tabpage_set_var(v, 'name', tab_names[v])
                             end
                         end
-                    end
-                }
+                    end,
+                },
             })
         end,
     },
     -- {
-    --     "folke/noice.nvim",
-    --     event = "VeryLazy",
+    --     'folke/noice.nvim',
+    --     -- event = 'VeryLazy',
     --     opts = {
     --         lsp = {
     --             signature = {
-    --                 enabled = false
-    --             }
+    --                 enabled = false,
+    --             },
     --         },
-    --         cmdline = {
-    --             view = "cmdline"
-    --         }
+    --         presets = {
+    --             -- you can enable a preset by setting it to true, or a table that will override the preset config
+    --             -- you can also add custom presets that you can enable/disable with enabled=true
+    --             bottom_search = true,
+    --         },
     --     },
-    --     config = function ()
-    --         vim.opt.cmdheight = 1
-    --     end,
     --     dependencies = {
-    --         "MunifTanjim/nui.nvim",
-    --         "rcarriga/nvim-notify",
+    --         'MunifTanjim/nui.nvim',
+    --         'rcarriga/nvim-notify',
     --     },
     -- },
     -- {
-    --     "rcarriga/nvim-notify",
+    --     'rcarriga/nvim-notify',
     --     opts = {
-    --         render = "simple",
-    --         stages = "fade"
-    --     }
+    --         render = 'simple',
+    --         stages = 'fade',
+    --     },
     -- },
 
     -- Could just use ftplugins instead /shrug

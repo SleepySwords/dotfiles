@@ -8,7 +8,7 @@ local navic = require('nvim-navic')
 
 local conditions = require('heirline.conditions')
 
-local diagnostic_signs = require("completion.diagnostic_signs");
+local diagnostic_signs = require('completion.diagnostic_signs')
 
 local colour_util = require('colours')
 local colour_to_hex = colour_util.tuple_to_hex
@@ -20,14 +20,10 @@ local M = {}
 
 function M.setup()
     local colours = {
-        component_bg = colour_to_hex(
-            shade(get_colour_tuple('Normal', 'bg'), 0.93)
-        ),
+        component_bg = colour_to_hex(shade(get_colour_tuple('Normal', 'bg'), 0.93)),
         text_bg = colour_to_hex(shade(get_colour_tuple('Normal', 'bg'), 0.8)),
         darker_bg = colour_to_hex(shade(get_colour_tuple('Normal', 'bg'), 0.6)),
-        darker_fg = colour_to_hex(
-            contrast(get_colour_tuple('Normal', 'fg'), 0.7)
-        ),
+        darker_fg = colour_to_hex(contrast(get_colour_tuple('Normal', 'fg'), 0.7)),
         icon_fg = '#12121a',
         yellow = '#ECBE7B',
         cyan = '#008080',
@@ -385,9 +381,9 @@ function M.setup()
         },
         static = {
             error_sign = diagnostic_signs[vim.diagnostic.severity.ERROR],
-            warn_sign  = diagnostic_signs[vim.diagnostic.severity.WARN],
-            hint_sign  = diagnostic_signs[vim.diagnostic.severity.HINT],
-            info_sign  = diagnostic_signs[vim.diagnostic.severity.INFO],
+            warn_sign = diagnostic_signs[vim.diagnostic.severity.WARN],
+            hint_sign = diagnostic_signs[vim.diagnostic.severity.HINT],
+            info_sign = diagnostic_signs[vim.diagnostic.severity.INFO],
         },
         condition = function()
             return vim.tbl_count(vim.lsp.get_clients({ bufnr = 0 })) ~= 0
@@ -459,10 +455,29 @@ function M.setup()
         hl = { fg = colours.green, bg = colours.component_bg, bold = true },
     }
 
+    local show_mode = {
+        {
+            provider = function()
+                return vim.api.nvim_eval_statusline('%S', { highlights = true }).str
+            end,
+            update = function()
+                return vim.api.nvim_eval_statusline('%S', {}).str ~= ''
+                    and string.sub(vim.api.nvim_eval_statusline('%S', {}).str, 1, 1) ~= '~'
+            end,
+            hl = { fg = colours.magenta, bg = colours.component_bg, bold = true },
+        },
+        block,
+        block,
+        condition = function()
+            return vim.o.showcmdloc == 'statusline'
+        end,
+    }
+
     local percentage = {
         provider = '%P',
         hl = { fg = colours.blue, bg = colours.component_bg, bold = true },
     }
+
     local navic_win = {
         provider = function()
             return navic.get_location()
@@ -473,8 +488,8 @@ function M.setup()
     }
     local neovide_fix = {
         provider = function()
-            return "%#Winbar# "
-        end
+            return '%#Winbar# '
+        end,
     }
 
     -- FIXME: use webicons like
@@ -671,6 +686,7 @@ function M.setup()
                             return vim.api.nvim_buf_get_name(0) ~= ''
                         end,
                     },
+                    show_mode,
                     position,
                     block,
                     block,
@@ -688,7 +704,7 @@ function M.setup()
             align,
             filename,
             neovide_fix,
-            hl = "Normal"
+            hl = 'Normal',
         },
         -- tabline = {
         --     bufferline,
