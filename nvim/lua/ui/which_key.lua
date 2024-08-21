@@ -18,7 +18,7 @@ function M.setup()
             { '<leader>x',  group = 'Trouble' },
             { '<leader>a',  group = 'Sessions/Grep' },
             { '<leader>d',  group = 'Debugger' },
-            { '<leader>h',  group = 'Help Tags/Highlights' },
+            { '<leader>h',  group = 'Telescope items' },
             { '<leader>o',  group = 'Org mode' },
             { '<leader>c',  group = 'Code actions + Colourscheme' },
             { '<leader>co', group = 'Overseer (code runner)' },

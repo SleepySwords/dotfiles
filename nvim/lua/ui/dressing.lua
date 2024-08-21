@@ -15,7 +15,7 @@ function M.setup()
             start_in_insert = true,
 
             -- These are passed to nvim_open_win
-            border = 'rounded',
+            border = 'single',
             -- 'editor' and 'win' will default to being centered
             relative = 'editor',
 
@@ -38,6 +38,7 @@ function M.setup()
                 listchars = 'precedes:…,extends:…',
                 -- Increase this for more context when text scrolls off the window
                 sidescrolloff = 0,
+                winhighlight = 'NormalFloat:Normal',
             },
 
             -- Set to `false` to disable

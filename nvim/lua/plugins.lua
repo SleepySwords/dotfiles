@@ -153,10 +153,40 @@ return {
                 mappings = {
                     quit = 'a',
                 },
+                nui = function(title)
+                    return {
+                        win_options = {
+                            winhighlight = 'NormalFloat:Normal',
+                        },
+                        enter = true,
+                        focusable = true,
+                        border = {
+                            style = 'rounded',
+                            text = {
+                                top = 'Changing argument of ' .. title,
+                            },
+                        },
+                        position = '50%',
+                        size = {
+                            width = '40%',
+                            height = '20%',
+                        },
+                        -- relative = 'editor',
+                        zindex = 1000,
+                        buf_options = {
+                            modifiable = false,
+                            readonly = false,
+                        },
+                    }
+                end,
             })
 
-            -- FIXME: maybe fr
-            vim.api.nvim_set_keymap('n', '<leader>cr', 'Change function', {
+            vim.api.nvim_set_keymap('n', '<leader>crq', '', {
+                callback = change_function.change_function_via_qf,
+                desc = 'Change function signature via quickfix list',
+            })
+
+            vim.api.nvim_set_keymap('n', '<leader>crl', 'Change function', {
                 callback = change_function.change_function,
                 desc = 'Change function signature',
             })

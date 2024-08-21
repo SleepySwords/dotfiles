@@ -25,8 +25,11 @@ vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
 vim.api.nvim_set_hl(0, 'UfoFoldedBg', {})
 
 vim.api.nvim_set_hl(0, 'TelescopeSelection', { link = 'Define' })
-vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'NormalFloat' })
+vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
 vim.api.nvim_set_hl(0, 'TelescopeMatching', { bold = true, fg = '#f6c177' })
+-- vim.api.nvim_set_hl(0, 'FloatBorder', { bg = tuple_to_hex(inlay_bg) })
+-- vim.api.nvim_set_hl(0, 'TelescopeNormal', { bg = tuple_to_hex(inlay_bg) })
+vim.api.nvim_set_hl(0, 'QuickFixLineNr', { link = "Delimiter" })
 
 local is_light = lightness(get_colour_tuple("normal", "bg")) > 0.5
 

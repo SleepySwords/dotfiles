@@ -67,6 +67,7 @@ o.list = true
 o.showcmdloc = 'statusline'
 o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
+o.shada = "'1000,f0"
 local g = vim.g
 g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 

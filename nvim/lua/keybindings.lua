@@ -37,8 +37,20 @@ map_desc({ 'n' }, 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', 'LSP Implem
 -- FIXME: I need to decide if i like the default keybinds or not (grn)
 -- they can be removed see :help grn
 -- map_desc({ 'n' }, 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', 'LSP Rename', opts)
-map_desc({ 'n' }, 'grr', '<cmd>Trouble lsp_references toggle follow=true focus=true auto_refresh=false<CR>',
-    'LSP References', opts) -- lua vim.lsp.buf.references()
+map_desc(
+    { 'n' },
+    'grr',
+    '<cmd>Trouble lsp_references toggle follow=true focus=true auto_refresh=false<CR>',
+    'LSP References',
+    opts
+) -- lua vim.lsp.buf.references()
+map_desc({ 'n' }, 'grq', '', 'LSP references in quick fix list', {
+    noremap = true,
+    silent = true,
+    callback = function()
+        vim.lsp.buf.references()
+    end,
+}) -- lua vim.lsp.buf.references()
 
 map_desc(
     { 'n' },
@@ -68,22 +80,16 @@ map_desc(
     'LSP List Workspaces',
     opts
 )
-map_desc(
-    { 'n' },
-    '<leader>w',
-    '',
-    'Which-key window',
-    {
-        noremap = true,
-        silent = true,
-        callback = function()
-            require("which-key").show({
-                keys = "<c-w>",
-                loop = true, -- this will keep the popup open until you hit <esc>
-            })
-        end
-    }
-)
+map_desc({ 'n' }, '<leader>w', '', 'Which-key window', {
+    noremap = true,
+    silent = true,
+    callback = function()
+        require('which-key').show({
+            keys = '<c-w>',
+            loop = true, -- this will keep the popup open until you hit <esc>
+        })
+    end,
+})
 map_desc(
     { 'n' },
     '<leader>TD',
@@ -150,7 +156,6 @@ map_desc(
     opts
 )
 
-
 -- LSP Saga (Until LSP Sage is fixed)
 -- map('n', '<leader>ca', "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opts)
 -- map('v', '<leader>ca', ":<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>", opts)
@@ -204,7 +209,7 @@ map_desc(
 )
 map_desc(
     { 'n' },
-    '<leader>lg',
+    '<leader>hg',
     '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>',
     'Open Git Files',
     { noremap = true }
@@ -218,14 +223,14 @@ map_desc(
 )
 map_desc(
     { 'n' },
-    '<leader>TD',
+    '<leader>hd',
     '<cmd>lua require("telescope.builtin").diagnostics(vim.g.telescope_theme)<cr>',
     'Open telescope diagnostics',
     { noremap = true }
 )
 map_desc(
     { 'n' },
-    '<leader>TR',
+    '<leader>hr',
     '<cmd>lua require("telescope.builtin").lsp_references(vim.g.telescope_theme)<cr>',
     'Open telescope references',
     { noremap = true }
@@ -244,14 +249,12 @@ map_desc(
     'Open workspace symbols',
     { noremap = true }
 )
-map_desc({ 'n' }, '<leader>u',
-    '<cmd>UndotreeToggle<cr>',
-    'Undo tree', { noremap = true });
+map_desc({ 'n' }, '<leader>u', '<cmd>UndotreeToggle<cr>', 'Undo tree', { noremap = true })
 
 local command =
-[[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
+    [[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
+map_desc({ 'n' }, '<leader>hc', command, 'Open Colour Scheme', { noremap = true })
 
-map_desc({ 'n' }, '<leader>cs', command, 'Open Colour Scheme', { noremap = true })
 map_desc({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', 'Open File Tree', { noremap = true })
 map_desc({ 'n' }, '<leader>ar', '<cmd>NvimTreeRefresh<CR>', 'Refresh File Tree', { noremap = true })
 map_desc(
@@ -405,25 +408,35 @@ map({ 'n' }, '[q', ':cp<CR>', opts)
 -- map({ 'n' }, '<C-n>', ':cn<CR>', opts)
 -- map({ 'n' }, '<C-p>', ':cp<CR>', opts)
 
-map({ 'n' }, '<C-n>', '', vim.tbl_extend('keep', opts, {
-    callback = function()
-        if require "trouble".is_open({}) then
-            require("trouble").next({ jump = true });
-        else
-            -- FIXME: This should detect if there is a quickfix list first.
-            vim.cmd [[silent! cn]]
-        end
-    end
-}))
-map({ 'n' }, '<C-p>', '', vim.tbl_extend('keep', opts, {
-    callback = function()
-        if require "trouble".is_open({}) then
-            require("trouble").prev({ jump = true });
-        else
-            vim.cmd [[silent! cp]]
-        end
-    end
-}))
+map(
+    { 'n' },
+    '<C-n>',
+    '',
+    vim.tbl_extend('keep', opts, {
+        callback = function()
+            if require('trouble').is_open({}) then
+                require('trouble').next({ jump = true })
+            else
+                -- FIXME: This should detect if there is a quickfix list first.
+                vim.cmd([[silent! cn]])
+            end
+        end,
+    })
+)
+map(
+    { 'n' },
+    '<C-p>',
+    '',
+    vim.tbl_extend('keep', opts, {
+        callback = function()
+            if require('trouble').is_open({}) then
+                require('trouble').prev({ jump = true })
+            else
+                vim.cmd([[silent! cp]])
+            end
+        end,
+    })
+)
 
 map({ 'n', 'x', 'v' }, 'gl', '$', opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', opts)
@@ -435,26 +448,38 @@ map_desc({ 'n' }, '<leader>coc', '<cmd>CompilerOpen<CR>', 'Open compiler', opts)
 map_desc({ 'n' }, '<leader>cot', '<cmd>OverseerToggle<CR>', 'Toggle Overseer window', opts)
 
 -- Marks
-map({ 'n' }, '<leader>m',
-    '<cmd>lua require("telescope.builtin").marks(vim.g.telescope_theme)<CR>'
-)
-map({ 'n' }, 'dm', 'hi', {
-    noremap = true,
-    silent = true,
-    callback = function()
-        vim.ui.input({ prompt = 'Mark to delete' }, function(mark)
-            if mark then
-                vim.cmd([[delmarks ]] .. mark)
-            end
-        end);
-    end
-})
+map({ 'n' }, '<leader>m', '<cmd>lua require("telescope.builtin").marks(vim.g.telescope_theme)<CR>')
+--
+-- Replaced with marks.nvim
+-- map({ 'n' }, 'dm', 'hi', {
+--     noremap = true,
+--     silent = true,
+--     callback = function()
+--         vim.ui.input({ prompt = 'Mark to delete' }, function(mark)
+--             if mark then
+--                 vim.cmd([[delmarks ]] .. mark)
+--             end
+--         end)
+--     end,
+-- })
 
-map({ 'n' }, "<leader>al", '<cmd>SessionSearch<CR>', { desc = 'Session load' })
-map({ 'n' }, "<leader>ad", '<cmd>Autosession delete<CR>', { desc = 'Session delete' })
+map({ 'n' }, '<leader>al', '<cmd>SessionSearch<CR>', { desc = 'Session load' })
+map({ 'n' }, '<leader>ad', '<cmd>Autosession delete<CR>', { desc = 'Session delete' })
 
 -- q: is also useful...
-map({ 'n' }, '<leader>aqf', '<cmd>caddexpr expand("%") .. ":" .. line(".") ..  ":" .. col(".") .. ":" .. getline(".")<CR>', {desc = "Add current pos to quickfix"})
+map(
+    { 'n' },
+    '<leader>aqf',
+    '<cmd>caddexpr expand("%") .. ":" .. line(".") ..  ":" .. col(".") .. ":" .. getline(".")<CR>',
+    { desc = 'Add current pos to quickfix' }
+)
+map_desc(
+    'n',
+    '<leader>B',
+    '<cmd>BufferLinePick<cr>',
+    'Open Bufferline Picker',
+    { noremap = true }
+)
 
 -- Harpoon
 -- map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)

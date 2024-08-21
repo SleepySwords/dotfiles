@@ -6,7 +6,7 @@ return {
             'SmiteshP/nvim-navic',
             'echasnovski/mini.icons',
             'lewis6991/gitsigns.nvim',
-            'kevinhwang91/nvim-ufo'
+            'kevinhwang91/nvim-ufo',
         },
         config = function()
             vim.api.nvim_create_augroup('Scheme', {})
@@ -14,8 +14,10 @@ return {
                 group = 'Scheme',
                 callback = function()
                     require('ui.statusline.heirline').setup()
-                    vim.api.nvim_create_autocmd({ "ColorScheme" }, {
-                        callback = function() require('ui.statusline.heirline').setup() end,
+                    vim.api.nvim_create_autocmd({ 'ColorScheme' }, {
+                        callback = function()
+                            require('ui.statusline.heirline').setup()
+                        end,
                     })
                 end,
             })
@@ -46,6 +48,10 @@ return {
         'akinsho/bufferline.nvim',
         -- version = "*",
         dependencies = 'echasnovski/mini.icons',
-        opts = {}
+        opts = {
+            options = {
+                numbers = 'buffer_id',
+            },
+        },
     },
 }
