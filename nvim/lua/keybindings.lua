@@ -92,7 +92,7 @@ map_desc({ 'n' }, '<leader>w', '', 'Which-key window', {
 })
 map_desc(
     { 'n' },
-    '<leader>TD',
+    '<leader>hl',
     '<cmd>lua vim.lsp.buf.type_definition()<CR>',
     'LSP Type Definition',
     opts
@@ -103,6 +103,20 @@ map_desc(
     '<leader>ci',
     '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>',
     'LSP Code Action',
+    opts
+)
+map_desc(
+    { 'n' },
+    '<leader>cl',
+    '<cmd>lua vim.lsp.codelens.run()<CR>',
+    'LSP Codelens run',
+    opts
+)
+map_desc(
+    { 'n' },
+    '<leader>cL',
+    '<cmd>lua vim.lsp.codelens.refresh()<CR>',
+    'LSP Code lens refresh',
     opts
 )
 map_desc(

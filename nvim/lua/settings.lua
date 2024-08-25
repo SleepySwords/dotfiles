@@ -68,6 +68,7 @@ o.showcmdloc = 'statusline'
 o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 o.shada = "'1000,f0"
+
 local g = vim.g
 g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
@@ -93,8 +94,9 @@ if vim.g.neovide then
 
     -- vim.o.winblend = 30
 else
-    -- vim.cmd([[colorscheme catppuccin-mocha]])
-    vim.cmd([[colorscheme catppuccin-latte]])
+    vim.cmd([[colorscheme catppuccin-mocha]])
+    -- vim.cmd([[colorscheme catppuccin-latte]])
+    -- vim.cmd([[colorscheme flow]])
     -- vim.cmd "colorscheme nightfox"
 end
 
