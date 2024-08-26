@@ -10,7 +10,7 @@ return {
     {
         'folke/lazydev.nvim',
         ft = 'lua',
-        opts = {}
+        opts = {},
     },
 
     -- Rust specific lsp extensions
@@ -26,7 +26,7 @@ return {
     -- Be able to add linters as formaters.
     {
         'jay-babu/mason-null-ls.nvim',
-        event = { "BufReadPre", "BufNewFile" },
+        event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             'williamboman/mason.nvim',
             'nvimtools/none-ls.nvim',
@@ -52,7 +52,7 @@ return {
         ft = 'cs',
         config = function()
             require('completion.lsp_sources').setup_omni()
-        end
+        end,
     },
 
     -- Autocompletion
@@ -60,7 +60,7 @@ return {
         'hrsh7th/nvim-cmp',
         event = 'InsertEnter',
         config = function()
-            require("completion.engine.nvim-cmp")
+            require('completion.engine.nvim-cmp')
         end,
         dependencies = {
             -- Autocomplete Sources
@@ -85,11 +85,53 @@ return {
                     })
                     require('luasnip.loaders.from_vscode').lazy_load()
                 end,
-            }
+            },
         },
     },
 
     -- Displays the function signature and current field.
     -- Keybind: <leader>k
-    'ray-x/lsp_signature.nvim',
+    {
+        'ray-x/lsp_signature.nvim',
+        enabled = false,
+        opts = {
+            log_path = vim.fn.expand('$HOME') .. '/tmp/sig.log',
+            -- debug = true,
+            hint_enable = false,
+            -- noice = true,
+            doc_lines = 10,
+            padding = ' ',
+            max_width = 160,
+            max_height = 1200,
+
+            handler_opts = {
+                border = 'solid',
+            },
+            toggle_key = '<M-k>',
+            -- toggle_key_flip_floatwin_setting = true,
+            select_signature_key = '<M-n>',
+            move_cursor_key = '<M-p>',
+            cursorhold_update = false,
+            debug = true,
+        },
+    },
+    {
+        'Issafalcon/lsp-overloads.nvim',
+        enabled = false,
+        config = function()
+            vim.api.nvim_create_autocmd('LspAttach', {
+                group = vim.api.nvim_create_augroup('lsp_overloads', {}),
+                callback = function(args)
+                    if not (args.data and args.data.client_id) then
+                        return
+                    end
+
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    if client ~= nil and client.server_capabilities.signatureHelpProvider then
+                        require('lsp-overloads').setup(client, {})
+                    end
+                end,
+            })
+        end,
+    },
 }

@@ -648,7 +648,7 @@ function M.setup()
         return conditions.buffer_matches({
             buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
             filetype = { '^git.*', 'fugitive', 'Trouble', 'dashboard' },
-        }, args.buf)
+        }, args.buf) or args.file:find("rest_nvim_result") ~= nil
     end
 
     require('heirline').setup({

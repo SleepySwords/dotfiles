@@ -12,6 +12,7 @@ function M.setup()
     require('dbg.csharp')
     require('dbg.python')
     require('dbg.javascript')
+    require('dbg.haskell')
     require('dbg.lua')
 
     require('nvim-dap-virtual-text').setup({})

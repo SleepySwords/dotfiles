@@ -2,10 +2,10 @@
 return {
     {
         'nvim-neotest/neotest',
-        cmd = "Neotest",
+        cmd = 'Neotest',
         lazy = true,
         dependencies = {
-            "nvim-neotest/nvim-nio",
+            'nvim-neotest/nvim-nio',
             'nvim-lua/plenary.nvim',
             'nvim-treesitter/nvim-treesitter',
             -- Might use 'mrcjkb/rustaceanvim' but have
@@ -32,10 +32,10 @@ return {
                     require('neotest-vim-test')({
                         ignore_file_types = { 'rust', 'python', 'vim', 'lua' },
                     }),
-                    require('neotest-rust') {
-                        dap_adapter = "codelldb",
-                    },
-                    require("neotest-dotnet"),
+                    require('neotest-rust')({
+                        dap_adapter = 'codelldb',
+                    }),
+                    require('neotest-dotnet'),
                     require('neotest-jest')({
                         jestCommand = 'yarn test --watch',
                         env = { CI = true },
@@ -55,26 +55,38 @@ return {
         },
     },
     { -- The task runner we use
-        "stevearc/overseer.nvim",
-        cmd = { "OverseerRun", "OverseerQuickAction", "OverseerToggle" },
+        'stevearc/overseer.nvim',
+        cmd = { 'OverseerRun', 'OverseerQuickAction', 'OverseerToggle' },
         opts = {
-            templates = { "builtin", "cpp.build", "cpp.run", "c.run", "c.build", "haskell.runhaskell" },
+            templates = {
+                'builtin',
+                'cpp.build',
+                'cpp.run',
+                'c.run',
+                'c.build',
+                'haskell.runhaskell',
+            },
             task_list = {
-                direction = "bottom",
+                direction = 'bottom',
                 min_height = 15,
                 max_height = 15,
-                default_detail = 1
+                default_detail = 1,
             },
         },
     },
     {
+
+        'rest-nvim/rest.nvim',
+    },
+    {
         'mistweaverco/kulala.nvim',
+        enabled = false,
         lazy = true,
         config = function()
             require('kulala').setup({
                 debug = false, -- Enable debug mode
-                default_view = "headers_body",
+                default_view = 'headers_body',
             })
-        end
+        end,
     },
 }
