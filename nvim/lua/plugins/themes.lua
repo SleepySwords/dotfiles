@@ -1,4 +1,4 @@
-local colours = require "colours"
+local colours = require('colours')
 
 return {
     {
@@ -8,10 +8,10 @@ return {
             vim.g.edge_endable_italic = 1
             vim.g.edge_disable_italic_comment = 1
             vim.g.edge_diagnostic_virtual_text = 'colored'
-        end
+        end,
     },
     'morhetz/gruvbox',
-    { 'dracula/vim',   name = 'dracula' },
+    { 'dracula/vim', name = 'dracula' },
     { 'sonph/onehalf', rtp = 'vim' },
     'matsuuu/pinkmare',
     'lifepillar/vim-solarized8',
@@ -22,7 +22,7 @@ return {
             vim.g.sonokai_enable_italic = 1
             vim.g.sonokai_disable_italic_comment = 1
             vim.g.sonokai_diagnostic_virtual_text = 'colour_background'
-        end
+        end,
     },
     {
         'folke/tokyonight.nvim',
@@ -30,7 +30,9 @@ return {
             require('tokyonight').setup({
                 on_highlights = function(hl, c)
                     hl['@markup.raw.markdown_inline'] = {
-                        bg = colours.tuple_to_hex(colours.shade(colours.get_colour_tuple('Normal', 'bg'), 0.15)),
+                        bg = colours.tuple_to_hex(
+                            colours.shade(colours.get_colour_tuple('Normal', 'bg'), 0.15)
+                        ),
                         fg = '#7aa2fa',
                     }
                     hl.TelescopePromptBorder = {
@@ -50,12 +52,12 @@ return {
         end,
     },
     {
-        "0xstepit/flow.nvim",
+        '0xstepit/flow.nvim',
         lazy = false,
         priority = 1000,
         opts = {
-            fluo_color = "pink",
-            mode = "normal",
+            fluo_color = 'pink',
+            mode = 'normal',
             aggressive_spell = false,
         },
     },
@@ -68,13 +70,13 @@ return {
             vim.g.neon_italic_keyword = true
             vim.g.neon_italic_function = true
             vim.g.neon_transparent = true
-        end
+        end,
     },
     'tanvirtin/monokai.nvim',
     {
         'catppuccin/nvim',
         config = function()
-            require("catppuccin").setup({
+            require('catppuccin').setup({
                 integrations = {
                     cmp = true,
                     gitsigns = true,
@@ -82,9 +84,17 @@ return {
                     treesitter = true,
                     navic = {
                         enabled = true,
-                    }
-                }
+                    },
+                },
             })
         end,
+    },
+    {
+        'hachy/eva01.vim',
+        lazy = false,
+        priority = 1000,
+    },
+    {
+        'zacharied/lc3.vim',
     },
 }

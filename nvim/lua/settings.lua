@@ -34,7 +34,7 @@ o.ignorecase = true
 o.showmatch = true
 
 o.termguicolors = true
--- o.guifont = 'Jetbrains Mono:h11'
+o.guifont = 'Jetbrains Mono:h11'
 -- o.guifont = 'Firacode nerd font:h11'
 
 o.foldcolumn = '1'
@@ -77,6 +77,8 @@ g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 -- Theme settings
 -- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time)
 
+-- vim.cmd([[colorscheme catppuccin-mocha]])
+vim.cmd([[colorscheme eva01]])
 
 if vim.g.neovide then
     -- vim.cmd([[colorscheme carbonfox]])
@@ -84,17 +86,16 @@ if vim.g.neovide then
     -- vim.cmd([[colorscheme industry]])
     -- vim.cmd([[colorscheme tokyonight-moon]])
     -- vim.cmd([[colorscheme edge]])
-    vim.cmd([[colorscheme duskfox]])
+    -- vim.cmd([[colorscheme duskfox]])
 
     -- vim.g.neovide_floating_blur_amount_x = 2.0
     -- vim.g.neovide_floating_blur_amount_y = 2.0
-    -- vim.g.neovide_floating_shadow = true
+    vim.g.neovide_floating_shadow = true
     -- vim.g.neovide_padding_top = 5
     -- vim.g.neovide_padding_bottom = 5
 
     -- vim.o.winblend = 30
 else
-    vim.cmd([[colorscheme catppuccin-mocha]])
     -- vim.cmd([[colorscheme catppuccin-latte]])
     -- vim.cmd([[colorscheme flow]])
     -- vim.cmd "colorscheme nightfox"

@@ -50,6 +50,8 @@ return {
         dependencies = 'echasnovski/mini.icons',
         opts = {
             options = {
+                close_icon = '',
+                buffer_close_icon = '',
                 numbers = 'buffer_id',
             },
         },

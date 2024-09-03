@@ -13,14 +13,10 @@ local M = {
 }
 
 -- FIXME: Seperate command to focus signature.
+-- Allow for overloading at the top (this breaks currently because of highlighting, so must change that too)
 function M.signature_help(_, result, ctx, config)
-    config = config
-        or {
-            close_events = { 'CursorMoved', 'WinScrolled' },
-            anchor_bias = 'above',
-        }
+    config = config or {}
     config.focus_id = ctx.method
-    config.max_height = 5
     if api.nvim_get_current_buf() ~= ctx.bufnr or not M.enabled then
         -- Ignore result since buffer changed. This happens for slow language servers.
         return
@@ -41,7 +37,7 @@ function M.signature_help(_, result, ctx, config)
 
     if not vim.deep_equal(result.signatures, M.signatures) then
         M.signatures = result.signatures
-        M.activeSignature = result.activeSignature
+        M.activeSignature = result.activeSignature or 1
     else
         result.activeSignature = (M.activeSignature % #result.signatures)
     end
@@ -98,6 +94,7 @@ end
 function M.create_keybinds()
     M.orig_mappings.down = vim.fn.maparg('<C-j>', 'i', false, true)
     M.orig_mappings.up = vim.fn.maparg('<C-k>', 'i', false, true)
+    M.orig_mappings.up = vim.fn.maparg('<C-s>', 'i', false, true)
 
     vim.keymap.set('i', '<C-j>', function()
         M.activeSignature = M.activeSignature + 1
@@ -139,28 +136,59 @@ function M.close_window()
     end
 end
 
-function M.setup()
+local function attach_buffer(bufnr)
     vim.api.nvim_create_autocmd({
         'CursorMovedI',
         'CompleteDone' --[[ 'TextChangedI' ]],
     }, {
-        callback = vim.lsp.buf.signature_help,
+        callback = function()
+            vim.lsp.buf.signature_help()
+        end,
+        buffer = bufnr,
+    })
+end
+
+function M.setup()
+    vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+            if not (args.data and args.data.client_id) then
+                return
+            end
+
+            local client = vim.lsp.get_client_by_id(args.data.client_id)
+            if client ~= nil and client.server_capabilities.signatureHelpProvider then
+                attach_buffer(args.buf)
+            end
+        end,
+    })
+
+    vim.api.nvim_create_autocmd('ModeChanged', {
+        pattern = '*:[sS\x13i]',
+        callback = function()
+            if
+                #vim.lsp.get_clients({
+                    method = ms.textDocument_signatureHelp,
+                    bufnr = 0,
+                }) > 0
+            then
+                vim.lsp.buf.signature_help()
+            end
+        end,
     })
 
     vim.api.nvim_create_autocmd({
-        'InsertLeave' --[[ 'TextChangedI' ]],
+        'InsertLeave'
     }, {
         callback = function()
             M.enabled = true
         end,
     })
 
-    vim.api.nvim_create_autocmd('ModeChanged', {
-        pattern = '*:[sS\x13i]',
-        callback = vim.lsp.buf.signature_help,
+    vim.lsp.handlers[ms.textDocument_signatureHelp] = vim.lsp.with(M.signature_help, {
+        close_events = { 'CursorMoved', 'WinScrolled' },
+        anchor_bias = 'above',
+        max_height = 5,
     })
-
-    vim.lsp.handlers[ms.textDocument_signatureHelp] = M.signature_help
 end
 
 return M
