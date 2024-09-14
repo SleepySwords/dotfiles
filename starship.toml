@@ -1,0 +1,47 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = false
+format = """$username$hostname$directory $character"""
+
+# move the rest of the prompt to the right
+right_format = """$git_branch$git_state$git_status $git_metrics$status( $cmd_duration) $time"""
+
+[directory]
+style = "fg:#FC4DFF"
+format = "[$path]($style)"
+truncation_length = 3
+truncate_to_repo = false
+fish_style_pwd_dir_length = 1
+# truncation_symbol = "…/"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+# This is very laggy for some reason
+[git_status]
+disabled = true
+
+[git_metrics]
+disabled = false
+
+[git_branch]
+# format = '[$symbol$branch(:$remote_branch)]($style)'
+format = '[$symbol$branch]($style)'
+
+
+[time]
+disabled = false
+format = '[$time]($style)'
+time_format = '%R'
+
+[cmd_duration]
+min_time = 50
+format = '[$duration](bold green)'
+# show_milliseconds = true
+
+[status]
+disabled = false
+format = '[✘ $status]($style)'

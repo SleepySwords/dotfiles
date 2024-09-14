@@ -7,3 +7,5 @@ for config in $configs
 	# cp ~/.gitconfig .
 	cp -r ~/Library/Application\ Support/lazygit/ ./lazygit
 end
+cp ~/.clangd .
+cp ~/.config/starship.toml .

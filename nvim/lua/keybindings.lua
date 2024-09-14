@@ -90,6 +90,11 @@ map_desc({ 'n' }, '<leader>w', '', 'Which-key window', {
         })
     end,
 })
+-- map_desc({ 'n' }, '<leader>w', '<c-w>', 'Which-key window', {
+--     noremap = true,
+--     silent = true,
+-- })
+
 map_desc(
     { 'n' },
     '<leader>hl',
@@ -105,13 +110,7 @@ map_desc(
     'LSP Code Action',
     opts
 )
-map_desc(
-    { 'n' },
-    '<leader>cl',
-    '<cmd>lua vim.lsp.codelens.run()<CR>',
-    'LSP Codelens run',
-    opts
-)
+map_desc({ 'n' }, '<leader>cl', '<cmd>lua vim.lsp.codelens.run()<CR>', 'LSP Codelens run', opts)
 map_desc(
     { 'n' },
     '<leader>cL',
@@ -487,13 +486,13 @@ map(
     '<cmd>caddexpr expand("%") .. ":" .. line(".") ..  ":" .. col(".") .. ":" .. getline(".")<CR>',
     { desc = 'Add current pos to quickfix' }
 )
-map_desc(
-    'n',
-    '<leader>B',
-    '<cmd>BufferLinePick<cr>',
-    'Open Bufferline Picker',
-    { noremap = true }
-)
+map_desc('n', '<leader>B', '<cmd>BufferLinePick<cr>', 'Open Bufferline Picker', { noremap = true })
+map_desc('n', '<leader>as', '<cmd>BufferLinePick<cr>', 'Tab setup', {
+    noremap = true,
+    callback = function()
+        require('utils').setup_tabs(true)
+    end,
+})
 
 -- Harpoon
 -- map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)

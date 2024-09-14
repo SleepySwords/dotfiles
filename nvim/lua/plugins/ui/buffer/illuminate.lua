@@ -10,7 +10,7 @@ return {
             providers = {
                 'lsp',
             },
-            delay = 0,
+            delay = 100,
         })
     end,
 };

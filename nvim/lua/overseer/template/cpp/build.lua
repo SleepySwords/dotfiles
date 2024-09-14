@@ -6,7 +6,7 @@ return {
         local outfile = vim.fn.expand("%:p:r") .. ".out"
         return {
             cmd = { "g++" },
-            args = { "-std=c++11", file, "-o", outfile, "-g" },
+            args = { "-std=c++17", file, "-o", outfile, "-g" },
             components = { { "on_output_quickfix" }, "default" },
         }
     end,
