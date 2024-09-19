@@ -25,7 +25,7 @@ disabled = true
 disabled = true
 
 [git_metrics]
-disabled = false
+disabled = true
 
 [git_branch]
 # format = '[$symbol$branch(:$remote_branch)]($style)'

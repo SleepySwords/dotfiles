@@ -38,7 +38,7 @@ o.guifont = 'Jetbrains Mono:h11'
 -- o.guifont = 'Firacode nerd font:h11'
 
 o.foldcolumn = '1'
-o.fillchars = { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' }
+o.fillchars = { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '', diff = '╱' }
 o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true
@@ -62,10 +62,10 @@ o.softtabstop = 4
 o.autoindent = true
 o.smartindent = true
 
-o.listchars = { tab = '  ', trail = ' ', extends = '>', precedes = '<', nbsp = '+', }
+o.listchars = { tab = '  ', trail = ' ', extends = '>', precedes = '<', nbsp = '+' }
 o.list = true
 o.showcmdloc = 'statusline'
-o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 o.shada = "'1000,f0"
 

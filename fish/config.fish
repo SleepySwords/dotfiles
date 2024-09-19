@@ -59,4 +59,4 @@ set -gx FZF_DEFAULT_OPTS '
            --separator="" --scrollbar="│" --info="default" --preview "bat --color=always {}" --preview-window \'~3\''
 
 starship init fish | source
-enable_transience
+# enable_transience

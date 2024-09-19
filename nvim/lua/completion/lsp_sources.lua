@@ -90,7 +90,7 @@ function M.setup()
             return vim.fn.getcwd()
         end,
     }))
-    lsp_config.tsserver.setup(completion_engine.provide_capabilities({
+    lsp_config.ts_ls.setup(completion_engine.provide_capabilities({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()

@@ -142,7 +142,7 @@ local function attach_buffer(bufnr)
         'CompleteDone' --[[ 'TextChangedI' ]],
     }, {
         callback = function()
-            vim.lsp.buf.signature_help()
+            pcall(vim.lsp.buf.signature_help)
         end,
         buffer = bufnr,
     })
