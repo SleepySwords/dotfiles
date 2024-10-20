@@ -8,6 +8,7 @@ return {
             require('navigation.telescope').setup()
         end,
     },
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     'junegunn/fzf',
     'ibhagwan/fzf-lua',
 }

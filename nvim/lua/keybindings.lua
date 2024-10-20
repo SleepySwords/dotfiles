@@ -37,6 +37,7 @@ map_desc({ 'n' }, 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', 'LSP Implem
 -- FIXME: I need to decide if i like the default keybinds or not (grn)
 -- they can be removed see :help grn
 -- map_desc({ 'n' }, 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', 'LSP Rename', opts)
+map_desc({ 'n' }, 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', 'LSP Rename', opts)
 map_desc(
     { 'n' },
     'grr',
@@ -455,10 +456,9 @@ map({ 'n', 'x', 'v' }, 'gl', '$', opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', opts)
 
 map({ 'n' }, 'ZZ', '<cmd>qa<CR>', opts)
-map_desc({ 'n' }, '<leader>cor', '<cmd>OverseerRun<CR>', 'Overseer run', opts)
-map_desc({ 'n' }, '<leader>coa', '<cmd>OverseerQuickAction<CR>', 'Overseer quick actions', opts)
-map_desc({ 'n' }, '<leader>coc', '<cmd>CompilerOpen<CR>', 'Open compiler', opts)
-map_desc({ 'n' }, '<leader>cot', '<cmd>OverseerToggle<CR>', 'Toggle Overseer window', opts)
+map_desc({ 'n' }, '<leader>crr', '<cmd>OverseerRun<CR>', 'Overseer run', opts)
+map_desc({ 'n' }, '<leader>cra', '<cmd>OverseerQuickAction<CR>', 'Overseer quick actions', opts)
+map_desc({ 'n' }, '<leader>crt', '<cmd>OverseerToggle<CR>', 'Toggle Overseer window', opts)
 
 -- Marks
 map({ 'n' }, '<leader>m', '<cmd>lua require("telescope.builtin").marks(vim.g.telescope_theme)<CR>')

@@ -61,7 +61,17 @@ return {
             aggressive_spell = false,
         },
     },
-    'EdenEast/nightfox.nvim',
+    {
+        'EdenEast/nightfox.nvim',
+        opts = {
+            groups = {
+                all = {
+                    LspReferenceText = { style = 'underline', bg = 'NONE' },
+                    TelescopePromptBorder = { link = 'TelescopeBorder' }
+                },
+            },
+        },
+    },
     'joshdick/onedark.vim',
     {
         'rafamadriz/neon',

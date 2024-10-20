@@ -7,7 +7,7 @@ return {
         'mbbill/undotree',
         init = function()
             vim.g.undotree_SetFocusWhenToggle = true
-        end
+        end,
     },
 
     {
@@ -186,12 +186,12 @@ return {
                 end,
             })
 
-            vim.api.nvim_set_keymap('n', '<leader>crq', '', {
+            vim.api.nvim_set_keymap('n', '<leader>csq', '', {
                 callback = change_function.change_function_via_qf,
                 desc = 'Change function signature via quickfix list',
             })
 
-            vim.api.nvim_set_keymap('n', '<leader>crl', 'Change function', {
+            vim.api.nvim_set_keymap('n', '<leader>css', 'Change function', {
                 callback = change_function.change_function,
                 desc = 'Change function signature',
             })
@@ -297,15 +297,9 @@ return {
                 },
             },
             -- {
-            --     -- Make sure to setup it properly if you have lazy=true
-            --     'MeanderingProgrammer/render-markdown.nvim',
-            --     opts = {
-            --         file_types = { 'markdown', 'Avante' },
-            --     },
-            --     ft = { 'markdown', 'Avante' },
-            -- },
         },
     },
+
 }
 
 -- Plugins that need to try again

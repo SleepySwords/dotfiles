@@ -6,11 +6,11 @@ local extension_path = vim.env.HOME .. '/.vscode/extensions/vadimcn.vscode-lldb-
 local codelldb_path = extension_path .. 'adapter/codelldb'
 local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
 
-dap.adapters.lldb = {
-    type = 'executable',
-    command = '/opt/homebrew/opt/llvm/bin/lldb-vscode',
-    name = 'lldb',
-}
+-- dap.adapters.lldb = {
+--     type = 'executable',
+--     command = '/opt/homebrew/opt/llvm/bin/lldb-vscode',
+--     name = 'lldb',
+-- }
 
 dap.adapters.codelldb = {
     type = 'server',
@@ -22,6 +22,8 @@ dap.adapters.codelldb = {
     },
     name = 'codelldb',
 }
+
+dap.adapters.lldb = dap.adapters.codelldb
 
 dap.adapters.cppdbg = {
     id = 'cppdbg',

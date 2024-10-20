@@ -36,8 +36,8 @@ function M.setup()
     -- Select Nodes in Visual Mode
     vim.keymap.set('x', 'J', '<cmd>STSSelectNextSiblingNode<cr>', opts)
     vim.keymap.set('x', 'K', '<cmd>STSSelectPrevSiblingNode<cr>', opts)
-    vim.keymap.set('x', 'L', '<cmd>STSSelectParentNode<cr>', opts)
-    vim.keymap.set('x', 'H', '<cmd>STSSelectChildNode<cr>', opts)
+    vim.keymap.set('x', 'H', '<cmd>STSSelectParentNode<cr>', opts)
+    vim.keymap.set('x', 'L', '<cmd>STSSelectChildNode<cr>', opts)
 
     -- Swapping Nodes in Visual Mode
     map_desc('x', 'mj', '<cmd>STSSwapNextVisual<cr>', 'Treesurfer swap next element', opts)

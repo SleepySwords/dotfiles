@@ -37,3 +37,8 @@ vim.api.nvim_create_autocmd('UILeave', {
 --         setup_tabs(false)
 --     end,
 -- })
+
+-- vim.api.nvim_create_autocmd('BufWritePost', {
+--     pattern = "*.md",
+--     callback = require("mathjax").render_latex
+-- })

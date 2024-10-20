@@ -22,8 +22,8 @@ function M.setup()
     telescope.load_extension('dap')
 
     -- Is only for Sonokai
-    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'Red', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapStopped', { text = '', texthl = '', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpoint', { text = '●', texthl = 'DiagnosticSignError', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapStopped', { text = '', texthl = '', linehl = '', numhl = '' })
 
     -- require('dap.ext.vscode').load_launchjs()
 end

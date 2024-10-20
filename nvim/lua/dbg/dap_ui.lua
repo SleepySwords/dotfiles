@@ -2,6 +2,19 @@ local M = {}
 
 function M.setup()
     require('dapui').setup({
+        controls = {
+            icons = {
+                disconnect = "",
+                pause = "",
+                play = "",
+                run_last = "󰜉",
+                step_back = "󰌍",
+                step_into = "󰆹",
+                step_out = "󰆸",
+                step_over = "󰆷",
+                terminate = ""
+            }
+        },
         icons = {
             expanded = '',
             current_frame = '',

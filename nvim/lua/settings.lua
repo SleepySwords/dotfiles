@@ -38,7 +38,8 @@ o.guifont = 'Jetbrains Mono:h11'
 -- o.guifont = 'Firacode nerd font:h11'
 
 o.foldcolumn = '1'
-o.fillchars = { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '', diff = '╱' }
+o.fillchars =
+    { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '', diff = '╱' }
 o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true
@@ -75,10 +76,10 @@ g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 -- Global settings
 
 -- Theme settings
--- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time)
+-- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time), eva01
 
 -- vim.cmd([[colorscheme catppuccin-mocha]])
-vim.cmd([[colorscheme eva01]])
+vim.cmd([[colorscheme carbonfox]])
 
 if vim.g.neovide then
     -- vim.cmd([[colorscheme carbonfox]])

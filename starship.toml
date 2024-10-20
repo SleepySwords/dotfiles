@@ -41,7 +41,3 @@ time_format = '%R'
 min_time = 50
 format = '[$duration](bold green)'
 # show_milliseconds = true
-
-[status]
-disabled = false
-format = '[✘ $status]($style)'

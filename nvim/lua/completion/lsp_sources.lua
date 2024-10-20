@@ -155,12 +155,12 @@ function M.setup()
             return vim.fn.getcwd()
         end,
     }))
-    lsp_config.tailwindcss.setup(completion_engine.provide_capabilities({
-        capabilities = capabilities,
-        root_dir = function()
-            return vim.fn.getcwd()
-        end,
-    }))
+    -- lsp_config.tailwindcss.setup(completion_engine.provide_capabilities({
+    --     capabilities = capabilities,
+    --     root_dir = function()
+    --         return vim.fn.getcwd()
+    --     end,
+    -- }))
     lsp_config.gopls.setup(completion_engine.provide_capabilities({
         capabilities = capabilities,
         root_dir = function()
