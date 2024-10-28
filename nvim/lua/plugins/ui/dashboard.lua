@@ -1,6 +1,8 @@
 -- Adds dashboard
 return {
     'glepnir/dashboard-nvim',
+    -- enabled = false,
+    event = 'VimEnter',
     -- event = 'VimEnter',
     config = function()
         local g = vim.g
@@ -38,4 +40,4 @@ return {
         })
     end,
     dependencies = { 'echasnovski/mini.icons' },
-};
+}

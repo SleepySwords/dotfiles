@@ -17,7 +17,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = { 'documentation', 'detail', 'additionalTextEdits' },
 }
 
-M.capabilities = capabilities;
+M.capabilities = capabilities
 
 function M.setup()
     lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
@@ -103,6 +103,13 @@ function M.setup()
         end,
     }))
     lsp_config.hls.setup(completion_engine.provide_capabilities({
+        settings = {
+            haskell = {
+                plugin = {
+                    rename = { config = { crossModule = true } },
+                },
+            },
+        },
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()

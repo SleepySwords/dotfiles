@@ -87,6 +87,7 @@ return {
     {
         'NeogitOrg/neogit',
         cmd = { 'Neogit', 'NeogitResetState' },
+
         dependencies = {
             'nvim-lua/plenary.nvim', -- required
             'sindrets/diffview.nvim', -- optional - Diff integration
@@ -95,7 +96,9 @@ return {
             'nvim-telescope/telescope.nvim', -- optional
             'ibhagwan/fzf-lua', -- optional
         },
-        config = true,
+        opts = {
+            graph_style = 'kitty',
+        },
     },
     {
         'isakbm/gitgraph.nvim',
@@ -140,9 +143,21 @@ return {
         end,
     },
 
+    {
+        'nvchad/showkeys',
+        cmd = 'ShowkeysToggle',
+        dependencies = { 'nvchad/volt' },
+        opts = {
+            position = 'bottom-right',
+        },
+    },
+
+    { 'nvchad/timerly', enabled = false, cmd = 'TimerlyToggle' },
+
     -- Discord rich presence
     {
         'andweeb/presence.nvim',
+        enabled = false,
     },
     {
         dir = '/Users/ibby/stuff/dev/lua/change-function.nvim',
@@ -198,9 +213,34 @@ return {
         end,
     },
     {
+        'folke/persistence.nvim',
+        event = 'BufReadPre',
+        -- opts = {},
+        config = function()
+            require('persistence').setup({})
+                local group = vim.api.nvim_create_augroup('user-persistence', { clear = true })
+                vim.api.nvim_create_autocmd('user', {
+                    pattern = 'PersistenceLoadPost',
+                    group = group,
+                    callback = function()
+                        if #vim.api.nvim_list_tabpages() >= 3 then
+                            vim.g.has_setup_tabs = true
+                        end
+                        local tab_names = { 'Code', 'Debug', 'Terminal' }
+                        for _, v in ipairs(vim.api.nvim_list_tabpages()) do
+                            if tab_names[v] ~= nil then
+                                vim.api.nvim_tabpage_set_var(v, 'name', tab_names[v])
+                            end
+                        end
+                    end,
+                })
+        end,
+    },
+    {
         'rmagatti/auto-session', -- Maybe replace with Shatur/neovim-session-manager or folke/persistence.nvim
         -- Perhaps even ahmedkhalf/project.nvim
         lazy = false,
+        enabled = false,
         dependencies = {
             'nvim-telescope/telescope.nvim',
         },
@@ -299,7 +339,6 @@ return {
             -- {
         },
     },
-
 }
 
 -- Plugins that need to try again
