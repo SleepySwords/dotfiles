@@ -19,6 +19,13 @@ vim.api.nvim_set_hl(
     -- { fg = tuple_to_hex(inlay_fg), italic = true }
 )
 
+-- This is for the trail listchar
+vim.api.nvim_set_hl(0, 'Whitespace', {
+    fg = vim.api.nvim_get_hl(0, { name = 'Whitespace', link = false })['fg'],
+    bg = vim.api.nvim_get_hl(0, { name = 'Whitespace', link = false })['bg'],
+    underline = true,
+})
+
 vim.api.nvim_set_hl(0, 'Folded', {})
 vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
 vim.api.nvim_set_hl(0, 'UfoFoldedBg', {})
@@ -45,7 +52,8 @@ local headline4 = tuple_to_hex(
     contrast_based_on(get_colour_tuple('@markup.heading.4.markdown', 'fg'), 0.3, is_light)
 )
 
-local code_bg = tuple_to_hex(contrast_based_on(get_colour_tuple('normal', 'bg'), 0.95, not is_light))
+local code_bg =
+    tuple_to_hex(contrast_based_on(get_colour_tuple('normal', 'bg'), 0.95, not is_light))
 vim.api.nvim_set_hl(0, 'RenderMarkdownCode', { bg = code_bg })
 
 vim.api.nvim_set_hl(0, 'Headline1', { bg = headline1 })
@@ -57,15 +65,11 @@ local visual_colour = is_light and '#555555' or '#FFFFFF'
 
 -- vim.api.nvim_set_hl(0, "Cursor", {fg="#ebbab9"})
 
-vim.api.nvim_set_hl(
-    0,
-    'Visual',
-    {
-        bg = vim.api.nvim_get_hl(0, { name = 'Visual', link = false }).bg,
-        fg = visual_colour,
-        bold = true,
-    }
-)
+vim.api.nvim_set_hl(0, 'Visual', {
+    bg = vim.api.nvim_get_hl(0, { name = 'Visual', link = false }).bg,
+    fg = visual_colour,
+    bold = true,
+})
 
 vim.api.nvim_set_hl(0, 'GitGraphBranch1', { fg = '#458588' })
 vim.api.nvim_set_hl(0, 'GitGraphBranch2', { fg = '#b16286' })

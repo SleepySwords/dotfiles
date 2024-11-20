@@ -390,7 +390,7 @@ map({ 'n' }, '<leader>m', '<cmd>lua require("telescope.builtin").marks(vim.g.tel
 --     end,
 -- })
 
-map({ 'n' }, '<leader>al', '<cmd>SessionSearch<CR>', { desc = 'Session load' })
+map({ 'n' }, '<leader>al', '<cmd>Sessionsearch<CR>', { desc = 'Session load' })
 map({ 'n' }, '<leader>ad', '<cmd>Autosession delete<CR>', { desc = 'Session delete' })
 
 -- q: is also useful...

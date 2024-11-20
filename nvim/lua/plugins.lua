@@ -89,19 +89,23 @@ return {
         cmd = { 'Neogit', 'NeogitResetState' },
 
         dependencies = {
-            'nvim-lua/plenary.nvim', -- required
+            'nvim-lua/plenary.nvim',  -- required
             'sindrets/diffview.nvim', -- optional - Diff integration
 
             -- Only one of these is needed, not both.
             'nvim-telescope/telescope.nvim', -- optional
-            'ibhagwan/fzf-lua', -- optional
+            'ibhagwan/fzf-lua',              -- optional
         },
         opts = {
             graph_style = 'kitty',
         },
     },
     {
+        'sindrets/diffview.nvim'
+    },
+    {
         'isakbm/gitgraph.nvim',
+        enabled = false,
         dependencies = { 'sindrets/diffview.nvim' },
         opts = {
             symbols = {
@@ -152,7 +156,7 @@ return {
         },
     },
 
-    { 'nvchad/timerly', enabled = false, cmd = 'TimerlyToggle' },
+    { 'nvchad/timerly',      enabled = false, cmd = 'TimerlyToggle' },
 
     -- Discord rich presence
     {
@@ -192,7 +196,7 @@ return {
                             height = '20%',
                         },
                         -- relative = 'editor',
-                        zindex = 1000,
+                        zindex = 50,
                         buf_options = {
                             modifiable = false,
                             readonly = false,
@@ -215,32 +219,33 @@ return {
     {
         'folke/persistence.nvim',
         event = 'BufReadPre',
+        enabled = false,
         -- opts = {},
         config = function()
             require('persistence').setup({})
-                local group = vim.api.nvim_create_augroup('user-persistence', { clear = true })
-                vim.api.nvim_create_autocmd('user', {
-                    pattern = 'PersistenceLoadPost',
-                    group = group,
-                    callback = function()
-                        if #vim.api.nvim_list_tabpages() >= 3 then
-                            vim.g.has_setup_tabs = true
+            local group = vim.api.nvim_create_augroup('user-persistence', { clear = true })
+            vim.api.nvim_create_autocmd('user', {
+                pattern = 'PersistenceLoadPost',
+                group = group,
+                callback = function()
+                    if #vim.api.nvim_list_tabpages() >= 3 then
+                        vim.g.has_setup_tabs = true
+                    end
+                    local tab_names = { 'Code', 'Debug', 'Terminal' }
+                    for _, v in ipairs(vim.api.nvim_list_tabpages()) do
+                        if tab_names[v] ~= nil then
+                            vim.api.nvim_tabpage_set_var(v, 'name', tab_names[v])
                         end
-                        local tab_names = { 'Code', 'Debug', 'Terminal' }
-                        for _, v in ipairs(vim.api.nvim_list_tabpages()) do
-                            if tab_names[v] ~= nil then
-                                vim.api.nvim_tabpage_set_var(v, 'name', tab_names[v])
-                            end
-                        end
-                    end,
-                })
+                    end
+                end,
+            })
         end,
     },
     {
         'rmagatti/auto-session', -- Maybe replace with Shatur/neovim-session-manager or folke/persistence.nvim
         -- Perhaps even ahmedkhalf/project.nvim
-        lazy = false,
-        enabled = false,
+        event = 'BufReadPre',
+        cmd = { 'SessionSearch', 'Autosession' },
         dependencies = {
             'nvim-telescope/telescope.nvim',
         },
