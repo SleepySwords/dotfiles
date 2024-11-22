@@ -32,6 +32,7 @@ return {
                 visual_line = 'sla',
                 delete = 'sd',
                 change = 'sc',
+                change_line = 'scl',
             },
         },
     },

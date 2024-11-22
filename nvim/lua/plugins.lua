@@ -174,9 +174,6 @@ return {
                     rust = 'function_params',
                     python = 'function_params',
                 },
-                mappings = {
-                    quit = 'a',
-                },
                 nui = function(title)
                     return {
                         win_options = {
