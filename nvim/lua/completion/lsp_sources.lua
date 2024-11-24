@@ -16,7 +16,6 @@ capabilities.textDocument.formatting.dynamicRegistration = false
 capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = { 'documentation', 'detail', 'additionalTextEdits' },
 }
-
 M.capabilities = capabilities
 
 function M.setup()

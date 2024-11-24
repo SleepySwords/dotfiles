@@ -89,19 +89,19 @@ return {
         cmd = { 'Neogit', 'NeogitResetState' },
 
         dependencies = {
-            'nvim-lua/plenary.nvim',  -- required
+            'nvim-lua/plenary.nvim', -- required
             'sindrets/diffview.nvim', -- optional - Diff integration
 
             -- Only one of these is needed, not both.
             'nvim-telescope/telescope.nvim', -- optional
-            'ibhagwan/fzf-lua',              -- optional
+            'ibhagwan/fzf-lua', -- optional
         },
         opts = {
             graph_style = 'kitty',
         },
     },
     {
-        'sindrets/diffview.nvim'
+        'sindrets/diffview.nvim',
     },
     {
         'isakbm/gitgraph.nvim',
@@ -156,7 +156,7 @@ return {
         },
     },
 
-    { 'nvchad/timerly',      enabled = false, cmd = 'TimerlyToggle' },
+    { 'nvchad/timerly', enabled = false, cmd = 'TimerlyToggle' },
 
     -- Discord rich presence
     {
@@ -173,6 +173,9 @@ return {
                     go = 'function_params',
                     rust = 'function_params',
                     python = 'function_params',
+                },
+                mappings = {
+                    add_argument = { 'a', 'i' },
                 },
                 nui = function(title)
                     return {
