@@ -17,7 +17,7 @@ return {
         'kylechui/nvim-surround',
         config = function(_, opts)
             require('nvim-surround').setup(opts)
-            vim.api.nvim_set_keymap('n', 's', '<nop>', {})
+            vim.keymap.set({'n', 'v'}, 's', '<nop>', {})
         end,
         opts = {
             -- FIXME: may change this to omit the g, having flash use the g instead.

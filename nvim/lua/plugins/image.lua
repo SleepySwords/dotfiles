@@ -10,7 +10,7 @@ package.path = package.path .. ';' .. vim.fn.expand('$HOME') .. '/.luarocks/shar
 
 return {
     {
-        dir = '/Users/ibby/stuff/dev/lua/mathjax.nvim',
+        'sleepyswords/mathjax.nvim',
         build = 'cd mathjax && yarn install',
         ft = 'markdown',
         -- config = function ()

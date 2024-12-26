@@ -164,7 +164,7 @@ return {
         enabled = false,
     },
     {
-        dir = '/Users/ibby/stuff/dev/lua/change-function.nvim',
+        'Sleepyswords/change-function.nvim',
         dependencies = { 'MunifTanjim/nui.nvim' },
         config = function()
             local change_function = require('change-function')
@@ -196,7 +196,7 @@ return {
                             height = '20%',
                         },
                         -- relative = 'editor',
-                        zindex = 50,
+                        zindex = 40,
                         buf_options = {
                             modifiable = false,
                             readonly = false,
