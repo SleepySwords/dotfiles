@@ -23,9 +23,9 @@ return {
             require('mason').setup()
         end,
     },
-    -- Be able to add linters as formaters.
     {
         'jay-babu/mason-null-ls.nvim',
+        enabled = false,
         event = { 'BufReadPre', 'BufNewFile' },
         dependencies = {
             'williamboman/mason.nvim',
@@ -38,7 +38,7 @@ return {
             require('null-ls').setup({})
         end,
     },
-
+    -- Be able to add linters as formaters.
     -- Unfortunately the way decompilation works in omnisharp is that the client sends a
     -- o#/v2/gotodefinition request, which returns with a metadata source field, that is used
     -- in a o#/metadata request to get the decompilation. Unfortunately, LSP in neovim sends a
@@ -58,6 +58,7 @@ return {
     -- Autocompletion
     {
         'hrsh7th/nvim-cmp',
+        enabled = false,
         event = 'InsertEnter',
         config = function()
             require('completion.engine.nvim-cmp')
@@ -87,6 +88,72 @@ return {
                 end,
             },
         },
+    },
+    {
+        'saghen/blink.cmp',
+        dependencies = {
+            'rafamadriz/friendly-snippets',
+            'onsails/lspkind.nvim',
+            {
+                'L3MON4D3/LuaSnip',
+                dependencies = {
+                    'rafamadriz/friendly-snippets',
+                },
+                config = function()
+                    require('luasnip').config.set_config({
+                        history = true,
+                        updateevents = 'TextChanged,TextChangedI',
+                    })
+                    require('luasnip.loaders.from_vscode').lazy_load()
+                end,
+            },
+        },
+        version = '*',
+        opts = {
+            keymap = { preset = 'enter' },
+
+            appearance = {
+                -- use_nvim_cmp_as_default = true,
+                nerd_font_variant = 'mono',
+            },
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+            },
+            completion = {
+                menu = {
+                    draw = {
+                        columns = {
+                            { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 }
+                        }
+                    }
+                },
+                documentation = {
+                    auto_show = true,
+                },
+                ghost_text = {
+                    enabled = true,
+                },
+                list = {
+                    selection =
+                    {
+                        auto_insert = true,
+                        preselect = function(ctx)
+                            return ctx.mode ~= 'cmdline'
+                        end,
+                    }
+
+                }
+            },
+            signature = {
+                enabled = true,
+                trigger = {
+                    show_on_insert = true,
+                    show_on_insert_on_trigger_character = true,
+                }
+            },
+            snippets = { preset = 'luasnip' },
+        },
+        opts_extend = { 'sources.default' },
     },
 
     -- Displays the function signature and current field.

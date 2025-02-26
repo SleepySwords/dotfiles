@@ -98,18 +98,18 @@ function M.create_keybinds()
 
     vim.keymap.set('i', '<C-j>', function()
         M.activeSignature = M.activeSignature + 1
-        vim.lsp.buf.signature_help()
+        vim.lsp.buf.signature_help({focus = false})
     end, { buffer = 0, expr = true, nowait = false })
 
     vim.keymap.set('i', '<C-k>', function()
         M.activeSignature = M.activeSignature - 1
-        vim.lsp.buf.signature_help()
+        vim.lsp.buf.signature_help({focus = false})
     end, { buffer = 0, expr = true, nowait = false })
 
     vim.keymap.set('i', '<C-s>', function()
         if not M.enabled then
             M.enabled = true
-            vim.lsp.buf.signature_help()
+            vim.lsp.buf.signature_help({focus = false})
         else
             M.enabled = false
             M.close_window()
@@ -142,7 +142,7 @@ local function attach_buffer(bufnr)
         'CompleteDone' --[[ 'TextChangedI' ]],
     }, {
         callback = function()
-            pcall(vim.lsp.buf.signature_help)
+            pcall(vim.lsp.buf.signature_help, {focus = false, silent = true})
         end,
         buffer = bufnr,
     })
@@ -171,7 +171,7 @@ function M.setup()
                     bufnr = 0,
                 }) > 0
             then
-                vim.lsp.buf.signature_help()
+                vim.lsp.buf.signature_help({focus = false, silent = true})
             end
         end,
     })
@@ -184,11 +184,11 @@ function M.setup()
         end,
     })
 
-    vim.lsp.handlers[ms.textDocument_signatureHelp] = vim.lsp.with(M.signature_help, {
-        close_events = { 'CursorMoved', 'WinScrolled' },
-        anchor_bias = 'above',
-        max_height = 5,
-    })
+    -- vim.lsp.handlers[ms.textDocument_signatureHelp] = vim.lsp.with(M.signature_help, {
+    --     close_events = { 'CursorMoved', 'WinScrolled' },
+    --     anchor_bias = 'above',
+    --     max_height = 5,
+    -- })
 end
 
 return M

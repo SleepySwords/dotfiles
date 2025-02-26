@@ -1,5 +1,5 @@
 local M = {}
-local opts = { noremap = true, silent = true }
+local DEFAULT_OPTS = { noremap = true, silent = true }
 
 local map_key = vim.api.nvim_set_keymap
 
@@ -23,25 +23,25 @@ function M.setup()
         '<leader>lm',
         '<cmd>STSSelectMasterNode<cr>',
         'Treesurfer select master node',
-        opts
+        DEFAULT_OPTS
     )
     map_desc(
         'n',
         '<leader>ln',
         '<cmd>STSSelectCurrentNode<cr>',
         'Treesurfer select current node',
-        opts
+        DEFAULT_OPTS
     )
 
     -- Select Nodes in Visual Mode
-    vim.keymap.set('x', 'J', '<cmd>STSSelectNextSiblingNode<cr>', opts)
-    vim.keymap.set('x', 'K', '<cmd>STSSelectPrevSiblingNode<cr>', opts)
-    vim.keymap.set('x', 'H', '<cmd>STSSelectParentNode<cr>', opts)
-    vim.keymap.set('x', 'L', '<cmd>STSSelectChildNode<cr>', opts)
+    vim.keymap.set('x', 'J', '<cmd>STSSelectNextSiblingNode<cr>', DEFAULT_OPTS)
+    vim.keymap.set('x', 'K', '<cmd>STSSelectPrevSiblingNode<cr>', DEFAULT_OPTS)
+    vim.keymap.set('x', 'H', '<cmd>STSSelectParentNode<cr>', DEFAULT_OPTS)
+    vim.keymap.set('x', 'L', '<cmd>STSSelectChildNode<cr>', DEFAULT_OPTS)
 
     -- Swapping Nodes in Visual Mode
-    map_desc('x', 'mj', '<cmd>STSSwapNextVisual<cr>', 'Treesurfer swap next element', opts)
-    map_desc('x', 'mk', '<cmd>STSSwapPrevVisual<cr>', 'Treesurfer swap previous element', opts)
+    map_desc('x', 'mj', '<cmd>STSSwapNextVisual<cr>', 'Treesurfer swap next element', DEFAULT_OPTS)
+    map_desc('x', 'mk', '<cmd>STSSwapPrevVisual<cr>', 'Treesurfer swap previous element', DEFAULT_OPTS)
 end
 
 return M

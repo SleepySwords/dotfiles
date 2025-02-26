@@ -5,7 +5,9 @@ local setup_terminal = require("utils").setup_terminal
 -- Highlights when yannking (y)
 vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
-    command = "silent! lua require'vim.highlight'.on_yank()",
+    callback = function()
+        (vim.hl or vim.highlight).on_yank()
+    end
 })
 
 local group = vim.api.nvim_create_augroup('Term', {})

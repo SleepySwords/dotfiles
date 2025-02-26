@@ -9,6 +9,6 @@ return {
         end,
     },
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    'junegunn/fzf',
-    'ibhagwan/fzf-lua',
+    {'junegunn/fzf', enabled = false},
+    {'ibhagwan/fzf-lua', enabled = false},
 }

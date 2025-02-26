@@ -105,13 +105,13 @@ map({ 'n' }, 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', default('LSP Hover'))
 map({ 'n' }, '<leader>xx', '<cmd>Trouble toggle<CR>', default('Trouble Toggle'))
 map(
     { 'n' },
-    '<leader>xe',
+    '<leader>xd',
     '<cmd>Trouble workspace_diagnostics toggle<CR>',
     default('Trouble workspace diagnostics')
 )
 map(
     { 'n' },
-    '<leader>cd',
+    '<leader>xe',
     '<cmd>Trouble diagnostics toggle<CR>',
     default('Trouble document diagnostics')
 )
@@ -212,7 +212,7 @@ map(
     '<cmd>lua require("telescope.builtin").lsp_workspace_symbols(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>',
     default('Open workspace symbols')
 )
-map({ 'n' }, '<leader>u', '<cmd>UndotreeToggle<cr>', default('Undo tree'))
+-- map({ 'n' }, '<leader>u', '<cmd>UndotreeToggle<cr>', default('Undo tree'))
 
 local command =
     [[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]

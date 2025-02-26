@@ -89,12 +89,12 @@ return {
         cmd = { 'Neogit', 'NeogitResetState' },
 
         dependencies = {
-            'nvim-lua/plenary.nvim', -- required
+            'nvim-lua/plenary.nvim',  -- required
             'sindrets/diffview.nvim', -- optional - Diff integration
 
             -- Only one of these is needed, not both.
             'nvim-telescope/telescope.nvim', -- optional
-            'ibhagwan/fzf-lua', -- optional
+            -- 'ibhagwan/fzf-lua', -- optional
         },
         opts = {
             graph_style = 'kitty',
@@ -156,12 +156,23 @@ return {
         },
     },
 
-    { 'nvchad/timerly', enabled = false, cmd = 'TimerlyToggle' },
+    { 'nvchad/timerly',      enabled = false, cmd = 'TimerlyToggle' },
 
     -- Discord rich presence
     {
         'andweeb/presence.nvim',
         enabled = false,
+    },
+    {
+        'ThePrimeagen/refactoring.nvim',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-treesitter/nvim-treesitter',
+        },
+        lazy = false,
+        config = function()
+            require('refactoring').setup()
+        end,
     },
     {
         'Sleepyswords/change-function.nvim',
@@ -170,9 +181,15 @@ return {
             local change_function = require('change-function')
             change_function.setup({
                 queries = {
-                    go = 'function_params',
+                    -- go = 'function_params',
                     rust = 'function_params',
                     python = 'function_params',
+                },
+                languages = {
+                    go = {
+                        query_file = 'function_params',
+                        argument_seperator = ', ',
+                    },
                 },
                 mappings = {
                     add_argument = { 'a', 'i' },
@@ -277,26 +294,34 @@ return {
             })
         end,
     },
-    -- {
-    --     'folke/noice.nvim',
-    --     -- event = 'VeryLazy',
-    --     opts = {
-    --         lsp = {
-    --             signature = {
-    --                 enabled = false,
-    --             },
-    --         },
-    --         presets = {
-    --             -- you can enable a preset by setting it to true, or a table that will override the preset config
-    --             -- you can also add custom presets that you can enable/disable with enabled=true
-    --             bottom_search = true,
-    --         },
-    --     },
-    --     dependencies = {
-    --         'MunifTanjim/nui.nvim',
-    --         'rcarriga/nvim-notify',
-    --     },
-    -- },
+    {
+        'folke/noice.nvim',
+        enabled = false,
+        -- event = 'VeryLazy',
+        opts = {
+            cmdline = {
+                enabled = false,
+            },
+            lsp = {
+                signature = {
+                    enabled = true,
+                },
+                hover = {
+                    enabled = false
+                }
+            },
+            messages = {
+                enabled = false
+            },
+            popupmenu = {
+                enabled = true
+            }
+        },
+        dependencies = {
+            'MunifTanjim/nui.nvim',
+            -- 'rcarriga/nvim-notify',
+        },
+    },
     -- {
     --     'rcarriga/nvim-notify',
     --     opts = {
@@ -307,7 +332,10 @@ return {
 
     -- Could just use ftplugins instead /shrug
     'tpope/vim-sleuth',
-    'jbyuki/venn.nvim',
+    {
+        'jbyuki/venn.nvim',
+        ft = { 'markdown' },
+    },
     {
         'yetone/avante.nvim',
         event = 'VeryLazy',

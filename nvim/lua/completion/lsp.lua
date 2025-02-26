@@ -1,7 +1,7 @@
 require('completion.lsp_sources').setup()
 local diagnostic_signs = require('completion.diagnostic_signs')
 
-require('completion.signature.handler').setup()
+-- require('completion.signature.handler').setup()
 
 -- Shows error diagnostics on cursor hold
 -- vim.cmd('autocmd CursorHold * lua vim.diagnostic.open_float({focusable=false})', true)
