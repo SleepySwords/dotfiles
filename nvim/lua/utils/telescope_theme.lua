@@ -54,38 +54,4 @@ function M.get_telescope_theme(opts)
     return vim.tbl_deep_extend('force', theme_opts, opts)
 end
 
-function M.setup()
-    local actions = require('telescope.actions')
-    local trouble = require('trouble.sources.telescope')
-
-    require('telescope').setup({
-        defaults = M.get_telescope_theme({
-            dynamic_preview_title = true,
-            sorting_strategy = 'ascending',
-            results_title = false,
-            selection_caret = ' > ',
-            entry_prefix = '   ',
-            mappings = {
-                i = {
-                    ['<tab>'] = actions.move_selection_next,
-                    ['<S-tab>'] = actions.move_selection_previous,
-                    ['<esc>'] = actions.close,
-                    ['<c-t>'] = trouble.open,
-                },
-                n = { ['<c-t>'] = trouble.open_with_trouble },
-            },
-        }),
-        extensions = {
-            fzf = {
-                fuzzy = true,
-                override_generic_sorter = true,
-                override_file_sorter = true,
-                case_mode = 'smart_case',
-            },
-        },
-    })
-
-    require('telescope').load_extension('fzf')
-end
-
 return M

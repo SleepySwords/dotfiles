@@ -1,4 +1,4 @@
-local setup_terminal = require("utils").setup_terminal
+local setup_terminal = require("utils.tabs").setup_terminal
 -- local setup_tabs = require("utils").setup_tabs
 
 

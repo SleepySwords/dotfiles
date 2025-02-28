@@ -71,7 +71,6 @@ o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,term
 o.shada = "'1000,f0"
 
 local g = vim.g
-g.telescope_theme = require('navigation.telescope').get_telescope_theme()
 
 -- Global settings
 
@@ -89,13 +88,13 @@ if vim.g.neovide then
     -- vim.cmd([[colorscheme edge]])
     -- vim.cmd([[colorscheme duskfox]])
 
-    -- vim.g.neovide_floating_blur_amount_x = 2.0
-    -- vim.g.neovide_floating_blur_amount_y = 2.0
+    vim.g.neovide_floating_blur_amount_x = 2.0
+    vim.g.neovide_floating_blur_amount_y = 2.0
     vim.g.neovide_floating_shadow = true
-    -- vim.g.neovide_padding_top = 5
-    -- vim.g.neovide_padding_bottom = 5
+    vim.g.neovide_padding_top = 5
+    vim.g.neovide_padding_bottom = 5
 
-    -- vim.o.winblend = 30
+    vim.o.winblend = 30
 else
     -- vim.cmd([[colorscheme catppuccin-latte]])
     -- vim.cmd([[colorscheme flow]])

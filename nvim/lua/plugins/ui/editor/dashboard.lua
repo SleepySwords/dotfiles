@@ -8,7 +8,7 @@ return {
         local g = vim.g
 
         local db = require('dashboard')
-        require('splash_sprites')
+        require('utils.splash_sprites')
 
         db.setup({
             theme = 'hyper',

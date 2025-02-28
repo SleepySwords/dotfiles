@@ -11,6 +11,7 @@ package.path = package.path .. ';' .. vim.fn.expand('$HOME') .. '/.luarocks/shar
 return {
     {
         'sleepyswords/mathjax.nvim',
+        enabled = false,
         build = 'cd mathjax && yarn install',
         ft = 'markdown',
         -- config = function ()

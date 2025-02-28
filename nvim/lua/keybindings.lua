@@ -149,55 +149,55 @@ map('n', '<leader>g', '<cmd>LazyGit<CR>', default('Opens up LazyGit'))
 map(
     { 'n' },
     '<leader>f',
-    '<cmd>lua require("telescope.builtin").find_files(vim.g.telescope_theme)<CR>',
+    '<cmd>lua require("telescope.builtin").find_files()<CR>',
     default('Open File Picker')
 )
 map(
     { 'n' },
     '<leader>ag',
-    '<cmd>lua require("telescope.builtin").live_grep(vim.g.telescope_theme)<cr>',
+    '<cmd>lua require("telescope.builtin").live_grep()<cr>',
     default('Open Live Grep')
 )
 map(
     'n',
     '<leader>b',
-    '<cmd>lua require("telescope.builtin").buffers(vim.g.telescope_theme)<cr>',
+    '<cmd>lua require("telescope.builtin").buffers()<cr>',
     default('Open Buffer Picker')
 )
 map(
     { 'n' },
     '<leader>ht',
-    '<cmd>lua require("telescope.builtin").help_tags(vim.g.telescope_theme)<cr>',
+    '<cmd>lua require("telescope.builtin").help_tags()<cr>',
     default('Open Help Tags')
 )
 map(
     { 'n' },
     '<leader>hh',
-    '<cmd>lua require("telescope.builtin").highlights(vim.g.telescope_theme)<cr>',
+    '<cmd>lua require("telescope.builtin").highlights()<cr>',
     default('Open Help Tags')
 )
 map(
     { 'n' },
     '<leader>hg',
-    '<cmd>lua require("telescope.builtin").git_files(vim.g.telescope_theme)<cr>',
+    '<cmd>lua require("telescope.builtin").git_files()<cr>',
     default('Open Git Files')
 )
 map(
     { 'n' },
     '<leader>S',
-    '<cmd>lua require("telescope.builtin").lsp_document_symbols(vim.g.telescope_theme)<cr>',
+    '<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>',
     default('Open document symbols')
 )
 map(
     { 'n' },
     '<leader>hd',
-    '<cmd>lua require("telescope.builtin").diagnostics(vim.g.telescope_theme)<cr>',
+    '<cmd>lua require("telescope.builtin").diagnostics()<cr>',
     default('Open telescope diagnostics')
 )
 map(
     { 'n' },
     '<leader>hr',
-    '<cmd>lua require("telescope.builtin").lsp_references(vim.g.telescope_theme)<cr>',
+    '<cmd>lua require("telescope.builtin").lsp_references()<cr>',
     default('Open telescope references')
 )
 map(
@@ -212,7 +212,7 @@ map(
     '<cmd>lua require("telescope.builtin").lsp_workspace_symbols(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>',
     default('Open workspace symbols')
 )
--- map({ 'n' }, '<leader>u', '<cmd>UndotreeToggle<cr>', default('Undo tree'))
+map({ 'n' }, '<leader>u', '<cmd>UndotreeToggle<cr>', default('Undo tree'))
 
 local command =
     [[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
@@ -271,7 +271,7 @@ map({ 'n' }, '<leader>n', '<cmd>bnext<CR>', default('Next buffer'))
 map({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', default('Previous buffer'))
 map({ 'n' }, '<leader>q', '<cmd>BufDel<CR>', default('Delete buffer'))
 map({ 'n' }, '<leader>Q', '<cmd>BufDelOthers<CR>', default('Delete all other buffers'))
-map({ 'n' }, '<leader>ls', '<cmd>ls<CR>', default('Print ls'))
+map({ 'n' }, '<leader>ll', '<cmd>ls<CR>', default('Print ls'))
 map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>', default('Set current line number to 0 or not'))
 
 -- Debugging
@@ -300,27 +300,27 @@ map({ 'n' }, '<leader>dui', '<cmd>lua require"dapui".toggle()<CR>')
 map(
     { 'n' },
     '<leader>dtc',
-    '<cmd>lua require"telescope".extensions.dap.commands(vim.g.telescope_theme)<CR>'
+    '<cmd>lua require"telescope".extensions.dap.commands()<CR>'
 )
 map(
     { 'n' },
     '<leader>dto',
-    '<cmd>lua require"telescope".extensions.dap.configurations(vim.g.telescope_theme)<CR>'
+    '<cmd>lua require"telescope".extensions.dap.configurations()<CR>'
 )
 map(
     { 'n' },
     '<leader>dlb',
-    '<cmd>lua require"telescope".extensions.dap.list_breakpoints(vim.g.telescope_theme)<CR>'
+    '<cmd>lua require"telescope".extensions.dap.list_breakpoints()<CR>'
 )
 map(
     { 'n' },
     '<leader>dv',
-    '<cmd>lua require"telescope".extensions.dap.variables(vim.g.telescope_theme)<CR>'
+    '<cmd>lua require"telescope".extensions.dap.variables()<CR>'
 )
 map(
     { 'n' },
     '<leader>df',
-    '<cmd>lua require"telescope".extensions.dap.frames(vim.g.telescope_theme)<CR>'
+    '<cmd>lua require"telescope".extensions.dap.frames()<CR>'
 )
 map(
     { 'n' },
@@ -375,7 +375,7 @@ map({ 'n' }, '<leader>cra', '<cmd>OverseerQuickAction<CR>', default('Overseer qu
 map({ 'n' }, '<leader>crt', '<cmd>OverseerToggle<CR>', default('Toggle Overseer window'))
 
 -- Marks
-map({ 'n' }, '<leader>m', '<cmd>lua require("telescope.builtin").marks(vim.g.telescope_theme)<CR>')
+map({ 'n' }, '<leader>m', '<cmd>lua require("telescope.builtin").marks()<CR>')
 --
 -- Replaced with marks.nvim
 -- map({ 'n' }, 'dm', 'hi', {
@@ -402,7 +402,7 @@ map(
 )
 map('n', '<leader>B', '<cmd>BufferLinePick<cr>', default('Open Bufferline Picker'))
 map('n', '<leader>as', function()
-    require('utils').setup_tabs(true)
+    require('utils.tabs').setup_tabs(true)
 end, default('Tab setup'))
 
 -- Harpoon

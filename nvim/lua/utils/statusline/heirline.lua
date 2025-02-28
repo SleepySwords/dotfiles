@@ -10,7 +10,7 @@ local conditions = require('heirline.conditions')
 
 local diagnostic_signs = require('completion.diagnostic_signs')
 
-local colour_util = require('colours')
+local colour_util = require('utils.colours')
 local colour_to_hex = colour_util.tuple_to_hex
 local shade = colour_util.shade
 local get_colour_tuple = colour_util.get_colour_tuple

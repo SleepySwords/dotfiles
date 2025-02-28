@@ -1,6 +1,6 @@
 local M = {}
 
-local handler = function(virtText, lnum, endLnum, width, truncate)
+function M.handler(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {}
     local suffix = (' 󰁂 %d '):format(endLnum - lnum)
     local sufWidth = vim.fn.strdisplaywidth(suffix)
@@ -26,19 +26,6 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
     end
     table.insert(newVirtText, { suffix, 'MoreMsg' })
     return newVirtText
-end
-
-function M.setup()
-    require('ufo').setup({
-        provider_selector = function(bufnr, filetype, buftype)
-            if filetype == 'markdown' then
-                return { 'treesitter', 'indent' }
-            else
-                return { 'lsp', 'indent' }
-            end
-        end,
-        fold_virt_text_handler = handler,
-    })
 end
 
 return M

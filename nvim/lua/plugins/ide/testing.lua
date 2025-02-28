@@ -66,6 +66,7 @@ return {
         'stevearc/overseer.nvim',
         cmd = { 'OverseerRun', 'OverseerQuickAction', 'OverseerToggle' },
         opts = {
+            template_dirs = { "overseer" },
             templates = {
                 'builtin',
                 'cpp.build',

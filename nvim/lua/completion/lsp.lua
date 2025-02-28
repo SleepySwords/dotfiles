@@ -1,5 +1,9 @@
+local M = {}
+
 require('completion.lsp_sources').setup()
+
 local diagnostic_signs = require('completion.diagnostic_signs')
+
 
 -- require('completion.signature.handler').setup()
 
@@ -35,6 +39,7 @@ for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) d
         return default_diagnostic_handler(err, result, context, config)
     end
 end
+
 -- vim.api.nvim_create_autocmd('LspAttach', {
 --     group = vim.api.nvim_create_augroup('InlayHintsAttach', {}),
 --     callback = function(args)
@@ -42,3 +47,5 @@ end
 --       vim.lsp.inlay_hint(buf, true)
 --     end,
 -- })
+
+return M

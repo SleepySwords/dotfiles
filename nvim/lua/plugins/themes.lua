@@ -1,4 +1,4 @@
-local colours = require('colours')
+local colours = require('utils.colours')
 
 return {
     {

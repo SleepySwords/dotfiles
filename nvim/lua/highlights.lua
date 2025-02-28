@@ -2,7 +2,7 @@
 
 vim.api.nvim_set_hl(0, 'InlaySurround', { fg = '#2d2b46' })
 
-local colour_util = require('colours')
+local colour_util = require('utils.colours')
 local tuple_to_hex = colour_util.tuple_to_hex
 local contrast = colour_util.contrast
 local contrast_based_on = colour_util.contrast_based_on

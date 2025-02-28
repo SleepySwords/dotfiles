@@ -93,7 +93,6 @@ return {
         'saghen/blink.cmp',
         dependencies = {
             'rafamadriz/friendly-snippets',
-            'onsails/lspkind.nvim',
             {
                 'L3MON4D3/LuaSnip',
                 dependencies = {
@@ -123,7 +122,27 @@ return {
                 menu = {
                     draw = {
                         columns = {
-                            { "label", "label_description", gap = 1 }, { "kind_icon", "kind", gap = 1 }
+                            { "kind_icon" }, { "label", "label_description", gap = 1 }, { "kind", gap = 1 }
+                        },
+                        components = {
+                            kind = {
+                                ellipsis = false,
+                                width = { fill = true },
+                                text = function(ctx) return ctx.kind end,
+                                highlight = 'Comment'
+                            },
+                            kind_icon = {
+                                ellipsis = false,
+                                text = function(ctx)
+                                    local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                                    return kind_icon
+                                end,
+                                -- Optionally, you may also use the highlights from mini.icons
+                                highlight = function(ctx)
+                                    local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                                    return hl
+                                end,
+                            }
                         }
                     }
                 },
@@ -138,7 +157,7 @@ return {
                     {
                         auto_insert = true,
                         preselect = function(ctx)
-                            return ctx.mode ~= 'cmdline'
+                            return ctx.mode ~= 'cmdline' and vim.bo[ctx.bufnr].filetype ~= 'DressingInput'
                         end,
                     }
 
