@@ -203,19 +203,19 @@ map(
 map(
     { 'n' },
     '<leader>s',
-    '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>',
+    '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols({path_display = "hidden" })<cr>',
     default('Open workspace symbols')
 )
 map(
     { 'n' },
     '<leader><C-s>',
-    '<cmd>lua require("telescope.builtin").lsp_workspace_symbols(require("navigation.telescope").get_telescope_theme({path_display = "hidden" }))<cr>',
+    '<cmd>lua require("telescope.builtin").lsp_workspace_symbols({path_display = "hidden" })<cr>',
     default('Open workspace symbols')
 )
 map({ 'n' }, '<leader>u', '<cmd>UndotreeToggle<cr>', default('Undo tree'))
 
 local command =
-    [[<cmd>lua require("telescope.builtin").colorscheme(require("navigation.telescope").get_telescope_theme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, }))<cr>]]
+[[<cmd>lua require("telescope.builtin").colorscheme({enable_preview = true, layout_config = { horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8, }, vertical = { mirror = false, }, width = 0.5, height = 0.5, preview_cutoff = 120, }, })<cr>]]
 map({ 'n' }, '<leader>hc', command, default('Open Colour Scheme'))
 
 map({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', default('Open File Tree'))
@@ -329,7 +329,7 @@ map(
 )
 
 -- Terminal
-map({ 't' }, '<C-esc>', [[<C-\><C-n>]], { noremap = true })
+map({ 't' }, '<C-\\>', [[<C-\><C-n>]], { noremap = true })
 map({ 'n' }, '<leader>Tt', '<cmd>ToggleTerm<CR>', { noremap = true })
 map({ 'n' }, '<leader>Tf', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
 map({ 'n' }, '<leader>Tv', '<cmd>ToggleTerm direction=vertical<CR>', { noremap = true })

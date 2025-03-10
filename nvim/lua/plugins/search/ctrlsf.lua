@@ -1,1 +1,1 @@
-return { 'dyng/ctrlsf.vim' }
+return { enabled = false, 'dyng/ctrlsf.vim' }

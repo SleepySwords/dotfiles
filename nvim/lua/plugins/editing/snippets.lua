@@ -1,4 +1,0 @@
---  Code snippets support
-return {
-
-}

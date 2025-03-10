@@ -3,55 +3,49 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         config = function()
-require('nvim-treesitter.configs').setup({
-    highlight = {
-        enable = true,
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = false,
-    },
-    playground = {
-        enable = true,
-        disable = {},
-        updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false, -- Whether the query persists across vim sessions
-    },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = 'gnn',
-            node_incremental = 'gnc',
-            scope_incremental = 'gnrc',
-            node_decremental = 'gnrm',
-        },
-    },
-    -- indent = {
-    -- 	enable = true
-    -- },
-    rainbow = {
-        enable = true,
-    },
-    textobjects = {
-        select = {
-            enable = true,
+            require('nvim-treesitter.configs').setup({
+                highlight = {
+                    enable = true,
+                    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+                    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+                    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+                    -- Instead of true it can also be a list of languages
+                    additional_vim_regex_highlighting = false,
+                },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = 'gnn',
+                        node_incremental = 'gnc',
+                        scope_incremental = 'gnrc',
+                        node_decremental = 'gnrm',
+                    },
+                },
+                -- indent = {
+                -- 	enable = true
+                -- },
+                rainbow = {
+                    enable = true,
+                },
+                textobjects = {
+                    select = {
+                        enable = true,
 
-            -- Automatically jump forward to textobj, similar to targets.vim
-            lookahead = true,
+                        -- Automatically jump forward to textobj, similar to targets.vim
+                        lookahead = true,
 
-            keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
-                ['ia'] = '@parameter.inner',
-                ['aa'] = '@parameter.outer',
-                ['ac'] = '@class.outer',
-                ['ic'] = '@class.inner',
-                ['af'] = '@function.outer',
-                ['if'] = '@function.inner',
-            },
-        },
-    },
-})
+                        keymaps = {
+                            -- You can use the capture groups defined in textobjects.scm
+                            ['ia'] = '@parameter.inner',
+                            ['aa'] = '@parameter.outer',
+                            ['ac'] = '@class.outer',
+                            ['ic'] = '@class.inner',
+                            ['af'] = '@function.outer',
+                            ['if'] = '@function.inner',
+                        },
+                    },
+                },
+            })
         end,
         run = ':TSUpdate',
     },
@@ -65,16 +59,16 @@ require('nvim-treesitter.configs').setup({
         'aaronik/treewalker.nvim',
 
         keys = {
-            { '<c-s-J>',    '<cmd>Treewalker Down<cr>',      mode = 'n' },
-            { '<c-s-K>',    '<cmd>Treewalker Up<cr>',        mode = 'n' },
-            { '<c-s-H>',    '<cmd>Treewalker Left<cr>',      mode = 'n' },
-            { '<c-s-L>',    '<cmd>Treewalker Right<cr>',     mode = 'n' },
+            { '<c-s-J>', '<cmd>Treewalker Down<cr>',      mode = 'n' },
+            { '<c-s-K>', '<cmd>Treewalker Up<cr>',        mode = 'n' },
+            { '<c-s-H>', '<cmd>Treewalker Left<cr>',      mode = 'n' },
+            { '<c-s-L>', '<cmd>Treewalker Right<cr>',     mode = 'n' },
 
             -- Swapping Nodes in Visual Mode
-            { 'mj',         '<cmd>Treewalker SwapDown<cr>',  mode = 'n', desc = 'Treesurfer swap next element', },
-            { 'mk',         '<cmd>Treewalker SwapUp<cr>',    mode = 'n', desc = 'Treesurfer swap previous element' },
-            { 'mh',         '<cmd>Treewalker SwapLeft<cr>',  mode = 'n', desc = 'Treesurfer swap previous element' },
-            { 'ml',         '<cmd>Treewalker SwapRight<cr>', mode = 'n', desc = 'Treesurfer swap previous element' },
+            { 'mj',      '<cmd>Treewalker SwapDown<cr>',  mode = 'n', desc = 'Treesurfer swap next element', },
+            { 'mk',      '<cmd>Treewalker SwapUp<cr>',    mode = 'n', desc = 'Treesurfer swap previous element' },
+            { 'mh',      '<cmd>Treewalker SwapLeft<cr>',  mode = 'n', desc = 'Treesurfer swap previous element' },
+            { 'ml',      '<cmd>Treewalker SwapRight<cr>', mode = 'n', desc = 'Treesurfer swap previous element' },
         },
 
         opts = {
@@ -86,8 +80,8 @@ require('nvim-treesitter.configs').setup({
     {
         'David-Kunz/treesitter-unit',
         keys = {
-            { '<leader>ls', '<cmd>lua require"treesitter-unit".select()<cr>', mode = {'n', 'x', 'v'} },
-            { '<leader>lS', '<cmd>lua require"treesitter-unit".select(true)<cr>', mode = {'n', 'x', 'v'} }
+            { '<leader>ls', '<cmd>lua require"treesitter-unit".select()<cr>',     mode = { 'n', 'x', 'v' } },
+            { '<leader>lS', '<cmd>lua require"treesitter-unit".select(true)<cr>', mode = { 'n', 'x', 'v' } }
         }
     },
 

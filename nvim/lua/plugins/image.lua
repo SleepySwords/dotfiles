@@ -14,15 +14,7 @@ return {
         enabled = false,
         build = 'cd mathjax && yarn install',
         ft = 'markdown',
-        -- config = function ()
-        --     local mathjax = require("mathjax")
-        --     vim.api.nvim_set_keymap('n', '<leader>mj', '', {
-        --         callback = mathjax.render_latex,
-        --         desc = 'Change function signature via quickfix list',
-        --     })
-        -- end,
         opts = {
-            -- color = "red"
         },
         init = function()
             vim.api.nvim_create_autocmd('BufWrite', {
