@@ -1,25 +1,19 @@
-local completion_engine = require('completion.engine.blink-capabilities')
-
 local lsp_config = require('lspconfig')
 
 local M = {}
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.window = capabilities.window or {}
-capabilities.window.workDoneProgress = true
-capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-}
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.formatting.dynamicRegistration = false
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = { 'documentation', 'detail', 'additionalTextEdits' },
-}
-M.capabilities = capabilities
+      local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+      local has_blink, blink = pcall(require, "blink.cmp")
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        has_cmp and cmp_nvim_lsp.default_capabilities() or {},
+        has_blink and blink.get_lsp_capabilities() or {}
+      )
 
 function M.setup()
-    lsp_config.rust_analyzer.setup(completion_engine.provide_capabilities({
+    lsp_config.rust_analyzer.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
@@ -33,8 +27,8 @@ function M.setup()
                 },
             },
         },
-    }))
-    lsp_config.lua_ls.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.lua_ls.setup({
         capabilities = capabilities,
         -- before_init = require("neodev.lsp").before_init,
         root_dir = function()
@@ -47,14 +41,14 @@ function M.setup()
                 },
             },
         },
-    }))
-    lsp_config.kotlin_language_server.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.kotlin_language_server.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.arduino_language_server.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.arduino_language_server.setup({
         capabilities = capabilities,
         cmd = {
             'arduino-language-server',
@@ -70,38 +64,38 @@ function M.setup()
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.jdtls.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.jdtls.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.jsonls.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.jsonls.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.volar.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.volar.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.ts_ls.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.ts_ls.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.pyright.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.pyright.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.hls.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.hls.setup({
         settings = {
             haskell = {
                 plugin = {
@@ -113,40 +107,40 @@ function M.setup()
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.clangd.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.clangd.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.wgsl_analyzer.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.wgsl_analyzer.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.zls.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.zls.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    -- lsp_config.biome.setup(completion_engine.provide_capabilities({
+    })
+    -- lsp_config.biome.setup({
     -- 	capabilities = capabilities,
     -- 	root_dir = function()
     -- 		return vim.fn.getcwd()
     -- 	end
-    -- }))
+    -- })
 
     lsp_config.marksman.setup({})
-    lsp_config.texlab.setup(completion_engine.provide_capabilities({
+    lsp_config.texlab.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.java_language_server.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.java_language_server.setup({
         capabilities = capabilities,
         cmd = function()
             vim.fn.expand('$HOME/lsp/java-langauge-server')
@@ -154,25 +148,25 @@ function M.setup()
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    lsp_config.eslint.setup(completion_engine.provide_capabilities({
+    })
+    lsp_config.eslint.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
-    -- lsp_config.tailwindcss.setup(completion_engine.provide_capabilities({
+    })
+    -- lsp_config.tailwindcss.setup({
     --     capabilities = capabilities,
     --     root_dir = function()
     --         return vim.fn.getcwd()
     --     end,
-    -- }))
-    lsp_config.gopls.setup(completion_engine.provide_capabilities({
+    -- })
+    lsp_config.gopls.setup({
         capabilities = capabilities,
         root_dir = function()
             return vim.fn.getcwd()
         end,
-    }))
+    })
 end
 
 -- This is a special case, as omnisharp needs extended.

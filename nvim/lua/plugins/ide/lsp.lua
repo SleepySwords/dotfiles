@@ -93,6 +93,7 @@ return {
         'saghen/blink.cmp',
         dependencies = {
             'rafamadriz/friendly-snippets',
+            'mini.icons',
             {
                 'L3MON4D3/LuaSnip',
                 dependencies = {
@@ -122,14 +123,13 @@ return {
                 menu = {
                     draw = {
                         columns = {
-                            { "kind_icon" }, { "label", "label_description", gap = 1 }, { "kind", gap = 1 }
+                            { "kind_icon" }, { "label" --[[ , "label_description" ]], gap = 1 }, { "kind", gap = 1 }
                         },
                         components = {
                             kind = {
                                 ellipsis = false,
                                 width = { fill = true },
                                 text = function(ctx) return ctx.kind end,
-                                highlight = 'Comment'
                             },
                             kind_icon = {
                                 ellipsis = false,
@@ -150,7 +150,7 @@ return {
                     auto_show = true,
                 },
                 ghost_text = {
-                    -- enabled = true,
+                    enabled = true,
                 },
                 list = {
                     selection =
@@ -167,7 +167,7 @@ return {
                 enabled = true,
                 trigger = {
                     show_on_insert = true,
-                    show_on_insert_on_trigger_character = true,
+                    show_on_keyword = true,
                 }
             },
             snippets = { preset = 'luasnip' },
