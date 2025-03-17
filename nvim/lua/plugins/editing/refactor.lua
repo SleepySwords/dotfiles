@@ -5,7 +5,8 @@ return {
             'nvim-lua/plenary.nvim',
             'nvim-treesitter/nvim-treesitter',
         },
-        lazy = false,
+        lazy = true,
+        cmd = {"Refactor"},
         config = function()
             require('refactoring').setup({})
         end,

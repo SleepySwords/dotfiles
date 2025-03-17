@@ -5,6 +5,7 @@ return {
 
     {
         'mbbill/undotree',
+        cmd = { "UndotreeFocus", "UndotreeHide", "UndotreePersistUndo", "UndotreeShow", "UndotreeToggle" },
         init = function()
             vim.g.undotree_SetFocusWhenToggle = true
         end,
@@ -12,6 +13,7 @@ return {
 
     {
         'iamcco/markdown-preview.nvim',
+        enabled = false,
         cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
         build = 'cd app && yarn install',
         init = function()
@@ -114,7 +116,7 @@ return {
     },
     {
         'rcarriga/nvim-notify',
-        enabled = false,
+        optional = true,
         opts = {
             render = 'simple',
             stages = 'fade',

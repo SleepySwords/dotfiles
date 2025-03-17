@@ -2,7 +2,25 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
+    keys = {
+        { '<leader>az', function() Snacks.zen() end },
+        { '<leader>g',  function() Snacks.lazygit() end, mode = 'n', desc = 'Open lazygit' }
+    },
     opts = {
+        zen = {
+            toggles = {
+                dim = false,
+            }
+        },
+        lazygit = {
+            config = {
+                git = {
+                    paging = {
+                        pager = "delta --dark --paging=never"
+                    }
+                }
+            }
+        },
         image = {
             math = {
                 enabled = true,

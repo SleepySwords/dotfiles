@@ -80,8 +80,8 @@ return {
     {
         'David-Kunz/treesitter-unit',
         keys = {
-            { '<leader>ls', '<cmd>lua require"treesitter-unit".select()<cr>',     mode = { 'n', 'x', 'v' } },
-            { '<leader>lS', '<cmd>lua require"treesitter-unit".select(true)<cr>', mode = { 'n', 'x', 'v' } }
+            { '<leader>ls', function() require "treesitter-unit".select() end,     mode = { 'n', 'x', 'v' } },
+            { '<leader>lS', function() require "treesitter-unit".select(true) end, mode = { 'n', 'x', 'v' } }
         }
     },
 

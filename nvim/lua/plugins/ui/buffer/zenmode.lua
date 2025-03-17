@@ -1,6 +1,7 @@
 -- Enter :ZenMode
 return {
     'folke/zen-mode.nvim',
+    enabled = false,
     opts = {
         window = {
             backdrop = 0.95,
