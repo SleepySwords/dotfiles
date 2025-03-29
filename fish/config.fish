@@ -7,6 +7,7 @@ export GPG_TTY=$(tty)
 # Setting PATH for Python 3.11
 set -x PATH "/Library/Frameworks/Python.framework/Versions/3.11/bin" "$PATH"
 
+set -x LIBRARY_PATH "$LIRBARY_PATH" "$(brew --prefix)/lib" "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /Users/ibby/.ghcup/bin # ghcup-env
 
 # Emulates vim's cursor shape behavior

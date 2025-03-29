@@ -16,7 +16,7 @@ return {
             config = {
                 git = {
                     paging = {
-                        pager = "delta --dark --paging=never"
+                        pager = "delta --features \"nvim\" --paging=never"
                     }
                 }
             }

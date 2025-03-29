@@ -15,8 +15,8 @@ return {
         dependencies = {
             "nvim-treesitter"
         },
-        config = function()
-            require('nvim-ts-autotag').setup()
-        end,
+        opts = {
+            enable_rename = false,
+        }
     },
 }
