@@ -450,9 +450,14 @@ function M.setup()
         hl = { fg = colours.orange, bg = colours.component_bg, italic = true },
     }
 
-    local position = {
-        provider = '%l:%c',
-        hl = { fg = colours.green, bg = colours.component_bg, bold = true },
+    local macro = {
+        provider = function()
+            return "Recording @" .. vim.fn.reg_recording()
+        end,
+        hl = { fg = colours.yellow, bg = colours.component_bg, bold = true },
+        condition = function()
+            return vim.fn.reg_recording() ~= ""
+        end
     }
 
     local show_mode = {
@@ -471,6 +476,11 @@ function M.setup()
         condition = function()
             return vim.o.showcmdloc == 'statusline'
         end,
+    }
+
+    local position = {
+        provider = '%l:%c',
+        hl = { fg = colours.green, bg = colours.component_bg, bold = true },
     }
 
     local percentage = {
@@ -685,6 +695,13 @@ function M.setup()
                         condition = function()
                             return vim.api.nvim_buf_get_name(0) ~= ''
                         end,
+                    },
+                    {
+                        macro,
+                        block,
+                        condition = function()
+                            return vim.fn.reg_recording() ~= ""
+                        end
                     },
                     show_mode,
                     position,
