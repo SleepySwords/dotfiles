@@ -1,6 +1,7 @@
 return {
     'folke/snacks.nvim',
     priority = 1000,
+    branch = "main",
     lazy = false,
     keys = {
         { '<leader>az', function() Snacks.zen() end },

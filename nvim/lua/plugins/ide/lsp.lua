@@ -110,7 +110,18 @@ return {
         },
         version = '*',
         opts = {
-            keymap = { preset = 'enter' },
+            keymap = {
+                preset = 'enter',
+                ['<Tab>'] = { function()
+                    local luasnip = require('luasnip')
+                    if luasnip.expand_or_locally_jumpable() then
+                        luasnip.expand_or_jump()
+                        return true
+                    else
+                        return false
+                    end
+                end, 'fallback' }
+            },
 
             appearance = {
                 -- use_nvim_cmp_as_default = true,

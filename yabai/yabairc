@@ -64,6 +64,3 @@ yabai -m rule --add app="^App Store$" manage=off
 yabai -m rule --add can-resize="^false$" manage=off
 
 echo "yabai configuration loaded.."
-{"mode":"full","isActive":false}
-
-borders

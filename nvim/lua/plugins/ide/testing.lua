@@ -45,7 +45,8 @@ return {
                     }),
                     require('neotest-dotnet'),
                     require('neotest-jest')({
-                        jestCommand = 'yarn test --watch',
+                        -- jestCommand = 'yarn test --watch',
+                        jestCommand = 'npm run test -- ',
                         env = { CI = true },
                         cwd = function(path)
                             return vim.fn.getcwd()
