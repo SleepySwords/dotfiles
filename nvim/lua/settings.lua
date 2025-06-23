@@ -78,7 +78,8 @@ local g = vim.g
 -- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time), eva01
 
 -- vim.cmd([[colorscheme catppuccin-mocha]])
-vim.cmd([[colorscheme carbonfox]])
+-- vim.cmd([[colorscheme carbonfox]])
+vim.cmd([[colorscheme dawnfox]])
 
 if vim.g.neovide then
     -- vim.cmd([[colorscheme carbonfox]])

@@ -22,14 +22,26 @@ disabled = true
 
 # This is very laggy for some reason
 [git_status]
-disabled = true
+ahead = '[⇡${count} ](yellow)'
+diverged = '[⇕ ⇡${ahead_count} ⇣${behind_count} ](yellow)'
+behind = '[⇣${count} ](yellow)'
+staged = '[ ${count} ](green)'
+deleted = '[ ${count} ](green)'
+renamed = '[󰗧${count} ](green)'
+modified = '[ ${count} ](red)'
+untracked = '[?${count} ](red)'
+stashed = ''
+format = '(\[ $all_status$ahead_behind\])'
+# disabled = true
 
 [git_metrics]
 disabled = true
+added_style = 'bold blue'
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
 
 [git_branch]
 # format = '[$symbol$branch(:$remote_branch)]($style)'
-format = '[$symbol$branch]($style)'
+format = '[$symbol$branch(staged)]($style)'
 
 
 [time]

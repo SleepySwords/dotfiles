@@ -149,12 +149,12 @@ function M.setup()
             return vim.fn.getcwd()
         end,
     })
-    lsp_config.eslint.setup({
-        capabilities = capabilities,
-        root_dir = function()
-            return vim.fn.getcwd()
-        end,
-    })
+    -- lsp_config.eslint.setup({
+    --     capabilities = capabilities,
+    --     root_dir = function()
+    --         return vim.fn.getcwd()
+    --     end,
+    -- })
     -- lsp_config.tailwindcss.setup({
     --     capabilities = capabilities,
     --     root_dir = function()

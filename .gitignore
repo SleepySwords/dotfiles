@@ -1,6 +1,6 @@
 karabiner/automatic_backups
 nvim/plugin
-fish/config.fish
+# fish/config.fish
 lazygit/state.yml
 lazygit/temp_lazygit.tar.gz
 kitty/.kitty.conf.swo
@@ -10,3 +10,8 @@ nvim/.luarc2.json
 
 fish/config.fish.pysave
 fish/fish_variables
+git/rmit.gitconfig
+git/personal.gitconfig
+
+zsh/.zcompdump*
+zsh/.zsh_history

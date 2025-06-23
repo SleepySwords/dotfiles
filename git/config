@@ -1,0 +1,132 @@
+[core]
+    pager = delta
+    editor = nvim
+    autocrlf = input
+    untrackedCache = true
+    fsmonitor = true
+
+[status]
+    branch = true
+    showStash = true
+    showUntrackedFiles = all
+
+[push]
+    followTags = true
+
+[pull]
+    rebase = true
+
+[rebase]
+    missingCommitsCheck = warn
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = -taggerdate
+
+[interactive]
+    diffFilter = delta --color-only
+
+[add.interactive]
+    useBuiltin = false # required for git 2.37.0
+
+[include]
+    path = "themes.gitconfig"
+
+[delta "noside"]
+    side-by-side = false
+
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    ; light = true      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    file-decoration-style = ul
+    file-modified-label = modified: 
+    file-style = blue bold
+    hunk-header-style = file line-number syntax
+    hunk-header-line-number-style = gray italic bold
+    hunk-header-file-style = gray italic bold
+    hunk-label = ~>
+    hunk-header-decoration-style = none
+
+    ; features = default
+
+    line-numbers-left-format = "{nm:^4} "
+    line-numbers-right-format = "{np:^4} "
+    line-numbers = true
+
+[delta "nvim"]
+    light = false
+    dark = true
+    syntax-theme = Vibrant Sunburst
+
+[color "diff"]
+    frag = italic
+
+[merge]
+    conflictstyle = diff3
+    ; 	tool = nvimdiff
+
+[diff]
+    colorMoved = default
+
+[commit]
+    gpgsign = true
+
+[filter "lfs"]
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+
+[gpg]
+    program = gpg
+
+[commit]
+	template = ~/.config/git/template
+
+; [log]
+    ;   date = relative
+
+[alias]
+    ; lg = "log --pretty=format:'%C(green)%h %C(blue)%as%C(red)% gD %<(15,trunc)%C(magenta)%an%Creset%Creset %s%C(auto)%d%Creset'"
+    ; Can't use the format option as that overrides `git show and other elements`
+    ; lg  =                      "log --pretty=format:'%C(green)%h %C(blue)%as%C(red)% gD %<(15,trunc)%C(magenta)%an%Creset%Creset%C(bold) %s%C(auto)%d%Creset'"
+    ; lg  =                      "log --pretty=format:'%C(green)%h %<(15,trunc)%C(blue)%ar%C(red)% gD %<(15,trunc)%C(magenta)%an%Creset%Creset%C(bold) %s%C(auto)%d%Creset'"
+    ; lr  = "log -g --pretty=format:'%C(green)%h %C(blue)%as%C(red)% gD %<(15,trunc)%C(magenta)%an%Creset%Creset%C(bold) %gs%C(auto)%d%Creset'"
+    ; lr  = "log -g --all --pretty=format:' %C(green)%h %C(red)%gD %C(magenta)%an %C(blue)%as%n %Creset%C(bold)%s%C(auto)%d%Creset%n'"
+    ; l   = "log --all --decorate --oneline --graph --pretty=format:'%C(03)%>|(26)%C(green)%h %Creset%Creset%C(bold) %s%C(auto)%d%Creset'"
+    lr      = "log -g --all --pretty=format:'%C(bold)%C(green)%h %C(red)%gd%C(auto)%d %n%Creset%C(bold)%gs%Creset%n'"
+    lg      = "log --graph --all --pretty=format:' %C(bold)%C(green)%h %C(cyan)%an %Creset[%ah]%C(auto)%d %n %Creset%C(bold)%s%Creset%n'"
+    br      = "branch -vv"
+    bra     = "branch -vv -a"
+    rss     = "restore --staged ."
+    rs      = "restore"
+    rt      = "reset"
+    rts     = "reset --soft"
+    sw      = "switch"
+    a       = "add"
+    ap      = "add . --patch"
+    aa      = "add ."
+    st      = "status -s"
+    sta     = "status"
+    conf    = "config --global --edit"
+    ci      = "commit"
+    amend   = "commit --amend --no-edit"
+    stsh    = "stash --keep-index"
+    staash  = "stash --include-untracked"
+    staaash  = "stash --all"
+    mergevim = "!nvim -c DiffviewOpen"
+	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+
+[include]
+    path = "personal.gitconfig"
+
+[includeIf "gitdir:~/github-classroom/"]
+    path = "rmit.gitconfig"
+
+[includeIf "gitdir:~/stuff/school/RMIT/"]
+    path = "rmit.gitconfig"
+
+[credential]
+    helper = cache

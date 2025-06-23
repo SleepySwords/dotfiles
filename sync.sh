@@ -1,7 +1,7 @@
 #! /usr/bin/env fish
 
-set dot_configs "borders" "nvim" "fish" "karabiner" "kitty" "sketchybar" "skhd" "yabai" "starship.toml"
-set home ".gitconfig" "themes.gitconfig" ".clangd"
+set dot_configs "borders" "nvim" "fish" "karabiner" "kitty" "sketchybar" "skhd" "yabai" "starship.toml" "zsh" "git"
+set home ".clangd"
 set application_support_config "lazygit" "com.mitchellh.ghostty"
 for config in $dot_configs
     rm -rf $config
