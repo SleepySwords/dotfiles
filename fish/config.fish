@@ -8,6 +8,7 @@ export GPG_TTY=$(tty)
 set -x PATH "/Library/Frameworks/Python.framework/Versions/3.11/bin" "$PATH"
 
 set -x LIBRARY_PATH "$LIRBARY_PATH" "$(brew --prefix)/lib" "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"
+set -x CPATH "/usr/local/include":"$(brew --prefix)/include":"$CPATH"
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /Users/ibby/.ghcup/bin # ghcup-env
 
 set -x EDITOR "nvim"

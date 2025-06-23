@@ -1,6 +1,6 @@
 #! /usr/bin/env fish
 
-set dot_configs "borders" "nvim" "fish" "karabiner" "kitty" "sketchybar" "skhd" "yabai" "starship.toml" "zsh" "git"
+set dot_configs "borders" "nvim" "fish" "karabiner" "kitty" "sketchybar" "skhd" "yabai" "starship.toml" "zsh" "git" "zathura"
 set home ".clangd"
 set application_support_config "lazygit" "com.mitchellh.ghostty"
 for config in $dot_configs
