@@ -3,6 +3,7 @@ local colours = require('utils.colours')
 return {
     {
         'sainnhe/edge',
+        lazy = true,
         init = function()
             vim.g.edge_style = 'aura'
             vim.g.edge_endable_italic = 1
@@ -10,13 +11,17 @@ return {
             vim.g.edge_diagnostic_virtual_text = 'colored'
         end,
     },
-    'morhetz/gruvbox',
-    { 'dracula/vim', name = 'dracula' },
-    { 'sonph/onehalf', rtp = 'vim' },
-    'matsuuu/pinkmare',
-    'lifepillar/vim-solarized8',
+    {
+        'morhetz/gruvbox',
+        lazy = true,
+    },
+    { 'dracula/vim',      name = 'dracula', lazy = true },
+    { 'sonph/onehalf',    rtp = 'vim',      lazy = true },
+    { 'matsuuu/pinkmare', lazy = true, },
+    {'lifepillar/vim-solarized8', lazy = true,},
     {
         'sainnhe/sonokai',
+        lazy = false,
         init = function()
             vim.g.sonokai_style = 'shusia'
             vim.g.sonokai_enable_italic = 1
@@ -26,6 +31,7 @@ return {
     },
     {
         'folke/tokyonight.nvim',
+        lazy = false,
         config = function()
             require('tokyonight').setup({
                 on_highlights = function(hl, c)
@@ -53,7 +59,7 @@ return {
     },
     {
         '0xstepit/flow.nvim',
-        lazy = false,
+        lazy = true,
         priority = 1000,
         opts = {
             fluo_color = 'pink',
@@ -63,6 +69,7 @@ return {
     },
     {
         'EdenEast/nightfox.nvim',
+        lazy = true,
         opts = {
             groups = {
                 all = {
@@ -72,9 +79,10 @@ return {
             },
         },
     },
-    'joshdick/onedark.vim',
+    { 'joshdick/onedark.vim', lazy = true, },
     {
         'rafamadriz/neon',
+        lazy = true,
         init = function()
             vim.g.neon_style = 'default'
             vim.g.neon_italic_keyword = true
@@ -82,9 +90,13 @@ return {
             vim.g.neon_transparent = true
         end,
     },
-    'tanvirtin/monokai.nvim',
+    {
+        'tanvirtin/monokai.nvim',
+        lazy = true,
+    },
     {
         'catppuccin/nvim',
+        lazy = true,
         config = function()
             require('catppuccin').setup({
                 integrations = {
@@ -101,10 +113,11 @@ return {
     },
     {
         'hachy/eva01.vim',
-        lazy = false,
+        lazy = true,
         priority = 1000,
     },
     {
         'zacharied/lc3.vim',
+        lazy = true,
     },
 }

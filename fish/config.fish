@@ -12,6 +12,10 @@ set -x CPATH "/usr/local/include":"$(brew --prefix)/include":"$CPATH"
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /Users/ibby/.ghcup/bin # ghcup-env
 
 set -x EDITOR "nvim"
+set -x MANPAGER "nvim +Man!"
+
+# opam configuration
+source /Users/ibby/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
 # Emulates vim's cursor shape behavior
 set fish_cursor_default block
@@ -62,6 +66,7 @@ set -gx FZF_DEFAULT_OPTS '
            --color=gutter:#bcb6b6,border:#262626,label:#aeaeae,query:#343434
            --preview-window="border-sharp" --prompt="> " --marker=">" --pointer="◆"
            --separator="" --scrollbar="│" --info="default" --preview "bat --color=always {}" --preview-window \'~3\''
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 starship init fish | source
 # enable_transience

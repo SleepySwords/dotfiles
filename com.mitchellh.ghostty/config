@@ -11,3 +11,4 @@ adjust-cursor-thickness = 2
 cursor-style = block
 cursor-style-blink = false
 shell-integration-features = cursor
+shell-integration = none

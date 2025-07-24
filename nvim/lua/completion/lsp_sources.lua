@@ -167,6 +167,12 @@ function M.setup()
             return vim.fn.getcwd()
         end,
     })
+    lsp_config.ocamllsp.setup({
+        capabilities = capabilities,
+        root_dir = function()
+            return vim.fn.getcwd()
+        end,
+    })
 end
 
 -- This is a special case, as omnisharp needs extended.

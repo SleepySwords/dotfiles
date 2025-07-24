@@ -12,23 +12,23 @@ g.mapleader = [[ ]]
 g.maplocalleader = [[\]]
 
 -- TODO: Really need to check if these keybindings override some other default bindings.
-map({ 'n' }, 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', default('LSP Declaration'))
 map({ 'n' }, 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', default('LSP Definition'))
-map({ 'n' }, 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', default('LSP Implementation'))
-
--- FIXME: I need to decide if i like the default keybinds or not (grn)
--- they can be removed see :help grn
--- map_desc({ 'n' }, 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', 'LSP Rename', opts)
+map({ 'n' }, 'grd', '<cmd>lua vim.lsp.buf.declaration()<CR>', default('LSP Declaration'))
+map({ 'n' }, 'gri', '<cmd>lua vim.lsp.buf.implementation()<CR>', default('LSP Implementation'))
 map({ 'n' }, 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', default('LSP Rename'))
+map({ 'n' }, 'grr', function()
+    vim.lsp.buf.references()
+end, default('LSP references in quick fix list')) -- lua vim.lsp.buf.references()
 map(
     { 'n' },
-    'grr',
+    'grt',
     '<cmd>Trouble lsp_references toggle follow=true focus=true auto_refresh=false<CR>',
     default('LSP References')
 )
-map({ 'n' }, 'grq', function()
-    vim.lsp.buf.references()
-end, default('LSP references in quick fix list')) -- lua vim.lsp.buf.references()
+
+-- FIXME: make a toggle
+map({ 'n' }, '<leader>cq', "<cmd>ccl<CR>", default('Close quick fix list')) -- lua vim.lsp.buf.references()
+map({ 'n' }, '<leader>cQ', "<cmd>copen<CR>", default('Close quick fix list')) -- lua vim.lsp.buf.references()
 
 map(
     { 'n' },
