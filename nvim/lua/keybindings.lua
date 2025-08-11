@@ -188,7 +188,7 @@ map(
 )
 map(
     { 'n' },
-    '<leader>hd',
+    '<leader>D',
     '<cmd>lua require("telescope.builtin").diagnostics()<cr>',
     default('Open telescope diagnostics')
 )

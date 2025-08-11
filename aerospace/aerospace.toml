@@ -1,0 +1,163 @@
+# Place a copy of this config to ~/.aerospace.toml
+# After that, you can edit ~/.aerospace.toml to your liking
+
+# You can use it to add commands that run after AeroSpace startup.
+# Available commands : https://nikitabobko.github.io/AeroSpace/commands
+after-startup-command = []
+
+# Start AeroSpace at login
+start-at-login = false
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Possible values: tiles|accordion
+default-root-container-layout = 'tiles'
+
+# Possible values: horizontal|vertical|auto
+# 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
+#               tall monitor (anything higher than wide) gets vertical orientation
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus when focused monitor changes
+# Drop it from your config, if you don't like this behavior
+# See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
+# See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
+# Fallback value (if you omit the key): on-focused-monitor-changed = []
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
+# Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
+# Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
+automatically-unhide-macos-hidden-apps = false
+
+[key-mapping]
+    preset = 'qwerty'
+
+[gaps]
+    inner.horizontal = 10
+    inner.vertical =   10
+    outer.left =       10
+    outer.bottom =     10
+    outer.top =        10
+    outer.right =      10
+
+# 'main' binding mode declaration
+# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+# 'main' binding mode must be always presented
+# Fallback value (if you omit the key): mode.main.binding = {}
+[mode.main.binding]
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-comma = 'layout accordion horizontal vertical'
+    alt-equal = 'resize smart +50'
+
+    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
+    alt-tab = 'workspace-back-and-forth'
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+    alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+
+    ctrl-alt-left = 'workspace prev'
+    ctrl-alt-right = 'workspace next'
+    
+    alt-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main'] # reset layout
+    f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
+    shift-f = ['fullscreen', 'mode main'] # Toggle between floating and tiling layout
+    q = ['close-all-windows-but-current', 'mode main']
+    alt-shift-semicolon = 'mode main'
+
+    h = 'focus left'
+    j = 'focus down'
+    k = 'focus up'
+    l = 'focus right'
+
+    ctrl-n = 'focus dfs-next'
+    ctrl-p = 'focus dfs-prev'
+
+    m = 'mode move'
+    g = 'mode goto'
+
+    1 = 'move-node-to-workspace personal-1'
+    2 = 'move-node-to-workspace dev-1'
+    3 = 'move-node-to-workspace uni-3'
+
+    shift-h = 'move left'
+    shift-j = 'move down'
+    shift-k = 'move up'
+    shift-l = 'move right'
+
+    left = ['join-with left', 'mode main']
+    down = ['join-with down', 'mode main']
+    up = ['join-with up', 'mode main']
+    right = ['join-with right', 'mode main']
+
+[mode.move.binding]
+    p = 'mode personal_move'
+    d = 'mode dev_move'
+    u = 'mode uni_move'
+    m = ['move-node-to-workspace discord', 'mode main']
+    esc = 'mode main'
+
+[mode.personal_move.binding]
+    1 = ['move-node-to-workspace personal-1', 'mode main']
+    2 = ['move-node-to-workspace personal-2', 'mode main']
+    3 = ['move-node-to-workspace personal-3', 'mode main']
+    4 = ['move-node-to-workspace personal-4', 'mode main']
+    esc = 'mode main'
+
+[mode.dev_move.binding]
+    1 = ['move-node-to-workspace dev-1', 'mode main']
+    2 = ['move-node-to-workspace dev-2', 'mode main']
+    3 = ['move-node-to-workspace dev-3', 'mode main']
+    4 = ['move-node-to-workspace dev-4', 'mode main']
+    esc = 'mode main'
+
+[mode.uni_move.binding]
+    1 = ['move-node-to-workspace uni-1', 'mode main']
+    2 = ['move-node-to-workspace uni-2', 'mode main']
+    3 = ['move-node-to-workspace uni-3', 'mode main']
+    4 = ['move-node-to-workspace uni-4', 'mode main']
+    esc = 'mode main'
+
+[mode.goto.binding]
+    p = 'mode personal_goto'
+    d = 'mode dev_goto'
+    u = 'mode uni_goto'
+    m = ['workspace discord', 'mode main']
+    esc = 'mode main'
+
+[mode.personal_goto.binding]
+    1 = ['workspace personal-1', 'mode main']
+    2 = ['workspace personal-2', 'mode main']
+    3 = ['workspace personal-3', 'mode main']
+    4 = ['workspace personal-4', 'mode main']
+    esc = 'mode main'
+
+[mode.dev_goto.binding]
+    1 = ['workspace dev-1', 'mode main']
+    2 = ['workspace dev-2', 'mode main']
+    3 = ['workspace dev-3', 'mode main']
+    4 = ['workspace dev-4', 'mode main']
+    esc = 'mode main'
+
+[mode.uni_goto.binding]
+    1 = ['workspace uni-1', 'mode main']
+    2 = ['workspace uni-2', 'mode main']
+    3 = ['workspace uni-3', 'mode main']
+    4 = ['workspace uni-4', 'mode main']
+    esc = 'mode main'
+
+[[on-window-detected]]
+if.app-id = "com.mitchellh.ghostty"
+run = [
+  # FIX: this is a workaround for https://github.com/nikitabobko/AeroSpace/issues/68
+  # this was also observed in:
+  # - https://github.com/ghostty-org/ghostty/issues/1840
+  # - https://github.com/ghostty-org/ghostty/issues/2006
+  "layout floating",
+]
+

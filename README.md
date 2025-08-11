@@ -19,7 +19,7 @@ alternatively
 Press Ctrl-D to exit the shell.
 
 ## Dependencies and requirements
-- Minimum requirement neovim 0.7+ because of lsp and treesitter
+- Minimum requirement neovim 0.11+ because of the new lsp api
 - The default theme requires a terminal with true colours (or you could change the default theme)
     - Mac OS default terminal doesn't support true colours :(
     - Use kitty :)

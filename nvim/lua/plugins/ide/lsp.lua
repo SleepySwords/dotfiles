@@ -51,7 +51,7 @@ return {
         lazy = true,
         ft = 'cs',
         config = function()
-            require('completion.lsp_sources').setup_omni()
+            require('completion.lsp_servers').setup_omni()
         end,
     },
 

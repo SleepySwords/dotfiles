@@ -1,6 +1,6 @@
 local M = {}
 
-require('completion.lsp_sources').setup()
+require('completion.lsp_servers').setup()
 
 local diagnostic_signs = require('completion.diagnostic_signs')
 
