@@ -26,9 +26,13 @@ map(
     default('LSP References')
 )
 
--- FIXME: make a toggle
-map({ 'n' }, '<leader>cq', "<cmd>ccl<CR>", default('Close quick fix list')) -- lua vim.lsp.buf.references()
-map({ 'n' }, '<leader>cQ', "<cmd>copen<CR>", default('Close quick fix list')) -- lua vim.lsp.buf.references()
+map({ 'n' }, '<leader>co', function()
+    if vim.iter(vim.api.nvim_tabpage_list_wins(0)):any(function(w) return vim.fn.win_gettype(w) == "quickfix" end) then
+        vim.cmd("ccl")
+    else
+        vim.cmd("copen")
+    end
+end, default('Toggle quick fix list')) -- lua vim.lsp.buf.references()
 
 map(
     { 'n' },

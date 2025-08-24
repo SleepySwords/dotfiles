@@ -59,7 +59,7 @@ automatically-unhide-macos-hidden-apps = false
 
     ctrl-alt-left = 'workspace prev'
     ctrl-alt-right = 'workspace next'
-    
+
     alt-shift-semicolon = 'mode service'
 
 [mode.service.binding]
@@ -69,6 +69,9 @@ automatically-unhide-macos-hidden-apps = false
     shift-f = ['fullscreen', 'mode main'] # Toggle between floating and tiling layout
     q = ['close-all-windows-but-current', 'mode main']
     alt-shift-semicolon = 'mode main'
+
+    slash = 'layout tiles horizontal vertical'
+    comma = 'layout accordion horizontal vertical'
 
     h = 'focus left'
     j = 'focus down'
@@ -94,6 +97,7 @@ automatically-unhide-macos-hidden-apps = false
     down = ['join-with down', 'mode main']
     up = ['join-with up', 'mode main']
     right = ['join-with right', 'mode main']
+    enter = ['exec-and-forget sh ~/.config/scripts/open_raycast.sh', 'mode main']
 
 [mode.move.binding]
     p = 'mode personal_move'
@@ -103,24 +107,24 @@ automatically-unhide-macos-hidden-apps = false
     esc = 'mode main'
 
 [mode.personal_move.binding]
-    1 = ['move-node-to-workspace personal-1', 'mode main']
-    2 = ['move-node-to-workspace personal-2', 'mode main']
-    3 = ['move-node-to-workspace personal-3', 'mode main']
-    4 = ['move-node-to-workspace personal-4', 'mode main']
+    1 = ['move-node-to-workspace personal-1', 'workspace personal-1','mode main']
+    2 = ['move-node-to-workspace personal-2', 'workspace personal-2','mode main']
+    3 = ['move-node-to-workspace personal-3', 'workspace personal-3','mode main']
+    4 = ['move-node-to-workspace personal-4', 'workspace personal-4','mode main']
     esc = 'mode main'
 
 [mode.dev_move.binding]
-    1 = ['move-node-to-workspace dev-1', 'mode main']
-    2 = ['move-node-to-workspace dev-2', 'mode main']
-    3 = ['move-node-to-workspace dev-3', 'mode main']
-    4 = ['move-node-to-workspace dev-4', 'mode main']
+    1 = ['move-node-to-workspace dev-1', 'workspace dev-1', 'mode main']
+    2 = ['move-node-to-workspace dev-2', 'workspace dev-2', 'mode main']
+    3 = ['move-node-to-workspace dev-3', 'workspace dev-3', 'mode main']
+    4 = ['move-node-to-workspace dev-4', 'workspace dev-4', 'mode main']
     esc = 'mode main'
 
 [mode.uni_move.binding]
-    1 = ['move-node-to-workspace uni-1', 'mode main']
-    2 = ['move-node-to-workspace uni-2', 'mode main']
-    3 = ['move-node-to-workspace uni-3', 'mode main']
-    4 = ['move-node-to-workspace uni-4', 'mode main']
+    1 = ['move-node-to-workspace uni-1', 'workspace uni-1','mode main']
+    2 = ['move-node-to-workspace uni-2', 'workspace uni-2','mode main']
+    3 = ['move-node-to-workspace uni-3', 'workspace uni-3','mode main']
+    4 = ['move-node-to-workspace uni-4', 'workspace uni-4','mode main']
     esc = 'mode main'
 
 [mode.goto.binding]
@@ -153,6 +157,16 @@ automatically-unhide-macos-hidden-apps = false
 
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
+run = [
+  # FIX: this is a workaround for https://github.com/nikitabobko/AeroSpace/issues/68
+  # this was also observed in:
+  # - https://github.com/ghostty-org/ghostty/issues/1840
+  # - https://github.com/ghostty-org/ghostty/issues/2006
+  "layout floating",
+]
+
+[[on-window-detected]]
+if.app-id = "sh.ppy.osu.lazer"
 run = [
   # FIX: this is a workaround for https://github.com/nikitabobko/AeroSpace/issues/68
   # this was also observed in:
