@@ -4,12 +4,19 @@ return {
         'kdheepak/lazygit.nvim',
         enabled = false,
         keys = {
-            {'<leader>g', '<cmd>LazyGit<CR>', mode = 'n', desc = 'Open lazygit'}
+            { '<leader>g', '<cmd>LazyGit<CR>', mode = 'n', desc = 'Open lazygit' }
         }
 
     },
     {
         'akinsho/toggleterm.nvim',
+        enabled = false,
+        keys = {
+            { '<leader>Tt', '<cmd>ToggleTerm<CR>',                      noremap = true, mode = 'n', desc = 'Open toggle term in a new window' },
+            { '<leader>Tf', '<cmd>ToggleTerm direction=float<CR>',      noremap = true, mode = 'n', desc = 'Open toggle term in a floating window' },
+            { '<leader>Tv', '<cmd>ToggleTerm direction=vertical<CR>',   noremap = true, mode = 'n', desc = 'Open toggle term in a vertical window' },
+            { '<leader>Th', '<cmd>ToggleTerm direction=horizontal<CR>', noremap = true, mode = 'n', desc = 'Open toggle term in a horizontal window' },
+        },
         config = function()
             require('toggleterm').setup({
                 size = function(term)

@@ -16,7 +16,9 @@ return {
             enabled = true,
             view = (not vim.g.neovide and "cmdline") or "cmdline_popup",
             format = {
-                cmdline = false
+                cmdline = false,
+                search_down = false,
+                search_up = false,
             }
         },
         messages = {

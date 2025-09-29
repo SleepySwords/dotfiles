@@ -17,6 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 require('keybindings')
 require('lazy').setup(
     {
+        -- concurrency = 1,
         spec = {
             { import = 'plugins' },
             { import = 'plugins.themes' },

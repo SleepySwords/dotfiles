@@ -106,7 +106,7 @@ function M.setup()
         'zls',
         'marksman',
         'texlab',
-        'java_language_server',
+        'jdtls',
         'gopls',
         'ocamllsp',
         'terraformls',

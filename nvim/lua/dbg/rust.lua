@@ -2,9 +2,9 @@ local dap = require('dap')
 
 -- Still buggy when stopiing
 
-local extension_path = vim.env.HOME .. '/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/'
-local codelldb_path = extension_path .. 'adapter/codelldb'
-local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
+-- local extension_path = vim.env.HOME .. '/.vscode/extensions/vadimcn.vscode-lldb-1.11.5/'
+-- local codelldb_path = extension_path .. 'adapter/codelldb'
+-- local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
 
 -- dap.adapters.lldb = {
 --     type = 'executable',
@@ -12,13 +12,14 @@ local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
 --     name = 'lldb',
 -- }
 
+-- Installed via mason
 dap.adapters.codelldb = {
     type = 'server',
     port = '${port}',
     executable = {
-        command = codelldb_path,
+        command = vim.fn.exepath('codelldb'),
         -- args = { "--port", "${port}" },
-        args = { '--liblldb', liblldb_path, '--port', '${port}' },
+        args = { '--port', '${port}' },
     },
     name = 'codelldb',
 }
@@ -29,7 +30,7 @@ dap.adapters.cppdbg = {
     id = 'cppdbg',
     type = 'executable',
     command = os.getenv('HOME')
-        .. '/Stuff/dev/dbg/cpptools-osx-arm64/extension/debugAdapters/bin/OpenDebugAD7',
+        .. '/stuff/dev/dbg/cpptools-osx-arm64/extension/debugAdapters/bin/OpenDebugAD7',
 }
 
 dap.defaults.fallback.external_terminal = {
@@ -45,10 +46,10 @@ dap.configurations.cpp = {
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
-        -- cwd = '${workspaceFolder}',
-        cwd = function()
-            return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/', 'file')
-        end,
+        cwd = '${workspaceFolder}',
+        -- cwd = function()
+        --     return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/', 'file')
+        -- end,
         stopOnEntry = false,
         args = {},
 
@@ -61,10 +62,10 @@ dap.configurations.cpp = {
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
-        -- cwd = '${workspaceFolder}',
-        cwd = function()
-            return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/', 'file')
-        end,
+        cwd = '${workspaceFolder}',
+        -- cwd = function()
+        --     return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/', 'file')
+        -- end,
         stopOnEntry = false,
         args = function()
             return { vim.fn.input('Options: ', '', 'file') }
@@ -76,16 +77,15 @@ dap.configurations.cpp = {
     -- 	name = "Launch - Cppdbg",
     -- 	type = "cppdbg",
     -- 	-- type = "lldb",
-    -- 	request = "launch",
-    -- 	program = function()
-    -- 		return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/',
-    -- 			'file')
-    -- 	end,
-    -- 	cwd = function()
-    -- 		return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/',
-    -- 			'file')
-    -- 	end,
-    -- 	stopOnEntry = true,
+    --     request = 'launch',
+    --     program = function()
+    --         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    --     end,
+    --     -- cwd = '${workspaceFolder}',
+    --     cwd = function()
+    --         return vim.fn.input('Path to workspace: ', vim.fn.getcwd() .. '/', 'file')
+    --     end,
+    --     stopOnEntry = false,
     -- 	args = {},
     -- },
     {

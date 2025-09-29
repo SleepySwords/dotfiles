@@ -16,6 +16,7 @@ map({ 'n' }, 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', default('LSP Definit
 map({ 'n' }, 'grd', '<cmd>lua vim.lsp.buf.declaration()<CR>', default('LSP Declaration'))
 map({ 'n' }, 'gri', '<cmd>lua vim.lsp.buf.implementation()<CR>', default('LSP Implementation'))
 map({ 'n' }, 'grn', '<cmd>lua vim.lsp.buf.rename()<CR>', default('LSP Rename'))
+map({ 'n' }, 'grt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', default('LSP Rename'))
 map({ 'n' }, 'grr', function()
     vim.lsp.buf.references()
 end, default('LSP references in quick fix list')) -- lua vim.lsp.buf.references()
@@ -33,6 +34,19 @@ map({ 'n' }, '<leader>co', function()
         vim.cmd("copen")
     end
 end, default('Toggle quick fix list')) -- lua vim.lsp.buf.references()
+map({ 'n' }, '<C-q>', function()
+    if vim.iter(vim.api.nvim_tabpage_list_wins(0)):any(function(w) return vim.fn.win_gettype(w) == "quickfix" end) then
+        vim.cmd("ccl")
+    else
+        vim.cmd("copen")
+    end
+end, default('Toggle quick fix list')) -- lua vim.lsp.buf.references()
+map(
+    { 'n' },
+    '<leader>cc',
+    '<cmd>caddexpr expand("%") .. ":" .. line(".") ..  ":" .. col(".") .. ":" .. getline(".")<CR>',
+    { desc = 'Add current pos to quickfix' }
+)
 
 map(
     { 'n' },
@@ -58,23 +72,14 @@ map(
     '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
     default('LSP List Workspaces')
 )
+
 map({ 'n' }, '<leader>w', function()
     require('which-key').show({
         keys = '<c-w>',
         loop = true, -- this will keep the popup open until you hit <esc>
     })
 end, default('Which-key window'))
--- map_desc({ 'n' }, '<leader>w', '<c-w>', 'Which-key window', {
---     noremap = true,
---     silent = true,
--- })
 
-map(
-    { 'n' },
-    '<leader>hl',
-    '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-    default('LSP Type Definition')
-)
 map({ 'n' }, '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', default('LSP Code Action'))
 map(
     { 'n' },
@@ -134,24 +139,25 @@ map(
     default('Trouble previous')
 )
 
--- LSP Saga (Until LSP Sage is fixed)
--- map('n', '<leader>ca', "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", opts)
--- map('v', '<leader>ca', ":<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>", opts)
--- map('n', 'gr', "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
--- map('n', '<leader>dg', "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", opts)
-
--- map('n', '<leader>d', "<cmd>lua require('lspsaga.floaterm').open_float_terminal()<CR>", opts) -- or open_float_terminal('lazygit')<CR>
--- map('t', '<leader>d', "<C-\\><C-n>:lua require('lspsaga.floaterm').close_float_terminal()<CR>", opts)
-
--- map('n', 'K', "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
--- map('n', '<C-f>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
--- map('n', '<C-b>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
-
 -- Bindings for Telescope and Nvim Tree
 map(
     { 'n' },
     '<leader>f',
-    '<cmd>lua require("telescope.builtin").find_files()<CR>',
+    function()
+        local ok = pcall(require("telescope.builtin").git_files)
+
+        if not ok then
+            require("telescope.builtin").find_files()
+        end
+    end,
+    default('Open File Picker')
+)
+map(
+    { 'n' },
+    '<leader>F',
+    function()
+        require("telescope.builtin").find_files({ no_ignore = true, no_ignore_parent = true })
+    end,
     default('Open File Picker')
 )
 map(
@@ -177,12 +183,6 @@ map(
     '<leader>hh',
     '<cmd>lua require("telescope.builtin").highlights()<cr>',
     default('Open Help Tags')
-)
-map(
-    { 'n' },
-    '<leader>hg',
-    '<cmd>lua require("telescope.builtin").git_files()<cr>',
-    default('Open Git Files')
 )
 map(
     { 'n' },
@@ -262,19 +262,45 @@ map({ 'v' }, '<', '<gv', { noremap = true })
 -- map({ 'n' }, '>', '>>', opts)
 -- map({ 'n' }, '<', '<<', { noremap = true })
 
--- Buffer handling
+-- Setting change
 map(
     { 'n' },
     '<leader>L',
     '<cmd>if &rnu | set nornu | else | set rnu | endif<CR>',
     default('Change between relative and absolute line numbers')
 )
+map(
+    { 'n' },
+    '<leader>W',
+    '<cmd>if &wrap | set nowrap | else | set wrap | endif<CR>',
+    default('Change between relative and absolute line numbers')
+)
+map(
+    { 'n', 'v' },
+    '<leader>V',
+    function()
+        if vim.o.virtualedit == "none" then
+            vim.o.virtualedit = "all"
+        else
+            vim.o.virtualedit = "none"
+        end
+    end,
+    default('Change between virtual edit and no virtual edit')
+)
+map(
+    { 'v' },
+    '<leader>v',
+    "<cmd>'<,'>VBox<CR>",
+    default('Change between relative and absolute line numbers')
+)
+map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>', default('Set current line number to 0 or not'))
+map({ 'n' }, '<leader>ll', '<cmd>ls<CR>', default('Print ls'))
+
+-- Buffer handling
 map({ 'n' }, '<leader>n', '<cmd>bnext<CR>', default('Next buffer'))
 map({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', default('Previous buffer'))
 map({ 'n' }, '<leader>q', '<cmd>BufDel<CR>', default('Delete buffer'))
 map({ 'n' }, '<leader>Q', '<cmd>BufDelOthers<CR>', default('Delete all other buffers'))
-map({ 'n' }, '<leader>ll', '<cmd>ls<CR>', default('Print ls'))
-map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>', default('Set current line number to 0 or not'))
 
 -- Debugging
 map({ 'n' }, '<leader>dc', '<cmd>lua require"dap".continue()<CR>')
@@ -332,10 +358,6 @@ map(
 
 -- Terminal
 map({ 't' }, '<C-\\>', [[<C-\><C-n>]], { noremap = true })
-map({ 'n' }, '<leader>Tt', '<cmd>ToggleTerm<CR>', { noremap = true })
-map({ 'n' }, '<leader>Tf', '<cmd>ToggleTerm direction=float<CR>', { noremap = true })
-map({ 'n' }, '<leader>Tv', '<cmd>ToggleTerm direction=vertical<CR>', { noremap = true })
-map({ 'n' }, '<leader>Th', '<cmd>ToggleTerm direction=horizontal<CR>', { noremap = true })
 
 map({ 'n' }, '<leader>Tn', '<cmd>tab split<cr>')
 
@@ -372,13 +394,15 @@ map({ 'n', 'x', 'v' }, 'gl', '$', default_opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', default_opts)
 
 map({ 'n' }, 'ZZ', '<cmd>qa<CR>', default_opts)
+map({ 'n' }, '<leader>z', '<cmd>q<CR>', default_opts)
+
 map({ 'n' }, '<leader>crr', '<cmd>OverseerRun<CR>', default('Overseer run'))
 map({ 'n' }, '<leader>cra', '<cmd>OverseerQuickAction<CR>', default('Overseer quick actions'))
 map({ 'n' }, '<leader>crt', '<cmd>OverseerToggle<CR>', default('Toggle Overseer window'))
 
 -- Marks
 map({ 'n' }, '<leader>m', '<cmd>lua require("telescope.builtin").marks()<CR>')
---
+
 -- Replaced with marks.nvim
 -- map({ 'n' }, 'dm', 'hi', {
 --     noremap = true,
@@ -396,20 +420,7 @@ map({ 'n' }, '<leader>al', '<cmd>SessionSearch<CR>', { desc = 'Session load' })
 map({ 'n' }, '<leader>ad', '<cmd>Autosession delete<CR>', { desc = 'Session delete' })
 
 -- q: is also useful...
-map(
-    { 'n' },
-    '<leader>aqf',
-    '<cmd>caddexpr expand("%") .. ":" .. line(".") ..  ":" .. col(".") .. ":" .. getline(".")<CR>',
-    { desc = 'Add current pos to quickfix' }
-)
 map('n', '<leader>B', '<cmd>BufferLinePick<cr>', default('Open Bufferline Picker'))
 map('n', '<leader>as', function()
     require('utils.tabs').setup_tabs(true)
 end, default('Tab setup'))
-
--- Harpoon
--- map({ 'n' }, '<leader>mm', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', opts)
--- map({ 'n' }, '<leader>mn', '<cmd>lua require("harpoon.ui").nav_next()<cr>', opts)
--- map({ 'n' }, '<leader>mp', '<cmd>lua require("harpoon.ui").nav_prev()<cr>', opts)
--- map({ 'n' }, '<leader>ma', '<cmd>lua require("harpoon.mark").toggle_file()<cr>', opts)
--- map({ 'n' }, '<leader>mr', '<cmd>lua require("harpoon.mark").create_mark()<cr>', opts)

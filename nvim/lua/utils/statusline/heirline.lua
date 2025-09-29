@@ -162,6 +162,18 @@ function M.setup()
         },
     }
 
+    local venn_mode = {
+        provider = function()
+            return 'VENN MODE '
+        end,
+        condition = function()
+            return vim.b.venn_enabled
+        end,
+        hl = function()
+            return { fg = colours.violet, bg = colours.component_bg }
+        end,
+    }
+
     -- FIXME: to git
     local branch = {
         provider = function(self)
@@ -666,6 +678,7 @@ function M.setup()
         statusline = {
             {
                 mode,
+                venn_mode,
                 git,
             },
             align,

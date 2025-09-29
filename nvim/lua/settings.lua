@@ -17,6 +17,7 @@ end
 -- Vim options setup
 set_ft_option('markdown', 'spell', true)
 set_ft_option('markdown', 'linebreak', true)
+set_ft_option('markdown', 'textwidth', 80)
 
 o.compatible = false
 o.nu = true

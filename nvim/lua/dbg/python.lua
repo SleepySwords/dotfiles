@@ -2,7 +2,7 @@ local dap = require('dap')
 
 dap.adapters.python = {
     type = 'executable',
-    command = vim.fn.stdpath('data') .. '/mason/bin/debugpy-adapter',
+    command = vim.fn.exepath('debugpy-adapter'),
     -- args = { '-m', 'debugpy.adapter' },
 }
 
