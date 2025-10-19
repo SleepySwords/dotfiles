@@ -362,10 +362,10 @@ map({ 't' }, '<C-\\>', [[<C-\><C-n>]], { noremap = true })
 map({ 'n' }, '<leader>Tn', '<cmd>tab split<cr>')
 
 -- Be able to move chunks of code
-map({ 'n' }, '<C-j>', '<cmd>:m .+1<CR>==', default_opts)
-map({ 'n' }, '<C-k>', '<cmd>:m .-2<CR>==', default_opts)
-map({ 'v' }, '<C-j>', ":move'>+<CR>gv=gv", default_opts)
-map({ 'v' }, '<C-k>', ':move-2<CR>gv=gv', default_opts)
+-- map({ 'n' }, '<C-j>', '<cmd>:m .+1<CR>==', default_opts)
+-- map({ 'n' }, '<C-k>', '<cmd>:m .-2<CR>==', default_opts)
+-- map({ 'v' }, '<C-j>', ":move'>+<CR>gv=gv", default_opts)
+-- map({ 'v' }, '<C-k>', ':move-2<CR>gv=gv', default_opts)
 
 -- TODO: decide on one for quick fix
 map({ 'n' }, ']q', ':cn<CR>', default_opts)

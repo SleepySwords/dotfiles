@@ -1,86 +1,90 @@
-# TODO: Cache scripts from files to reduce IO operations
-# TODO: Create a enable disable command to hide items and unsubscribe them from updates
-# TODO: Implement the plugin system for easier setup of preconfigured items
+#!/bin/bash
 
-sketchybar -m config height               24
-sketchybar -m config position             top
-sketchybar -m config padding_left         10
-sketchybar -m config padding_right        10
-sketchybar -m config bar_color            0x22000000 #0xaf202020
+##### Bar Appearance #####
+# Configuring the general appearance of the bar, these are only some of the
+# options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
+source "$CONFIG_DIR/colours.sh" # Loads all defined colors
 
-sketchybar -m add component space stream_coms left
-sketchybar -m set stream_coms associated_display 1
-sketchybar -m set stream_coms associated_space 1
-sketchybar -m set stream_coms icon_font "Hack Nerd Font:Bold:15.0"
-sketchybar -m set stream_coms icon_highlight_color 0xff5865F2
-sketchybar -m set stream_coms icon_padding_left 8
-sketchybar -m set stream_coms icon ﭮ
-sketchybar -m set stream_coms label_padding_left 4
-sketchybar -m set stream_coms label_padding_right 8
-sketchybar -m set stream_coms label_font "SF Pro:Medium:14.0"
-sketchybar -m set stream_coms label social
-sketchybar -m set stream_coms click_script "yabai -m space --focus 1"
-
-sketchybar -m add component space tasks left
-sketchybar -m set tasks associated_display 1
-sketchybar -m set tasks associated_space 2
-sketchybar -m set tasks icon_font "Hack Nerd Font:Bold:14.0"
-sketchybar -m set tasks icon_highlight_color 0xfffab402
-sketchybar -m set tasks icon_padding_left 8
-sketchybar -m set tasks icon  #
-sketchybar -m set tasks label_padding_left 4
-sketchybar -m set tasks label_padding_right 8
-sketchybar -m set tasks label_font "SF Pro:Medium:14.0"
-sketchybar -m set tasks label tasks
-sketchybar -m set tasks click_script "yabai -m space --focus 2"
-
-sketchybar -m add component space school left
-sketchybar -m set school associated_display 1
-sketchybar -m set school associated_space 3
-sketchybar -m set school icon_font "Hack Nerd Font:Bold:14.0"
-sketchybar -m set school icon_highlight_color 0xff7fe5f0
-sketchybar -m set school icon_padding_left 8
-sketchybar -m set school icon 
-sketchybar -m set school label_padding_left 4
-sketchybar -m set school label_padding_right 8
-sketchybar -m set school label_font "SF Pro:Medium:14.0"
-sketchybar -m set school label school
-sketchybar -m set school click_script "yabai -m space --focus 3"
-sketchybar -m add component space code left
-
-sketchybar -m set code associated_display 1
-sketchybar -m set code associated_space 4
-sketchybar -m set code icon_font "Hack Nerd Font:Bold:16.0"
-sketchybar -m set code icon  # #
-sketchybar -m set code icon_color 0xffffffff
-sketchybar -m set code icon_highlight_color 0xffFBBFCA #48aa2a
-sketchybar -m set code icon_padding_left 8
-sketchybar -m set code label_padding_left 4
-sketchybar -m set code label_padding_right 8
-sketchybar -m set code label_font "SF Pro:Medium:14.0"
-sketchybar -m set code label code
-sketchybar -m set code click_script "yabai -m space --focus 4"
-
-sketchybar -m add component space entertainment left
-sketchybar -m set entertainment associated_display 1
-sketchybar -m set entertainment associated_space 5
-sketchybar -m set entertainment icon_font "Hack Nerd Font:Bold:17.0"
-sketchybar -m set entertainment icon_highlight_color 0xfffff68f
-sketchybar -m set entertainment icon_padding_left 8
-sketchybar -m set entertainment icon  #鈴
-sketchybar -m set entertainment label_padding_left 4
-sketchybar -m set entertainment label_padding_right 8
-sketchybar -m set entertainment label_font "SF Pro:Medium:14.0"
-sketchybar -m set entertainment label personal
-sketchybar -m set entertainment click_script "yabai -m space --focus 5"
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+ITEM_DIR="$CONFIG_DIR/items"
 
 
-sketchybar -m add item spotifyIndicator center
-sketchybar -m set spotifyIndicator label_font "Hack Nerd Font:Normal:12.5"
-sketchybar -m set spotifyIndicator update_freq 10
-sketchybar -m set spotifyIndicator script "~/.config/sketchybar/plugins/spotifyIndicator.sh"
 
-sketchybar -m update
+sketchybar --bar height=37        \
+                 blur_radius=30   \
+                 position=top     \
+                 sticky=on       \
+                 padding_left=10  \
+                 padding_right=10
 
-echo "sketchybar configuration loaded.."
+##### Changing Defaults #####
+# We now change some default values that are applied to all further items
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+sketchybar --default icon.font="SF Pro Rounded:Semibold:13.0"  \
+                     icon.color=$WHITE                 \
+                     label.font="SF Pro Rounded:Semibold:13.0" \
+                     label.color=$WHITE                \
+                     padding_left=5                    \
+                     padding_right=5                   \
+                     label.padding_left=4              \
+                     label.padding_right=4             \
+                     icon.padding_left=4               \
+                     icon.padding_right=4
+
+##### Adding Mission Control Space Indicators #####
+# Now we add some mission control spaces:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+# to indicate active and available mission control spaces
+
+sketchybar --add item main left \
+           --set main icon=􁞱
+
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid=$(($i+1))
+  sketchybar --add space space.$sid left                                 \
+             --set space.$sid space=$sid                                 \
+                              icon=${SPACE_ICONS[i]}                     \
+                              icon.highlight_color=$ACCENT_COLOR         \
+                              background.color=$WHITE                    \
+                              background.corner_radius=5                 \
+                              background.height=20                       \
+                              background.drawing=off                     \
+                              label.drawing=off                          \
+                              script="$PLUGIN_DIR/space.sh"              \
+                              click_script="yabai -m space --focus $sid"
+done
+
+
+##### Adding Right Items #####
+# In the same way as the left items we can add items to the right side.
+# Additional position (e.g. center) are available, see:
+# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+
+# Some items refresh on a fixed cycle, e.g. the clock runs its script once
+# every 10s. Other items respond to events they subscribe to, e.g. the
+# volume.sh script is only executed once an actual change in system audio
+# volume is registered. More info about the event system can be found here:
+# https://felixkratz.github.io/SketchyBar/config/events
+
+
+source $ITEM_DIR/clock.sh
+source $ITEM_DIR/cpu.sh
+source $ITEM_DIR/battery.sh
+
+# sketchybar --add alias "Control Centre,Battery" right
+# sketchybar --add alias "Control Centre,WiFi" right
+
+##### Finalizing Setup #####
+# The below command is only needed at the end of the initial configuration to
+# force all scripts to run the first time, it should never be run in an item script.
+
+sketchybar --update

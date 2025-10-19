@@ -92,6 +92,7 @@ function M.setup()
         end,
     })
     vim.lsp.enable({ 'rust_analyzer',
+        'ruby_lsp',
         'lua_ls',
         'kotlin_language_server',
         'arduino_language_server',

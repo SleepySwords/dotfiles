@@ -158,6 +158,25 @@ return {
         end,
         ft = { 'markdown' },
     },
+    {
+        'nvim-mini/mini.move',
+        opts = {
+            mappings = {
+                -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+                left = '<C-h>',
+                right = '<C-l>',
+                down = '<C-j>',
+                up = '<C-k>',
+
+                -- Move current line in Normal mode
+                line_left = '<M-h>',
+                line_right = '<M-l>',
+                line_down = '<C-j>',
+                line_up = '<C-k>',
+            },
+        },
+        version = false
+    },
 }
 
 -- Plugins that need to try again
