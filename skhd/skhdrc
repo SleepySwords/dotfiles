@@ -4,6 +4,7 @@
 vim < shift + lalt - 0x29 ; default
 vim < escape ; default
 default < shift + lalt - 0x29 ; vim
+default < cmd - escape ; vim
 
 vim < h : yabai -m window --focus west
 vim < j : yabai -m window --focus south

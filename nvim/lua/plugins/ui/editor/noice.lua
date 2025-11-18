@@ -1,7 +1,7 @@
 -- FIXME: Incorporate the number of searches found into the status line if using this.
 return {
     'folke/noice.nvim',
-    -- enabled = false,
+    enabled = false,
     event = 'VeryLazy',
     opts = {
         lsp = {

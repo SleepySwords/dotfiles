@@ -44,3 +44,4 @@ vim.api.nvim_create_autocmd('UILeave', {
 --     pattern = "*.md",
 --     callback = require("mathjax").render_latex
 -- })
+--

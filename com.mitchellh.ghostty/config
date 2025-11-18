@@ -1,6 +1,12 @@
 # font-family = "Fira Code"
 # font-family = "0xProto"
-font-family = "Maple Mono NF"
+# font-family = "Berkeley Mono Trial"
+# font-family = "CommitMono"
+
+font-family = "Maple mono NF"
+font-feature = "+cv01, +cv02, +cv04, +cv66, +ss02"
+font-style = "Light"
+
 font-size = 12
 # font-thicken = true
 theme = catpuccin-latte.conf
@@ -12,4 +18,3 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = cursor
 shell-integration = none
-

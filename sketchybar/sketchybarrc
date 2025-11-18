@@ -45,7 +45,7 @@ sketchybar --default icon.font="SF Pro Rounded:Semibold:13.0"  \
 sketchybar --add item main left \
            --set main icon=􁞱
 
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+SPACE_ICONS=("Personal" "Dev" "School" "4" "5" "6" "7" "8" "9" "10")
 
 for i in "${!SPACE_ICONS[@]}"
 do
@@ -63,6 +63,10 @@ do
                               click_script="yabai -m space --focus $sid"
 done
 
+sketchybar --add item wow left \
+           --set wow label="test" \
+           click_script="yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "float" else "bsp" end')"
+
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
@@ -77,11 +81,8 @@ done
 
 
 source $ITEM_DIR/clock.sh
-source $ITEM_DIR/cpu.sh
 source $ITEM_DIR/battery.sh
-
-# sketchybar --add alias "Control Centre,Battery" right
-# sketchybar --add alias "Control Centre,WiFi" right
+source $ITEM_DIR/cpu.sh
 
 ##### Finalizing Setup #####
 # The below command is only needed at the end of the initial configuration to

@@ -390,6 +390,19 @@ map({ 'n' }, '<C-p>', function()
     end
 end, default_opts)
 
+local function add_search_count_hl(keybind, desc)
+    map({ 'n', 'x', 'v' }, keybind, function()
+        vim.api.nvim_feedkeys(keybind, 'n', false)
+        vim.schedule(function()
+            require("utils.search_count").hl_search()
+        end)
+    end, { desc = desc })
+end
+add_search_count_hl('n', 'Goto next' )
+add_search_count_hl('N', 'Goto previous' )
+add_search_count_hl('*', 'Search forward under cursor' )
+add_search_count_hl('#', 'Search backward under cursor' )
+
 map({ 'n', 'x', 'v' }, 'gl', '$', default_opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', default_opts)
 

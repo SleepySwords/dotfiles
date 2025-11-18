@@ -1,1 +1,1 @@
-return { 'RaafatTurki/hex.nvim', opts = {} }
+return { 'RaafatTurki/hex.nvim', enabled = false, opts = {} }
