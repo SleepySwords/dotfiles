@@ -299,8 +299,8 @@ map({ 'n' }, '<leader>ll', '<cmd>ls<CR>', default('Print ls'))
 -- Buffer handling
 map({ 'n' }, '<leader>n', '<cmd>bnext<CR>', default('Next buffer'))
 map({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', default('Previous buffer'))
-map({ 'n' }, '<leader>q', '<cmd>BufDel<CR>', default('Delete buffer'))
-map({ 'n' }, '<leader>Q', '<cmd>BufDelOthers<CR>', default('Delete all other buffers'))
+map({ 'n' }, '<leader>q', function() Snacks.bufdelete() end, default('Delete buffer'))
+map({ 'n' }, '<leader>Q', function() Snacks.bufdelete.other() end, default('Delete all other buffers'))
 
 -- Debugging
 map({ 'n' }, '<leader>dc', '<cmd>lua require"dap".continue()<CR>')
@@ -398,10 +398,10 @@ local function add_search_count_hl(keybind, desc)
         end)
     end, { desc = desc })
 end
-add_search_count_hl('n', 'Goto next' )
-add_search_count_hl('N', 'Goto previous' )
-add_search_count_hl('*', 'Search forward under cursor' )
-add_search_count_hl('#', 'Search backward under cursor' )
+add_search_count_hl('n', 'Goto next')
+add_search_count_hl('N', 'Goto previous')
+add_search_count_hl('*', 'Search forward under cursor')
+add_search_count_hl('#', 'Search backward under cursor')
 
 map({ 'n', 'x', 'v' }, 'gl', '$', default_opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', default_opts)

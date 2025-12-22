@@ -70,3 +70,7 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 starship init fish | source
 # enable_transience
+
+# FIXME: i'm fairly sure nix-darwin is somehow messing with the fish_user_paths variable using global instead of universal and that is breaking fish_add_path as that only updates the global variable.
+
+zoxide init fish | source

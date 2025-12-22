@@ -16,7 +16,7 @@ vim.api.nvim_set_hl(
     0,
     'LspInlayHint',
     { bg = tuple_to_hex(inlay_bg), fg = tuple_to_hex(inlay_fg), italic = true }
-    -- { fg = tuple_to_hex(inlay_fg), italic = true }
+-- { fg = tuple_to_hex(inlay_fg), italic = true }
 )
 
 -- This is for the trail listchar
@@ -76,3 +76,11 @@ vim.api.nvim_set_hl(0, 'GitGraphBranch2', { fg = '#b16286' })
 vim.api.nvim_set_hl(0, 'GitGraphBranch3', { fg = '#d79921' })
 vim.api.nvim_set_hl(0, 'GitGraphBranch4', { fg = '#98971a' })
 vim.api.nvim_set_hl(0, 'GitGraphBranch5', { fg = '#d5651c' })
+
+-- normal_float = vim.api.nvim_get_hl(0, { name = 'NormalFloat', link = false })
+-- vim.api.nvim_set_hl(0, 'WhichKeyNormal', {
+--     bg = normal_float.bg,
+--     fg = normal_float.fg,
+-- })
+--
+-- vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })

@@ -23,6 +23,7 @@ return {
             }
         },
         image = {
+            enabled = false,
             math = {
                 enabled = false,
                 typst = {

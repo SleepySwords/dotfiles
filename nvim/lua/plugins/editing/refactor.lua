@@ -6,7 +6,7 @@ return {
             'nvim-treesitter/nvim-treesitter',
         },
         lazy = true,
-        cmd = {"Refactor"},
+        cmd = { "Refactor" },
         config = function()
             require('refactoring').setup({})
         end,

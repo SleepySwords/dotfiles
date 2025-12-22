@@ -47,6 +47,7 @@ yabai -m config left_padding                 10
 yabai -m config right_padding                10
 yabai -m config window_gap                   6
 
+# yabai -m config focus_follows_mouse autofocus
 
 yabai -m config external_bar all:0:$SPACEBAR_HEIGHT
 
@@ -61,9 +62,9 @@ yabai -m rule --add app="^Alfred Preferences$" manage=off
 yabai -m rule --add app="^Alfred Monitor$" manage=off
 yabai -m rule --add app="^App Store$" manage=off
 
-yabai -m rule --add can-resize="^false$" manage=off
 
 yabai -m signal --add app='^Ghostty$' event=window_created action='yabai -m space --layout bsp'
 yabai -m signal --add app='^Ghostty$' event=window_destroyed action='yabai -m space --layout bsp'
+
 
 echo "yabai configuration loaded.."

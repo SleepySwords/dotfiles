@@ -1,5 +1,5 @@
-:: default : borders width=0.0
-:: vim @ : borders width=4.0
+:: default : sketchybar --trigger mode_changed MODE="::default"
+:: vim @ : sketchybar --trigger mode_changed MODE="::vim"
 
 vim < shift + lalt - 0x29 ; default
 vim < escape ; default

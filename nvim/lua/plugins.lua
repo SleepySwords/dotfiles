@@ -35,7 +35,7 @@ return {
     },
 
     -- Buffers
-    { 'ojroques/nvim-bufdel' },
+    { 'ojroques/nvim-bufdel', enabled = false },
 
     {
         'nvchad/showkeys',

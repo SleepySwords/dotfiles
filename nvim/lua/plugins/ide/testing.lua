@@ -63,7 +63,8 @@ return {
             'vim-test/vim-test',
         },
     },
-    { -- The task runner we use
+    { 
+        -- The task runner we use
         'stevearc/overseer.nvim',
         cmd = { 'OverseerRun', 'OverseerQuickAction', 'OverseerToggle' },
         opts = {
@@ -85,8 +86,9 @@ return {
         },
     },
     {
-
+        -- Use this one instead of kulala if it is ever reenabled.
         'rest-nvim/rest.nvim',
+        enabled = false,
     },
     {
         'mistweaverco/kulala.nvim',

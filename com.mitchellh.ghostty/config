@@ -3,9 +3,12 @@
 # font-family = "Berkeley Mono Trial"
 # font-family = "CommitMono"
 
-font-family = "Maple mono NF"
-font-feature = "+cv01, +cv02, +cv04, +cv66, +ss02"
-font-style = "Light"
+# font-family = "Maple mono NF"
+# font-feature = "+cv01, +cv02, +cv04, +cv66, +ss02"
+# font-style = "Light"
+
+font-family = "Iosevka Term"
+font-style = "Extended"
 
 font-size = 12
 # font-thicken = true
@@ -18,3 +21,5 @@ cursor-style = block
 cursor-style-blink = false
 shell-integration-features = cursor
 shell-integration = none
+
+macos-option-as-alt = left

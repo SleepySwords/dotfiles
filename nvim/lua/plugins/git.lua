@@ -2,6 +2,7 @@ return {
     -- Git integration
     {
         'pwntester/octo.nvim',
+        enabled = false,
         cmd = 'Octo',
         dependencies = {
             'nvim-lua/plenary.nvim',
@@ -19,6 +20,7 @@ return {
     },
     {
         'NeogitOrg/neogit',
+        -- enabled = false,
         cmd = { 'Neogit', 'NeogitResetState' },
 
         dependencies = {

@@ -91,6 +91,15 @@ function M.setup()
             vim.fn.expand('$HOME/lsp/java-langauge-server')
         end,
     })
+    vim.lsp.config("tinymist", {
+        capabilities = capabilities,
+        settings = {
+            formatterMode = "typstyle",
+            exportPdf = "onType",
+            semanticTokens = "disable"
+        }
+    })
+
     vim.lsp.enable({ 'rust_analyzer',
         'ruby_lsp',
         'lua_ls',
@@ -102,6 +111,7 @@ function M.setup()
         'ts_ls',
         'pyright',
         'hls',
+        'tinymist',
         'clangd',
         'wgsl_analyzer',
         'zls',
@@ -111,6 +121,7 @@ function M.setup()
         'gopls',
         'ocamllsp',
         'terraformls',
+        'sourcekit',
     })
     -- lsp_config.biome.setup({
     -- 	capabilities = capabilities,
