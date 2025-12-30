@@ -53,26 +53,26 @@ return {
         'nvim-treesitter/nvim-treesitter-textobjects',
         branch = 'main',
         init = function()
-          -- Disable entire built-in ftplugin mappings to avoid conflicts.
-          -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
-          vim.g.no_plugin_maps = true
+            -- Disable entire built-in ftplugin mappings to avoid conflicts.
+            -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
+            vim.g.no_plugin_maps = true
 
-          -- Or, disable per filetype (add as you like)
-          -- vim.g.no_python_maps = true
-          -- vim.g.no_ruby_maps = true
-          -- vim.g.no_rust_maps = true
-          -- vim.g.no_go_maps = true
+            -- Or, disable per filetype (add as you like)
+            -- vim.g.no_python_maps = true
+            -- vim.g.no_ruby_maps = true
+            -- vim.g.no_rust_maps = true
+            -- vim.g.no_go_maps = true
         end,
-        config = function ()
+        config = function()
             require("nvim-treesitter-textobjects").setup {
                 select = {
                     lookahead = true,
                 }
             }
 
-            function define_select(keys, textobject)
+            local function define_select(keys, textobject)
                 vim.keymap.set({ "x", "o" }, keys, function()
-                  require "nvim-treesitter-textobjects.select".select_textobject(textobject, "textobjects")
+                    require "nvim-treesitter-textobjects.select".select_textobject(textobject, "textobjects")
                 end)
             end
 
@@ -92,22 +92,24 @@ return {
     {
         'aaronik/treewalker.nvim',
         keys = {
-            { '<c-s-J>', '<cmd>Treewalker Down<cr>',      mode = 'n' },
-            { '<c-s-K>', '<cmd>Treewalker Up<cr>',        mode = 'n' },
-            { '<c-s-H>', '<cmd>Treewalker Left<cr>',      mode = 'n' },
-            { '<c-s-L>', '<cmd>Treewalker Right<cr>',     mode = 'n' },
+            { '<c-s-J>', '<cmd>Treewalker Down<cr>',      mode = { 'n', 'x', 'v' } },
+            { '<c-s-K>', '<cmd>Treewalker Up<cr>',        mode = { 'n', 'x', 'v' } },
+            { '<c-s-H>', '<cmd>Treewalker Left<cr>',      mode = { 'n', 'x', 'v' } },
+            { '<c-s-L>', '<cmd>Treewalker Right<cr>',     mode = { 'n', 'x', 'v' } },
 
             -- Swapping Nodes in Visual Mode
-            { 'mj',      '<cmd>Treewalker SwapDown<cr>',  mode = 'n', desc = 'Treesurfer swap next element', },
-            { 'mk',      '<cmd>Treewalker SwapUp<cr>',    mode = 'n', desc = 'Treesurfer swap previous element' },
-            { 'mh',      '<cmd>Treewalker SwapLeft<cr>',  mode = 'n', desc = 'Treesurfer swap previous element' },
-            { 'ml',      '<cmd>Treewalker SwapRight<cr>', mode = 'n', desc = 'Treesurfer swap previous element' },
+            { 'mj',      '<cmd>Treewalker SwapDown<cr>',  mode = 'n',            desc = 'Treesurfer swap next element', },
+            { 'mk',      '<cmd>Treewalker SwapUp<cr>',    mode = 'n',            desc = 'Treesurfer swap previous element' },
+            { 'mh',      '<cmd>Treewalker SwapLeft<cr>',  mode = 'n',            desc = 'Treesurfer swap previous element' },
+            { 'ml',      '<cmd>Treewalker SwapRight<cr>', mode = 'n',            desc = 'Treesurfer swap previous element' },
         },
 
         opts = {
             highlight = true,
             highlight_duration = 250,
             highlight_group = 'CursorLine',
+
+            select = true,
         }
     },
     {
