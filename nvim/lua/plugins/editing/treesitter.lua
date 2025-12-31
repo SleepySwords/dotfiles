@@ -106,7 +106,7 @@ return {
                 { noremap = true, desc = 'Treesurfer swap previous element' })
             vim.keymap.set({ 'n' }, "mh", "<cmd>Treewalker SwapLeft<cr>",
                 { noremap = true, desc = 'Treesurfer swap previous element' })
-            vim.keymap.set({ 'n' }, "ml", "<cmd>Treewalker SwapRight<r>",
+            vim.keymap.set({ 'n' }, "ml", "<cmd>Treewalker SwapRight<cr>",
                 { noremap = true, desc = 'Treesurfer swap previous element' })
 
             function _G.Toggle_treewalker()
