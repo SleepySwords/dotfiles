@@ -159,7 +159,7 @@ return {
         ft = { 'markdown' },
     },
     {
-        'nvim-mini/mini.move',
+        dir = '/Users/ibby/stuff/dev/lua/mini.move',
         opts = {
             mappings = {
                 -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.

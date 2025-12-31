@@ -34,6 +34,12 @@ vim.api.nvim_create_autocmd('UILeave', {
     end,
 })
 
+-- Treesitter highlighting
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '<filetype>' },
+  callback = function() vim.treesitter.start() end,
+})
+
 -- vim.api.nvim_create_autocmd('BufEnter', {
 --     callback = function()
 --         setup_tabs(false)
