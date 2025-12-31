@@ -91,26 +91,50 @@ return {
 
     {
         'aaronik/treewalker.nvim',
-        keys = {
-            { '<c-s-J>', '<cmd>Treewalker Down<cr>',      mode = { 'n', 'x', 'v' } },
-            { '<c-s-K>', '<cmd>Treewalker Up<cr>',        mode = { 'n', 'x', 'v' } },
-            { '<c-s-H>', '<cmd>Treewalker Left<cr>',      mode = { 'n', 'x', 'v' } },
-            { '<c-s-L>', '<cmd>Treewalker Right<cr>',     mode = { 'n', 'x', 'v' } },
+        config = function()
+            require 'treewalker'.setup {
 
-            -- Swapping Nodes in Visual Mode
-            { 'mj',      '<cmd>Treewalker SwapDown<cr>',  mode = 'n',            desc = 'Treesurfer swap next element', },
-            { 'mk',      '<cmd>Treewalker SwapUp<cr>',    mode = 'n',            desc = 'Treesurfer swap previous element' },
-            { 'mh',      '<cmd>Treewalker SwapLeft<cr>',  mode = 'n',            desc = 'Treesurfer swap previous element' },
-            { 'ml',      '<cmd>Treewalker SwapRight<cr>', mode = 'n',            desc = 'Treesurfer swap previous element' },
-        },
+                highlight = true,
+                highlight_duration = 250,
+                highlight_group = 'CursorLine',
 
-        opts = {
-            highlight = true,
-            highlight_duration = 250,
-            highlight_group = 'CursorLine',
+                select = true,
+            }
+            vim.keymap.set({ 'n' }, "mj", "<cmd>Treewalker SwapDown<cr>",
+                { noremap = true, desc = 'Treesurfer swap previous element' })
+            vim.keymap.set({ 'n' }, "mk", "<cmd>Treewalker SwapUp<cr>",
+                { noremap = true, desc = 'Treesurfer swap previous element' })
+            vim.keymap.set({ 'n' }, "mh", "<cmd>Treewalker SwapLeft<cr>",
+                { noremap = true, desc = 'Treesurfer swap previous element' })
+            vim.keymap.set({ 'n' }, "ml", "<cmd>Treewalker SwapRight<r>",
+                { noremap = true, desc = 'Treesurfer swap previous element' })
 
-            select = true,
-        }
+            function _G.Toggle_treewalker()
+                local venn_enabled = vim.inspect(vim.b.treewalker_enabled)
+                if venn_enabled == "nil" then
+                    vim.b.treewalker_enabled = true
+                    vim.keymap.set({ 'n', 'x', 'v' }, "J", "<cmd>Treewalker Down<cr>", { noremap = true, buffer = 0 })
+                    vim.keymap.set({ 'n', 'x', 'v' }, "K", "<cmd>Treewalker Up<cr>", { noremap = true, buffer = 0 })
+                    vim.keymap.set({ 'n', 'x', 'v' }, "L", "<cmd>Treewalker Right<cr>", { noremap = true, buffer = 0 })
+                    vim.keymap.set({ 'n', 'x', 'v' }, "H", "<cmd>Treewalker Left<cr>", { noremap = true, buffer = 0 })
+                    vim.keymap.set({ 'n', 'x', 'v' }, "<esc>", function()
+                        Toggle_treewalker()
+                    end, { noremap = true, buffer = 0 })
+                else
+                    vim.keymap.del({ 'n', 'x', 'v' }, "J", { buffer = 0 })
+                    vim.keymap.del({ 'n', 'x', 'v' }, "K", { buffer = 0 })
+                    vim.keymap.del({ 'n', 'x', 'v' }, "L", { buffer = 0 })
+                    vim.keymap.del({ 'n', 'x', 'v' }, "H", { buffer = 0 })
+                    vim.keymap.del({ 'n', 'x', 'v' }, "<esc>", { buffer = 0 })
+                    vim.api.nvim_input('<ESC>')
+                    vim.b.treewalker_enabled = nil
+                end
+            end
+
+            vim.keymap.set('n', '<leader>e', function()
+                Toggle_treewalker()
+            end, { noremap = true })
+        end,
     },
     {
         'David-Kunz/treesitter-unit',

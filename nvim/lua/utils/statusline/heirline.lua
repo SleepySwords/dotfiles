@@ -174,6 +174,18 @@ function M.setup()
         end,
     }
 
+    local treewalker_mode = {
+        provider = function()
+            return 'TREEWALKER MODE '
+        end,
+        condition = function()
+            return vim.b.treewalker_enabled
+        end,
+        hl = function()
+            return { fg = colours.violet, bg = colours.component_bg }
+        end,
+    }
+
     -- FIXME: to git
     local branch = {
         provider = function(self)
@@ -679,6 +691,7 @@ function M.setup()
             {
                 mode,
                 venn_mode,
+                treewalker_mode,
                 git,
             },
             align,
