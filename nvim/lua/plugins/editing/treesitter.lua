@@ -3,8 +3,12 @@ return {
     {
         'nvim-treesitter/nvim-treesitter',
         lazy = false,
+        branch = 'main',
         config = function()
-            require('nvim-treesitter').install({ 'rust', 'javascript', 'zig', 'go', 'haskell' }):wait(300000)
+            require 'nvim-treesitter'.setup {
+                install_dir = vim.fn.stdpath('data') .. '/site'
+            }
+            -- require('nvim-treesitter').install({ 'rust', 'javascript', 'zig', 'go', 'haskell' }):wait(300000)
         end,
         build = ':TSUpdate',
     },
