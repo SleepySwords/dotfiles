@@ -3,7 +3,7 @@ return {
     {
         'nvim-tree/nvim-tree.lua',
         dependencies = {
-            'echasnovski/mini.icons',
+            'nvim-mini/mini.icons',
             {
                 'antosha417/nvim-lsp-file-operations',
                 dependencies = {
@@ -54,7 +54,7 @@ return {
             }
         },
         -- Optional dependencies
-        dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+        dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
         -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
     },
 }

@@ -6,7 +6,7 @@ add_newline = false
 format = """$username$hostname$directory $character"""
 
 # move the rest of the prompt to the right
-right_format = """$git_branch$git_state$git_status $git_metrics$status( $cmd_duration) $time"""
+right_format = """$conda$git_branch$git_state$git_status $git_metrics$status( $cmd_duration) $time"""
 
 [directory]
 style = "fg:#FC4DFF"
@@ -53,3 +53,7 @@ time_format = '%R'
 min_time = 50
 format = '[$duration](bold green)'
 # show_milliseconds = true
+
+[conda]
+symbol = ''
+format = 'f[$symbol$environment](dimmed green) '

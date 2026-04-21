@@ -32,12 +32,13 @@ vim.api.nvim_create_autocmd('UILeave', {
     callback = function()
         io.write('\027]111\027\\')
     end,
+
 })
 
 -- Treesitter highlighting
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { '<filetype>' },
-  callback = function() vim.treesitter.start() end,
+    pattern = { '<filetype>' },
+    callback = function() vim.treesitter.start() end,
 })
 
 -- vim.api.nvim_create_autocmd('BufEnter', {

@@ -55,6 +55,16 @@ return {
         end,
     },
 
+    {
+        'Decodetalkers/csharpls-extended-lsp.nvim',
+        enabled = false,
+        lazy = true,
+        ft = 'cs',
+        config = function()
+            require('completion.lsp_servers').setup_csharp_ls()
+        end,
+    },
+
     -- Autocompletion
     {
         'hrsh7th/nvim-cmp',

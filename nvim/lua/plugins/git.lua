@@ -6,7 +6,7 @@ return {
         cmd = 'Octo',
         dependencies = {
             'nvim-lua/plenary.nvim',
-            'echasnovski/mini.icons',
+            'nvim-mini/mini.icons',
         },
         config = function()
             require('octo').setup()

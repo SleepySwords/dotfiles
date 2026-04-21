@@ -43,6 +43,7 @@
     file-decoration-style = ul
     file-modified-label = modified: 
     file-style = blue bold
+    light = false
     hunk-header-style = file line-number syntax
     hunk-header-line-number-style = gray italic bold
     hunk-header-file-style = gray italic bold
@@ -83,7 +84,7 @@
     program = gpg
 
 [commit]
-	template = ~/.config/git/template
+    template = ~/.config/git/template
 
 ; [log]
     ;   date = relative
@@ -97,31 +98,38 @@
     ; lr  = "log -g --all --pretty=format:' %C(green)%h %C(red)%gD %C(magenta)%an %C(blue)%as%n %Creset%C(bold)%s%C(auto)%d%Creset%n'"
     ; l   = "log --all --decorate --oneline --graph --pretty=format:'%C(03)%>|(26)%C(green)%h %Creset%Creset%C(bold) %s%C(auto)%d%Creset'"
     lr       = "log -g --all --pretty=format:'%C(bold)%C(green)%h %C(red)%gd%C(auto)%d %n%Creset%C(bold)%gs%Creset%n'"
-    lg       =  "log --graph --all --pretty=format:' %C(bold)%C(green)%h %C(cyan)%an %Creset[%ah]%C(auto)%d %n %Creset%C(bold)%s%Creset%n'"
-    br       =  "branch -vv"
-    bra      =  "branch -vv -a"
-    rss      =  "restore --staged ."
-    rs       =  "restore"
-    rt       =  "reset"
-    rts      =  "reset --soft"
-    sw       =  "switch"
-    a        =  "add"
-    ap       =  "add . --patch"
-    aa       =  "add ."
-    st       =  "status -s"
-    sta      =  "status"
-    conf     =  "config --global --edit"
-    ci       =  "commit"
-    amend    =  "commit --amend --no-edit"
-    stsh     =  "stash --keep-index"
-    staash   =  "stash --include-untracked"
-    staaash  =  "stash --all"
+    lg       = "log --graph --all --pretty=format:' %C(bold)%C(green)%h %C(cyan)%an %Creset[%ah]%C(auto)%d %n %Creset%C(bold)%s%Creset%n'"
+    br       = "branch -vv"
+    bra      = "branch -vv -a"
+    rss      = "restore --staged ."
+    rs       = "restore"
+    rt       = "reset"
+    rts      = "reset --soft"
+    sw       = "switch"
+    a        = "add"
+    ap       = "add . --patch"
+    aa       = "add ."
+    st       = "status -s"
+    sta      = "status"
+    conf     = "config --global --edit"
+    ci       = "commit"
+    amend    = "commit --amend --no-edit"
+    stsh     = "stash --keep-index"
+    staash   = "stash --include-untracked"
+    staaash  = "stash --all"
     dw       = "diff --merge-base HEAD"
     ds       = "diff --staged"
+    dside    = "!DELTA_FEATURES=+side-by-side git d"
     d        = "diff"
     s        = "show"
     mergevim = "!nvim -c DiffviewOpen"
-	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+    alias    = "! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /"
+    ; Difftastic commands
+    ldt      = "-c diff.external=difft log -p --ext-diff"
+    sdt      = "-c diff.external=difft show --ext-diff"
+    dt       = "-c diff.external=difft diff"
+    dtw      = "-c diff.external=difft diff --merge-base HEAD"
+    dts      = "-c diff.external=difft diff --staged"
 
 [include]
     path = "personal.gitconfig"

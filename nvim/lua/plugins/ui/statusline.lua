@@ -4,7 +4,7 @@ return {
         dependencies = {
             'nvim-lua/lsp-status.nvim',
             'SmiteshP/nvim-navic',
-            'echasnovski/mini.icons',
+            'nvim-mini/mini.icons',
             'lewis6991/gitsigns.nvim',
             'kevinhwang91/nvim-ufo',
         },
@@ -109,7 +109,7 @@ return {
     {
         'akinsho/bufferline.nvim',
         -- version = "*",
-        dependencies = 'echasnovski/mini.icons',
+        dependencies = 'nvim-mini/mini.icons',
         opts = {
             options = {
                 close_icon = '',

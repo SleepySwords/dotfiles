@@ -7,12 +7,15 @@
 # font-feature = "+cv01, +cv02, +cv04, +cv66, +ss02"
 # font-style = "Light"
 
-font-family = "Iosevka Term"
-font-style = "Extended"
+# font-family = "Iosevka Term"
+# font-style = "Extended"
+
+font-family = "Input Mono"
+# font-family = "IBM Plex Mono"
 
 font-size = 12
 # font-thicken = true
-theme = catpuccin-latte.conf
+theme = carbonfox.conf
 cursor-color = #ebbab9
 window-padding-x = 10
 window-padding-y = 10

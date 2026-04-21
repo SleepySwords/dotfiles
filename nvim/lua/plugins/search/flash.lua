@@ -17,13 +17,21 @@ return {
                     highlight = {
                         backdrop = false,
                     },
+                    keys = {
+                        ["f"] = "sf",
+                        ["F"] = "sF",
+                        ["t"] = "st",
+                        ["T"] = "sT",
+                        [";"] = "s;",
+                        [","] = "s,"
+                    },
                 },
             },
         })
     end,
     keys = {
         {
-            'sf',
+            'sj',
             mode = { 'n', 'o', 'x' },
             function()
                 require('flash').jump()

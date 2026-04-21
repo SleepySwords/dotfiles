@@ -117,11 +117,13 @@ function M.setup()
         'zls',
         'marksman',
         'texlab',
+        'cmake',
         'jdtls',
         'gopls',
         'ocamllsp',
         'terraformls',
-        'sourcekit',
+        -- 'csharp_ls'
+        -- 'sourcekit',
     })
     -- lsp_config.biome.setup({
     -- 	capabilities = capabilities,
@@ -155,6 +157,20 @@ function M.setup_omni()
             return vim.fn.getcwd()
         end,
     })
+end
+
+function M.setup_csharp_ls()
+    vim.lsp.enable('csharp_ls')
+    vim.lsp.config('omnisharp', {
+        handlers = {
+            ['textDocument/definition'] = require('csharpls_extended').handler,
+            ["textDocument/typeDefinition"] = require('csharpls_extended').handler,
+        },
+        root_dir = function()
+            return vim.fn.getcwd()
+        end,
+    })
+    require("csharpls_extended").buf_read_cmd_bind()
 end
 
 return M

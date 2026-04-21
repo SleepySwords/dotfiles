@@ -9,7 +9,7 @@ local function default(desc)
 end
 
 g.mapleader = [[ ]]
-g.maplocalleader = [[\]]
+g.maplocalleader = [[|]]
 
 -- TODO: Really need to check if these keybindings override some other default bindings.
 map({ 'n' }, 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', default('LSP Definition'))
@@ -297,6 +297,7 @@ map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>', default('Set current line nu
 map({ 'n' }, '<leader>ll', '<cmd>ls<CR>', default('Print ls'))
 
 -- Buffer handling
+-- FIXME: try using <leader>h and <leader>l?
 map({ 'n' }, '<leader>n', '<cmd>bnext<CR>', default('Next buffer'))
 map({ 'n' }, '<leader>p', '<cmd>bprevious<CR>', default('Previous buffer'))
 map({ 'n' }, '<leader>q', function() Snacks.bufdelete() end, default('Delete buffer'))
@@ -437,3 +438,8 @@ map('n', '<leader>B', '<cmd>BufferLinePick<cr>', default('Open Bufferline Picker
 map('n', '<leader>as', function()
     require('utils.tabs').setup_tabs(true)
 end, default('Tab setup'))
+
+
+map('ca', 'h', function()
+    return (vim.fn.getcmdpos() == 2 and vim.fn.getcmdtype() == ":") and "vert bo h" or "h"
+end, { expr = true })

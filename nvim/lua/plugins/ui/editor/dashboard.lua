@@ -1,43 +1,54 @@
 -- Adds dashboard
 return {
-    'glepnir/dashboard-nvim',
-    -- enabled = false,
-    event = 'VimEnter',
-    -- event = 'VimEnter',
-    config = function()
-        local g = vim.g
+    {
+        'glepnir/dashboard-nvim',
+        enabled = false,
+        event = 'VimEnter',
+        config = function()
+            local g = vim.g
 
-        local db = require('dashboard')
-        require('utils.splash_sprites')
+            local db = require('dashboard')
+            require('utils.splash_sprites')
 
-        db.setup({
-            theme = 'hyper',
-            disable_move = true,
-            config = {
-                header = g.portal_cake,
-                shortcut = {
-                    { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
-                    {
-                        desc = ' Files',
-                        group = 'Label',
-                        action = 'Telescope find_files',
-                        key = 'f',
-                    },
-                    {
-                        desc = ' Autosession load',
-                        group = '@include',
-                        action = 'Autosession search',
-                        key = 'l',
-                    },
-                    {
-                        desc = ' Autosession delete',
-                        group = 'diffRemoved',
-                        action = 'Autosession delete',
-                        key = 'd',
+            db.setup({
+                theme = 'hyper',
+                -- disable_move = true,
+                config = {
+                    header = g.portal_cake,
+                    shortcut = {
+                        { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
+                        {
+                            desc = ' Files',
+                            group = 'Label',
+                            action = 'Telescope find_files',
+                            key = 'f',
+                        },
+                        {
+                            desc = ' Autosession load',
+                            group = '@include',
+                            action = 'Autosession search',
+                            key = 'l',
+                        },
+                        {
+                            desc = ' Autosession delete',
+                            group = 'diffRemoved',
+                            action = 'Autosession delete',
+                            key = 'd',
+                        },
+                        { desc = ' New and insert', group = 'diffChanged', action = 'enew | call feedkeys(\'i\')', key = 'i' },
+                        { desc = ' New', group = 'diffAdded', action = 'enew', key = 'n' },
                     },
                 },
-            },
-        })
-    end,
-    dependencies = { 'echasnovski/mini.icons' },
+            })
+        end,
+        dependencies = { 'nvim-mini/mini.icons' },
+    },
+    {
+        'MeanderingProgrammer/dashboard.nvim',
+        enabled = false,
+        event = 'VimEnter',
+        config = function()
+            require('dashboard').setup({})
+        end,
+    }
 }

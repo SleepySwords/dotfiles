@@ -11,6 +11,8 @@ set -x LIBRARY_PATH "$LIRBARY_PATH" "$(brew --prefix)/lib" "/Library/Developer/C
 set -x CPATH "/usr/local/include":"$(brew --prefix)/include":"$CPATH"
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /Users/ibby/.ghcup/bin # ghcup-env
 
+set -gx LDFLAGS "-L/opt/homebrew/opt/bison/lib"
+
 set -x EDITOR "nvim"
 set -x MANPAGER "nvim +Man!"
 
@@ -25,7 +27,8 @@ set fish_cursor_replace underscore
 set fish_cursor_external line
 set fish_cursor_visual block
 
-set -gx BAT_THEME OneHalfLight
+# set -gx BAT_THEME OneHalfLight
+set -gx BAT_THEME Coldark-Dark
 
 
 

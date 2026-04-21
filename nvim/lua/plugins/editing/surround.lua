@@ -15,27 +15,40 @@ local keymaps = {
 return {
     {
         'kylechui/nvim-surround',
-        config = function(_, opts)
-            require('nvim-surround').setup(opts)
-            vim.keymap.set({'n', 'v'}, 's', '<nop>', {})
-        end,
-        opts = {
+        config = function()
+            vim.keymap.set({ 'n', 'x' }, 's', '<nop>', {})
             -- FIXME: may change this to omit the g, having flash use the g instead.
-            keymaps = {
-                -- insert          = '<C-g>z',
-                -- insert_line     = 'gC-ggZ',
-                normal = 'sa',
-                normal_cur = 'sla',
-                normal_line = 'sna',
-                normal_cur_line = 'slna',
-                visual = 'sa',
-                visual_line = 'sla',
-                delete = 'sd',
-                change = 'sc',
-                change_line = 'scl',
-            },
-        },
+            vim.g.nvim_surround_no_normal_mappings = true
+            -- See `:h nvim-surround.keymaps`
+            vim.keymap.set("n", "sa", "<Plug>(nvim-surround-normal)", {
+                desc = "Add a surrounding pair around a motion (normal mode)",
+            })
+            vim.keymap.set("n", "sla", "<Plug>(nvim-surround-normal-cur)", {
+                desc = "Add a surrounding pair around a motion (normal mode)",
+            })
+            vim.keymap.set("n", "sna", "<Plug>(nvim-surround-normal-line)", {
+                desc = "Add a surrounding pair around a motion (normal mode)",
+            })
+            vim.keymap.set("n", "slna", "<Plug>(nvim-surround-normal-cur-line)", {
+                desc = "Add a surrounding pair around a motion (normal mode)",
+            })
+            vim.keymap.set("n", "sd", "<Plug>(nvim-surround-delete)", {
+                desc = "Delete a surrounding pair",
+            })
+            vim.keymap.set("n", "sc", "<Plug>(nvim-surround-change)", {
+                desc = "Change a surrounding pair",
+            })
+            vim.keymap.set("x", "sa", "<Plug>(nvim-surround-visual)", {
+                desc = "Add a surrounding pair around a motion (normal mode)",
+            })
+            vim.keymap.set("x", "sla", "<Plug>(nvim-surround-visual-line)", {
+                desc = "Add a surrounding pair around a motion (normal mode)",
+            })
+            vim.keymap.set("n", "scl", "<Plug>(nvim-surround-change-line)", {
+                desc = "Change a surrounding pair",
+            })
+        end,
     },
 
-    { 'echasnovski/mini.surround', enabled = false, version = false },
+    { 'nvim-mini/mini.surround', enabled = false, version = false },
 }

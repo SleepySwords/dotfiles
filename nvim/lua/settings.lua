@@ -1,3 +1,5 @@
+require('vim._core.ui2').enable({})
+
 -- Vim options
 local o = vim.opt
 
@@ -18,6 +20,10 @@ end
 set_ft_option('markdown', 'spell', true)
 set_ft_option('markdown', 'linebreak', true)
 set_ft_option('markdown', 'textwidth', 80)
+
+set_ft_option('typst', 'spell', true)
+set_ft_option('typst', 'linebreak', true)
+-- set_ft_option('typst', 'textwidth', 80)
 
 o.compatible = false
 o.nu = true
@@ -80,7 +86,7 @@ local g = vim.g
 
 -- vim.cmd([[colorscheme catppuccin-mocha]])
 -- vim.cmd([[colorscheme carbonfox]])
-vim.cmd([[colorscheme dawnfox]])
+vim.cmd([[colorscheme carbonfox]])
 
 if vim.g.neovide then
     -- vim.cmd([[colorscheme carbonfox]])

@@ -1,7 +1,7 @@
 FROM debian
 
 RUN apt update
-RUN apt install -y python3 python3-pip python3.11-venv gdb sudo neovim git wget curl zsh
+RUN apt install -y python3 python3-pip python3.13-venv gdb sudo neovim git wget curl zsh
 
 RUN useradd -ms /bin/bash swords
 RUN usermod -aG sudo swords
