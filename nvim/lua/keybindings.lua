@@ -173,6 +173,12 @@ map(
     default('Open Buffer Picker')
 )
 map(
+    'n',
+    '<leader>j',
+    '<cmd>lua require("telescope.builtin").jumplist()<cr>',
+    default('Open Buffer Picker')
+)
+map(
     { 'n' },
     '<leader>ht',
     '<cmd>lua require("telescope.builtin").help_tags()<cr>',
@@ -246,7 +252,7 @@ map(
     default('Run current test')
 )
 
-map({ 'n' }, '<leader>j', '<cmd>HopWord<CR>', default('hop word'))
+-- map({ 'n' }, '<leader>j', '<cmd>HopWord<CR>', default('hop word'))
 
 -- Keybind for https://vi.stackexchange.com/questions/24502/deleting-without-copying-to-clipboard-in-windows
 -- https://stackoverflow.com/questions/11993851/how-to-delete-not-cut-in-vim/11993928

@@ -7,6 +7,11 @@ export GPG_TTY=$(tty)
 # Setting PATH for Python 3.11
 set -x PATH "/Library/Frameworks/Python.framework/Versions/3.11/bin" "$PATH"
 
+# Setting PATH for Python 3.12
+set -x PATH "/Library/Frameworks/Python.framework/Versions/3.12/bin" "$PATH"
+
+set -x PATH "/Users/ibby/Library/Python/3.12/bin" "$PATH"
+
 set -x LIBRARY_PATH "$LIRBARY_PATH" "$(brew --prefix)/lib" "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"
 set -x CPATH "/usr/local/include":"$(brew --prefix)/include":"$CPATH"
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /Users/ibby/.ghcup/bin # ghcup-env
@@ -71,9 +76,38 @@ set -gx FZF_DEFAULT_OPTS '
            --separator="" --scrollbar="│" --info="default" --preview "bat --color=always {}" --preview-window \'~3\''
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
+alias dev "cd ~/stuff/dev"
+alias school "cd ~/stuff/school/RMIT/year3"
+
 starship init fish | source
 # enable_transience
 
 # FIXME: i'm fairly sure nix-darwin is somehow messing with the fish_user_paths variable using global instead of universal and that is breaking fish_add_path as that only updates the global variable.
 
 zoxide init fish | source
+pyenv init - fish | source
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+if test -f /opt/anaconda3/bin/conda
+    eval /opt/anaconda3/bin/conda "shell.fish" "hook" $argv | source
+else
+    if test -f "/opt/anaconda3/etc/fish/conf.d/conda.fish"
+        . "/opt/anaconda3/etc/fish/conf.d/conda.fish"
+    else
+        set -x PATH "/opt/anaconda3/bin" $PATH
+    end
+end
+# <<< conda initialize <<<
+
+
+# uv
+# fish_add_path "/Users/ibby/.local/bin"
+
+# pnpm
+set -gx PNPM_HOME "/Users/ibby/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end

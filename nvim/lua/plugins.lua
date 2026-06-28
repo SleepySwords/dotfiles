@@ -47,7 +47,7 @@ return {
         },
     },
 
-    { 'nvchad/timerly',      enabled = false, cmd = 'TimerlyToggle' },
+    { 'nvchad/timerly',       enabled = false, cmd = 'TimerlyToggle' },
 
     -- Discord rich presence
     {
@@ -159,7 +159,7 @@ return {
         ft = { 'markdown' },
     },
     {
-        'nvim-mini/mini.move',
+        dir = '/Users/ibby/stuff/dev/lua/mini.move',
         opts = {
             mappings = {
                 -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
@@ -177,6 +177,13 @@ return {
         },
         version = false
     },
+
+    {
+        "twhlynch/notebook.nvim",
+        opts = {
+            keybind_prefix = "<leader>c",
+        },
+    }
 }
 
 -- Plugins that need to try again

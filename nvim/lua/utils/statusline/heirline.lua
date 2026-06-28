@@ -2,8 +2,8 @@
 -- Original Author: shadmansaleh
 -- Original Credit: glepnir
 
--- local lualine = require('lualine')
-local lsp_status = require('lsp-status')
+local lsp_status = require('utils.statusline.lsp_status')
+lsp_status.register_progress_handler()
 local navic = require('nvim-navic')
 
 local conditions = require('heirline.conditions')
@@ -374,7 +374,7 @@ function M.setup()
 
     local diagnostic_status = {
         provider = function()
-            local progress = lsp_status.status_progress()
+            local progress = lsp_status.progress()
             if progress ~= '' then
                 return ' ' .. progress .. ' '
             end
@@ -431,9 +431,11 @@ function M.setup()
             if next(clients) == nil then
                 return ''
             end
+            local names = {}
             for _, client in ipairs(clients) do
-                return '  ' .. client.name
+                table.insert(names, client.name)
             end
+            return '  ' .. table.concat(names, ' ')
         end,
         condition = function()
             return vim.tbl_count(vim.lsp.get_clients({ bufnr = 0 })) ~= 0

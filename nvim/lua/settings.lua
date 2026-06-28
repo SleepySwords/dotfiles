@@ -41,7 +41,7 @@ o.ignorecase = true
 o.showmatch = true
 
 o.termguicolors = true
-o.guifont = 'Jetbrains Mono:h11'
+o.guifont = 'CommitMono:h11'
 -- o.guifont = 'Firacode nerd font:h11'
 
 o.foldcolumn = '1'

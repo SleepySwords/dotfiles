@@ -83,6 +83,7 @@ return {
     },
     {
         'nvim-lua/lsp-status.nvim',
+        enabled = false,
         config = function()
             local lsp_status = require('lsp-status')
             lsp_status.config({

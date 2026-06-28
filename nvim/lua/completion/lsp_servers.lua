@@ -103,7 +103,7 @@ function M.setup()
     vim.lsp.enable({ 'rust_analyzer',
         'ruby_lsp',
         'lua_ls',
-        'kotlin_language_server',
+        'kotlin_lsp',
         'arduino_language_server',
         'jdtls',
         'jsonls',
@@ -122,6 +122,9 @@ function M.setup()
         'gopls',
         'ocamllsp',
         'terraformls',
+        'harper_ls',
+        'ocamllsp'
+
         -- 'csharp_ls'
         -- 'sourcekit',
     })

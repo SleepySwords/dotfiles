@@ -6,21 +6,27 @@ return {
         config = function(opts)
             local MiniJump = require("mini.jump")
 
-            MiniJump.setup(opts)
+            MiniJump.setup(opts.opts)
 
             local jump_direction = false
+            local start_by_operator = false
             vim.api.nvim_create_autocmd("User", {
                 pattern = "MiniJumpStart",
                 group = vim.api.nvim_create_augroup("minijump_save_dir", { clear = true }),
                 callback = function()
-                    jump_direction = MiniJump.state.backward
+                    if not start_by_operator then
+                        jump_direction = MiniJump.state.backward
+                    end
+                    start_by_operator = false
                 end,
             })
             vim.keymap.set({ "n", "x", "o" }, ";", function()
                 MiniJump.jump(nil, jump_direction, nil, vim.v.count1)
+                start_by_operator = true
             end)
             vim.keymap.set({ "n", "x", "o" }, ",", function()
                 MiniJump.jump(nil, not jump_direction, nil, vim.v.count1)
+                start_by_operator = true
             end)
 
             local esc_key = vim.keycode("<Esc>")
