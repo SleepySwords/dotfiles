@@ -28,6 +28,7 @@ local function handle_progress(_, request, context)
             title = val.title,
             message = val.message,
             percentage = val.percentage,
+            spinner = 0
         }
     elseif val.kind == 'report' then
         if not progress_messages[client_id][request.token] then
@@ -35,12 +36,14 @@ local function handle_progress(_, request, context)
         end
         progress_messages[client_id][request.token].message = val.message
         progress_messages[client_id][request.token].percentage = val.percentage
+        progress_messages[client_id][request.token].spinner = progress_messages[client_id][request.token].spinner + 1
     elseif val.kind == 'end' then
         if not progress_messages[client_id][request.token] then
             return
         end
         progress_messages[client_id][request.token].message = val.message
         progress_messages[client_id][request.token].done = true
+        progress_messages[client_id][request.token].spinner = nil
     end
     vim.cmd("redrawstatus!")
 end
@@ -56,6 +59,8 @@ local function limit(str, max_len)
     return str
 end
 
+local spinner = { '◜', '◠', '◝', '◞', '◡', '◟' }
+
 function M.progress()
     local to_remove = {}
     local messages = {}
@@ -66,8 +71,18 @@ function M.progress()
         else
             local client_name = client.name
             for token, msg in pairs(progress) do
-                local display_message = '[' .. client_name .. ']' .. ' ' .. msg.title
-                if msg.message ~= nil then display_message = display_message .. ' ' .. msg.message end
+                local display_message = '[' .. client_name .. ']'
+
+                if msg.spinner ~= nil then
+                    display_message = display_message ..
+                        ' ' .. spinner[(msg.spinner % #spinner) + 1]
+                end
+
+                display_message = display_message .. ' ' .. msg.title
+                -- NOTE: maybe there is a use for this do not have one right now
+                --
+                -- if msg.message ~= nil then display_message = display_message .. ' ' .. msg.message end
+
                 if msg.percentage ~= nil then
                     display_message = display_message ..
                         ' (' .. string.format('%.0f', msg.percentage) .. '%%)'
