@@ -15,10 +15,10 @@ return {
         'morhetz/gruvbox',
         lazy = true,
     },
-    { 'dracula/vim',      name = 'dracula', lazy = true },
-    { 'sonph/onehalf',    rtp = 'vim',      lazy = true },
-    { 'matsuuu/pinkmare', lazy = true, },
-    {'lifepillar/vim-solarized8', lazy = true,},
+    { 'dracula/vim',               name = 'dracula', lazy = true },
+    { 'sonph/onehalf',             rtp = 'vim',      lazy = true },
+    { 'matsuuu/pinkmare',          lazy = true, },
+    { 'lifepillar/vim-solarized8', lazy = true, },
     {
         'sainnhe/sonokai',
         lazy = false,
@@ -118,6 +118,7 @@ return {
     },
     {
         'zacharied/lc3.vim',
+        enabled = false,
         lazy = true,
     },
 }

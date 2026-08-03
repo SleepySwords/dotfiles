@@ -1,11 +1,10 @@
 return {
     -- Able to comment stuff out, gcc
     { 'tpope/vim-commentary', enabled = false },
-    -- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
+    -- I kinda like how this was able to choose which version to use based 
+    -- on what mode we are in, (instead of gc vs gb), I might make separate keybinds to support this.
     {
         'numToStr/Comment.nvim',
-        opts = {
-            -- add any options here
-        }
+        opts = {}
     }
 }

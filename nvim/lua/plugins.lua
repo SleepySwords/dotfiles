@@ -81,6 +81,7 @@ return {
     },
     {
         'rmagatti/auto-session', -- Maybe replace with Shatur/neovim-session-manager or folke/persistence.nvim
+        enabled = false,
         -- Perhaps even ahmedkhalf/project.nvim
         event = 'BufReadPre',
         cmd = { 'SessionSearch', 'Autosession' },
@@ -125,7 +126,9 @@ return {
     },
 
     -- Could just use ftplugins instead /shrug
-    'tpope/vim-sleuth',
+    {
+        'tpope/vim-sleuth',
+    },
     {
         'jbyuki/venn.nvim',
         config = function()

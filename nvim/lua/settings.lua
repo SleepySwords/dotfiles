@@ -23,42 +23,56 @@ set_ft_option('markdown', 'textwidth', 80)
 
 set_ft_option('typst', 'spell', true)
 set_ft_option('typst', 'linebreak', true)
--- set_ft_option('typst', 'textwidth', 80)
 
-o.compatible = false
+-- Ruler settings
 o.nu = true
 o.rnu = true
-o.completeopt = 'menuone,noinsert,noselect'
-o.omnifunc = 'v:lua.vim.lsp.omnifunc'
-table.insert(o.shortmess, 'c')
-o.signcolumn = 'yes'
-o.updatetime = 500
-o.clipboard = 'unnamedplus'
-
--- https://supo.updatetimeeruser.com/questions/163589/switch-buffers-in-vim-without-saving-to-a-currently-modified-file life saver
 o.hidden = true
 o.ignorecase = true
 o.showmatch = true
+o.signcolumn = 'yes'
 
-o.termguicolors = true
-o.guifont = 'CommitMono:h11'
--- o.guifont = 'Firacode nerd font:h11'
-
+-- Fold symbols
 o.foldcolumn = '1'
-o.fillchars =
-    { eob = ' ', fold = ' ', foldopen = '', foldsep = ' ', foldclose = '', diff = '╱' }
-o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+o.fillchars = {
+    eob = ' ',
+    fold = ' ',
+    foldopen = '',
+    foldsep = ' ',
+    foldclose = '',
+    diff = '╱'
+}
+o.foldlevel = 99
 o.foldlevelstart = 99
 o.foldenable = true
 
+-- Omni completion settings
+o.completeopt = 'menuone,noinsert,noselect'
+o.omnifunc = 'v:lua.vim.lsp.omnifunc'
+table.insert(o.shortmess, 'c')
+o.updatetime = 500
+-- o.clipboard = 'unnamedplus'
+
+-- Terminal settings
+o.termguicolors = true
+o.guifont = 'CommitMono:h11'
+
+-- Show non-vis characters
+o.list = true
+o.listchars = { tab = '  ', trail = ' ', extends = '>', precedes = '<', nbsp = '+' }
+
+o.conceallevel = 3
+
+-- Mouse
 o.mouse = 'a'
 o.mousemodel = 'extend'
 
+-- Status bar
 o.laststatus = 3
 o.showtabline = 3
-
-o.conceallevel = 3
 o.cmdheight = 1
+
+-- Spacing
 o.scrolloff = 1
 o.sidescrolloff = 2
 
@@ -70,32 +84,23 @@ o.softtabstop = 4
 o.autoindent = true
 o.smartindent = true
 
-o.listchars = { tab = '  ', trail = ' ', extends = '>', precedes = '<', nbsp = '+' }
-o.list = true
-o.showcmdloc = 'statusline'
+-- Sessions
 o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
-
 o.shada = "'1000,f0"
 
 local g = vim.g
 
 -- Global settings
-
--- Theme settings
--- Good themes: duskfox, onedark, sonokai, tokyonight-night(used for longest time), eva01
-
--- vim.cmd([[colorscheme catppuccin-mocha]])
--- vim.cmd([[colorscheme carbonfox]])
-vim.cmd([[colorscheme carbonfox]])
+local themes = { 'catppuccin-mocha',
+    'carbonfox',
+    'catppuccin-latte',
+    'industry',
+    'tokyonight-moon',
+    'edge',
+    'duskfox' }
+vim.cmd(([[colorscheme %s]]):format(themes[2]))
 
 if vim.g.neovide then
-    -- vim.cmd([[colorscheme carbonfox]])
-    -- vim.cmd([[colorscheme catppuccin-latte]])
-    -- vim.cmd([[colorscheme industry]])
-    -- vim.cmd([[colorscheme tokyonight-moon]])
-    -- vim.cmd([[colorscheme edge]])
-    -- vim.cmd([[colorscheme duskfox]])
-
     vim.g.neovide_floating_blur_amount_x = 2.0
     vim.g.neovide_floating_blur_amount_y = 2.0
     vim.g.neovide_floating_shadow = true
@@ -103,11 +108,5 @@ if vim.g.neovide then
     vim.g.neovide_padding_bottom = 5
 
     vim.o.winblend = 30
-else
-    -- vim.cmd([[colorscheme catppuccin-latte]])
-    -- vim.cmd([[colorscheme flow]])
-    -- vim.cmd "colorscheme nightfox"
 end
-
-g.discord = false
 g.indicator_ok = ''

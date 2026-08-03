@@ -1,4 +1,3 @@
--- FIXME: Incorporate the number of searches found into the status line if using this.
 return {
     'folke/noice.nvim',
     enabled = false,
@@ -36,6 +35,5 @@ return {
     },
     dependencies = {
         'MunifTanjim/nui.nvim',
-        -- 'rcarriga/nvim-notify',
     },
 }

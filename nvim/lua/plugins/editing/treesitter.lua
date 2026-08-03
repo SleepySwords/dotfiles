@@ -94,9 +94,9 @@ return {
                 end
             end
 
-            vim.keymap.set('n', '<leader>e', function()
+            vim.keymap.set('n', '<leader>E', function()
                 Toggle_treewalker()
-            end, { noremap = true })
+            end, { desc = "Activate Treewalker" })
         end,
     },
     {

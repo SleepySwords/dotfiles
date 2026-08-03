@@ -62,6 +62,13 @@ function M.setup()
             Lua = {}
         }
     })
+    vim.lsp.config('harper_ls', {
+        settings = {
+            ["harper-ls"] = {
+                dialect = "Australian"
+            }
+        }
+    })
     vim.lsp.config('hls', {
         settings = {
             haskell = {
@@ -123,6 +130,7 @@ function M.setup()
         'ocamllsp',
         'terraformls',
         'harper_ls',
+        'qmlls',
         'ocamllsp'
 
         -- 'csharp_ls'

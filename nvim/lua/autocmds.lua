@@ -1,5 +1,10 @@
+local enabled_inlay_hints = false
+local setup_tabs_on_start = false
+local render_latex_onwrite = false
+local diagnostic_on_wait = false
+
+
 local setup_terminal = require("utils.tabs").setup_terminal
--- local setup_tabs = require("utils").setup_tabs
 
 
 -- Highlights when yannking (y)
@@ -41,14 +46,40 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function() vim.treesitter.start() end,
 })
 
--- vim.api.nvim_create_autocmd('BufEnter', {
---     callback = function()
---         setup_tabs(false)
---     end,
--- })
+if setup_tabs_on_start then
+    local setup_tabs = require("utils").setup_tabs
+    vim.api.nvim_create_autocmd('BufEnter', {
+        callback = function()
+            setup_tabs(false)
+        end,
+    })
+end
 
--- vim.api.nvim_create_autocmd('BufWritePost', {
---     pattern = "*.md",
---     callback = require("mathjax").render_latex
--- })
+if render_latex_onwrite then
+    vim.api.nvim_create_autocmd('BufWritePost', {
+        pattern = "*.md",
+        callback = require("mathjax").render_latex
+    })
+end
 --
+
+-- Shows error diagnostics on cursor hold
+
+if diagnostic_on_wait then
+    vim.api.nvim_create_autocmd('CursorHold', {
+        group = vim.api.nvim_create_augroup('DiagnosticHoldAttach', {}),
+        callback = function(_)
+            vim.diagnostic.open_float({ focusable = false })
+        end,
+    })
+end
+
+if enabled_inlay_hints then
+    vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('InlayHintsAttach', {}),
+        callback = function(args)
+            local buf = args.buf
+            vim.lsp.inlay_hint(buf, true)
+        end,
+    })
+end

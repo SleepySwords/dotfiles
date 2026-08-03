@@ -63,10 +63,16 @@ return {
             'vim-test/vim-test',
         },
     },
-    { 
+    {
         -- The task runner we use
         'stevearc/overseer.nvim',
         cmd = { 'OverseerRun', 'OverseerQuickAction', 'OverseerToggle' },
+        keys = {
+
+            { '<leader>crr', '<cmd>OverseerRun<CR>',         mode = { 'n' }, desc = 'Overseer run' },
+            { '<leader>cra', '<cmd>OverseerQuickAction<CR>', mode = { 'n' }, desc = 'Overseer quick actions' },
+            { '<leader>crt', '<cmd>OverseerToggle<CR>',      mode = { 'n' }, desc = 'Toggle Overseer window' },
+        },
         opts = {
             template_dirs = { "overseer" },
             templates = {

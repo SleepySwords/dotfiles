@@ -19,9 +19,7 @@ return {
                             ['<tab>'] = require('telescope.actions').move_selection_next,
                             ['<S-tab>'] = require('telescope.actions').move_selection_previous,
                             ['<esc>'] = require('telescope.actions').close,
-                            ['<c-t>'] = require('trouble.sources.telescope').open,
                         },
-                        n = { ['<c-t>'] = require('trouble.sources.telescope').open_with_trouble },
                     },
                 }),
                 extensions = {

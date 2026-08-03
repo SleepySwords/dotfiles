@@ -28,21 +28,6 @@ require('lazy').setup(
             { import = 'plugins.ui.editor' },
             { import = 'plugins.ui.buffer' },
         },
-        performance = {
-            rtp = {
-                -- disable some rtp plugins
-                disabled_plugins = {
-                    "gzip",
-                    -- "matchit",
-                    -- "matchparen",
-                    -- "netrwPlugin",
-                    "tarPlugin",
-                    "tohtml",
-                    "tutor",
-                    "zipPlugin",
-                },
-            },
-        },
     }
 )
 require('autocmds')
