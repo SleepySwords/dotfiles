@@ -1,3 +1,7 @@
+local M = {}
+
+local map_search_count_hl = require('utils.search_count').map_search_count_hl
+
 local g = vim.g
 
 local map = vim.keymap.set
@@ -8,8 +12,13 @@ local function default(desc)
     return { desc = desc, noremap = true, silent = true }
 end
 
+local function map_plugin(key, action, desc)
+    M[action] = { key = key, desc = desc }
+end
+
 g.mapleader = [[ ]]
 g.maplocalleader = [[|]]
+
 local function toggle_qf()
     if vim.iter(vim.api.nvim_tabpage_list_wins(0)):any(function(w) return vim.fn.win_gettype(w) == "quickfix" end) then
         vim.cmd("ccl")
@@ -164,9 +173,6 @@ local function open_colourscheme()
 end
 map({ 'n' }, '<leader>hc', open_colourscheme, default('Open Colour Scheme'))
 
-map({ 'n' }, '<leader>t', '<cmd>NvimTreeToggle<CR>', default('Open File Tree'))
-map({ 'n' }, '<leader>ar', '<cmd>NvimTreeRefresh<CR>', default('Refresh File Tree'))
-map({ 'n' }, '<leader>an', '<cmd>NvimTreeFindFile<CR>', default('Find Current File In Tree'))
 map({ 'n' }, '<leader>o', '<cmd>Oil<CR>', default('Open File Tree'))
 
 map({ 'n' }, '<leader>cts', '<cmd>Neotest summary<CR>', default('Open summary test window'))
@@ -305,18 +311,10 @@ map({ 'n' }, '<leader>Tn', '<cmd>tab split<cr>')
 map({ 'n' }, '<C-n>', '<cmd>silent! cn<CR>', default_opts)
 map({ 'n' }, '<C-p>', '<cmd>silent! cp<CR>', default_opts)
 
-local function add_search_count_hl(keybind, desc)
-    map({ 'n', 'x', 'v' }, keybind, function()
-        vim.api.nvim_feedkeys(keybind, 'n', false)
-        vim.schedule(function()
-            require("utils.search_count").hl_search()
-        end)
-    end, { desc = desc })
-end
-add_search_count_hl('n', 'Goto next')
-add_search_count_hl('N', 'Goto previous')
-add_search_count_hl('*', 'Search forward under cursor')
-add_search_count_hl('#', 'Search backward under cursor')
+map_search_count_hl('n', 'Goto next')
+map_search_count_hl('N', 'Goto previous')
+map_search_count_hl('*', 'Search forward under cursor')
+map_search_count_hl('#', 'Search backward under cursor')
 
 map({ 'n', 'x', 'v' }, 'gl', '$', default_opts)
 map({ 'n', 'x', 'v' }, 'gh', '^', default_opts)
@@ -339,3 +337,7 @@ map({ 'n', 'v' }, '<leader>O', '<cmd>let @+ = @"<CR>', default('Move the default
 map('ca', 'h', function()
     return (vim.fn.getcmdpos() == 2 and vim.fn.getcmdtype() == ":") and "vert bo h" or "h"
 end, { expr = true })
+
+map_plugin('<leader>t', 'open_ft', 'Open file tree')
+
+return M

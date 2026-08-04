@@ -1,7 +1,15 @@
+local open_ft = require('keybindings').open_ft
+
 return {
     --  File explorer
     {
         'nvim-tree/nvim-tree.lua',
+        enabled = false,
+        keys = {
+            { open_ft.key,  '<cmd>NvimTreeToggle<CR>',   mode = { 'n' }, desc = open_ft.desc },
+            { '<leader>ar', '<cmd>NvimTreeRefresh<CR>',  mode = { 'n' }, desc = 'Refresh File Tree' },
+            { '<leader>an', '<cmd>NvimTreeFindFile<CR>', mode = { 'n' }, desc = 'Find Current File In Tree' },
+        },
         dependencies = {
             'nvim-mini/mini.icons',
             {
@@ -53,8 +61,6 @@ return {
                 border = 'single'
             }
         },
-        -- Optional dependencies
         dependencies = { { 'nvim-mini/mini.icons', opts = {} } },
-        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
     },
 }

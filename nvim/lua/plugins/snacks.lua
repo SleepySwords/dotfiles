@@ -1,3 +1,5 @@
+local open_ft = require('keybindings').open_ft
+
 return {
     'folke/snacks.nvim',
     priority = 1000,
@@ -5,7 +7,18 @@ return {
     lazy = false,
     keys = {
         { '<leader>az', function() Snacks.zen() end },
-        { '<leader>g',  function() Snacks.lazygit() end, mode = 'n', desc = 'Open lazygit' }
+        { '<leader>g',  function() Snacks.lazygit() end, mode = 'n', desc = 'Open lazygit' },
+        {
+            open_ft.key,
+            function()
+                Snacks.explorer({
+                    layout = { layout = { position = "right" } },
+                    jump = { close = true },
+                });
+            end,
+            mode = 'n',
+            desc = open_ft.desc,
+        },
     },
     opts = {
         zen = {
