@@ -39,7 +39,7 @@ return {
             desc = 'Flash',
         },
         {
-            '<leader>j',
+            'sh',
             mode = { 'n', 'o', 'x' },
             function()
                 local Flash = require('flash')

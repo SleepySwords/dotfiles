@@ -47,7 +47,7 @@ o.foldlevelstart = 99
 o.foldenable = true
 o.foldmethod = 'expr'
 o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-o.foldtext = require('utils.foldtext').foldtext
+o.foldtext = "v:lua.require'utils.foldtext'.foldtext()"
 
 -- Omni completion settings
 o.completeopt = 'menuone,noinsert,noselect'
