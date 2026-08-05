@@ -6,7 +6,6 @@ return {
             'SmiteshP/nvim-navic',
             'nvim-mini/mini.icons',
             'lewis6991/gitsigns.nvim',
-            'kevinhwang91/nvim-ufo',
         },
         config = function()
             vim.api.nvim_create_augroup('Scheme', {})
@@ -26,7 +25,12 @@ return {
     -- Adds folds for lsp, treesitter, mainly functions
     {
         'kevinhwang91/nvim-ufo',
+        enabled = false,
         dependencies = 'kevinhwang91/promise-async',
+        keys = {
+            { 'zR', function () require('ufo').openAllFolds() end,  mode = 'n' },
+            { 'zM', function () require('ufo').closeAllFolds() end, mode = 'n' },
+        },
         opts = {
             provider_selector = function(_, filetype, _)
                 if filetype == 'markdown' then
@@ -35,7 +39,7 @@ return {
                     return { 'lsp', 'indent' }
                 end
             end,
-            fold_virt_text_handler = require('utils.ufo_handler').handler,
+            fold_virt_text_handler = require('utils.foldtext').ufo_handler,
         }
     },
     {

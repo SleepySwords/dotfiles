@@ -156,8 +156,14 @@ return {
                 end
             end
 
+            vim.keymap.set(
+                { 'v' },
+                '<leader>v',
+                "<cmd>'<,'>VBox<CR>",
+                { desc = 'Create box around current' }
+            )
             -- toggle keymappings for venn using <leader>v
-            vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true })
+            vim.keymap.set('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true })
         end,
         ft = { 'markdown' },
     },

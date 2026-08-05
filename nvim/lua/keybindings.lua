@@ -105,19 +105,19 @@ map(
 )
 map(
     { 'n' },
-    '<leader>ht',
+    '<leader>ah',
     function() require("telescope.builtin").help_tags() end,
     default('Open Help Tags')
 )
 map(
     { 'n' },
-    '<leader>hf',
+    '<leader>at',
     '<cmd>TodoTelescope<CR>',
     default('Open todo')
 )
 map(
     { 'n' },
-    '<leader>hh',
+    '<leader>ah',
     function() require("telescope.builtin").highlights() end,
     default('Open Highlights')
 )
@@ -135,7 +135,7 @@ map(
 )
 map(
     { 'n' },
-    '<leader>hr',
+    '<leader>ar',
     function() require("telescope.builtin").lsp_references() end,
     default('Open telescope references')
 )
@@ -171,7 +171,7 @@ local function open_colourscheme()
         },
     })
 end
-map({ 'n' }, '<leader>hc', open_colourscheme, default('Open Colour Scheme'))
+map({ 'n' }, '<leader>ac', open_colourscheme, default('Open Colour Scheme'))
 
 map({ 'n' }, '<leader>o', '<cmd>Oil<CR>', default('Open File Tree'))
 
@@ -228,12 +228,6 @@ map(
         end
     end,
     default('Change between virtual edit and no virtual edit')
-)
-map(
-    { 'v' },
-    '<leader>v',
-    "<cmd>'<,'>VBox<CR>",
-    default('Change between relative and absolute line numbers')
 )
 map({ 'n' }, '<leader>0', '<cmd>set invnumber<CR>', default('Set current line number to 0 or not'))
 map({ 'n' }, '<leader>ll', '<cmd>ls<CR>', default('Print ls'))
@@ -308,6 +302,9 @@ map({ 'n' }, '<leader>Tn', '<cmd>tab split<cr>')
 -- map({ 'v' }, '<C-j>', ":move'>+<CR>gv=gv", default_opts)
 -- map({ 'v' }, '<C-k>', ':move-2<CR>gv=gv', default_opts)
 
+-- map({ 'n', 'x', 'v' }, 'gl', '$', default_opts)
+-- map({ 'n', 'x', 'v' }, 'gh', '^', default_opts)
+
 map({ 'n' }, '<C-n>', '<cmd>silent! cn<CR>', default_opts)
 map({ 'n' }, '<C-p>', '<cmd>silent! cp<CR>', default_opts)
 
@@ -316,8 +313,6 @@ map_search_count_hl('N', 'Goto previous')
 map_search_count_hl('*', 'Search forward under cursor')
 map_search_count_hl('#', 'Search backward under cursor')
 
-map({ 'n', 'x', 'v' }, 'gl', '$', default_opts)
-map({ 'n', 'x', 'v' }, 'gh', '^', default_opts)
 
 map({ 'n' }, 'ZZ', '<cmd>qa<CR>', default_opts)
 map({ 'n' }, '<leader>z', '<cmd>q<CR>', default_opts)
