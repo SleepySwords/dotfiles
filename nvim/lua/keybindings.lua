@@ -327,7 +327,14 @@ end, default('Tab setup'))
 
 map({ 'n', 'v' }, '<leader>I', '<cmd>let @" = @+<CR>', default('Move the system clipboard into default register'))
 map({ 'n', 'v' }, '<leader>O', '<cmd>let @+ = @"<CR>', default('Move the default register into the clipboard'))
-
+map({ 'n', 'v', 'x' }, '<leader>y', '"+', default('Clipboard register'))
+map('n', 'Q', function()
+    local reg = vim.fn.reg_recorded()
+    return reg == '' and '' or ('@' .. reg)
+end, { expr = true })
+-- map('n', 'zQ', function()
+--     vim.api.nvim_mcursor(0, vim.api.nvim_win_get_cursor(0))
+-- end)
 
 map('ca', 'h', function()
     return (vim.fn.getcmdpos() == 2 and vim.fn.getcmdtype() == ":") and "vert bo h" or "h"

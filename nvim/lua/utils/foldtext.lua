@@ -124,6 +124,7 @@ function M.foldtext()
     local lsp_foldtext = treesitter_foldtext()
     if type(lsp_foldtext) == "table" then
         local with_suffix = vim.tbl_extend("force", {}, lsp_foldtext)
+        with_suffix[0] = nil
         table.insert(with_suffix, { suffix, "MoreMsg" })
         return with_suffix
     end

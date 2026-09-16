@@ -64,7 +64,7 @@ o.guifont = 'CommitMono:h11'
 o.list = true
 o.listchars = { tab = '  ', trail = ' ', extends = '>', precedes = '<', nbsp = '+' }
 
-o.conceallevel = 3
+-- o.conceallevel = 3
 
 -- Mouse
 o.mouse = 'a'
