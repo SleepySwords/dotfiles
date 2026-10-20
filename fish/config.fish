@@ -1,3 +1,7 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/ibby/.docker/bin"
+# End of Docker Desktop section.
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
@@ -111,3 +115,6 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# Added by `rbenv init` on Wed  5 Aug 2026 20:53:01 AEST
+status --is-interactive; and rbenv init - --no-rehash fish | source

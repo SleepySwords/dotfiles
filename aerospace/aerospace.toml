@@ -156,16 +156,6 @@ automatically-unhide-macos-hidden-apps = false
     esc = 'mode main'
 
 [[on-window-detected]]
-if.app-id = "com.mitchellh.ghostty"
-run = [
-  # FIX: this is a workaround for https://github.com/nikitabobko/AeroSpace/issues/68
-  # this was also observed in:
-  # - https://github.com/ghostty-org/ghostty/issues/1840
-  # - https://github.com/ghostty-org/ghostty/issues/2006
-  "layout floating",
-]
-
-[[on-window-detected]]
 if.app-id = "sh.ppy.osu.lazer"
 run = [
   # FIX: this is a workaround for https://github.com/nikitabobko/AeroSpace/issues/68

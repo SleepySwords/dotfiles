@@ -131,8 +131,8 @@ function M.setup()
         'terraformls',
         'harper_ls',
         'qmlls',
-        'ocamllsp'
-
+        'ocamllsp',
+        'nil_ls',
         -- 'csharp_ls'
         -- 'sourcekit',
     })

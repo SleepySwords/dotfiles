@@ -2,8 +2,10 @@
 # font-family = "0xProto"
 # font-family = "Berkeley Mono Trial"
 
-font-family = "CommitMono"
-adjust-cell-height=10%
+# font-family = "CommitMono"
+# adjust-cell-height=10%
+
+font-family = "IoskeleyMonoTerm Nerd Font Mono"
 
 # font-family = "Jetbrains Mono"
 

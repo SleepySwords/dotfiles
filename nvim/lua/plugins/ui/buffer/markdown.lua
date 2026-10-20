@@ -52,9 +52,9 @@ return {
                 below = '▀',
                 border = 'thin',
                 inline = true,
-                inline_left = '`',
+                inline_left = '',
                 -- Icon to add to the right of inline code.
-                inline_right = '`',
+                inline_right = '',
             },
             pipe_table = {
                 style = 'normal',
