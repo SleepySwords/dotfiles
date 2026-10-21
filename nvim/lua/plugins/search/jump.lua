@@ -1,6 +1,7 @@
 return {
     {
-        'nvim-mini/mini.jump',
+        'sleepyswords/mini.nvim',
+        branch = 'till-first',
         version = false,
         -- enabled = false,
         config = function(opts)
