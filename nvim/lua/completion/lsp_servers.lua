@@ -106,7 +106,13 @@ function M.setup()
             semanticTokens = "disable"
         }
     })
-
+    vim.lsp.config('nixd', {
+        settings = {
+            formatting = {
+                command = { 'nixfmt' },
+            },
+        },
+    });
     vim.lsp.enable({ 'rust_analyzer',
         'ruby_lsp',
         'lua_ls',
@@ -132,7 +138,8 @@ function M.setup()
         'harper_ls',
         'qmlls',
         'ocamllsp',
-        'nil_ls',
+        -- 'nil_ls',
+        'nixd',
         -- 'csharp_ls'
         -- 'sourcekit',
     })
