@@ -22,26 +22,6 @@ return {
             })
         end,
     },
-    -- Adds folds for lsp, treesitter, mainly functions
-    {
-        'kevinhwang91/nvim-ufo',
-        enabled = false,
-        dependencies = 'kevinhwang91/promise-async',
-        keys = {
-            { 'zR', function () require('ufo').openAllFolds() end,  mode = 'n' },
-            { 'zM', function () require('ufo').closeAllFolds() end, mode = 'n' },
-        },
-        opts = {
-            provider_selector = function(_, filetype, _)
-                if filetype == 'markdown' then
-                    return { 'treesitter', 'indent' }
-                else
-                    return { 'lsp', 'indent' }
-                end
-            end,
-            fold_virt_text_handler = require('utils.foldtext').ufo_handler,
-        }
-    },
     {
         'SmiteshP/nvim-navic',
         dependencies = 'nvim-treesitter/nvim-treesitter',
@@ -86,34 +66,7 @@ return {
         end,
     },
     {
-        'nvim-lua/lsp-status.nvim',
-        enabled = false,
-        config = function()
-            local lsp_status = require('lsp-status')
-            lsp_status.config({
-                status_symbol = '',
-                diagnostics = false,
-            })
-            lsp_status.register_progress()
-
-            vim.api.nvim_create_augroup('LspAttach_status', {})
-
-            vim.api.nvim_create_autocmd('LspAttach', {
-                group = 'LspAttach_status',
-                callback = function(args)
-                    if not (args.data and args.data.client_id) then
-                        return
-                    end
-
-                    local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    lsp_status.on_attach(client)
-                end,
-            })
-        end,
-    },
-    {
         'akinsho/bufferline.nvim',
-        -- version = "*",
         dependencies = 'nvim-mini/mini.icons',
         opts = {
             options = {

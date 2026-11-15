@@ -22,9 +22,4 @@ return {
             require('dbg.dap_ui').setup()
         end,
     },
-
-    -- Add ability to debug lua plugins
-    'jbyuki/one-small-step-for-vimkind',
-
-    -- { 'mfussenegger/nvim-lint' },
 }
