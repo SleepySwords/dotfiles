@@ -1,5 +1,5 @@
 # The following lines were added by Docker Desktop to add commands to your PATH.
-export PATH="$PATH:/Users/ibby/.docker/bin"
+set -gx PATH "$HOME/.docker/bin" "$PATH"
 # End of Docker Desktop section.
 
 if status is-interactive
@@ -14,11 +14,11 @@ set -x PATH "/Library/Frameworks/Python.framework/Versions/3.11/bin" "$PATH"
 # Setting PATH for Python 3.12
 set -x PATH "/Library/Frameworks/Python.framework/Versions/3.12/bin" "$PATH"
 
-set -x PATH "/Users/ibby/Library/Python/3.12/bin" "$PATH"
+set -x PATH "$HOME/Library/Python/3.12/bin" "$PATH"
 
 set -x LIBRARY_PATH "$LIRBARY_PATH" "$(brew --prefix)/lib" "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"
 set -x CPATH "/usr/local/include":"$(brew --prefix)/include":"$CPATH"
-set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /Users/ibby/.ghcup/bin # ghcup-env
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH $HOME/.ghcup/bin # ghcup-env
 
 set -gx LDFLAGS "-L/opt/homebrew/opt/bison/lib"
 
@@ -26,7 +26,7 @@ set -x EDITOR "nvim"
 set -x MANPAGER "nvim +Man!"
 
 # opam configuration
-source /Users/ibby/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
+source $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
 # Emulates vim's cursor shape behavior
 set fish_cursor_default block
@@ -69,7 +69,7 @@ fish_vi_key_bindings
 # Setting PATH for Python 3.12
 # The original version is saved in /Users/ibby/.config/fish/config.fish.pysave
 set -x PATH "/Library/Frameworks/Python.framework/Versions/3.12/bin" "$PATH"
-set -x PATH "/Users/ibby/.nvm/versions/node/v22.14.0/bin" "$PATH"
+set -x PATH "$HOME/.nvm/versions/node/v22.14.0/bin" "$PATH"
 
 set -gx FZF_DEFAULT_OPTS '
            --color=fg:#000000,fg+:#262626,bg:#ffffff,bg+:#bcb6b6
@@ -107,10 +107,10 @@ end
 
 
 # uv
-# fish_add_path "/Users/ibby/.local/bin"
+# fish_add_path "$HOME/.local/bin"
 
 # pnpm
-set -gx PNPM_HOME "/Users/ibby/Library/pnpm"
+set -gx PNPM_HOME "$HOME/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
