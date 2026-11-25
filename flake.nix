@@ -8,7 +8,7 @@
           export DOTFILES_RELATIVE_PATH="''${DOTFILES_RELATIVE_PATH:-stuff/dev/dotfiles}"
           export XDG_CONFIG_HOME="$HOME/$DOTFILES_RELATIVE_PATH"
       '';
-      packages = [ pkgs.neovim pkgs.fish pkgs.zsh pkgs.ripgrep ];
+      packages = [ pkgs.neovim pkgs.fish pkgs.zsh pkgs.ripgrep pkgs.starship ];
     in
     {
       devShells.aarch64-darwin.default = pkgs.mkShell {
@@ -18,6 +18,7 @@
       devShells.aarch64-darwin.minimal = pkgs.mkShell {
         packages = packages;
         shellHook = setPath + ''
+          export XDG_CONFIG_HOME="$HOME/$DOTFILES_RELATIVE_PATH/minimal"
           export NVIM_APPNAME=nvim_minimal
         '';
       };
