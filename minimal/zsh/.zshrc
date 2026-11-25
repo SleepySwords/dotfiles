@@ -1,11 +1,4 @@
-export GPG_TTY=$(tty)
-
 export ZSH="$HOME/.oh-my-zsh"
-
-function zvm_after_init() {
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
-}
 
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
 setopt SHARE_HISTORY             # Share history between all sessions.
@@ -20,9 +13,7 @@ setopt APPEND_HISTORY            # append to history file
 setopt HIST_NO_STORE             # Don't store history commands
 
 unsetopt BEEP
-plugins=(git)
-
-plugins+=(zsh-vi-mode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search)
+plugins=(git vi-mode zsh-syntax-highlighting zsh-autosuggestions)
 
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[command]='fg=blue'
@@ -31,13 +22,10 @@ ZSH_HIGHLIGHT_STYLES[alias]='fg=blue'
 ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=red'
 ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
 
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(buffer-empty bracketed-paste accept-line push-line-or-edit delete-char backward-delete-char)
-
 source $ZSH/oh-my-zsh.sh
 
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+# bindkey -M vicmd 'k' history-substring-search-up
+# bindkey -M vicmd 'j' history-substring-search-down
 
 setopt auto_cd
 setopt COMPLETE_ALIASES
@@ -53,5 +41,3 @@ zstyle ':completion:*' menu yes select
 # you want to trigger search on autocomplete items
 # so we'll bind some key to trigger history-incremental-search-forward function
 bindkey -M menuselect '?' history-incremental-search-forward
-
-eval "$(starship init zsh)"
